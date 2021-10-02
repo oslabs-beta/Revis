@@ -8,7 +8,7 @@ function UserLogin(props) {
     props.logIn(userInfo);
   };
   return (
-    <div>
+    <div id='UserLogin'>
       <h1>Log In Page</h1>
       <form onSubmit={onSubmitHandler}>
         <div>

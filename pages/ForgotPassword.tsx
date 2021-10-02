@@ -10,7 +10,7 @@ function ForgotPassword(props) {
     console.log(userEmail);
   };
   return (
-    <div>
+    <div id='ForgotPassword'>
       <h1>Password Reset Page</h1>
       <form onSubmit={onSubmitHandler}>
         <div>

@@ -14,7 +14,7 @@ function SignUp() {
     console.log(userInfo);
   };
   return (
-    <div>
+    <div id='SignUp'>
       <h1>Sign Up Page</h1>
       <form onSubmit={submitHandler}>
         <div>
