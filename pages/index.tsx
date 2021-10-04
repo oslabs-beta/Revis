@@ -8,10 +8,7 @@ import styles from '../styles/RightSideLogin.module.scss';
 function HomePage() {
   const [pages, setPages] = useState<string>('userLogin');
   const testingState = useContext(GlobalContext);
-  const login = (userInfo) => {
-    //fetch here
-    console.log(userInfo);
-  };
+
 
   const previousPage = () => {
     setPages('userLogin');

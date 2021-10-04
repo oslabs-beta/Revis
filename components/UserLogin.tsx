@@ -4,6 +4,12 @@ import styles from '../styles/RightSideLogin.module.scss';
 function UserLogin(props) {
   const [userInfo, setUserInfo] = useState<any>({ userName: '', password: '' });
 
+    const login = (userInfo) => {
+      //fetch here
+      console.log(userInfo);
+    };
+
+
   const onSubmitHandler = (e) => {
     e.preventDefault();
     props.logIn(userInfo);
