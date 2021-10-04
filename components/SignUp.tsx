@@ -12,9 +12,13 @@ function SignUp(props) {
   const previousPage = props.previousPage;
 
   const submitHandler = (e) => {
+    const body = {username: userInfo.userName, password: userInfo.password, email: userInfo.email}
+    console.log(body)
     e.preventDefault();
-    /*fetch here */
-    console.log(userInfo);
+    fetch('/api/user', {method:'POST', body: JSON.stringify({username: userInfo.userName, password: userInfo.password, email: userInfo.email}), 'content-type':'application/json'})
+
+    .then(data => data.json())
+    .then(data => console.log(data))
   };
   
   return (

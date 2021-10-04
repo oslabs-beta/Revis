@@ -1,5 +1,6 @@
 import db from '../../models/Revis';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { parse } from 'path/posix';
 const bcrypt = require('bcryptjs');
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -15,12 +16,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     email: string;
     session: string;
   };
-
+ 
+  const parseBody = JSON.parse(req.body)
   const SALT_WORK_FACTOR: number = 10;
+  //{username, password, email} = parseBody;
   method = req.method;
-  username = req.body.username;
-  password = req.body.password;
-  email = req.body.email;
+  username = parseBody.username;
+  password = parseBody.password;
+  email = parseBody.email;
 
   switch (method) {
     case 'GET':
@@ -42,6 +45,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'POST':
       try {
+        console.log(username, password, email);
         hashedPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
         const SQLquery: string = `INSERT INTO PUBLIC.USERS (username,password,email)
          VALUES ('${username}','${hashedPassword}','${email}');`;

@@ -25,7 +25,7 @@ function HomePage() {
       return (
         <div className={styles.RightSideLogin}>
           <div>
-            <UserLogin login={login} />
+            <UserLogin />
           </div>
           <div>
             <button onClick={onForgotPassword}>Forgot Password?</button>
