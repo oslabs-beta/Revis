@@ -1,3 +1,4 @@
+import HomePage from '.';
 import { GlobalProvider } from '../context/Provider';
 import '../styles/globals.scss';
 
