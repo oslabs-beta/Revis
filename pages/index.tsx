@@ -9,7 +9,6 @@ function HomePage() {
   const [pages, setPages] = useState<string>('userLogin');
   const testingState = useContext(GlobalContext);
 
-
   const previousPage = () => {
     setPages('userLogin');
   };
