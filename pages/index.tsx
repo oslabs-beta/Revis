@@ -1,7 +1,7 @@
+
 import RightSideLogin from '../components/UserLogin';
 import LogoHomeScreen from '../components/LeftSideHomeScreen';
 import Link from 'next/link';
-
 import UserLogin from '../components/UserLogin';
 import ForgotPassword from '../components/ForgotPassword';
 import SignUp from '../components/SignUp';
@@ -13,6 +13,8 @@ import styles from '../styles/RightSideLogin.module.scss';
 function HomePage() {
 
   const [pages, setPages] = useState<string>('userLogin');
+  const testingState = useContext(GlobalContext);
+
   const login = (userInfo) => {
     //fetch here
     console.log(userInfo);
@@ -33,7 +35,7 @@ function HomePage() {
       return (
         <div className={styles.RightSideLogin}>
           <div>
-            <UserLogin login={login} />
+            <UserLogin />
           </div>
           <div>
             <button onClick={onForgotPassword}>Forgot Password?</button>
