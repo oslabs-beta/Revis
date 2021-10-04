@@ -16,14 +16,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     email: string;
     session: string;
   };
- 
-  const parseBody = JSON.parse(req.body)
+
+
+  const parsedBody = JSON.parse(req.body);
+  username = parsedBody.username;
+  password = parsedBody.password;
+  email = parsedBody.email;
+
   const SALT_WORK_FACTOR: number = 10;
   //{username, password, email} = parseBody;
   method = req.method;
-  username = parseBody.username;
-  password = parseBody.password;
-  email = parseBody.email;
 
   switch (method) {
     case 'GET':

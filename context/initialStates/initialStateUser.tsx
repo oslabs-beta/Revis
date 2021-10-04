@@ -1,5 +1,5 @@
 export default {
     user : {
-        username: 'Revis, testing state!'
+        username: 'Revis'
     }
 }

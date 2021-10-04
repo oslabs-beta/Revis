@@ -1,14 +1,26 @@
+
+import RightSideLogin from '../components/UserLogin';
+import LogoHomeScreen from '../components/LeftSideHomeScreen';
+import Link from 'next/link';
+import { useContext, } from 'react';
 import UserLogin from '../components/UserLogin';
 import ForgotPassword from '../components/ForgotPassword';
 import SignUp from '../components/SignUp';
 import { useContext, useState } from 'react';
+
 import { GlobalContext } from '../context/Provider';
 import styles from '../styles/RightSideLogin.module.scss';
 
+
 function HomePage() {
+
   const [pages, setPages] = useState<string>('userLogin');
   const testingState = useContext(GlobalContext);
 
+  const login = (userInfo) => {
+    //fetch here
+    console.log(userInfo);
+  };
 
   const previousPage = () => {
     setPages('userLogin');
@@ -49,5 +61,6 @@ function HomePage() {
       );
   }
 }
+
 
 export default HomePage;
