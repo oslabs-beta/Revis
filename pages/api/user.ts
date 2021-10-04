@@ -8,7 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let password: string | string[];
   let email: string | string[];
   let hashedPassword: string;
-  type SQLobject = {
+  type User = {
     user_id: number;
     username: string;
     password: string;
@@ -28,13 +28,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         const SQLquery: string = `SELECT * FROM PUBLIC.USERS where username = '${username}';`;
         const { rows } = await db.query(SQLquery);
-        const SQLobject: SQLobject = rows[0];
-        const hashedPassword: string = SQLobject.password;
+        const userData: User = rows[0];
+        const hashedPassword: string = userData.password;
         const compare: boolean = bcrypt.compareSync(password, hashedPassword);
         if (!compare)
           throw Error('Incorrect username or password. Please try again.');
         console.log(`User: ${username} logged in`);
-        return res.status(200).send(rows[0]);
+        return res.status(200).send(userData);
       } catch (err) {
         console.log(err);
         return res.status(400).json({ success: false, error: `${err}` });
