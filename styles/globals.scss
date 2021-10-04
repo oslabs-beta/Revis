@@ -1,4 +1,8 @@
-button {
-  color: red;
-  background-color: yellow;
+.homePageWrapper {
+    display:grid;
+    grid-template-columns: repeat(2,50%);
+    justify-items: center;
+    align-items: center;
+    height: 100vh;
+    overflow: auto;
 }
