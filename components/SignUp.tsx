@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
+import styles from '../styles/RightSideLogin.module.scss';
 
-function SignUp() {
+function SignUp(props) {
   const [userInfo, setUserInfo] = useState<any>({
     userName: '',
     email: '',
     password: '',
   });
 
+  const previousPage = props.previousPage;
+
   const submitHandler = (e) => {
     e.preventDefault();
-    //fetch here
+    /*fetch here */
     console.log(userInfo);
   };
+  
   return (
-    <div id='SignUp'>
+    <div id={styles.SignUp} className={styles.RightSideLogin}>
       <h1>Sign Up Page</h1>
       <form onSubmit={submitHandler}>
         <div>
@@ -50,8 +54,8 @@ function SignUp() {
           ></input>
         </div>
         <input type='submit' value='SUBMIT' />
-        <Link href='/'>Previous Page</Link>
       </form>
+      <button onClick={() => previousPage()}>Back</button>
     </div>
   );
 }

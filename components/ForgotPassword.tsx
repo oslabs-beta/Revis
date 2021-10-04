@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import styles from '../styles/RightSideLogin.module.scss';
 
 function ForgotPassword(props) {
   const [userEmail, setUserEmail] = useState<any>('');
-
+  const previousPage = props.previousPage;
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    //fetch here
+    /*fetch here */
     console.log(userEmail);
   };
   return (
-    <div id='ForgotPassword'>
+    <div id={styles.ForgotPassword} className={styles.RightSideLogin}>
       <h1>Password Reset Page</h1>
       <form onSubmit={onSubmitHandler}>
         <div>
@@ -23,8 +24,8 @@ function ForgotPassword(props) {
           ></input>
         </div>
         <input type='submit' value='SUBMIT' />
-        <Link href='/'>Previous Page</Link>
       </form>
+      <button onClick={() => previousPage()}>Back</button>
     </div>
   );
 }

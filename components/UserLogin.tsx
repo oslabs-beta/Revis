@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from '../styles/RightSideLogin.module.scss';
 
 function UserLogin(props) {
   const [userInfo, setUserInfo] = useState<any>({ userName: '', password: '' });
@@ -7,8 +8,9 @@ function UserLogin(props) {
     e.preventDefault();
     props.logIn(userInfo);
   };
+
   return (
-    <div id='UserLogin'>
+    <div id={styles.UserLogin}>
       <h1>Log In Page</h1>
       <form onSubmit={onSubmitHandler}>
         <div>
