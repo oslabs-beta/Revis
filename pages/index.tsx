@@ -5,7 +5,6 @@ import UserLogin from '../components/UserLogin';
 import ForgotPassword from '../components/ForgotPassword';
 import SignUp from '../components/SignUp';
 import { useContext, useState } from 'react';
-
 import { GlobalContext } from '../context/Provider';
 import styles from '../styles/RightSideLogin.module.scss';
 
