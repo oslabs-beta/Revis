@@ -12,15 +12,26 @@ function SignUp(props) {
   const previousPage = props.previousPage;
 
   const submitHandler = (e) => {
-    const body = {username: userInfo.userName, password: userInfo.password, email: userInfo.email}
-    console.log(body)
+    const body = {
+      username: userInfo.userName,
+      password: userInfo.password,
+      email: userInfo.email,
+    };
+    console.log(body);
     e.preventDefault();
-    fetch('/api/user', {method:'POST', body: JSON.stringify({username: userInfo.userName, password: userInfo.password, email: userInfo.email}), 'content-type':'application/json'})
-
-    .then(data => data.json())
-    .then(data => console.log(data))
+    fetch('/api/user', {
+      method: 'POST',
+      body: JSON.stringify({
+        username: userInfo.userName,
+        password: userInfo.password,
+        email: userInfo.email,
+      }),
+      'content-type': 'application/json',
+    })
+      .then((data) => data.json())
+      .then((data) => console.log(data));
   };
-  
+
   return (
     <div id={styles.SignUp} className={styles.RightSideLogin}>
       <h1>Sign Up Page</h1>
@@ -28,7 +39,7 @@ function SignUp(props) {
         <div>
           <label>username:</label>
           <input
-            type='text'
+            type="text"
             onChange={(e) =>
               setUserInfo({ ...userInfo, userName: e.target.value })
             }
@@ -39,7 +50,7 @@ function SignUp(props) {
         <div>
           <label>email:</label>
           <input
-            type='email'
+            type="email"
             onChange={(e) =>
               setUserInfo({ ...userInfo, email: e.target.value })
             }
@@ -50,14 +61,14 @@ function SignUp(props) {
         <div>
           <label>password:</label>
           <input
-            type='password'
+            type="password"
             onChange={(e) =>
               setUserInfo({ ...userInfo, password: e.target.value })
             }
             required
           ></input>
         </div>
-        <input type='submit' value='SUBMIT' />
+        <input type="submit" value="SUBMIT" />
       </form>
       <button onClick={() => previousPage()}>Back</button>
     </div>
