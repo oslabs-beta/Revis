@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/ServerAdd.module.scss';
-import isIp from 'is-ip';
 
 function ServerAdd(props) {
   const { addServer } = props;
