@@ -1,13 +1,8 @@
 @import "./colorsAndFonts.scss";
 
-@font-face {
-  font-family: "Marker Notes";
-  src: url("./marker_notes/Marker Notes.ttf");
-}
-
 #logo {
-  font-family: "Marker Notes";
-  font-size: 14vh;
+  font-family: $fontOfLogo;
+  font-size: 10vh;
   color: $logoRed;
   margin-top: 4vh;
 }
@@ -15,7 +10,7 @@
 #cube {
   width: 14vh;
   color: $logoRed;
-  height: 14vh;
+  height: 10vh;
 }
 
 .leftSideWrapper {
