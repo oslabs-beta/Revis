@@ -1,10 +1,25 @@
+@import './colorsAndFonts.scss';
+
 .sideBarWrapper {
   display: flex;
   flex-direction: column;
+  border: solid black;
   position: fixed;
   top: 0;
   left: 0;
-  border: solid black;
   width: 20%;
+  height: 45rem;
   text-align: center;
+  transition: 0.5s ease;
+
+  #cube {
+    position: fixed;
+    top: 40%;
+    left: 18.5%;
+    width: 4vh;
+    color: $logoRed;
+    height: 4vh;
+    cursor: pointer;
+    transition: 0.75s ease;
+  }
 }
