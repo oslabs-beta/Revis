@@ -1,27 +1,26 @@
-@import './colors.scss';
+@import "./colorsAndFonts.scss";
 
 @font-face {
-    font-family: "Marker Notes";
-    src: url("./marker_notes/Marker Notes.ttf");
-  }
-  
+  font-family: "Marker Notes";
+  src: url("./marker_notes/Marker Notes.ttf");
+}
+
 #logo {
-      font-family: 'Marker Notes';
-      font-size: 14vh;
-      color: $logoRed;
-  }
+  font-family: "Marker Notes";
+  font-size: 14vh;
+  color: $logoRed;
+  margin-top: 4vh;
+}
 
 #cube {
-    width: 14vh;
-    color: $logoRed;
-    height: 14vh;
-
+  width: 14vh;
+  color: $logoRed;
+  height: 14vh;
 }
 
 .leftSideWrapper {
   display: flex;
   flex-direction: column;
-  
 }
 
 #logoRedis {
