@@ -1,4 +1,11 @@
-button {
-  color: red;
-  background-color: yellow;
+@import "./colorsAndFonts.scss";
+
+.homePageWrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  justify-items: center;
+  align-items: center;
+  background-color: $logoRed;
+  background: linear-gradient(90deg, #fefefe 50%, $logoRed 50%);
+  height: 100vh;
 }

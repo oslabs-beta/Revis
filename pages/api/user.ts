@@ -16,33 +16,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     email: string;
     session: string;
   };
- 
-  const parseBody = JSON.parse(req.body)
+
+  const parsedBody = JSON.parse(req.body);
+  username = parsedBody.username;
+  password = parsedBody.password;
+  email = parsedBody.email;
+
   const SALT_WORK_FACTOR: number = 10;
-  //{username, password, email} = parseBody;
   method = req.method;
-  username = parseBody.username;
-  password = parseBody.password;
-  email = parseBody.email;
 
   switch (method) {
-    case 'GET':
-      res.setHeader('Content-Type', 'application/json');
-      try {
-        const SQLquery: string = `SELECT * FROM PUBLIC.USERS where username = '${username}';`;
-        const { rows } = await db.query(SQLquery);
-        const userData: User = rows[0];
-        const hashedPassword: string = userData.password;
-        const compare: boolean = bcrypt.compareSync(password, hashedPassword);
-        if (!compare)
-          throw Error('Incorrect username or password. Please try again.');
-        console.log(`User: ${username} logged in`);
-        return res.status(200).send(userData);
-      } catch (err) {
-        console.log(err);
-        return res.status(400).json({ success: false, error: `${err}` });
-      }
-
     case 'POST':
       try {
         console.log(username, password, email);
@@ -71,23 +54,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             });
         }
       }
-
-    // case 'DELETE':
-    //   try {
-    //     const SQLquery: string = 'SELECT * FROM PUBLIC.USERS';
-    //     const result = await db.query(SQLquery);
-    //     res.status(200).json(result);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-
-    // case 'PATCH':
-    //   try {
-    //     const SQLquery: string = 'SELECT * FROM PUBLIC.USERS';
-    //     const result = await db.query(SQLquery);
-    //     res.status(200).json(result);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
   }
 };

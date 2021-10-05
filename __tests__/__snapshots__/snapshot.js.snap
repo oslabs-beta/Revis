@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders homepage unchanged 1`] = `
+<div
+  className="RightSideLogin"
+>
+  <div>
+    <div
+      id="UserLogin"
+    >
+      <h1>
+        Log In Page
+      </h1>
+      <form
+        onSubmit={[Function]}
+      >
+        <div>
+          <label>
+            username:
+          </label>
+          <input
+            onChange={[Function]}
+            required={true}
+            type="text"
+            value=""
+          />
+        </div>
+        <div>
+          <label>
+            password:
+          </label>
+          <input
+            onChange={[Function]}
+            required={true}
+            type="password"
+          />
+        </div>
+        <input
+          type="submit"
+          value="LOGIN"
+        />
+      </form>
+    </div>
+  </div>
+  <div>
+    <button
+      onClick={[Function]}
+    >
+      Forgot Password?
+    </button>
+  </div>
+  <div>
+    <button
+      onClick={[Function]}
+    >
+      SignUp
+    </button>
+  </div>
+</div>
+`;
