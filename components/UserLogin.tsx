@@ -4,11 +4,10 @@ import styles from '../styles/RightSideLogin.module.scss';
 function UserLogin(props) {
   const [userInfo, setUserInfo] = useState<any>({ userName: '', password: '' });
 
-    const login = (userInfo) => {
-      //fetch here
-      console.log(userInfo);
-    };
-
+  const login = (userInfo) => {
+    //fetch here
+    console.log(userInfo);
+  };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -22,7 +21,7 @@ function UserLogin(props) {
         <div>
           <label>username:</label>
           <input
-            type='text'
+            type="text"
             onChange={(e) =>
               setUserInfo({ ...userInfo, userName: e.target.value })
             }
@@ -33,14 +32,14 @@ function UserLogin(props) {
         <div>
           <label>password:</label>
           <input
-            type='password'
+            type="password"
             onChange={(e) =>
               setUserInfo({ ...userInfo, password: e.target.value })
             }
             required
           ></input>
         </div>
-        <input type='submit' value='LOGIN' />
+        <input type="submit" value="LOGIN" />
       </form>
     </div>
   );
