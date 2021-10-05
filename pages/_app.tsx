@@ -4,9 +4,11 @@ import '../styles/globals.scss';
 // import '../styles/LeftSide.scss';
 
 function MyApp({ Component, pageProps }) {
-  return <GlobalProvider>
-    <Component {...pageProps} />;
-  </GlobalProvider>
+  return (
+    <GlobalProvider>
+      <Component {...pageProps} />
+    </GlobalProvider>
+  );
 }
 
 export default MyApp;

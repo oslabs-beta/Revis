@@ -1,0 +1,10 @@
+.sideBarWrapper {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border: solid black;
+  width: 20%;
+  text-align: center;
+}
