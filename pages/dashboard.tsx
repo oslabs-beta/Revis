@@ -4,7 +4,7 @@ import Sidebar from '../components/Sidebar';
 
 export default function about() {
   return (
-    <div className="dashboardWrapper">
+    <div className='dashboardWrapper'>
       <Sidebar />
     </div>
   );

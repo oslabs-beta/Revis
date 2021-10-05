@@ -9,16 +9,16 @@ function ServerAdd(props) {
       <form onSubmit={addServer}>
         <div className={styles.inputWrapper}>
           <label>Name:</label>
-          <input type="text" id="name"></input>
+          <input type='text' id='name'></input>
           <br />
 
           <label>IP:</label>
-          <input type="text" id="IP"></input>
+          <input type='text' id='IP'></input>
           <br />
           <label>Port:</label>
-          <input type="text" id="PORT"></input>
+          <input type='text' id='PORT'></input>
         </div>
-        <input type="submit" value="Add Server" />
+        <input type='submit' value='Add Server' />
       </form>
     </div>
   );

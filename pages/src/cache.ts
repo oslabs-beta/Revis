@@ -1,7 +1,8 @@
 import { redis } from './redis';
 
+//Redis Cache setup in Redis Enterprise
 
-//fetch from Redis, 
+//fetch from Redis,
 const fetch = async <T>(
   key: string,
   expensiveComputation: () => T,
@@ -12,14 +13,12 @@ const fetch = async <T>(
   else return await set(key, expensiveComputation, expires);
 };
 
-
 //get cached value from Redis
-const get = async <T>(key:string): Promise<T> => {
+const get = async <T>(key: string): Promise<T> => {
   const value = await redis.get(key);
   if (value === null) return null;
   return JSON.parse(value);
-}
-
+};
 
 //set the cache inside of Redis here
 const set = async <T>(
@@ -28,7 +27,7 @@ const set = async <T>(
   expires: number
 ) => {
   const value = await expensiveComputation();
-  await redis.set(key, JSON.stringify(value), "EX", expires);
+  await redis.set(key, JSON.stringify(value));
   return value;
 };
 
