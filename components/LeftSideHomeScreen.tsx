@@ -1,6 +1,6 @@
-import styles from "../styles/LeftSide.module.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCube } from "@fortawesome/free-solid-svg-icons";
+import styles from '../styles/LeftSide.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCube } from '@fortawesome/free-solid-svg-icons';
 
 function LogoHomeScreen() {
   return (
