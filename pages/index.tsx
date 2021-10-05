@@ -1,60 +1,45 @@
-import RightSideLogin from '../components/UserLogin';
-import LogoHomeScreen from '../components/LeftSideHomeScreen';
-import Link from 'next/link';
-import UserLogin from '../components/UserLogin';
-import ForgotPassword from '../components/ForgotPassword';
-import SignUp from '../components/SignUp';
-import { useContext, useState } from 'react';
-import { GlobalContext } from '../context/Provider';
-import styles from '../styles/RightSideLogin.module.scss';
+import RightSideLogin from "../components/UserLogin";
+import LogoHomeScreen from "../components/LeftSideHomeScreen";
+import Link from "next/link";
+import UserLogin from "../components/UserLogin";
+import ForgotPassword from "../components/ForgotPassword";
+import SignUp from "../components/SignUp";
+import { useContext, useState } from "react";
+import { GlobalContext } from "../context/Provider";
+import styles from "../styles/RightSideLogin.module.scss";
 
 function HomePage() {
-  const [pages, setPages] = useState<string>('userLogin');
-  const testingState = useContext(GlobalContext);
-
-  const login = (userInfo) => {
-    //fetch here
-    console.log(userInfo);
-  };
+  const [pages, setPages] = useState<string>("userLogin");
 
   const previousPage = () => {
-    setPages('userLogin');
+    setPages("userLogin");
   };
   const onForgotPassword = () => {
-    setPages('forgotPassword');
+    setPages("forgotPassword");
   };
   const onSignUp = () => {
-    setPages('signUp');
+    setPages("signUp");
   };
 
-  switch (pages) {
-    case 'userLogin':
-      return (
-        <div className={styles.RightSideLogin}>
-          <div>
-            <UserLogin />
+  return (
+    <div className="homePageWrapper">
+      <LogoHomeScreen />
+      <div className="rightSide" >
+        {pages === "userLogin" ? (
+          <div id={styles.UserLogin}>
+            <UserLogin
+              onForgotPassword={onForgotPassword}
+              onSignUp={onSignUp}
+            />
           </div>
-          <div>
-            <button onClick={onForgotPassword}>Forgot Password?</button>
-          </div>
-          <div>
-            <button onClick={onSignUp}>SignUp</button>
-          </div>
-        </div>
-      );
-    case 'forgotPassword':
-      return (
-        <div>
+        ) : pages === "forgotPassword" ? (
           <ForgotPassword previousPage={previousPage} />
-        </div>
-      );
-    case 'signUp':
-      return (
-        <div>
+        ) : (
           <SignUp previousPage={previousPage} />
-        </div>
-      );
-  }
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default HomePage;

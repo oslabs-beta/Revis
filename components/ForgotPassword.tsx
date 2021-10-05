@@ -11,21 +11,21 @@ function ForgotPassword(props) {
     console.log(userEmail);
   };
   return (
-    <div id={styles.ForgotPassword} className={styles.RightSideLogin}>
+    <div>
       <h1>Password Reset Page</h1>
       <form onSubmit={onSubmitHandler}>
         <div>
           <label>email:</label>
-          <input
+          <input className="userInput"
             type='email'
             onChange={(e) => setUserEmail(e.target.value)}
             value={userEmail}
             required
           ></input>
         </div>
-        <input type='submit' value='SUBMIT' />
+        <input className='submitButton' type='submit' value='SUBMIT' />
       </form>
-      <button onClick={() => previousPage()}>Back</button>
+      <button className='backButton' onClick={() => previousPage()}>Back</button>
     </div>
   );
 }

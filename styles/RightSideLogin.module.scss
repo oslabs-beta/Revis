@@ -1,21 +1,79 @@
-.RightSideLogin{
-  position: absolute;
-  right: 0;
-  width: 50vw;
-}
+@import "./colorsAndFonts.scss";
 
+// #ForgotPassword {
+//   border-style: solid;
+//   background-color: rgb(244, 252, 252);
+// }
 
-#ForgotPassword {
-  border-style: solid;
-  background-color: aqua;
-}
-
-#SignUp {
-  border-style: solid;
-  background-color: aqua;
-}
+// #SignUp {
+//   border-style: solid;
+//   background-color: aqua;
+// }
 
 #UserLogin {
-  border-style: solid;
-  background-color: aqua;
+  h1 {
+    color: white;
+    font-family: $fontOfHomePage;
+  }
+
+  .userInput {
+    border: solid 5px transparent;
+    border-radius: 4px;
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  .logInButtonWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 100px;
+
+    #logInButton {
+      font-family: $fontOfButtons;
+      font-size: 17px;
+      background-color: white;
+      border-radius: 7px;
+      border-color: transparent;
+      color: $logoRed;
+      font-weight: bold;
+      width: 60%;
+      padding: 10px;
+    }
+
+    #forgotPasswordButton {
+      background-color: transparent;
+      border-color: transparent;
+      color: white;
+      font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      font-size: 13px;
+      text-decoration: underline;
+    }
+  }
+
+  .signUpWrapper {
+    display: flex;
+    font-size: 15px;
+    text-align: inline;
+    color: white;
+    font-family: $fontOfHomePage;
+    padding: 5px;
+    white-space: nowrap;
+
+    gap: 10px;
+    #signUpButton {
+      font-family: $fontOfButtons;
+      font-size: 14px;
+      background-color: transparent;
+      border-radius: 7px;
+      border-color: white;
+      color: white;
+      font-weight: bold;
+      width: 60%;
+    }
+  }
 }
