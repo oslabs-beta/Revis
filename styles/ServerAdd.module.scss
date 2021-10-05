@@ -12,5 +12,15 @@
     flex-direction: column;
     width: 50%;
     margin: auto;
+
+    input:focus {
+      outline: none;
+    }
+    input:valid {
+      background-color: rgb(118, 255, 118);
+    }
+    input:invalid {
+      background-color: rgb(250, 191, 191);
+    }
   }
 }
