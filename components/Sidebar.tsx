@@ -13,13 +13,19 @@ function Sidebar(props) {
     const name = document.querySelector('#name').value;
     const IP = document.querySelector('#IP').value;
     const PORT = document.querySelector('#PORT').value;
-    updateList(serverList.concat({ name, IP, PORT }));
+
+    if (name.length <= 4 && PORT.length >= 4 && IP.length >= 7)
+      updateList(serverList.concat({ name, IP, PORT }));
+  };
+
+  const removeServer = () => {
+    let x = 1;
   };
 
   return (
     <div className={styles.sideBarWrapper}>
       <ServerAdd addServer={addServer} />
-      <ServerList serverList={serverList} />
+      <ServerList serverList={serverList} removeServer={removeServer} />
     </div>
   );
 }
