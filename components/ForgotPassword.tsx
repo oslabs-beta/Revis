@@ -16,7 +16,8 @@ function ForgotPassword(props) {
       <form onSubmit={onSubmitHandler}>
         <div>
           <label>email:</label>
-          <input className="userInput"
+          <input
+            className='userInput'
             type='email'
             onChange={(e) => setUserEmail(e.target.value)}
             value={userEmail}
@@ -25,7 +26,9 @@ function ForgotPassword(props) {
         </div>
         <input className='submitButton' type='submit' value='SUBMIT' />
       </form>
-      <button className='backButton' onClick={() => previousPage()}>Back</button>
+      <button className='backButton' onClick={() => previousPage()}>
+        Back
+      </button>
     </div>
   );
 }

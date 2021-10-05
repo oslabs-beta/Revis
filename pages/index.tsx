@@ -6,21 +6,22 @@ import { useContext, useState } from "react";
 import { GlobalContext } from "../context/Provider";
 import styles from "../styles/RightSideLogin.module.scss";
 
+
 function HomePage() {
-  const [pages, setPages] = useState<string>("userLogin");
+  const [pages, setPages] = useState<string>('userLogin');
 
   const previousPage = () => {
-    setPages("userLogin");
+    setPages('userLogin');
   };
   const onForgotPassword = () => {
-    setPages("forgotPassword");
+    setPages('forgotPassword');
   };
   const onSignUp = () => {
-    setPages("signUp");
+    setPages('signUp');
   };
 
   return (
-    <div className="homePageWrapper">
+    <div className='homePageWrapper'>
       <LogoHomeScreen />
       <div className="rightSide">
         {pages === "userLogin" ? (
@@ -30,7 +31,7 @@ function HomePage() {
               onSignUp={onSignUp}
             />
           </div>
-        ) : pages === "forgotPassword" ? (
+        ) : pages === 'forgotPassword' ? (
           <ForgotPassword previousPage={previousPage} />
         ) : (
           <SignUp previousPage={previousPage} />

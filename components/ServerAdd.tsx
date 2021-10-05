@@ -59,7 +59,7 @@ function ServerAdd(props) {
             <div className={styles.errorDiv}></div>
           </div>
         </div>
-        <input type="submit" value="Add Server" />
+        <input type='submit' value='Add Server' />
       </form>
     </div>
   );
