@@ -1,25 +1,27 @@
-import React, { useEffect, useState } from "react";
-import styles from "../styles/ServerAdd.module.scss";
+import React, { useEffect, useState } from 'react';
+import styles from '../styles/ServerAdd.module.scss';
+import isIp from 'is-ip';
 
 function ServerAdd(props) {
   const { addServer } = props;
 
-  const IP_REG_EX = "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(.|$)){4}";
-  const PORT_REG_EX = "[0-9]{4}";
+  const IP_REG_EX =
+    '^((?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])[.]){3}(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$';
+  const PORT_REG_EX = '[0-9]{4}';
   const validityCheck = (e) => {
     const currentElem: HTMLInputElement = e.target;
     if (!currentElem.validity.valid) {
-      if (currentElem.id === "name") {
+      if (currentElem.id === 'name') {
         currentElem.nextSibling.innerHTML =
-          "Please input at least four characters";
-      } else if (currentElem.id === "PORT") {
+          'Please input at least four characters';
+      } else if (currentElem.id === 'PORT') {
         currentElem.nextSibling.innerHTML =
-          "Please input a proper port number (eg. 8080)";
+          'Please input a proper port number (eg. 8080)';
       } else {
         currentElem.nextSibling.innerHTML =
-          "Please input a valid IP address (ie. 192.91.44.23)";
+          'Please input a proper IP number (eg. 192.45.23.64)';
       }
-    } else currentElem.nextSibling.innerHTML = "";
+    } else currentElem.nextSibling.innerHTML = '';
   };
   return (
     <div className={styles.serverAddWrapper}>
@@ -46,7 +48,6 @@ function ServerAdd(props) {
             autoComplete="off"
             required
             onChange={validityCheck}
-            // minLength={7}
             pattern={IP_REG_EX}
           ></input>
           <span></span>
