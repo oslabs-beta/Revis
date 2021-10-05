@@ -1,6 +1,4 @@
-import RightSideLogin from "../components/UserLogin";
 import LogoHomeScreen from "../components/LeftSideHomeScreen";
-import Link from "next/link";
 import UserLogin from "../components/UserLogin";
 import ForgotPassword from "../components/ForgotPassword";
 import SignUp from "../components/SignUp";
@@ -24,7 +22,7 @@ function HomePage() {
   return (
     <div className="homePageWrapper">
       <LogoHomeScreen />
-      <div className="rightSide" >
+      <div className="rightSide">
         {pages === "userLogin" ? (
           <div id={styles.UserLogin}>
             <UserLogin
