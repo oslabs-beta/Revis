@@ -3,10 +3,11 @@ import styles from '../styles/Server.module.scss';
 export default function Server(props) {
   const { name, IP, PORT, removeServer } = props;
 
-  let previousNode;
+  let previousNode: HTMLDivElement;
 
   const removeServerAnimation = (e) => {
-    const removeServerDiv: HTMLDivElement = e.target.firstElementChild;
+    let removeServerDiv: HTMLDivElement = e.target.firstElementChild;
+    if (!removeServerDiv) return;
     previousNode = removeServerDiv;
     removeServerDiv.style.width = '100%';
     removeServerDiv.style.backgroundColor = 'red';
@@ -29,7 +30,7 @@ export default function Server(props) {
         onMouseLeave={keepServerAnimation}
         onClick={removeServer}
       >
-        <div className={styles.removeServerDiv}></div>
+        <div className={styles.removeServerDiv} id="removeServerDiv"></div>
       </div>
       <div className={styles.server}>
         <p>Name: {name}</p>

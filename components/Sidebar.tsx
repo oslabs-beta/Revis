@@ -77,9 +77,9 @@ function Sidebar(props) {
 
   const addServer = (e) => {
     e.preventDefault();
-    const name = document.querySelector('#name');
-    const IP = document.querySelector('#IP');
-    const PORT = document.querySelector('#PORT');
+    const name: HTMLInputElement = document.querySelector('#name');
+    const IP: HTMLInputElement = document.querySelector('#IP');
+    const PORT: HTMLInputElement = document.querySelector('#PORT');
 
     if (validityCheckOnSubmit(name, IP, PORT)) {
       updateList(
@@ -92,6 +92,7 @@ function Sidebar(props) {
     const serverNameToRemove: string =
       e.target.parentNode.parentNode.lastChild.childNodes[0].childNodes[1]
         .nodeValue;
+    if (!serverNameToRemove) return;
     updateList(serverList.filter((elem) => elem.name !== serverNameToRemove));
   };
 
@@ -109,7 +110,7 @@ function Sidebar(props) {
 
   return (
     <div className={styles.sideBarWrapper} id="sideBar">
-      <ServerAdd addServer={addServer} serverList={serverList} />
+      <ServerAdd addServer={addServer} />
       <ServerList serverList={serverList} removeServer={removeServer} />
       <FontAwesomeIcon
         id={styles.cube}

@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import styles from '../styles/ServerAdd.module.scss';
 
 function ServerAdd(props) {
-  const { addServer, serverList } = props;
+  const { addServer } = props;
 
   const IP_REG_EX: string =
     '^((?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])[.]){3}(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$';
   const PORT_REG_EX: string = '[0-9]{4}';
 
   const validityCheckOnChange = (e) => {
-    const nameElement = document.querySelector('#name');
-    const ipElement = document.querySelector('#IP');
-    const portElement = document.querySelector('#PORT');
+    const nameElement: HTMLInputElement = document.querySelector('#name');
+    const ipElement: HTMLInputElement = document.querySelector('#IP');
+    const portElement: HTMLInputElement = document.querySelector('#PORT');
 
     if (!nameElement.validity.tooShort && !nameElement.validity.valueMissing)
       nameElement.setCustomValidity('');
