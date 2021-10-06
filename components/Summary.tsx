@@ -1,8 +1,8 @@
 //this needs a table that will have all the metrics names and numbers
 //the table can have two tables for each row
 // import Metrics from "./metricsForSummary";
-import styles from '../styles/Summary.module.scss';
 import { useContext } from 'react';
+import styles from '../styles/Summary.module.scss';
 import { GlobalContext } from '../context/Provider';
 
 export default function Summary() {
