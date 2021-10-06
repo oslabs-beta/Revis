@@ -24,9 +24,11 @@
       .errorDiv {
         font-size: 0.5rem;
         z-index: 1px;
-        // position: fixed;
       }
       label {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
         width: 20%;
       }
       input {
