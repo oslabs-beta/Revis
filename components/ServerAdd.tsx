@@ -1,21 +1,34 @@
-import React, { useEffect, useState } from "react";
-import styles from "../styles/ServerAdd.module.scss";
+import React, { useEffect, useState } from 'react';
+import styles from '../styles/ServerAdd.module.scss';
 
 function ServerAdd(props) {
-  const { addServer } = props;
+  const { addServer, serverList } = props;
 
   const IP_REG_EX: string =
-    "^((?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])[.]){3}(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$";
-  const PORT_REG_EX: string = "[0-9]{4}";
+    '^((?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])[.]){3}(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$';
+  const PORT_REG_EX: string = '[0-9]{4}';
 
-  const validityCheck = (e) => {
-    const currentElem: HTMLInputElement = e.target;
-    if (currentElem.validity.valid) currentElem.nextSibling.innerHTML = "";
+  const validityCheckOnChange = (e) => {
+    const nameElement = document.querySelector('#name');
+    const ipElement = document.querySelector('#IP');
+    const portElement = document.querySelector('#PORT');
+
+    if (!nameElement.validity.tooShort && !nameElement.validity.valueMissing)
+      nameElement.setCustomValidity('');
+
+    if (!ipElement.validity.patternMismatch && !ipElement.validity.valueMissing)
+      ipElement.setCustomValidity('');
+
+    if (
+      !portElement.validity.patternMismatch &&
+      !portElement.validity.valueMissing
+    )
+      portElement.setCustomValidity('');
   };
   return (
     <div className={styles.serverAddWrapper}>
       <h1> Add Server </h1>
-      <form onSubmit={addServer} noValidate>
+      <form>
         <div className={styles.inputWrapper}>
           <div className={styles.indivInputs}>
             <label>Name:</label>
@@ -24,8 +37,8 @@ function ServerAdd(props) {
               id="name"
               autoComplete="off"
               required
-              onChange={validityCheck}
               minLength={4}
+              onChange={validityCheckOnChange}
               placeholder="My Redis Server"
             ></input>
             <div className={styles.errorDiv}></div>
@@ -38,7 +51,7 @@ function ServerAdd(props) {
               id="IP"
               autoComplete="off"
               required
-              onChange={validityCheck}
+              onChange={validityCheckOnChange}
               pattern={IP_REG_EX}
               placeholder="192.56.23.45"
             ></input>
@@ -52,7 +65,7 @@ function ServerAdd(props) {
               id="PORT"
               autoComplete="off"
               required
-              onChange={validityCheck}
+              onChange={validityCheckOnChange}
               pattern={PORT_REG_EX}
               placeholder="4000"
             ></input>
@@ -60,9 +73,12 @@ function ServerAdd(props) {
           </div>
         </div>
 
-        <input id={styles.addServerBtn} type="submit" value="Add Server" />
-
- 
+        <input
+          id={styles.addServerBtn}
+          type="submit"
+          value="Add Server"
+          onClick={addServer}
+        />
       </form>
     </div>
   );

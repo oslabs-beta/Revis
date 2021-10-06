@@ -9,22 +9,32 @@ function Sidebar(props) {
   const [sideBarHidden, showOrHideSideBar] = useState(false);
   const [serverList, updateList] = useState([]);
 
-  const validityCheck = (
+  const validityCheckOnSubmit = (
     nameElement: HTMLInputElement,
     ipElement: HTMLInputElement,
     portElement: HTMLInputElement
   ) => {
-    if (!nameElement.validity.valid)
-      nameElement.nextSibling.innerHTML =
-        'Please input at least four characters';
+    if (nameElement.validity.tooShort || nameElement.validity.valueMissing) {
+      nameElement.setCustomValidity('Please input at least four characters');
+      nameElement.reportValidity();
+    } else nameElement.setCustomValidity('');
 
-    if (!ipElement.validity.valid)
-      ipElement.nextSibling.innerHTML =
-        'Please input a proper IP number (eg. 192.45.23.64)';
+    if (ipElement.validity.patternMismatch || ipElement.validity.valueMissing) {
+      ipElement.setCustomValidity(
+        'Please input a proper IP number (eg. 192.45.23.64)'
+      );
+      ipElement.reportValidity();
+    } else ipElement.setCustomValidity('');
 
-    if (!portElement.validity.valid)
-      portElement.nextSibling.innerHTML =
-        'Please input a proper port number (eg. 8080)';
+    if (
+      portElement.validity.patternMismatch ||
+      portElement.validity.valueMissing
+    ) {
+      portElement.setCustomValidity(
+        'Please input a proper port number (eg. 8080)'
+      );
+      portElement.reportValidity();
+    } else portElement.setCustomValidity('');
 
     const alreadyAddedServerIP: boolean = serverList.some(
       (elem) => elem['IP'] === ipElement.value
@@ -34,13 +44,27 @@ function Sidebar(props) {
       (elem) => elem['name'] === nameElement.value
     );
 
-    if (alreadyAddedServerIP)
-      ipElement.nextSibling.innerHTML =
-        'This IP address has already been added. Please input a unique IP.';
+    if (alreadyAddedServerIP) {
+      ipElement.setCustomValidity(
+        'This IP address has already been added. Please input a unique IP.'
+      );
+      ipElement.reportValidity();
+    } else if (
+      ipElement.validity.patternMismatch &&
+      ipElement.validity.valueMissing
+    )
+      ipElement.setCustomValidity('');
 
-    if (alreadyAddedServerName)
-      nameElement.nextSibling.innerHTML =
-        'This name has already been added. Please enter a unique name.';
+    if (alreadyAddedServerName) {
+      nameElement.setCustomValidity(
+        'This name has already been added. Please enter a unique name.'
+      );
+      nameElement.reportValidity();
+    } else if (
+      nameElement.validity.tooShort &&
+      nameElement.validity.valueMissing
+    )
+      nameElement.setCustomValidity('');
 
     return (
       nameElement.validity.valid &&
@@ -57,7 +81,7 @@ function Sidebar(props) {
     const IP = document.querySelector('#IP');
     const PORT = document.querySelector('#PORT');
 
-    if (validityCheck(name, IP, PORT)) {
+    if (validityCheckOnSubmit(name, IP, PORT)) {
       updateList(
         serverList.concat({ name: name.value, IP: IP.value, PORT: PORT.value })
       );
@@ -85,7 +109,7 @@ function Sidebar(props) {
 
   return (
     <div className={styles.sideBarWrapper} id="sideBar">
-      <ServerAdd addServer={addServer} />
+      <ServerAdd addServer={addServer} serverList={serverList} />
       <ServerList serverList={serverList} removeServer={removeServer} />
       <FontAwesomeIcon
         id={styles.cube}
