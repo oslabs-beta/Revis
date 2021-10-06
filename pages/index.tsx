@@ -1,12 +1,11 @@
-import RightSideLogin from '../components/UserLogin';
-import LogoHomeScreen from '../components/LeftSideHomeScreen';
-import Link from 'next/link';
-import UserLogin from '../components/UserLogin';
-import ForgotPassword from '../components/ForgotPassword';
-import SignUp from '../components/SignUp';
-import { useContext, useState } from 'react';
-import { GlobalContext } from '../context/Provider';
-import styles from '../styles/RightSideLogin.module.scss';
+import LogoHomeScreen from "../components/LeftSideHomeScreen";
+import UserLogin from "../components/UserLogin";
+import ForgotPassword from "../components/ForgotPassword";
+import SignUp from "../components/SignUp";
+import { useContext, useState } from "react";
+import { GlobalContext } from "../context/Provider";
+import styles from "../styles/RightSideLogin.module.scss";
+
 
 function HomePage() {
   const [pages, setPages] = useState<string>('userLogin');
@@ -24,8 +23,8 @@ function HomePage() {
   return (
     <div className='homePageWrapper'>
       <LogoHomeScreen />
-      <div className='rightSide'>
-        {pages === 'userLogin' ? (
+      <div className="rightSide">
+        {pages === "userLogin" ? (
           <div id={styles.UserLogin}>
             <UserLogin
               onForgotPassword={onForgotPassword}

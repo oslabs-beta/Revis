@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import styles from '../styles/RightSideLogin.module.scss';
+import { route } from "next/dist/server/router";
+import React, { useState } from "react";
+import router from "next/router";
+import styles from "../styles/RightSideLogin.module.scss";
 
 function UserLogin(props) {
-  const [userInfo, setUserInfo] = useState<any>({ userName: '', password: '' });
+  const [userInfo, setUserInfo] = useState<any>({ userName: "", password: "" });
   const { onForgotPassword, onSignUp } = props;
 
   const onSubmitHandler = (e) => {
@@ -13,10 +15,10 @@ function UserLogin(props) {
         username: userInfo.userName,
         password: userInfo.password,
       }),
-      'content-type': 'application/json',
-    })
-      .then((data) => data.json())
-      .then((data) => console.log(data));
+      "content-type": "application/json",
+    }).then((data) => {
+      if (data.status === 200) router.replace("/dashboard");
+    });
   };
 
   return (
@@ -26,8 +28,8 @@ function UserLogin(props) {
         <div>
           <input
             className={styles.userInput}
-            placeholder='username'
-            type='text'
+            placeholder="username"
+            type="text"
             onChange={(e) =>
               setUserInfo({ ...userInfo, userName: e.target.value })
             }
@@ -38,27 +40,27 @@ function UserLogin(props) {
         <div>
           <input
             className={styles.userInput}
-            placeholder='password'
-            type='password'
+            placeholder="password"
+            type="password"
             onChange={(e) =>
               setUserInfo({ ...userInfo, password: e.target.value })
             }
             required
           ></input>
         </div>
-
         <div className={styles.logInButtonWrapper}>
-          <input id={styles.logInButton} type='submit' value='Login' />
-          <button id={styles.forgotPasswordButton} onClick={onForgotPassword}>
-            Forgot Password?
-          </button>
+          <input id={styles.logInButton} type="submit" value="Login" />
         </div>
       </form>
-
+      <div className={styles.logInButtonWrapper}>
+        <button id={styles.forgotPasswordButton} onClick={onForgotPassword}>
+          Forgot Password?
+        </button>
+      </div>
       <div className={styles.signUpWrapper}>
         <span>First time?</span>
         <button id={styles.signUpButton} onClick={onSignUp}>
-          SignUp
+          Sign Up
         </button>
       </div>
     </div>
@@ -66,3 +68,4 @@ function UserLogin(props) {
 }
 
 export default UserLogin;
+         

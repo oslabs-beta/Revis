@@ -1,11 +1,23 @@
-@import "./colorsAndFonts.scss";
+@import './colorsAndFonts.scss';
 
-.homePageWrapper {
-  display: grid;
-  grid-template-columns: repeat(2, 50%);
-  justify-items: center;
-  align-items: center;
-  background-color: $logoRed;
-  background: linear-gradient(90deg, #fefefe 50%, $logoRed 50%);
-  height: 100vh;
+body {
+  background-color: $background;
+
+  .homePageWrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    justify-items: center;
+    align-items: center;
+    background-color: $logoRed;
+    background: linear-gradient(90deg, #fefefe 50%, $logoRed 50%);
+    height: 100vh;
+  }
+
+  .dashboardWrapper {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr;
+
+    height: 100vh;
+    margin: -10px;
+  }
 }

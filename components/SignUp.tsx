@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import styles from '../styles/RightSideLogin.module.scss';
+import React, { useState } from "react";
+import router, { useRouter } from "next/router";
+import styles from "../styles/RightSideLogin.module.scss";
+import { faWindowRestore } from "@fortawesome/free-solid-svg-icons";
+
 
 function SignUp(props) {
   const [userInfo, setUserInfo] = useState<any>({
@@ -71,7 +73,12 @@ function SignUp(props) {
             required
           ></input>
         </div>
-        <input className={styles.submitButton} type='submit' value='SUBMIT' />
+        <button
+          onClick={() => router.replace("/dashboard")}
+          className={styles.submitButton}
+        >
+          Submit
+        </button>
       </form>
       <button className={styles.backButton} onClick={() => previousPage()}>
         Back

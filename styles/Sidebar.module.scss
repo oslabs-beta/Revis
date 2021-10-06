@@ -1,25 +1,34 @@
 @import './colorsAndFonts.scss';
 
 .sideBarWrapper {
-  display: flex;
-  flex-direction: column;
-  border: solid black;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 20%;
-  height: 45rem;
-  text-align: center;
+  border-right: 5px solid $logoRed;
+  background-color: transparent;
+  width: 100%;
+  height: 60rem;
   transition: 0.5s ease;
 
+  h1 {
+    color: $summaryTitleGrey;
+    font-family: $fontOfSummaryTitle;
+  }
   #cube {
     position: fixed;
-    top: 40%;
-    left: 18.5%;
-    width: 4vh;
+    top: 50%;
+    left: 10%;
+    width: 10vh;
     color: $logoRed;
-    height: 4vh;
+    height: 6vh;
     cursor: pointer;
     transition: 0.75s ease;
+  }
+  input {
+    border-color: transparent;
+    padding: 1%;
+    margin: 2%;
+    border-radius: 4px;
+  }
+  label {
+    font-family: $fontOfMetrics;
+    margin-left: 30px;
   }
 }

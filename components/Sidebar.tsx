@@ -65,13 +65,16 @@ function Sidebar(props) {
   };
 
   const removeServer = (e) => {
-    let x = 1;
+    const serverNameToRemove: string =
+      e.target.parentNode.parentNode.lastChild.childNodes[0].childNodes[1]
+        .nodeValue;
+    updateList(serverList.filter((elem) => elem.name !== serverNameToRemove));
   };
 
   const changeSidebarVisual = () => {
     if (sideBarHidden) {
-      document.querySelector('#sideBar').style.width = '20%';
-      document.querySelector(`#${styles.cube}`).style.left = '18.5%';
+      document.querySelector('#sideBar').style.width = '100%';
+      document.querySelector(`#${styles.cube}`).style.left = '15rem';
     } else {
       document.querySelector('#sideBar').style.width = '0px';
       document.querySelector('#sideBar').style.overflow = 'hidden';
