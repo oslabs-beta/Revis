@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "pages/src/redis.js", "pages/src/redis.js"  ],
   "exclude": [
     "node_modules"
   ]
