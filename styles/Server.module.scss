@@ -1,14 +1,29 @@
 .serverWrapper {
   display: flex;
-  justify-content: center;
-  text-align: center;
-  align-content: center;
+  margin-bottom: 1rem;
+
+  .removeServerWrapper {
+    width: 2rem;
+    display: flex;
+    cursor: pointer;
+
+    .removeServerDiv {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      align-content: center;
+      overflow: hidden;
+      color: white;
+      font-weight: bolder;
+      font-size: 2rem;
+      transition: ease 0.5s;
+    }
+  }
   .server {
     border: solid black;
     text-align: center;
-    border-radius: 1rem;
     font-size: 0.8rem;
     width: 8rem;
-    margin: 0.25rem;
   }
 }

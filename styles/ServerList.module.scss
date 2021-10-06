@@ -1,9 +1,11 @@
 .serverList {
   overflow-y: scroll;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   scroll-behavior: smooth;
   line-height: 0;
+  height: 15rem;
   width: 100%;
   align-items: center;
 }

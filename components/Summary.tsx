@@ -1,16 +1,16 @@
 //this needs a table that will have all the metrics names and numbers
 //the table can have two tables for each row
 // import Metrics from "./metricsForSummary";
-import styles from "../styles/Summary.module.scss";
-import { useContext } from "react";
-import { GlobalContext } from "../context/Provider";
+import styles from '../styles/Summary.module.scss';
+import { useContext } from 'react';
+import { GlobalContext } from '../context/Provider';
 
 export default function Summary() {
   const globalC: any = useContext(GlobalContext);
   const metrics: any = globalC.metricState.metrics;
 
   const metricsForTable = [];
-  for (let key in metrics) {
+  for (const key in metrics) {
     metricsForTable.push(
       <div className={styles.metrics}>
         <h5>{key}</h5>
