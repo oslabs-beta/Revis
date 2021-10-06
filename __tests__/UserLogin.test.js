@@ -25,6 +25,13 @@ describe('testing functionaity of login component', () => {
     expect(inputElement.value).toBe('testing');
   });
 
+  it('should have an password input field', () => {
+    const inputElement = screen.getByPlaceholderText(/password/i);
+    expect(inputElement).toBeInTheDocument();
+    fireEvent.change(inputElement, { target: { value: 'testing' }});
+    expect(inputElement.value).toBe('testing');
+  });
+  
   // it('should return status of 200 when username and password match', () => {
 
   // })
