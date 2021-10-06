@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import styles from '../styles/ServerAdd.module.scss';
+import React, { useEffect, useState } from "react";
+import styles from "../styles/ServerAdd.module.scss";
 
 function ServerAdd(props) {
   const { addServer } = props;
 
   const IP_REG_EX: string =
-    '^((?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])[.]){3}(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$';
-  const PORT_REG_EX: string = '[0-9]{4}';
+    "^((?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])[.]){3}(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$";
+  const PORT_REG_EX: string = "[0-9]{4}";
 
   const validityCheck = (e) => {
     const currentElem: HTMLInputElement = e.target;
-    if (currentElem.validity.valid) currentElem.nextSibling.innerHTML = '';
+    if (currentElem.validity.valid) currentElem.nextSibling.innerHTML = "";
   };
   return (
     <div className={styles.serverAddWrapper}>
@@ -59,7 +59,10 @@ function ServerAdd(props) {
             <div className={styles.errorDiv}></div>
           </div>
         </div>
-        <input type="submit" value="Add Server" />
+
+        <input id={styles.addServerBtn} type="submit" value="Add Server" />
+
+ 
       </form>
     </div>
   );

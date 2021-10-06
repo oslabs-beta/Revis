@@ -3,11 +3,12 @@ import router, { useRouter } from "next/router";
 import styles from "../styles/RightSideLogin.module.scss";
 import { faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 
+
 function SignUp(props) {
   const [userInfo, setUserInfo] = useState<any>({
-    userName: "",
-    email: "",
-    password: "",
+    userName: '',
+    email: '',
+    password: '',
   });
 
   const previousPage = props.previousPage;
@@ -20,14 +21,14 @@ function SignUp(props) {
     };
     console.log(body);
     e.preventDefault();
-    fetch("/api/user", {
-      method: "POST",
+    fetch('/api/user', {
+      method: 'POST',
       body: JSON.stringify({
         username: userInfo.userName,
         password: userInfo.password,
         email: userInfo.email,
       }),
-      "content-type": "application/json",
+      'content-type': 'application/json',
     })
       .then((data) => data.json())
       .then((data) => console.log(data));
@@ -41,7 +42,7 @@ function SignUp(props) {
           <label>username:</label>
           <input
             className={styles.userInput}
-            type="text"
+            type='text'
             onChange={(e) =>
               setUserInfo({ ...userInfo, userName: e.target.value })
             }
@@ -53,7 +54,7 @@ function SignUp(props) {
           <label>email:</label>
           <input
             className={styles.userInput}
-            type="email"
+            type='email'
             onChange={(e) =>
               setUserInfo({ ...userInfo, email: e.target.value })
             }
@@ -65,7 +66,7 @@ function SignUp(props) {
           <label>password:</label>
           <input
             className={styles.userInput}
-            type="password"
+            type='password'
             onChange={(e) =>
               setUserInfo({ ...userInfo, password: e.target.value })
             }

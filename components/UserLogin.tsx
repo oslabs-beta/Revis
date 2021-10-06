@@ -9,8 +9,8 @@ function UserLogin(props) {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    fetch("/api/userLogIn", {
-      method: "POST",
+    fetch('/api/userLogIn', {
+      method: 'POST',
       body: JSON.stringify({
         username: userInfo.userName,
         password: userInfo.password,
