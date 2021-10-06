@@ -35,7 +35,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(200).json(username);
       } catch (err) {
         console.log(err);
-        return res.status(400).json({ success: false, error: `${err}` });
+        return res.status(401).json({ success: false, error: `${err}` });
       }
   }
 };
