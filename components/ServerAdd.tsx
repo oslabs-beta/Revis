@@ -59,7 +59,10 @@ function ServerAdd(props) {
             <div className={styles.errorDiv}></div>
           </div>
         </div>
+
         <input id={styles.addServerBtn} type="submit" value="Add Server" />
+
+ 
       </form>
     </div>
   );

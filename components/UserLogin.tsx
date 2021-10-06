@@ -9,8 +9,8 @@ function UserLogin(props) {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    fetch("/api/userLogIn", {
-      method: "POST",
+    fetch('/api/userLogIn', {
+      method: 'POST',
       body: JSON.stringify({
         username: userInfo.userName,
         password: userInfo.password,
@@ -50,7 +50,7 @@ function UserLogin(props) {
         </div>
 
         <div className={styles.logInButtonWrapper}>
-          <input id={styles.logInButton} type="submit" value="Login" />
+          <input id={styles.logInButton} type='submit' value='Login' />
           <button id={styles.forgotPasswordButton} onClick={onForgotPassword}>
             Forgot Password?
           </button>
