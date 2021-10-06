@@ -9,16 +9,10 @@ describe('testing functionality of homepage',() => {
   afterEach(cleanup);
 
   describe('testing functionality of login component', () => {
-    xit('should have a login button', () => {
+    it('should have a login button', () => {
       const buttonElement = screen.getByText(/login/i);
-      expect(buttonElement).toContainHTML('button');
-  });
-  });
-
-  describe('testing functionality of sign up component', () => {
-    it('should have a sign up button', () => {
-      const buttonElement = screen.getByText(/signup/i);
-      expect(buttonElement).toContainHTML('button');
+      expect(buttonElement).toContainHTML('input');
+      expect(buttonElement).toBeInTheDocument();
     });
 
     it('should have an username input field', () => {
@@ -34,28 +28,50 @@ describe('testing functionality of homepage',() => {
       fireEvent.change(inputElement, { target: { value: 'testing' }});
       expect(inputElement.value).toBe('testing');
     });
-  
-    // xit('should render sign up component when button is clicked', () => {
-    //   const 
-    // })
+  });
+
+  describe('testing functionality of sign up component', () => {
+    it('should have a sign up button', () => {
+      const buttonElement = screen.getByText(/sign up/i);
+      expect(buttonElement).toContainHTML('button');
+      expect(buttonElement).toBeInTheDocument();
+    });
+
+    it('should render sign up component when button is clicked', () => {
+      const buttonElement = screen.getByText(/sign up/i);
+      const logoElement = screen.getByText(/revis/i);
+      expect(logoElement).toBeInTheDocument();
+      fireEvent.click(buttonElement);
+      // should re-render the page to have the sign up page 
+      const headingElement = screen.getByText('Sign Up');
+      expect(headingElement).toBeInTheDocument();
+      // revis heading should still be rendered
+      expect(logoElement).toBeInTheDocument();
+      // button should now be gone
+      expect(buttonElement).not.toBeInTheDocument();
+    });
   });
   
   describe('testing functionality of forgot password component', () => {
     it('should have a forgot password button', () => {
       const buttonElement = screen.getByText(/forgot password\?/i);
       expect(buttonElement).toContainHTML('button');
-      // expect(buttonElement).
+      expect(buttonElement).toBeInTheDocument();
     });
 
-    xit('should render forgot password component when button is clicked', () => {
-      // const buttonpElement = screen.getByText(/forgot password\?/i);
-      const buttonElement = screen.getByTestId('pwbutton');
+    it('should render forgot password component when button is clicked', () => {
+      const buttonElement = screen.getByText(/forgot password\?/i);
+      const logoElement = screen.getByText(/revis/i);
+      expect(logoElement).toBeInTheDocument();
+      expect(buttonElement).toContainHTML('button');
       fireEvent.click(buttonElement);
+      // should re-render the page to have the password reset page 
       const headingElement = screen.getByText('Password Reset Page');
-      const logoElement = screen.getByText('Revis');
-      expect(headingElement).toHaveTextContent('Password Reset Page');
-      expect(logoElement).toHaveTextContent('Revis');
+      expect(headingElement).toBeInTheDocument();
+      // revis heading should still be rendered
+      expect(logoElement).toBeInTheDocument();
+      // button should now be gone
+      expect(buttonElement).not.toBeInTheDocument();
     });
-  })
-
+  });
 });

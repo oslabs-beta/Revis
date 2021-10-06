@@ -48,15 +48,15 @@ function UserLogin(props) {
             required
           ></input>
         </div>
-
         <div className={styles.logInButtonWrapper}>
-          <input id={styles.logInButton} type='submit' value='Login' />
-          <button id={styles.forgotPasswordButton} onClick={onForgotPassword}>
-            Forgot Password?
-          </button>
+          <input id={styles.logInButton} type="submit" value="Login" />
         </div>
       </form>
-
+      <div className={styles.logInButtonWrapper}>
+        <button id={styles.forgotPasswordButton} onClick={onForgotPassword}>
+          Forgot Password?
+        </button>
+      </div>
       <div className={styles.signUpWrapper}>
         <span>First time?</span>
         <button id={styles.signUpButton} onClick={onSignUp}>
@@ -68,3 +68,4 @@ function UserLogin(props) {
 }
 
 export default UserLogin;
+         
