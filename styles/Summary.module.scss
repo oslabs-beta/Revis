@@ -3,13 +3,14 @@
   h1 {
     font-family: $fontOfLogo;
     text-align: center;
-    color: rgb(106, 99, 99);
+    color: $summaryTitleGrey;
   }
   margin: 2%;
   display: flex;
   flex-direction: column;
   align-items: center;
   .tableWrapper {
+    border-radius: 20px;
     display: grid;
     border-color: transparent;
     grid-template-columns: repeat(4, 1fr);
@@ -35,5 +36,6 @@
       color: $background;
       font-family: $fontOfMetrics;
     }
+ 
   }
 }
