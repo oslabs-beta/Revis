@@ -17,5 +17,15 @@ describe('testing functionaity of login component', () => {
     const headingElement = screen.getByRole('heading');
     expect(headingElement).toBeInTheDocument();
   });
-  // it('should return status of 200 when ')
+
+  it('should have an username input field', () => {
+    const inputElement = screen.getByPlaceholderText(/username/i);
+    expect(inputElement).toBeInTheDocument();
+    fireEvent.change(inputElement, { target: { value: 'testing' }});
+    expect(inputElement.value).toBe('testing');
+  });
+
+  // it('should return status of 200 when username and password match', () => {
+
+  // })
 })
