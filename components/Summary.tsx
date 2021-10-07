@@ -2,16 +2,15 @@
 // the table can have two tables for each row
 // import Metrics from "./metricsForSummary";
 import React, { useContext, useEffect, useState } from 'react';
+import { GetServerSideProps } from 'next';
 import styles from '../styles/Summary.module.scss';
 import { useStore } from '../context/Provider';
-import { GetServerSideProps } from 'next';
 import creatingMetricsObject from '../pages/api/redismonitor';
 
 export default function Summary() {
-
   const [metrics, setMetrics] = useState({});
-  const { metricsStore } : any = useStore();
-  
+  const { metricsStore }: any = useStore();
+
   useEffect(() => {
     async function fetchDataFromRedis() {
       let response = await fetch('http://localhost:3000//api/redis', {
@@ -19,14 +18,13 @@ export default function Summary() {
       });
       response = await response.json();
       setMetrics(response);
-      metricsStore.metricsDispatch('updateMetrics',response);
+      metricsStore.metricsDispatch('updateMetrics', response);
     }
     fetchDataFromRedis();
-
   }, []);
 
   // .then(data => { setCurrentMetrics(data) })
-  
+
   const metricsForTable = [];
 
   for (const key in metrics) {
@@ -51,4 +49,3 @@ export default function Summary() {
 //   console.log(response);
 //   return { props: { data: response } };
 // };
-

@@ -1,25 +1,26 @@
 import styles from '../styles/Server.module.scss';
 
 export default function Server(props) {
-  const { name, IP, PORT, removeServer } = props;
-
-  let previousNode: HTMLDivElement;
+  const { name, IP, PORT, removeServer, currentDivHover, changeDivHover } =
+    props;
 
   const removeServerAnimation = (e) => {
-    let removeServerDiv: HTMLDivElement = e.target.firstElementChild;
-    if (!removeServerDiv) return;
-    previousNode = removeServerDiv;
+    const wrapperName: HTMLDivElement = e.target.attributes[1].value;
+    const removeServerDiv: HTMLDivElement = document.querySelector(
+      `#${wrapperName}`
+    );
+    changeDivHover(removeServerDiv);
     removeServerDiv.style.width = '100%';
     removeServerDiv.style.backgroundColor = 'red';
     removeServerDiv.innerHTML = 'X';
   };
 
-  const keepServerAnimation = () => {
-    if (previousNode) {
-      previousNode.style.width = '0%';
-      previousNode.style.backgroundColor = 'white';
-      previousNode.innerHTML = '';
-    } else previousNode = null;
+  const keepServerAnimation = (e) => {
+    if (currentDivHover) {
+      currentDivHover.style.width = '0%';
+      currentDivHover.style.backgroundColor = 'white';
+      currentDivHover.innerHTML = '';
+    }
   };
 
   return (
@@ -29,8 +30,9 @@ export default function Server(props) {
         onMouseEnter={removeServerAnimation}
         onMouseLeave={keepServerAnimation}
         onClick={removeServer}
+        name={name}
       >
-        <div className={styles.removeServerDiv} id="removeServerDiv"></div>
+        <div className={styles.removeServerDiv} id={name}></div>
       </div>
       <div className={styles.server}>
         <p>Name: {name}</p>
