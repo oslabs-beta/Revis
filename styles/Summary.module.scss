@@ -1,14 +1,17 @@
-@import "./colorsAndFonts.scss";
+@import './colorsAndFonts.scss';
 .SummaryWrapper {
+  margin: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+
   h1 {
     font-family: $fontOfLogo;
     text-align: center;
     color: $summaryTitleGrey;
   }
-  margin: 2%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
   .tableWrapper {
     border-radius: 20px;
     display: grid;
@@ -36,6 +39,5 @@
       color: $background;
       font-family: $fontOfMetrics;
     }
- 
   }
 }
