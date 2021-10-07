@@ -46,6 +46,7 @@ import UserLogin from '../components/UserLogin';
 import 'whatwg-fetch';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
+import { GlobalProvider } from '../context/Provider'
 
 // if sticking with fetch
 // if (!result.ok) {
@@ -85,7 +86,13 @@ const server = setupServer(
 beforeAll(() => server.listen());
 afterAll(() => server.close());
 afterEach(() => server.resetHandlers());
-beforeEach(() => render(<UserLogin />))
+beforeEach(() => render(
+  <GlobalProvider>
+    <UserLogin 
+      onSignUp={() => console.log('hi')}
+      onForgotPassword={() => console.log('forgot password')}
+    />
+  </GlobalProvider>))
 afterEach(() => cleanup());
 
 it('should have status of 200 on successful login', async () => {
