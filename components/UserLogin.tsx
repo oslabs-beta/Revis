@@ -26,7 +26,7 @@ function UserLogin(props) {
     }).then((data) => {
       if (data.status === 200) {
         setFinalUser(userInfo)
-        router.replace('/about');
+        router.replace('/dashboard');
       }
     });
   };

@@ -9,7 +9,7 @@ export default function about() {
         <Sidebar />
       </div>
       <div className={styles.summaryWrapper}>
-        <Summary />
+       < Summary />
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import { useStore } from '../context/Provider';
 import { GetServerSideProps } from 'next';
 import creatingMetricsObject from '../pages/api/redismonitor';
 
-export default function Summary({ data }) {
+function Summary() {
   const [metrics, setMetrics] = useState({});
   // const [metricsUpdated, setMetricsUpdated] : [any,any]= useState(false);
   //const [currentMetrics, setCurrentMetrics] : [any, any] = useState({});
@@ -23,12 +23,16 @@ export default function Summary({ data }) {
       setMetrics(response);
     }
     fetchDataFromRedis();
+    // const constantFetch = setInterval(() => {
+    //
+    // }, 5000);
+    // return () => clearInterval(constantFetch);
   }, []);
 
   // .then(data => { setCurrentMetrics(data) })
   console.log(metrics);
   const metricsForTable = [];
-  console.log(metricsForTable)
+  console.log(metricsForTable);
   for (const key in metrics) {
     metricsForTable.push(
       <div className={styles.metrics}>
@@ -51,3 +55,4 @@ export default function Summary({ data }) {
 //   console.log(response);
 //   return { props: { data: response } };
 // };
+export default Summary;

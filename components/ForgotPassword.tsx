@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
-import styles from '../styles/RightSideLogin.module.scss';
 
 function ForgotPassword(props) {
   const [userEmail, setUserEmail] = useState<any>('');
