@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useContext } from "react";
 import initialStateUser from "./initialStates/initialStateUser";
 import user from "./reducers/user";
 import metrics from "./reducers/metrics";
@@ -16,9 +16,11 @@ export const GlobalProvider = ({ children }) => {
   );
   return (
     <GlobalContext.Provider
-      value={({ userState, userDispatch },{ metricState, metricsDispatch })}
+      value={{ user: {userState, userDispatch }, metrics: {metricState, metricsDispatch} }}
     >
       {children}
     </GlobalContext.Provider>
   );
 };
+
+export const useStore = () => useContext(GlobalContext);

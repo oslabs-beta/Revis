@@ -1,5 +1,6 @@
 import Server from './Server';
 import styles from '../styles/ServerList.module.scss';
+
 export default function ServerList(props) {
   const { serverList, removeServer } = props;
 
