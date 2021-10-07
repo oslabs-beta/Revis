@@ -1,9 +1,9 @@
-import db from '../../models/Revis';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import db from '../../models/Revis';
+
 const bcrypt = require('bcryptjs');
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-  let method: string;
+const userLogin = async (req: NextApiRequest, res: NextApiResponse) => {
   let username: string | string[];
   let password: string | string[];
   type User = {
@@ -18,10 +18,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   username = parsedBody.username;
   password = parsedBody.password;
 
-  method = req.method;
-
-  switch (method) {
-    case 'POST':
       res.setHeader('Content-Type', 'application/json');
       try {
         const SQLquery: string = `SELECT * FROM PUBLIC.USERS where username = '${username}';`;
@@ -32,10 +28,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         if (!compare)
           throw Error('Incorrect username or password. Please try again.');
         console.log(`User: ${username} logged in`);
-        return res.status(200).json(username);
+        return res.status(200).json( username);
       } catch (err) {
         console.log(err);
         return res.status(401).json({ success: false, error: `${err}` });
       }
   }
 };
+export default userLogin;

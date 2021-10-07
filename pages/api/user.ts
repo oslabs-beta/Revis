@@ -1,21 +1,13 @@
-import db from '../../models/Revis';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { parse } from 'path/posix';
+import db from '../../models/Revis';
+
 const bcrypt = require('bcryptjs');
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-  let method: string;
+const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
   let username: string | string[];
   let password: string | string[];
   let email: string | string[];
   let hashedPassword: string;
-  type User = {
-    user_id: number;
-    username: string;
-    password: string;
-    email: string;
-    session: string;
-  };
 
   const parsedBody = JSON.parse(req.body);
   username = parsedBody.username;
@@ -23,36 +15,33 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   email = parsedBody.email;
 
   const SALT_WORK_FACTOR: number = 10;
-  method = req.method;
-
-  switch (method) {
-    case 'POST':
-      try {
-        console.log(username, password, email);
-        hashedPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
-        const SQLquery: string = `INSERT INTO PUBLIC.USERS (username,password,email)
+  try {
+    hashedPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
+    const SQLquery: string = `INSERT INTO PUBLIC.USERS (username,password,email)
          VALUES ('${username}','${hashedPassword}','${email}');`;
-        await db.query(SQLquery);
+    await db.query(SQLquery);
 
-        return res.status(200).json({ success: true });
-      } catch (err) {
-        console.log(err);
-        const { constraint }: { constraint: string } = err;
-        switch (constraint) {
-          case 'users_username_key':
-            return res.status(400).json({
-              success: false,
-              error:
-                'This username is already taken. Please provide a unique username.',
-            });
+    return res.status(200).json({ success: true });
+  } catch (err) {
+    console.log(err);
+    const { constraint }: { constraint: string } = err;
+    switch (constraint) {
+      case 'users_username_key':
+        return res.status(400).json({
+          success: false,
+          error:
+            'This username is already taken. Please provide a unique username.',
+        });
 
-          case 'users_email_key':
-            return res.status(400).json({
-              success: false,
-              error:
-                'This email is already taken. Please provide a unique email.',
-            });
-        }
-      }
+      case 'users_email_key':
+        return res.status(400).json({
+          success: false,
+          error: 'This email is already taken. Please provide a unique email.',
+        });
+
+      default:
+        return false;
+    }
   }
 };
+export default createUser;

@@ -2,35 +2,30 @@
 // the table can have two tables for each row
 // import Metrics from "./metricsForSummary";
 
-import React, { useContext, useEffect, useState } from "react";
-import styles from "../styles/Summary.module.scss";
-import { useStore } from "../context/Provider";
-import { GetServerSideProps } from "next";
-import creatingMetricsObject from "../pages/api/redismonitor";
-import Metrics from "./Metrics";
-
+import React, { useContext, useEffect, useState } from 'react';
+import { GetServerSideProps } from 'next';
+import styles from '../styles/Summary.module.scss';
+import { useStore } from '../context/Provider';
+import creatingMetricsObject from '../pages/api/redismonitor';
+import Metrics from './Metrics';
 
 export default function Summary() {
   const [metrics, setMetrics] = useState({});
   const { metricsStore }: any = useStore();
 
   useEffect(() => {
-    async function fetchDataFromRedis() {
-      let response = await fetch("http://localhost:3000//api/redis", {
-        method: "GET",
-      });
-      response = await response.json();
-      setMetrics(response);
-
-      metricsStore.metricsDispatch("updateMetrics", response);
-
-    }
-    
-    const constantFetch = setInterval(() => {
-    fetchDataFromRedis();
-  }, []);
-
-  // .then(data => { setCurrentMetrics(data) })
+    // async function fetchDataFromRedis() {
+    //   let response = await fetch('http://localhost:3000//api/redis', {
+    //     method: 'GET',
+    //   });
+    //   response = await response.json();
+    //   setMetrics(response);
+    //   metricsStore.metricsDispatch('updateMetrics', response);
+    // }
+    // const constantFetch = setInterval(() => {
+    //   fetchDataFromRedis();
+    // }, []);
+  });
 
   const metricsForTable = [];
 
@@ -45,9 +40,3 @@ export default function Summary() {
     </div>
   );
 }
-
-// export const getServerSidepProps: GetServerSideProps = async () => {
-//   const response = await fetch('/api/redis', { method: 'GET' });
-//   console.log(response);
-//   return { props: { data: response } };
-// };

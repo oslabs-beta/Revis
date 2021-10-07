@@ -86,6 +86,15 @@ function Sidebar(props) {
       !alreadyAddedServerName
     );
   };
+
+  const postServerToDataBase = (name: string, IP: string, PORT: string) => {
+    fetch('/api/addServer', {
+      method: 'POST',
+      body: JSON.stringify({ name, IP, PORT }),
+      'Content-Type': 'application/json',
+    });
+  };
+
   const addServer = (e) => {
     e.preventDefault();
     const name: HTMLInputElement = document.querySelector('#name');
@@ -96,6 +105,7 @@ function Sidebar(props) {
       updateList(
         serverList.concat({ name: name.value, IP: IP.value, PORT: PORT.value })
       );
+      postServerToDataBase(name.value, IP.value, PORT.value);
     }
   };
 
@@ -118,7 +128,7 @@ function Sidebar(props) {
   };
 
   const changeCurrentServer = (e) => {
-    const severIP = e.target.id;
+    const severIP: string = e.target.id;
     setCurrentServer(e.target.id);
   };
 
