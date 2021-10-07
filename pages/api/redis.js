@@ -14,13 +14,8 @@ export default async (req, res) => {
   ];
   const redis = new Redis({
     host: process.env.REDIS_URL,
-    port: 16424,
+    port: process.env.REDIS_PORT,
     password: process.env.REDIS_PW,
-  });
-
-  redis.on('ready', async () => {
-    const theping = await redis.ping();
-    console.log(theping);
   });
 
   async function creatingMetricsObject() {
@@ -46,6 +41,9 @@ export default async (req, res) => {
         // console.log('this is working')
         const metricsUpdated = await creatingMetricsObject();
         console.log(metricsUpdated);
+        redis.quit(() => {
+          console.log('exited redis server');
+        });
         res.status(200).send(metricsUpdated);
       } catch {
         console.log('error in getting metrics');

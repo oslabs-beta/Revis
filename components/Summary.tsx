@@ -20,7 +20,11 @@ export default function Summary() {
       setMetrics(response);
       metricsStore.metricsDispatch('updateMetrics', response);
     }
+    
+    const constantFetch = setInterval(() => {
     fetchDataFromRedis();
+    }, 5000);
+    return () => clearInterval(constantFetch);
   }, []);
 
   // .then(data => { setCurrentMetrics(data) })
