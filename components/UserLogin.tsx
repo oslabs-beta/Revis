@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import router from 'next/router';
+import PropTypes from 'prop-types';
 import styles from '../styles/RightSideLogin.module.scss';
 import { useStore } from '../context/Provider';
-import PropTypes from 'prop-types';
 
 function UserLogin(props) {
   const [userInfo, setUserInfo] = useState<any>({ userName: '', password: '' });
-  const [finalUser, setFinalUser] = useState <any>('');
+  const [finalUser, setFinalUser] = useState<any>('');
   const { onForgotPassword, onSignUp } = props;
   const { user }: any = useStore();
 
   useEffect(() => {
     user.userDispatch({ type: 'updateUsername', message: userInfo.userName });
-  },[finalUser]);
- 
+  }, [finalUser]);
+
   const { username, password } = userInfo;
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -42,8 +42,8 @@ function UserLogin(props) {
         <div>
           <input
             className={styles.userInput}
-            placeholder='username'
-            type='text'
+            placeholder="username"
+            type="text"
             onChange={(e) =>
               setUserInfo({ ...userInfo, username: e.target.value })
             }
@@ -54,8 +54,8 @@ function UserLogin(props) {
         <div>
           <input
             className={styles.userInput}
-            placeholder='password'
-            type='password'
+            placeholder="password"
+            type="password"
             onChange={(e) =>
               setUserInfo({ ...userInfo, password: e.target.value })
             }
@@ -63,7 +63,7 @@ function UserLogin(props) {
           ></input>
         </div>
         <div className={styles.logInButtonWrapper}>
-          <input id={styles.logInButton} type='submit' value='Login' />
+          <input id={styles.logInButton} type="submit" value="Login" />
         </div>
       </form>
       <div className={styles.logInButtonWrapper}>
