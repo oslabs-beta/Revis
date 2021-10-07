@@ -1,5 +1,5 @@
 export default {
-  metrics: {
+
     latency: 0,
     metric2: "20%",
     metric3: "20%",
@@ -8,5 +8,5 @@ export default {
     metric6: 5.0,
     metric7: "15%",
     metric8: 0.3,
-  },
+  
 };
