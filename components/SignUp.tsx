@@ -1,37 +1,30 @@
-import React, { useState } from "react";
-import router, { useRouter } from "next/router";
-import styles from "../styles/RightSideLogin.module.scss";
-import { faWindowRestore } from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from 'react';
+import router from 'next/router';
+import styles from '../styles/RightSideLogin.module.scss';
 
-
-function SignUp(props) {
+function SignUp() {
   const [userInfo, setUserInfo] = useState<any>({
-    userName: '',
+    username: '',
     email: '',
     password: '',
   });
 
-  const previousPage = props.previousPage;
+  const { username, password, email } = userInfo;
+
+  // MUST INCORPORATE BACK PAGE
+  let previousPage = 1;
 
   const submitHandler = (e) => {
-    const body = {
-      username: userInfo.userName,
-      password: userInfo.password,
-      email: userInfo.email,
-    };
-    console.log(body);
     e.preventDefault();
     fetch('/api/user', {
       method: 'POST',
       body: JSON.stringify({
-        username: userInfo.userName,
-        password: userInfo.password,
-        email: userInfo.email,
+        username,
+        password,
+        email,
       }),
-      'content-type': 'application/json',
-    })
-      .then((data) => data.json())
-      .then((data) => console.log(data));
+      'Content-Type': 'application/json',
+    }).then((data) => console.log(data));
   };
 
   return (
@@ -39,48 +32,59 @@ function SignUp(props) {
       <h1>Sign Up</h1>
       <form onSubmit={submitHandler}>
         <div>
-          <label>username:</label>
-          <input
-            className={styles.userInput}
-            type='text'
-            onChange={(e) =>
-              setUserInfo({ ...userInfo, userName: e.target.value })
-            }
-            value={userInfo.userName}
-            required
-          ></input>
+          <label htmlFor="username">
+            username:
+            <input
+              className={styles.userInput}
+              type="text"
+              onChange={(e) =>
+                setUserInfo({ ...userInfo, userName: e.target.value })
+              }
+              value={userInfo.userName}
+              required
+            ></input>
+          </label>
         </div>
         <div>
-          <label>email:</label>
-          <input
-            className={styles.userInput}
-            type='email'
-            onChange={(e) =>
-              setUserInfo({ ...userInfo, email: e.target.value })
-            }
-            value={userInfo.email}
-            required
-          ></input>
+          <label htmlFor="email">
+            email:
+            <input
+              className={styles.userInput}
+              type="email"
+              onChange={(e) =>
+                setUserInfo({ ...userInfo, email: e.target.value })
+              }
+              value={userInfo.email}
+              required
+            ></input>
+          </label>
         </div>
         <div>
-          <label>password:</label>
-          <input
-            className={styles.userInput}
-            type='password'
-            onChange={(e) =>
-              setUserInfo({ ...userInfo, password: e.target.value })
-            }
-            required
-          ></input>
+          <label htmlFor="password">
+            password:
+            <input
+              className={styles.userInput}
+              type="password"
+              onChange={(e) =>
+                setUserInfo({ ...userInfo, password: e.target.value })
+              }
+              required
+            ></input>
+          </label>
         </div>
         <button
-          onClick={() => router.replace("/dashboard")}
+          onClick={() => router.replace('/dashboard')}
           className={styles.submitButton}
+          type="button"
         >
           Submit
         </button>
       </form>
-      <button className={styles.backButton} onClick={() => previousPage()}>
+      <button
+        className={styles.backButton}
+        onClick={previousPage}
+        type="button"
+      >
         Back
       </button>
     </div>

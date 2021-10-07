@@ -1,17 +1,16 @@
-//this needs a table that will have all the metrics names and numbers
-//the table can have two tables for each row
+// this needs a table that will have all the metrics names and numbers
+// the table can have two tables for each row
 // import Metrics from "./metricsForSummary";
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from '../styles/Summary.module.scss';
 import { useStore } from '../context/Provider';
 import { GetServerSideProps } from 'next';
 import creatingMetricsObject from '../pages/api/redismonitor';
 
-function Summary() {
+export default function Summary() {
+  // const globalC: any = useContext(GlobalContext);
+  // const { metrics }: any = globalC.metricState;
   const [metrics, setMetrics] = useState({});
-  // const [metricsUpdated, setMetricsUpdated] : [any,any]= useState(false);
-  //const [currentMetrics, setCurrentMetrics] : [any, any] = useState({});
-
   //let metricTest : any = useStore();
   //metricTest = metricTest.metrics;
   useEffect(() => {
@@ -55,4 +54,4 @@ function Summary() {
 //   console.log(response);
 //   return { props: { data: response } };
 // };
-export default Summary;
+

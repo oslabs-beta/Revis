@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import router from 'next/router';
 import styles from '../styles/RightSideLogin.module.scss';
 import { useStore } from '../context/Provider';
+import PropTypes from 'prop-types';
 
 function UserLogin(props) {
   const [userInfo, setUserInfo] = useState<any>({ userName: '', password: '' });
@@ -13,22 +14,25 @@ function UserLogin(props) {
     user.userDispatch({ type: 'updateUsername', message: userInfo.userName });
   },[finalUser]);
  
+  const { username, password } = userInfo;
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
     fetch('/api/userLogIn', {
       method: 'POST',
       body: JSON.stringify({
-        username: userInfo.userName,
-        password: userInfo.password,
+        username,
+        password,
       }),
-      'content-type': 'application/json',
-    }).then((data) => {
-      if (data.status === 200) {
-        setFinalUser(userInfo)
-        router.replace('/dashboard');
-      }
-    });
+      'Content-Type': 'application/json',
+    })
+      .then((results) => {
+        if (results.status === 200) router.replace('/dashboard');
+        else throw results;
+      })
+      .catch((error) => {
+        document.querySelector('#errorDiv').innerHTML = error.error;
+      });
   };
 
   return (
@@ -41,9 +45,9 @@ function UserLogin(props) {
             placeholder='username'
             type='text'
             onChange={(e) =>
-              setUserInfo({ ...userInfo, userName: e.target.value })
+              setUserInfo({ ...userInfo, username: e.target.value })
             }
-            value={userInfo.userName}
+            value={username}
             required
           ></input>
         </div>
@@ -63,18 +67,27 @@ function UserLogin(props) {
         </div>
       </form>
       <div className={styles.logInButtonWrapper}>
-        <button id={styles.forgotPasswordButton} onClick={onForgotPassword}>
+        <button
+          id={styles.forgotPasswordButton}
+          onClick={onForgotPassword}
+          type="button"
+        >
           Forgot Password?
         </button>
       </div>
       <div className={styles.signUpWrapper}>
         <span>First time?</span>
-        <button id={styles.signUpButton} onClick={onSignUp}>
+        <button id={styles.signUpButton} onClick={onSignUp} type="button">
           Sign Up
         </button>
       </div>
     </div>
   );
 }
+
+UserLogin.propTypes = {
+  onForgotPassword: PropTypes.func.isRequired,
+  onSignUp: PropTypes.func.isRequired,
+};
 
 export default UserLogin;
