@@ -27,6 +27,7 @@
   },
   "plugins": ["react", "react-hooks", "@typescript-eslint"],
   "rules": {
-    "react/self-closing-comp": "off"
+    "react/self-closing-comp": "off",
+    "react/jsx-filename-extension": "off"
   }
 }
