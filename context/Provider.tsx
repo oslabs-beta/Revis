@@ -16,7 +16,7 @@ export const GlobalProvider = ({ children }) => {
   );
   return (
     <GlobalContext.Provider
-      value={{ user: {userState, userDispatch }, metrics: {metricState, metricsDispatch} }}
+      value={{ user: {userState, userDispatch }, metricsStore: {metricState, metricsDispatch} }}
     >
       {children}
     </GlobalContext.Provider>
