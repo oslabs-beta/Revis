@@ -1,11 +1,14 @@
 // this needs a table that will have all the metrics names and numbers
 // the table can have two tables for each row
 // import Metrics from "./metricsForSummary";
-import React, { useContext, useEffect, useState } from 'react';
-import { GetServerSideProps } from 'next';
-import styles from '../styles/Summary.module.scss';
-import { useStore } from '../context/Provider';
-import creatingMetricsObject from '../pages/api/redismonitor';
+
+import React, { useContext, useEffect, useState } from "react";
+import styles from "../styles/Summary.module.scss";
+import { useStore } from "../context/Provider";
+import { GetServerSideProps } from "next";
+import creatingMetricsObject from "../pages/api/redismonitor";
+import Metrics from "./Metrics";
+
 
 export default function Summary() {
   const [metrics, setMetrics] = useState({});
@@ -13,32 +16,27 @@ export default function Summary() {
 
   useEffect(() => {
     async function fetchDataFromRedis() {
-      let response = await fetch('http://localhost:3000//api/redis', {
-        method: 'GET',
+      let response = await fetch("http://localhost:3000//api/redis", {
+        method: "GET",
       });
       response = await response.json();
       setMetrics(response);
-      metricsStore.metricsDispatch('updateMetrics', response);
+
+      metricsStore.metricsDispatch("updateMetrics", response);
+
     }
     
     const constantFetch = setInterval(() => {
     fetchDataFromRedis();
-    }, 5000);
-    return () => clearInterval(constantFetch);
   }, []);
 
   // .then(data => { setCurrentMetrics(data) })
 
   const metricsForTable = [];
 
-  for (const key in metrics) {
-    metricsForTable.push(
-      <div className={styles.metrics}>
-        <h5>{key}</h5>
-        <button>{metrics[key]}</button>
-      </div>
-    );
-  }
+  Object.entries(metrics).forEach((el) => {
+    metricsForTable.push(<Metrics keys={el[0]} values={el[1]} />);
+  });
 
   return (
     <div className={styles.SummaryWrapper}>

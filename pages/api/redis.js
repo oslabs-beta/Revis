@@ -1,8 +1,9 @@
 const Redis = require('ioredis');
 const useStore = require('../../context/Provider');
 
-export default async (req, res) => {
+ const metrics = async (req, res) => {
   const metricsToEvaluate = [
+
     'total_net_output_bytes',
     'used_memory',
     'connected_clients',
@@ -11,6 +12,7 @@ export default async (req, res) => {
     'keyspace_misses',
     'total_net_input_bytes',
     'uptime_in_seconds', // how long you've been at the server for
+
   ];
   const redis = new Redis({
     host: process.env.REDIS_URL,
@@ -19,13 +21,16 @@ export default async (req, res) => {
   });
 
   async function creatingMetricsObject() {
-    let memory = await redis.info();
+    let data = await redis.info();
 
-    memory = memory.split('\r\n');
+
+    data = data.split("\r\n");
 
     const objWithMetrics = {};
-    memory.forEach((el) => {
-      const keysAndValues = el.split(':');
+    data.forEach((el) => {
+      const keysAndValues = el.split(":");
+
+
       if (metricsToEvaluate.includes(keysAndValues[0]))
         objWithMetrics[keysAndValues[0]] = keysAndValues[1];
     });
@@ -33,7 +38,10 @@ export default async (req, res) => {
     return objWithMetrics;
   }
 
+
+
   const { method } = req;
+
 
   switch (method) {
     case 'GET':
@@ -50,3 +58,5 @@ export default async (req, res) => {
       }
   }
 };
+
+export default metrics;
