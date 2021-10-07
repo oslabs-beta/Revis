@@ -1,12 +1,14 @@
 // this needs a table that will have all the metrics names and numbers
 // the table can have two tables for each row
 // import Metrics from "./metricsForSummary";
+
 import React, { useContext, useEffect, useState } from "react";
 import styles from "../styles/Summary.module.scss";
 import { useStore } from "../context/Provider";
 import { GetServerSideProps } from "next";
 import creatingMetricsObject from "../pages/api/redismonitor";
 import Metrics from "./Metrics";
+
 
 export default function Summary() {
   const [metrics, setMetrics] = useState({});
@@ -19,8 +21,12 @@ export default function Summary() {
       });
       response = await response.json();
       setMetrics(response);
+
       metricsStore.metricsDispatch("updateMetrics", response);
+
     }
+    
+    const constantFetch = setInterval(() => {
     fetchDataFromRedis();
   }, []);
 
