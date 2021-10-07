@@ -1,4 +1,3 @@
-import { route } from 'next/dist/server/router';
 import React, { useState, useEffect } from 'react';
 import router from 'next/router';
 import styles from '../styles/RightSideLogin.module.scss';

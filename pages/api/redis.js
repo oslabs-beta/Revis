@@ -3,9 +3,9 @@ const useStore = require('../../context/Provider');
 
 export default async (req, res) => {
   const redis = new Redis({
-    host: 'redis-18891.c9.us-east-1-4.ec2.cloud.redislabs.com',
+    host: process.env.REDIS_URL,
     port: 18891,
-    password: 'Etttmq5T4ubqnE6TaYltcjXmdobQAjfq',
+    password: process.env.REDIS_PW ,
   });
 
   redis.on('ready', async () => {
@@ -33,8 +33,8 @@ export default async (req, res) => {
       try {
         // console.log('this is working')
         const metricsUpdated = await creatingMetricsObject();
-        console.log('metrics were updated at the back end');
-        res.status(200).json(metricsUpdated);
+        console.log(metricsUpdated)
+        res.status(200).send(metricsUpdated);
       } catch {
         console.log('error in getting metrics');
       }

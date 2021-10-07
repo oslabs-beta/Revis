@@ -1,5 +1,3 @@
-import { useContext } from 'react';
-import { GlobalContext } from '../context/Provider';
 import Sidebar from '../components/Sidebar';
 import Summary from '../components/Summary';
 import styles from '../styles/Dashboard.module.scss';
