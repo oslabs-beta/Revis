@@ -5,24 +5,19 @@ export default async (req, res) => {
   const redis = new Redis({
     host: process.env.REDIS_URL,
     port: 18891,
-    password: process.env.REDIS_PW ,
-  });
-
-  redis.on('ready', async () => {
-    const theping = await redis.ping();
-    console.log(theping);
+    password: process.env.REDIS_PW,
   });
 
   async function creatingMetricsObject() {
     let memory = await redis.info('memory');
     memory = memory.split('\r\n');
-   
+
     const objWithMetrics = {};
     memory.forEach((el) => {
       const keysAndValues = el.split(':');
       objWithMetrics[keysAndValues[0]] = keysAndValues[1];
     });
-    
+
     return objWithMetrics;
   }
 
@@ -33,7 +28,10 @@ export default async (req, res) => {
       try {
         // console.log('this is working')
         const metricsUpdated = await creatingMetricsObject();
-        console.log(metricsUpdated)
+        console.log(metricsUpdated);
+        redis.quit(() => {
+          console.log('exited redis server');
+        });
         res.status(200).send(metricsUpdated);
       } catch {
         console.log('error in getting metrics');

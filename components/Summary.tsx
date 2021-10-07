@@ -21,11 +21,11 @@ export default function Summary() {
       response = await response.json();
       setMetrics(response);
     }
+    
+    const constantFetch = setInterval(() => {
     fetchDataFromRedis();
-    // const constantFetch = setInterval(() => {
-    //
-    // }, 5000);
-    // return () => clearInterval(constantFetch);
+    }, 5000);
+    return () => clearInterval(constantFetch);
   }, []);
 
   // .then(data => { setCurrentMetrics(data) })
