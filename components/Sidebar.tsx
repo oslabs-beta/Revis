@@ -1,13 +1,25 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCube } from '@fortawesome/free-solid-svg-icons';
 import ServerAdd from './ServerAdd';
 import ServerList from './ServerList';
 import styles from '../styles/Sidebar.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCube } from '@fortawesome/free-solid-svg-icons';
 
 function Sidebar(props) {
   const [sideBarHidden, showOrHideSideBar] = useState(false);
-  const [serverList, updateList] = useState([]);
+  const [serverList, updateList] = useState([
+    { name: 'Liam', IP: 'test', PORT: '435' },
+    { name: 'Liam2', IP: 'test', PORT: '435' },
+    { name: 'Liam3', IP: 'test', PORT: '435' },
+    { name: 'Liam4', IP: 'test', PORT: '435' },
+    { name: 'Liam5', IP: 'test', PORT: '435' },
+    { name: 'Liam6', IP: 'test', PORT: '435' },
+    { name: 'Liam7', IP: 'test', PORT: '435' },
+    { name: 'Liam8', IP: 'test', PORT: '435' },
+    { name: 'Liam9', IP: 'test', PORT: '435' },
+  ]);
+  const [currentServer, setCurrentServer] = useState(null);
+  const [currentDivHover, changeDivHover] = useState(null);
 
   const validityCheckOnSubmit = (
     nameElement: HTMLInputElement,
@@ -37,11 +49,11 @@ function Sidebar(props) {
     } else portElement.setCustomValidity('');
 
     const alreadyAddedServerIP: boolean = serverList.some(
-      (elem) => elem['IP'] === ipElement.value
+      (elem) => elem.IP === ipElement.value
     );
 
     const alreadyAddedServerName: boolean = serverList.some(
-      (elem) => elem['name'] === nameElement.value
+      (elem) => elem.name === nameElement.value
     );
 
     if (alreadyAddedServerIP) {
@@ -74,7 +86,6 @@ function Sidebar(props) {
       !alreadyAddedServerName
     );
   };
-
   const addServer = (e) => {
     e.preventDefault();
     const name: HTMLInputElement = document.querySelector('#name');
@@ -89,9 +100,7 @@ function Sidebar(props) {
   };
 
   const removeServer = (e) => {
-    const serverNameToRemove: string =
-      e.target.parentNode.parentNode.lastChild.childNodes[0].childNodes[1]
-        .nodeValue;
+    const serverNameToRemove: string = e.target.id;
     if (!serverNameToRemove) return;
     updateList(serverList.filter((elem) => elem.name !== serverNameToRemove));
   };
@@ -108,10 +117,20 @@ function Sidebar(props) {
     showOrHideSideBar(!sideBarHidden);
   };
 
+  const changeCurrentServer = (e) => {
+    const severIP = e.target.id;
+    setCurrentServer(e.target.id);
+  };
+
   return (
     <div className={styles.sideBarWrapper} id="sideBar">
       <ServerAdd addServer={addServer} />
-      <ServerList serverList={serverList} removeServer={removeServer} />
+      <ServerList
+        serverList={serverList}
+        removeServer={removeServer}
+        currentDivHover={currentDivHover}
+        changeDivHover={changeDivHover}
+      />
       <FontAwesomeIcon
         id={styles.cube}
         icon={faCube}

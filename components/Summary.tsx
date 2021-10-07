@@ -2,36 +2,36 @@
 // the table can have two tables for each row
 // import Metrics from "./metricsForSummary";
 import React, { useContext, useEffect, useState } from 'react';
+import { GetServerSideProps } from 'next';
 import styles from '../styles/Summary.module.scss';
 import { useStore } from '../context/Provider';
-import { GetServerSideProps } from 'next';
 import creatingMetricsObject from '../pages/api/redismonitor';
 
 export default function Summary() {
   // const globalC: any = useContext(GlobalContext);
   // const { metrics }: any = globalC.metricState;
   const [metrics, setMetrics] = useState({});
-  //let metricTest : any = useStore();
-  //metricTest = metricTest.metrics;
-  useEffect(() => {
-    async function fetchDataFromRedis() {
-      let response = await fetch('http://localhost:3000//api/redis', {
-        method: 'GET',
-      });
-      response = await response.json();
-      setMetrics(response);
-    }
-    fetchDataFromRedis();
-    // const constantFetch = setInterval(() => {
-    //
-    // }, 5000);
-    // return () => clearInterval(constantFetch);
-  }, []);
+  // let metricTest : any = useStore();
+  // metricTest = metricTest.metrics;
+  // useEffect(() => {
+  //   async function fetchDataFromRedis() {
+  //     let response = await fetch('http://localhost:3000//api/redis', {
+  //       method: 'GET',
+  //     });
+  //     response = await response.json();
+  //     setMetrics(response);
+  //   }
+  //   fetchDataFromRedis();
+  //   // const constantFetch = setInterval(() => {
+  //   //
+  //   // }, 5000);
+  //   // return () => clearInterval(constantFetch);
+  // }, []);
 
   // .then(data => { setCurrentMetrics(data) })
-  console.log(metrics);
+  // console.log(metrics);
   const metricsForTable = [];
-  console.log(metricsForTable);
+  // console.log(metricsForTable);
   for (const key in metrics) {
     metricsForTable.push(
       <div className={styles.metrics}>
@@ -54,4 +54,3 @@ export default function Summary() {
 //   console.log(response);
 //   return { props: { data: response } };
 // };
-
