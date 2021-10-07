@@ -4,56 +4,37 @@ import db from '../../models/Revis';
 const bcrypt = require('bcryptjs');
 
 const addServer = async (req: NextApiRequest, res: NextApiResponse) => {
-  let method: string;
   let hashedPassword: string;
+  let SQLquery: string;
   type Server = {
     name: string;
     IP: string;
     PORT: string;
+    username: string;
+    endPoint: string;
+    password: string;
   };
 
-  const parsedBody = JSON.parse(req.body);
-  name = parsedBody.username;
-  IP = parsedBody.password;
-  PORT = parsedBody.email;
+  const parsedBody: Server = JSON.parse(req.body);
 
-  const SALT_WORK_FACTOR: number = 10;
-  method = req.method;
+  const { name, IP, PORT, username, endPoint, password } = parsedBody;
 
-  switch (method) {
-    case 'POST':
-      try {
-        console.log(username, password, email);
-        hashedPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
-        const SQLquery: string = `INSERT INTO PUBLIC.USERS (username,password,email)
-         VALUES ('${username}','${hashedPassword}','${email}');`;
-        await db.query(SQLquery);
+  try {
+    if (endPoint && password) {
+      hashedPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
+      SQLquery = `INSERT INTO "serverCloud" (username,serverName,endpoint,password)
+         VALUES ('${username}','${name}','${endPoint}','${hashedPassword}');`;
+    } else {
+      SQLquery = `INSERT INTO "serverLocal" (username,serverName,ip,port)
+         VALUES ('${username}','${name}','${IP}','${PORT}');`;
+    }
 
-        return res.status(200).json({ success: true });
-      } catch (err) {
-        console.log(err);
-        const { constraint }: { constraint: string } = err;
-        switch (constraint) {
-          case 'users_username_key':
-            return res.status(400).json({
-              success: false,
-              error:
-                'This username is already taken. Please provide a unique username.',
-            });
+    await db.query(SQLquery);
 
-          case 'users_email_key':
-            return res.status(400).json({
-              success: false,
-              error:
-                'This email is already taken. Please provide a unique email.',
-            });
-
-          default:
-            return false;
-        }
-      }
-    default:
-      return false;
+    return res.status(200).json({ success: true });
+  } catch (err) {
+    console.log(`FAILED QUERY ${SQLquery}`);
+    return res.status(400).json({ success: false, error: err });
   }
 };
 export default addServer;

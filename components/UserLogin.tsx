@@ -11,14 +11,14 @@ function UserLogin(props) {
   const { user }: any = useStore();
 
   useEffect(() => {
-    user.userDispatch({ type: 'updateUsername', message: userInfo.userName });
+    user.userDispatch({ type: 'updateUsername', message: finalUser });
   }, [finalUser]);
 
   const { username, password } = userInfo;
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
-    fetch('/api/userLogIn', {
+    fetch('/api/userLogin', {
       method: 'POST',
       body: JSON.stringify({
         username,
@@ -27,8 +27,10 @@ function UserLogin(props) {
       'Content-Type': 'application/json',
     })
       .then((results) => {
-        if (results.status === 200) router.replace('/dashboard');
-        else throw results;
+        if (results.status === 200) {
+          setFinalUser(username);
+          router.replace('/dashboard');
+        } else throw results;
       })
       .catch((error) => {
         document.querySelector('#errorDiv').innerHTML = error.error;

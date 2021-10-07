@@ -3,21 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCube } from '@fortawesome/free-solid-svg-icons';
 import ServerAdd from './ServerAdd';
 import ServerList from './ServerList';
+import { useStore } from '../context/Provider';
 import styles from '../styles/Sidebar.module.scss';
 
 function Sidebar(props) {
   const [sideBarHidden, showOrHideSideBar] = useState(false);
-  const [serverList, updateList] = useState([
-    { name: 'Liam', IP: 'test', PORT: '435' },
-    { name: 'Liam2', IP: 'test', PORT: '435' },
-    { name: 'Liam3', IP: 'test', PORT: '435' },
-    { name: 'Liam4', IP: 'test', PORT: '435' },
-    { name: 'Liam5', IP: 'test', PORT: '435' },
-    { name: 'Liam6', IP: 'test', PORT: '435' },
-    { name: 'Liam7', IP: 'test', PORT: '435' },
-    { name: 'Liam8', IP: 'test', PORT: '435' },
-    { name: 'Liam9', IP: 'test', PORT: '435' },
-  ]);
+  const [serverList, updateList] = useState([]);
+  const { user }: any = useStore();
+  const { username }: { username: string } = user.userState;
+
   const [currentServer, setCurrentServer] = useState(null);
   const [currentDivHover, changeDivHover] = useState(null);
 
@@ -90,7 +84,7 @@ function Sidebar(props) {
   const postServerToDataBase = (name: string, IP: string, PORT: string) => {
     fetch('/api/addServer', {
       method: 'POST',
-      body: JSON.stringify({ name, IP, PORT }),
+      body: JSON.stringify({ name, IP, PORT, username }),
       'Content-Type': 'application/json',
     });
   };
