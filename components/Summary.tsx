@@ -8,11 +8,10 @@ import { GetServerSideProps } from 'next';
 import creatingMetricsObject from '../pages/api/redismonitor';
 
 export default function Summary() {
-  // const globalC: any = useContext(GlobalContext);
-  // const { metrics }: any = globalC.metricState;
+
   const [metrics, setMetrics] = useState({});
-  //let metricTest : any = useStore();
-  //metricTest = metricTest.metrics;
+  const { metricsStore } : any = useStore();
+  
   useEffect(() => {
     async function fetchDataFromRedis() {
       let response = await fetch('http://localhost:3000//api/redis', {
@@ -20,18 +19,16 @@ export default function Summary() {
       });
       response = await response.json();
       setMetrics(response);
+      metricsStore.metricsDispatch('updateMetrics',response);
     }
     fetchDataFromRedis();
-    // const constantFetch = setInterval(() => {
-    //
-    // }, 5000);
-    // return () => clearInterval(constantFetch);
+
   }, []);
 
   // .then(data => { setCurrentMetrics(data) })
-  console.log(metrics);
+  
   const metricsForTable = [];
-  console.log(metricsForTable);
+
   for (const key in metrics) {
     metricsForTable.push(
       <div className={styles.metrics}>
