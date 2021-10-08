@@ -1,10 +1,19 @@
-@import './colorsAndFonts.scss';
+@import "./colorsAndFonts.scss";
 .SummaryWrapper {
   margin: 2%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  align-content: center;
+  text-align: center;
+
+  .Welcome {
+    display: flex;
+    position: absolute;
+    left: 92%;
+    top: 1%;
+    color: $summaryTitleGrey;
+    width: 10px;
+  }
 
   h1 {
     font-family: $fontOfLogo;
