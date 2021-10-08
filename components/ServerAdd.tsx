@@ -8,7 +8,7 @@ function ServerAdd(props) {
     '^((?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])[.]){3}(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$';
   const PORT_REG_EX: string = '[0-9]{4}';
 
-  const validityCheckOnChange = (e) => {
+  const validityCheckOnChange = () => {
     const nameElement: HTMLInputElement = document.querySelector('#name');
     const ipElement: HTMLInputElement = document.querySelector('#IP');
     const portElement: HTMLInputElement = document.querySelector('#PORT');

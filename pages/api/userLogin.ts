@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import Cookies from 'cookies';
 import db from '../../models/Revis';
 
 const bcrypt = require('bcryptjs');
@@ -20,6 +21,7 @@ const userLogin = async (req: NextApiRequest, res: NextApiResponse) => {
 
   res.setHeader('Content-Type', 'application/json');
   try {
+    const cookies: Cookies = new Cookies(req, res);
     const SQLquery: string = `SELECT * FROM PUBLIC.USERS where username = '${username}';`;
     const { rows } = await db.query(SQLquery);
     const userData: User = rows[0];
@@ -28,6 +30,7 @@ const userLogin = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!compare)
       throw Error('Incorrect username or password. Please try again.');
     console.log(`User: ${username} logged in`);
+    cookies.set('ssid', `${userData.user_id}`);
     return res.status(200).json(username);
   } catch (err) {
     console.log(err);

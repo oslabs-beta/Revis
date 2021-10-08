@@ -2,10 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import Cookies from 'cookies';
 import db from '../../models/Revis';
 
-const bcrypt = require('bcryptjs');
-
-const addServer = async (req: NextApiRequest, res: NextApiResponse) => {
-  let hashedPassword: string;
+const deleteServer = async (req: NextApiRequest, res: NextApiResponse) => {
   let SQLquery: string;
   type Server = {
     name: string;
@@ -17,18 +14,15 @@ const addServer = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const parsedBody: Server = JSON.parse(req.body);
 
-  const { name, IP, PORT, endPoint, password } = parsedBody;
+  const { name, endPoint, password } = parsedBody;
 
   try {
     const cookies: Cookies = new Cookies(req, res);
     const userId: String = cookies.get('ssid');
     if (endPoint && password) {
-      hashedPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
-      SQLquery = `INSERT INTO "serverCloud" (servername,endpoint,password,user_id)
-         VALUES ('${name}','${endPoint}','${hashedPassword}',${userId});`;
+      SQLquery = `DELETE FROM "serverCloud" WHERE servername = '${name}' AND user_id = ${userId};`;
     } else {
-      SQLquery = `INSERT INTO "serverLocal" (servername,ip,port,user_id)
-         VALUES ('${name}','${IP}','${PORT}',${userId});`;
+      SQLquery = `DELETE FROM "serverLocal" where servername = '${name}' AND user_id = ${userId};`;
     }
 
     await db.query(SQLquery);
@@ -39,4 +33,4 @@ const addServer = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(400).json({ success: false, error: err });
   }
 };
-export default addServer;
+export default deleteServer;

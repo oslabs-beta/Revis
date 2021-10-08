@@ -89,6 +89,14 @@ function Sidebar(props) {
     });
   };
 
+  const deleteServerFromDataBase = (name: string) => {
+    fetch('/api/deleteServer', {
+      method: 'DELETE',
+      body: JSON.stringify({ name }),
+      'Content-Type': 'application/json',
+    });
+  };
+
   const addServer = (e) => {
     e.preventDefault();
     const name: HTMLInputElement = document.querySelector('#name');
@@ -106,6 +114,7 @@ function Sidebar(props) {
   const removeServer = (e) => {
     const serverNameToRemove: string = e.target.id;
     if (!serverNameToRemove) return;
+    deleteServerFromDataBase(serverNameToRemove);
     updateList(serverList.filter((elem) => elem.name !== serverNameToRemove));
   };
 
