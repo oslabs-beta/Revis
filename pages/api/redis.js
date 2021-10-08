@@ -1,16 +1,16 @@
-const Redis = require("ioredis");
+const Redis = require('ioredis');
 
 const metrics = async (req, res) => {
   // this object is for the front end:
   const metricsUpdated = {
-    total_net_output_bytes: "",
-    used_memory: "",
-    connected_clients: "",
-    evicted_keys: "",
-    keyspace_hits: "",
-    keyspace_misses: "",
-    total_net_input_bytes: "",
-    uptime_in_seconds: "",
+    total_net_output_bytes: '',
+    used_memory: '',
+    connected_clients: '',
+    evicted_keys: '',
+    keyspace_hits: '',
+    keyspace_misses: '',
+    total_net_input_bytes: '',
+    uptime_in_seconds: '',
   };
 
   // this object is for the graphs
@@ -35,20 +35,21 @@ const metrics = async (req, res) => {
 
     let data = await redis.info();
     // we receive the information from redis in a string so we split it
-    data = data.split("\r\n");
+    data = data.split('\r\n');
 
     data.forEach((el) => {
       // we split it again to find the keys and values of each line
-      const keysAndValues = el.split(":");
+      const keysAndValues = el.split(':');
 
       if (metricsToEvaluate.hasOwnProperty(keysAndValues[0])) {
         metricsToEvaluate[keysAndValues[0]].push(keysAndValues[1]);
         metricsUpdated[keysAndValues[0]] = keysAndValues[1];
       }
     });
-    await redis.quit(() => {
-      console.log("exited redis server");
-    });
+    if (data)
+      await redis.quit(() => {
+        // console.log('exited redis server');
+      });
   }
 
   await creatingMetricsObject();
@@ -57,15 +58,12 @@ const metrics = async (req, res) => {
     creatingMetricsObject();
   }, 100000);
 
-  const { method } = req;
-  //when we receive a get request we don't need to fetch from redis, we use our object
-  switch (method) {
-    case "GET":
-      try {
-        res.status(200).json(metricsUpdated);
-      } catch {
-        console.log("error in getting metrics");
-      }
+  // when we receive a get request we don't need to fetch from redis, we use our object
+
+  try {
+    res.status(200).json(metricsUpdated);
+  } catch {
+    console.log('error in getting metrics');
   }
 };
 
