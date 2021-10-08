@@ -89,8 +89,7 @@ function Sidebar(props) {
       .then((data) => {
         const cloudData: string[] = data.cloud;
         const localData: string[] = data.local;
-        console.log(cloudData, localData);
-        // updateList(localData);
+        updateList([...cloudData, ...localData]);
       });
   };
 
@@ -118,7 +117,7 @@ function Sidebar(props) {
 
     if (validityCheckOnSubmit(name, IP, PORT)) {
       updateList(
-        serverList.concat({ name: name.value, IP: IP.value, PORT: PORT.value })
+        serverList.concat({ name: name.value, ip: IP.value, port: PORT.value })
       );
       postServerToDataBase(name.value, IP.value, PORT.value);
     }

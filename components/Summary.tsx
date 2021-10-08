@@ -19,10 +19,10 @@ export default function Summary() {
       response = await response.json();
       setMetrics(response);
     }
-    const interal = setInterval(() => {
-      fetchDataFromRedis();
-    }, 5000);
-    return () => clearInterval(interal);
+    // const interal = setInterval(() => {
+    //   fetchDataFromRedis();
+    // }, 5000);
+    // return () => clearInterval(interal);
   }, []);
 
   const metricsForTable = [];

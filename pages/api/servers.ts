@@ -25,7 +25,7 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
     case 'GET':
       try {
         SQLqueryCloud = `SELECT name,endpoint FROM "serverCloud" WHERE user_id = ${userId};`;
-        SQLqueryLocal = `SELECT name,IP,PORT FROM "serverLocal" WHERE user_id = ${userId};`;
+        SQLqueryLocal = `SELECT name,ip,port FROM "serverLocal" WHERE user_id = ${userId};`;
 
         const cloudDataFull = await db.query(SQLqueryCloud);
         const cloud: String[] = cloudDataFull.rows;
@@ -63,9 +63,9 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
         const parsedBody: Server = JSON.parse(req.body);
         const { name, endPoint, password } = parsedBody;
         if (endPoint && password) {
-          SQLquery = `DELETE FROM "serverCloud" WHERE servername = '${name}' AND user_id = ${userId};`;
+          SQLquery = `DELETE FROM "serverCloud" WHERE name = '${name}' AND user_id = ${userId};`;
         } else {
-          SQLquery = `DELETE FROM "serverLocal" where servername = '${name}' AND user_id = ${userId};`;
+          SQLquery = `DELETE FROM "serverLocal" where name = '${name}' AND user_id = ${userId};`;
         }
 
         await db.query(SQLquery);

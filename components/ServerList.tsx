@@ -15,8 +15,8 @@ export default function ServerList(props) {
     <Server
       key={index}
       name={elem.name}
-      IP={elem.IP}
-      PORT={elem.PORT}
+      IP={elem.ip}
+      PORT={elem.port}
       removeServer={removeServer}
       currentDivHover={currentDivHover}
       changeDivHover={changeDivHover}
