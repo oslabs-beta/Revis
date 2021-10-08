@@ -1,0 +1,24 @@
+@import "./colorsAndFonts.scss";
+
+.GraphContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-family: $fontOfMetrics;
+    color: $summaryTitleGrey;
+  }
+  #backButton {
+    position: absolute;
+    left: 4%;
+    top: 5%;
+    background-color: transparent;
+    border-color:transparent;
+    text-decoration: underline;
+    font-size: 20px;
+    color: $logoRed;
+    font-family: $fontOfSummaryTitle;
+  }
+}
