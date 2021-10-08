@@ -12,7 +12,6 @@
     left: 92%;
     top: 1%;
     color: $summaryTitleGrey;
-    width: 10px;
   }
 
   h1 {
@@ -33,12 +32,13 @@
     color: white;
     font-family: $fontOfMetrics;
     font-size: 3vh;
-    width: 70%;
 
     .metrics {
       display: flex;
       flex-direction: column;
       align-items: center;
+      word-wrap: break-word;
+      max-width: 45%;
     }
     button {
       margin-top: 0px;
@@ -47,6 +47,8 @@
       background-color: transparent;
       color: $background;
       font-family: $fontOfMetrics;
+      word-wrap: break-word;
+      max-width: 100%;
     }
   }
 }
