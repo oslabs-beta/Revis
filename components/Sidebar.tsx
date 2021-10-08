@@ -74,17 +74,23 @@ function Sidebar(props) {
 
     return (
       nameElement.validity.valid &&
-      ipElement.validity.valid &&
+      //ipElement.validity.valid &&
       portElement.validity.valid &&
       !alreadyAddedServerIP &&
       !alreadyAddedServerName
     );
   };
 
-  const postServerToDataBase = (name: string, IP: string, PORT: string) => {
+  const postServerToDataBase = (
+    name: string,
+    IP: string,
+    PORT: string,
+    endPoint: string,
+    password: string
+  ) => {
     fetch('/api/addServer', {
       method: 'POST',
-      body: JSON.stringify({ name, IP, PORT, username }),
+      body: JSON.stringify({ name, IP, PORT, username, endPoint, password }),
       'Content-Type': 'application/json',
     });
   };
@@ -102,6 +108,10 @@ function Sidebar(props) {
     const name: HTMLInputElement = document.querySelector('#name');
     const IP: HTMLInputElement = document.querySelector('#IP');
     const PORT: HTMLInputElement = document.querySelector('#PORT');
+    const endpoint: HTMLInputElement = document.querySelector('#endpoint');
+    const password: HTMLInputElement = document.querySelector(
+      '#cloudServerPassword'
+    );
 
     if (validityCheckOnSubmit(name, IP, PORT)) {
       updateList(
@@ -136,7 +146,7 @@ function Sidebar(props) {
   };
 
   return (
-    <div className={styles.sideBarWrapper} id="sideBar">
+    <div className={styles.sideBarWrapper} id='sideBar'>
       <ServerAdd addServer={addServer} />
       <ServerList
         serverList={serverList}
