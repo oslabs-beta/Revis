@@ -2,30 +2,28 @@
 // the table can have two tables for each row
 // import Metrics from "./metricsForSummary";
 
-import React, { useContext, useEffect, useState } from 'react';
-import { GetServerSideProps } from 'next';
-import styles from '../styles/Summary.module.scss';
-import { useStore } from '../context/Provider';
-import creatingMetricsObject from '../pages/api/redismonitor';
-import Metrics from './Metrics';
+import React, { useContext, useEffect, useState } from "react";
+import styles from "../styles/Summary.module.scss";
+import { useStore } from "../context/Provider";
+import Metrics from "./Metrics";
 
 export default function Summary() {
   const [metrics, setMetrics] = useState({});
-  const { metricsStore }: any = useStore();
+  // const { metricsStore }: any = useStore();
 
   useEffect(() => {
-    // async function fetchDataFromRedis() {
-    //   let response = await fetch('http://localhost:3000//api/redis', {
-    //     method: 'GET',
-    //   });
-    //   response = await response.json();
-    //   setMetrics(response);
-    //   metricsStore.metricsDispatch('updateMetrics', response);
-    // }
-    // const constantFetch = setInterval(() => {
-    //   fetchDataFromRedis();
-    // }, []);
-  });
+    async function fetchDataFromRedis() {
+      let response = await fetch('http://localhost:3000//api/redis', {
+        method: 'GET',
+      });
+      response = await response.json();
+      setMetrics(response);
+    }
+    const interal = setInterval(() => {
+      fetchDataFromRedis();
+    }, 5000);
+    return () => clearInterval(interal);
+  }, []);
 
   const metricsForTable = [];
 
