@@ -14,18 +14,18 @@ export default function Summary() {
   const { metricsStore }: any = useStore();
 
   useEffect(() => {
-    // async function fetchDataFromRedis() {
-    //   let response = await fetch('http://localhost:3000//api/redis', {
-    //     method: 'GET',
-    //   });
-    //   response = await response.json();
-    //   setMetrics(response);
-    //   metricsStore.metricsDispatch('updateMetrics', response);
-    // }
-    // const constantFetch = setInterval(() => {
-    //   fetchDataFromRedis();
-    // }, []);
-  });
+    async function fetchDataFromRedis() {
+      let response = await fetch('http://localhost:3000//api/redis', {
+        method: 'GET',
+      });
+      response = await response.json();
+      setMetrics(response);
+    }
+    const interal = setInterval(() => {
+      fetchDataFromRedis();
+    }, 5000);
+    return () => clearInterval(interal);
+  }, []);
 
   const metricsForTable = [];
 
