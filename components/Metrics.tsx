@@ -1,4 +1,5 @@
 import React from "react";
+import router from "next/router";
 import styles from "../styles/Summary.module.scss";
 
 export default function Metrics(props) {
@@ -6,7 +7,9 @@ export default function Metrics(props) {
   return (
     <div className={styles.metrics}>
       <h5>{keys}</h5>
-      <button type="button">{values}</button>
+      <button type="button" onClick={() => router.replace("/redisinfo")}>
+        {values}
+      </button>
     </div>
   );
 }
