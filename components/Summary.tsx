@@ -2,10 +2,10 @@
 // the table can have two tables for each row
 // import Metrics from "./metricsForSummary";
 
-import React, { useContext, useEffect, useState } from "react";
-import styles from "../styles/Summary.module.scss";
-import { useStore } from "../context/Provider";
-import Metrics from "./Metrics";
+import React, { useContext, useEffect, useState } from 'react';
+import styles from '../styles/Summary.module.scss';
+import { useStore } from '../context/Provider';
+import Metrics from './Metrics';
 
 export default function Summary() {
   const [metrics, setMetrics] = useState({});
@@ -13,7 +13,7 @@ export default function Summary() {
 
   useEffect(() => {
     async function fetchDataFromRedis() {
-      let response = await fetch('http://localhost:3000//api/redis', {
+      let response = await fetch('http://localhost:3000/api/redis', {
         method: 'GET',
       });
       response = await response.json();

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCube } from '@fortawesome/free-solid-svg-icons';
 import ServerAdd from './ServerAdd';
@@ -14,6 +14,8 @@ function Sidebar(props) {
 
   const [currentServer, setCurrentServer] = useState(null);
   const [currentDivHover, changeDivHover] = useState(null);
+
+  useEffect(() => populateServerList(), []);
 
   const validityCheckOnSubmit = (
     nameElement: HTMLInputElement,
@@ -81,8 +83,19 @@ function Sidebar(props) {
     );
   };
 
+  const populateServerList = () => {
+    fetch('/api/servers')
+      .then((response) => response.json())
+      .then((data) => {
+        const cloudData: string[] = data.cloud;
+        const localData: string[] = data.local;
+        console.log(cloudData, localData);
+        // updateList(localData);
+      });
+  };
+
   const postServerToDataBase = (name: string, IP: string, PORT: string) => {
-    fetch('/api/addServer', {
+    fetch('/api/servers', {
       method: 'POST',
       body: JSON.stringify({ name, IP, PORT, username }),
       'Content-Type': 'application/json',
@@ -90,14 +103,14 @@ function Sidebar(props) {
   };
 
   const deleteServerFromDataBase = (name: string) => {
-    fetch('/api/deleteServer', {
+    fetch('/api/servers', {
       method: 'DELETE',
       body: JSON.stringify({ name }),
       'Content-Type': 'application/json',
     });
   };
 
-  const addServer = (e) => {
+  const addServer = (e: Event) => {
     e.preventDefault();
     const name: HTMLInputElement = document.querySelector('#name');
     const IP: HTMLInputElement = document.querySelector('#IP');
@@ -111,7 +124,7 @@ function Sidebar(props) {
     }
   };
 
-  const removeServer = (e) => {
+  const removeServer = (e: Event) => {
     const serverNameToRemove: string = e.target.id;
     if (!serverNameToRemove) return;
     deleteServerFromDataBase(serverNameToRemove);
@@ -130,7 +143,7 @@ function Sidebar(props) {
     showOrHideSideBar(!sideBarHidden);
   };
 
-  const changeCurrentServer = (e) => {
+  const changeCurrentServer = (e: Event) => {
     const severIP: string = e.target.id;
     setCurrentServer(e.target.id);
   };

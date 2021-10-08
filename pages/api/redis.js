@@ -1,29 +1,29 @@
 const Redis = require('ioredis');
 
-const metrics = async (req, res) => {
-  // this object is for the front end:
-  const metricsUpdated = {
-    total_net_output_bytes: '',
-    used_memory: '',
-    connected_clients: '',
-    evicted_keys: '',
-    keyspace_hits: '',
-    keyspace_misses: '',
-    total_net_input_bytes: '',
-    uptime_in_seconds: '',
-  };
+// this object is for the front end:
+const metricsUpdated = {
+  total_net_output_bytes: '',
+  used_memory: '',
+  connected_clients: '',
+  evicted_keys: '',
+  keyspace_hits: '',
+  keyspace_misses: '',
+  total_net_input_bytes: '',
+  uptime_in_seconds: '',
+};
 
-  // this object is for the graphs
-  const metricsToEvaluate = {
-    total_net_output_bytes: [],
-    used_memory: [],
-    connected_clients: [],
-    evicted_keys: [],
-    keyspace_hits: [],
-    keyspace_misses: [],
-    total_net_input_bytes: [],
-    uptime_in_seconds: [],
-  };
+// this object is for the graphs
+const metricsToEvaluate = {
+  total_net_output_bytes: [],
+  used_memory: [],
+  connected_clients: [],
+  evicted_keys: [],
+  keyspace_hits: [],
+  keyspace_misses: [],
+  total_net_input_bytes: [],
+  uptime_in_seconds: [],
+};
+const metrics = async (req, res) => {
   // how long you've been at the server for
 
   async function creatingMetricsObject() {
@@ -46,6 +46,7 @@ const metrics = async (req, res) => {
         metricsUpdated[keysAndValues[0]] = keysAndValues[1];
       }
     });
+    res.json(metricsToEvaluate);
     if (data)
       await redis.quit(() => {
         // console.log('exited redis server');
