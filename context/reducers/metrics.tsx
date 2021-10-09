@@ -1,11 +1,11 @@
-const metrics = (state, action) => {
+import { Metrics, Action } from '../Types';
+
+const metrics = (state: Metrics, action: Action) => {
   const metricsUpdated: any = action.message;
 
   switch (action.type) {
-    case "updateMetrics":
+    case 'updateMetrics':
       return { ...state, metricsUpdated };
-      // const newState = Object.assign({}, state, metricsUpdated);
-      return newState;
     default:
       return state;
   }

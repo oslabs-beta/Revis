@@ -11,9 +11,6 @@ function SignUp() {
 
   const { username, password, email } = userInfo;
 
-  // MUST INCORPORATE BACK PAGE
-  let previousPage = 1;
-
   const submitHandler = (e) => {
     e.preventDefault();
     fetch('/api/user', {
@@ -38,9 +35,9 @@ function SignUp() {
               className={styles.userInput}
               type="text"
               onChange={(e) =>
-                setUserInfo({ ...userInfo, userName: e.target.value })
+                setUserInfo({ ...userInfo, username: e.target.value })
               }
-              value={userInfo.userName}
+              value={userInfo.username}
               required
             ></input>
           </label>

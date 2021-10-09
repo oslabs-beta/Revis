@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Server from './Server';
 import styles from '../styles/ServerList.module.scss';
 
 export default function ServerList(props) {
-  const { serverList, removeServer, currentDivHover, changeDivHover } = props;
+  const [currentDivHover, changeDivHover] = useState(null);
+  const { serverList } = props;
 
   interface server {
     name: string;
@@ -17,7 +18,6 @@ export default function ServerList(props) {
       name={elem.name}
       IP={elem.ip}
       PORT={elem.port}
-      removeServer={removeServer}
       currentDivHover={currentDivHover}
       changeDivHover={changeDivHover}
     />

@@ -1,51 +1,69 @@
-import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCube } from "@fortawesome/free-solid-svg-icons";
-import ServerAdd from "./ServerAdd";
-import ServerList from "./ServerList";
-import { useStore } from "../context/Provider";
-import styles from "../styles/Sidebar.module.scss";
+import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCube } from '@fortawesome/free-solid-svg-icons';
+import ServerAdd from './ServerAdd';
+import ServerList from './ServerList';
+import { useStore } from '../context/Provider';
+import styles from '../styles/Sidebar.module.scss';
 
-function Sidebar(props) {
+function Sidebar() {
   const [sideBarHidden, showOrHideSideBar] = useState(false);
-  const [serverList, updateList] = useState([]);
   const { user, servers }: any = useStore();
+  const {
+    serverList,
+    serversDispatch,
+  }: { serverList: string[]; serversDispatch: Function } = servers;
   const { username }: { username: string } = user.userState;
 
   const [currentServer, setCurrentServer] = useState(null);
-  const [currentDivHover, changeDivHover] = useState(null);
 
+  const populateServerList = () => {
+    fetch('/api/servers')
+      .then((response) => response.json())
+      .then((data) => {
+        const cloudData: string[] = data.cloud;
+        const localData: string[] = data.local;
+
+        if (cloudData.length === 0 && localData.length === 0) {
+          serversDispatch({});
+          return;
+        }
+        serversDispatch({
+          type: 'populateList',
+          message: [...cloudData, ...localData],
+        });
+      });
+  };
   useEffect(() => populateServerList(), []);
-
   const validityCheckOnSubmit = (
     nameElement: HTMLInputElement,
     ipElement: HTMLInputElement,
     portElement: HTMLInputElement
   ) => {
     if (nameElement.validity.tooShort || nameElement.validity.valueMissing) {
-      nameElement.setCustomValidity("Please input at least four characters");
+      nameElement.setCustomValidity('Please input at least four characters');
       nameElement.reportValidity();
-    } else nameElement.setCustomValidity("");
+    } else nameElement.setCustomValidity('');
 
     if (ipElement.validity.patternMismatch || ipElement.validity.valueMissing) {
       ipElement.setCustomValidity(
-        "Please input a proper IP number (eg. 192.45.23.64)"
+        'Please input a proper IP number (eg. 192.45.23.64)'
       );
       ipElement.reportValidity();
-    } else ipElement.setCustomValidity("");
+    } else ipElement.setCustomValidity('');
 
     if (
       portElement.validity.patternMismatch ||
       portElement.validity.valueMissing
     ) {
       portElement.setCustomValidity(
-        "Please input a proper port number (eg. 8080)"
+        'Please input a proper port number (eg. 8080)'
       );
       portElement.reportValidity();
-    } else portElement.setCustomValidity("");
+    } else portElement.setCustomValidity('');
 
     const alreadyAddedServerIP: boolean = serverList.some(
-      (elem) => elem.IP === ipElement.value
+      (elem) => elem.ip === ipElement.value
     );
 
     const alreadyAddedServerName: boolean = serverList.some(
@@ -54,73 +72,33 @@ function Sidebar(props) {
 
     if (alreadyAddedServerIP) {
       ipElement.setCustomValidity(
-        "This IP address has already been added. Please input a unique IP."
+        'This IP address has already been added. Please input a unique IP.'
       );
       ipElement.reportValidity();
     } else if (
       ipElement.validity.patternMismatch &&
       ipElement.validity.valueMissing
     )
-      ipElement.setCustomValidity("");
+      ipElement.setCustomValidity('');
 
     if (alreadyAddedServerName) {
       nameElement.setCustomValidity(
-        "This name has already been added. Please enter a unique name."
+        'This name has already been added. Please enter a unique name.'
       );
       nameElement.reportValidity();
     } else if (
       nameElement.validity.tooShort &&
       nameElement.validity.valueMissing
     )
-      nameElement.setCustomValidity("");
+      nameElement.setCustomValidity('');
 
     return (
       nameElement.validity.valid &&
-      //ipElement.validity.valid &&
+      ipElement.validity.valid &&
       portElement.validity.valid &&
       !alreadyAddedServerIP &&
       !alreadyAddedServerName
     );
-  };
-
-<<<<<<< HEAD
-  const populateServerList = () => {
-    fetch("/api/servers")
-      .then((response) => response.json())
-      .then((data) => {
-        const cloudData: string[] = data.cloud;
-        const localData: string[] = data.local;
-        updateList([...cloudData, ...localData]);
-      });
-  };
-
-  const postServerToDataBase = (name: string, IP: string, PORT: string) => {
-    fetch("/api/servers", {
-      method: "POST",
-      body: JSON.stringify({ name, IP, PORT, username }),
-      "Content-Type": "application/json",
-=======
-  const postServerToDataBase = (
-    name: string,
-    IP: string,
-    PORT: string,
-    endPoint: string,
-    password: string
-  ) => {
-    fetch('/api/addServer', {
-      method: 'POST',
-      body: JSON.stringify({ name, IP, PORT, username, endPoint, password }),
-      'Content-Type': 'application/json',
->>>>>>> chaosBranch
-    });
-  };
-
-  const deleteServerFromDataBase = (name: string) => {
-    fetch("/api/servers", {
-      method: "DELETE",
-      body: JSON.stringify({ name }),
-      "Content-Type": "application/json",
-    });
   };
 
   const addServer = (e: Event) => {
@@ -130,32 +108,21 @@ function Sidebar(props) {
     const PORT: HTMLInputElement = document.querySelector('#PORT');
 
     if (validityCheckOnSubmit(name, IP, PORT)) {
-      updateList(
-        serverList.concat({ name: name.value, ip: IP.value, port: PORT.value })
-      );
-      servers.serversDispatch({
-        type: "addServer",
-        message: { name: name.value, ip: IP.value, port: PORT.value },
+      serversDispatch({
+        type: 'addServer',
+        message: { name: name.value, ip: IP.value, port: PORT.value, username },
       });
-      postServerToDataBase(name.value, IP.value, PORT.value);
     }
-  };
-
-  const removeServer = (e: Event) => {
-    const serverNameToRemove: string = e.target.id;
-    if (!serverNameToRemove) return;
-    deleteServerFromDataBase(serverNameToRemove);
-    updateList(serverList.filter((elem) => elem.name !== serverNameToRemove));
   };
 
   const changeSidebarVisual = () => {
     if (sideBarHidden) {
-      document.querySelector("#sideBar").style.width = "100%";
-      document.querySelector(`#${styles.cube}`).style.left = "15rem";
+      document.querySelector('#sideBar').style.width = '100%';
+      document.querySelector(`#${styles.cube}`).style.left = '15rem';
     } else {
-      document.querySelector("#sideBar").style.width = "0px";
-      document.querySelector("#sideBar").style.overflow = "hidden";
-      document.querySelector(`#${styles.cube}`).style.left = "0%";
+      document.querySelector('#sideBar').style.width = '0px';
+      document.querySelector('#sideBar').style.overflow = 'hidden';
+      document.querySelector(`#${styles.cube}`).style.left = '0%';
     }
     showOrHideSideBar(!sideBarHidden);
   };
@@ -166,14 +133,9 @@ function Sidebar(props) {
   };
 
   return (
-    <div className={styles.sideBarWrapper} id='sideBar'>
+    <div className={styles.sideBarWrapper} id="sideBar">
       <ServerAdd addServer={addServer} />
-      <ServerList
-        serverList={serverList}
-        removeServer={removeServer}
-        currentDivHover={currentDivHover}
-        changeDivHover={changeDivHover}
-      />
+      <ServerList serverList={serverList} />
       <FontAwesomeIcon
         id={styles.cube}
         icon={faCube}

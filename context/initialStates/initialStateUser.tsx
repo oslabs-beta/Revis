@@ -1,5 +1,5 @@
-export default {
-    
-        username: 'Revis'
-    
-}
+const user: { username: string } = {
+  username: '',
+};
+
+export default user;

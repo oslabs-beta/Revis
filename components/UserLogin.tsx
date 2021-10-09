@@ -1,18 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import router from 'next/router';
 import PropTypes from 'prop-types';
 import styles from '../styles/RightSideLogin.module.scss';
 import { useStore } from '../context/Provider';
 
 function UserLogin(props) {
-  const [userInfo, setUserInfo] = useState<any>({ userName: '', password: '' });
-  const [finalUser, setFinalUser] = useState<any>('');
+  const [userInfo, setUserInfo] = useState({ userName: '', password: '' });
   const { onForgotPassword, onSignUp } = props;
   const { user }: any = useStore();
-
-  useEffect(() => {
-    user.userDispatch({ type: 'updateUsername', message: finalUser });
-  }, [finalUser]);
 
   const { username, password } = userInfo;
   const onSubmitHandler = (e) => {
@@ -26,11 +21,11 @@ function UserLogin(props) {
       }),
       'Content-Type': 'application/json',
     })
-      .then((results) => {
-        if (results.status === 200) {
-          setFinalUser(username);
+      .then((response: Response) => {
+        if (response.status === 200) {
+          user.userDispatch({ type: 'updateUsername', message: username });
           router.replace('/dashboard');
-        } else throw results;
+        } else throw response;
       })
       .catch((error) => {
         document.querySelector('#errorDiv').innerHTML = error.error;

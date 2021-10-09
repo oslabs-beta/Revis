@@ -1,9 +1,18 @@
+import React from 'react';
 import styles from '../styles/Server.module.scss';
+import { useStore } from '../context/Provider';
 
 export default function Server(props) {
-  const { name, IP, PORT, removeServer, currentDivHover, changeDivHover } =
-    props;
+  const { name, IP, PORT, currentDivHover, changeDivHover } = props;
 
+  const { servers }: any = useStore();
+  const { serversDispatch }: { serversDispatch: Function } = servers;
+  const removeServer = (e: Event) => {
+    serversDispatch({
+      type: 'deleteServer',
+      message: { name: e.target.id },
+    });
+  };
   const removeServerAnimation = (e) => {
     const wrapperName: HTMLDivElement = e.target.attributes[1].value;
     const removeServerDiv: HTMLDivElement = document.querySelector(
