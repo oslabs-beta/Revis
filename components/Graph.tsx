@@ -27,7 +27,7 @@ function Graph() {
         <Line type="monotone" dataKey="metric2" stroke="#77EC7F" />
         <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
         <XAxis dataKey="name" />
-        <YAxis />
+        <YAxis label="time(ms)" />
         <Tooltip />
       </LineChart>
     </div>

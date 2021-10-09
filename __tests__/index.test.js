@@ -1,11 +1,15 @@
-import React from 'react'
-import {render, fireEvent, screen, cleanup} from '@testing-library/react'
-import '@testing-library/jest-dom'
+import * as React from 'react';
+import {render, fireEvent, screen, cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import { GlobalProvider } from '../context/Provider';
 import HomePage from '../pages/index';
 
-xdescribe('testing functionality of homepage',() => {
+describe('testing functionality of homepage',() => {
   
-  beforeEach(() => render(<HomePage />));
+  beforeEach(() => render(
+    <GlobalProvider>
+      <HomePage />
+    </GlobalProvider>));
   afterEach(cleanup);
 
   describe('testing functionality of login component', () => {
