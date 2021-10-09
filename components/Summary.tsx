@@ -2,13 +2,13 @@
 // the table can have two tables for each row
 // import Metrics from "./metricsForSummary";
 
-import React, { useContext, useEffect, useState } from "react";
-import router from "next/router";
-import styles from "../styles/Summary.module.scss";
-import { useStore } from "../context/Provider";
-import Metrics from "./Metrics";
-import Welcome from "./Welcome";
-import Loading from "./Loading";
+import React, { useContext, useEffect, useState } from 'react';
+import router from 'next/router';
+import styles from '../styles/Summary.module.scss';
+import { useStore } from '../context/Provider';
+import Metrics from './Metrics';
+import Welcome from './Welcome';
+import Loading from './Loading';
 
 export default function Summary() {
   const [metrics, setMetrics] = useState({});
@@ -16,16 +16,15 @@ export default function Summary() {
 
   useEffect(() => {
     async function fetchDataFromRedis() {
-      let response = await fetch("http://localhost:3000/api/redis", {
-        method: "GET",
+      let response = await fetch('http://localhost:3000/api/redis', {
+        method: 'GET',
       });
       response = await response.json();
       setMetrics(response);
       metricsStore.metricsDispatch({
-        type: "updateMetrics",
-        message: {response}
+        type: 'updateMetrics',
+        message: { response },
       });
-      console.log(metricsStore)
     }
     // const interal = setInterval(() => {
     //   fetchDataFromRedis();
@@ -35,7 +34,7 @@ export default function Summary() {
   }, []);
 
   const metricsForTable = [];
-  
+
   Object.entries(metrics).forEach((el) => {
     metricsForTable.push(<Metrics keys={el[0]} values={el[1]} />);
   });
@@ -57,7 +56,9 @@ export default function Summary() {
           </div>
         )}
       </div>
-      <button type="button" onClick={() => router.replace('/graphs')}>Graphs</button>
+      <button type="button" onClick={() => router.replace('/graphs')}>
+        Graphs
+      </button>
     </div>
   );
 }
