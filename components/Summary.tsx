@@ -7,6 +7,7 @@ import styles from "../styles/Summary.module.scss";
 import { useStore } from "../context/Provider";
 import Metrics from "./Metrics";
 import Welcome from "./Welcome";
+import Loading from "./Loading";
 
 export default function Summary() {
   const [metrics, setMetrics] = useState({});
@@ -20,10 +21,10 @@ export default function Summary() {
       response = await response.json();
       setMetrics(response);
     }
-    // const interal = setInterval(() => {
-    //   fetchDataFromRedis();
-    // }, 5000);
-    // return () => clearInterval(interal);
+    const interal = setInterval(() => {
+      fetchDataFromRedis();
+    }, 50000000);
+    return () => clearInterval(interal);
   }, []);
 
   const metricsForTable = [];
@@ -35,11 +36,20 @@ export default function Summary() {
   return (
     <div className={styles.SummaryWrapper}>
       <div className={styles.Welcome}>
-      <Welcome />
+        <Welcome />
       </div>
-
-      <h1> Summary </h1>
-      <div className={styles.tableWrapper}>{metricsForTable}</div>
+      <div>
+        {metricsForTable.length === 0 ? (
+          <div>
+            <Loading />
+          </div>
+        ) : (
+          <div>
+            <h1> Summary </h1>
+            <div className={styles.tableWrapper}>{metricsForTable}</div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
