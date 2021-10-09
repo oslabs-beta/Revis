@@ -6,4 +6,7 @@ module.exports = {
     REDIS_PORT: "16424",
     REDIS_PW: "redis",
   },
+  images: {
+    domains: ["tonygentilcore.com"],
+  },
 };

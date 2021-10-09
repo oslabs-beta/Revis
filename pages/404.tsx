@@ -1,5 +1,19 @@
+import React from "react";
+import Image from "next/image";
+
 function Test() {
-  return <div>404 lol</div>;
+  return (
+    <div>
+      <h1>404 error</h1>
+      <h2>Oh no! Page not found</h2>
+      <Image
+        src="https://tonygentilcore.com/wp-content/uploads/2018/11/sad-puppy.jpg"
+        alt="Page failed loading puppy"
+        height="400px"
+        width="400px"
+      />
+    </div>
+  );
 }
 
 export default Test;
