@@ -20,8 +20,8 @@ function ServerAdd(props) {
     if (!nameElement.validity.tooShort && !nameElement.validity.valueMissing)
       nameElement.setCustomValidity('');
 
-    if (!ipElement.validity.patternMismatch && !ipElement.validity.valueMissing)
-      ipElement.setCustomValidity('');
+    // if (!ipElement.validity.patternMismatch && !ipElement.validity.valueMissing)
+    //   ipElement.setCustomValidity('');
 
     if (
       !portElement.validity.patternMismatch &&
@@ -77,7 +77,7 @@ function ServerAdd(props) {
                   id='endpoint'
                   autoComplete='off'
                   required
-                  placeholder='redis-server.com'
+                  placeholder='Redis-server.com'
                 ></input>
                 <div className={styles.errorDiv}></div>
               </div>
@@ -87,7 +87,8 @@ function ServerAdd(props) {
                   type='password'
                   id='cloudServerPassword'
                   autoComplete='off'
-                  placeholder='optional'
+                  placeholder='Password'
+                  required
                 ></input>
                 <div className={styles.errorDiv}></div>
               </div>
