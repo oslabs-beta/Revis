@@ -1,4 +1,4 @@
-import HomePage from '.';
+import React from 'react';
 import { GlobalProvider } from '../context/Provider';
 import '../styles/globals.scss';
 // import '../styles/LeftSide.scss';

@@ -1,8 +1,8 @@
+import React, { useState } from "react";
 import LogoHomeScreen from "../components/LeftSideHomeScreen";
 import UserLogin from "../components/UserLogin";
 import ForgotPassword from "../components/ForgotPassword";
 import SignUp from "../components/SignUp";
-import { useState } from "react";
 import styles from "../styles/RightSideLogin.module.scss";
 
 
@@ -18,7 +18,7 @@ function HomePage() {
   const onSignUp = () => {
     setPages('signUp');
   };
-
+  
   return (
     <div className='homePageWrapper'>
       <LogoHomeScreen />
