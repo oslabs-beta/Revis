@@ -36,7 +36,7 @@ export default function Summary() {
   const metricsForTable = [];
 
   Object.entries(metrics).forEach((el) => {
-    metricsForTable.push(<Metrics keys={el[0]} values={el[1]} />);
+    metricsForTable.push(<Metrics key={el[0]} keys={el[0]} values={el[1]} />);
   });
 
   return (
