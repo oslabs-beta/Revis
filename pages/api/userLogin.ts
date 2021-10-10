@@ -1,23 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Cookies from 'cookies';
 import db from '../../models/Revis';
+import User from '../../interfaces';
 
 const bcrypt = require('bcryptjs');
 
 const userLogin = async (req: NextApiRequest, res: NextApiResponse) => {
-  let username: string | string[];
-  let password: string | string[];
-  type User = {
-    user_id: number;
-    username: string;
-    password: string;
-    email: string;
-    session: string;
-  };
-
   const parsedBody = JSON.parse(req.body);
-  username = parsedBody.username;
-  password = parsedBody.password;
+  const { username }: { username: string | string[] } = parsedBody;
+  const { password }: { password: string | string[] } = parsedBody;
 
   res.setHeader('Content-Type', 'application/json');
   try {
