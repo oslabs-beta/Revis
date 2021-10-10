@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import router from 'next/router';
 import styles from '../styles/RightSideLogin.module.scss';
+import { User } from '../interfaces';
 
-function SignUp() {
-  const [userInfo, setUserInfo] = useState<any>({
+interface SignUpProps {
+  previousPage: () => () => void;
+}
+
+function SignUp({ previousPage }: SignUpProps) {
+  const [userInfo, setUserInfo] = useState<User>({
     username: '',
     email: '',
     password: '',
@@ -11,10 +17,11 @@ function SignUp() {
 
   const { username, password, email } = userInfo;
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     fetch('/api/user', {
       method: 'POST',
+      // headers: requestHeaders,
       body: JSON.stringify({
         username,
         password,
@@ -72,7 +79,7 @@ function SignUp() {
         <button
           onClick={() => router.replace('/dashboard')}
           className={styles.submitButton}
-          type="button"
+          type="submit"
         >
           Submit
         </button>
@@ -86,6 +93,10 @@ function SignUp() {
       </button>
     </div>
   );
+}
+
+SignUp.propTypes = {
+  previousPage: PropTypes.func.isRequired,
 }
 
 export default SignUp;
