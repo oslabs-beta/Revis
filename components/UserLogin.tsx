@@ -3,14 +3,19 @@ import router from 'next/router';
 import PropTypes from 'prop-types';
 import styles from '../styles/RightSideLogin.module.scss';
 import { useStore } from '../context/Provider';
+import { User } from '../interfaces';
 
-function UserLogin(props) {
-  const [userInfo, setUserInfo] = useState({ userName: '', password: '' });
-  const { onForgotPassword, onSignUp } = props;
+interface UserLoginProps {
+  // use type Function or () => void if no arguments
+  onForgotPassword: () => void;
+  onSignUp: () => void;
+};
+
+function UserLogin({ onForgotPassword, onSignUp }: UserLoginProps) {
+  const [userInfo, setUserInfo] = useState<User>({ username: '', password: '' });
   const { user }: any = useStore();
-
   const { username, password } = userInfo;
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     fetch('/api/userLogin', {
@@ -78,6 +83,7 @@ function UserLogin(props) {
           Sign Up
         </button>
       </div>
+      <div id="errorDiv"></div>
     </div>
   );
 }

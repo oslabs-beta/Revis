@@ -1,19 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Cookies from 'cookies';
 import db from '../../models/Revis';
+// import { parseBody } from 'next/dist/server/api-utils';
 
 const bcrypt = require('bcryptjs');
 
 const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
-  let username: string | string[];
-  let password: string | string[];
-  let email: string | string[];
   let hashedPassword: string;
 
   const parsedBody = JSON.parse(req.body);
-  username = parsedBody.username;
-  password = parsedBody.password;
-  email = parsedBody.email;
+  const { username }: { username: string | string[] } = parsedBody;
+  const { password }: { password: string | string[] } = parsedBody;
+  const { email }: { email: string | string[] } = parsedBody;
 
   const SALT_WORK_FACTOR: number = 10;
   try {
@@ -27,7 +25,7 @@ const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
     cookies.set('ssid', `${userId}`);
     return res.status(200).json({ success: true });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     const { constraint }: { constraint: string } = err;
     switch (constraint) {
       case 'users_username_key':
