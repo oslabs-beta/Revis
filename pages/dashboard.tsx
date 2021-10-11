@@ -8,6 +8,7 @@ export default function about() {
     <div className={styles.dashboardWrapper}>
       <div className={styles.sidebarWrapper}>
         <Sidebar_Endpoint />
+        {/* <Sidebar /> */}
       </div>
       <div className={styles.summaryWrapper}>
         <Summary />

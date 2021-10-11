@@ -102,16 +102,6 @@ function Sidebar(props) {
     );
   };
 
-  const populateServerList = () => {
-    fetch("/api/servers")
-      .then((response) => response.json())
-      .then((data) => {
-        const cloudData: string[] = data.cloud;
-        const localData: string[] = data.local;
-        updateList([...cloudData, ...localData]);
-      });
-  };
-
   const postServerToDataBase = (name: string, IP: string, PORT: string) => {
     fetch("/api/servers", {
       method: "POST",
