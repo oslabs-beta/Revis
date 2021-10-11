@@ -18,8 +18,7 @@ const userLogin = async (req: NextApiRequest, res: NextApiResponse) => {
     const userData: User = rows[0];
     const hashedPassword: string = userData.password;
     const compare: boolean = bcrypt.compareSync(password, hashedPassword);
-    if (!compare)
-      throw Error('Incorrect username or password. Please try again.');
+    if (!compare) throw Error('Incorrect username or password. Please try again.');
     console.log(`User: ${username} logged in`);
     cookies.set('ssid', `${userData.user_id}`);
     return res.status(200).json(username);

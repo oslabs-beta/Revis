@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCube } from '@fortawesome/free-solid-svg-icons';
-import ServerAdd from './ServerAdd';
-import ServerList from './ServerList';
+import ServerAdd_Endpoint from './ServerAdd_Endpoint';
+import ServerList_Endpoint from './ServerList_Endpoint';
 import { useStore } from '../context/Provider';
 import styles from '../styles/Sidebar.module.scss';
 
@@ -18,9 +18,8 @@ function Sidebar(props) {
   //modularize the IP check,
   const validityCheckOnSubmit = (
     nameElement: HTMLInputElement,
-    ipElement: HTMLInputElement,
-    portElement: HTMLInputElement,
-    endpointElement: HTMLInputElement
+    endpointElement: HTMLInputElement,
+    portElement: HTMLInputElement
   ) => {
     if (nameElement.validity.tooShort || nameElement.validity.valueMissing) {
       nameElement.setCustomValidity('Please input at least four characters');
@@ -52,63 +51,50 @@ function Sidebar(props) {
     )
       nameElement.setCustomValidity('');
 
-    if (ipElement) {
-      if (
-        ipElement.validity.patternMismatch ||
-        ipElement.validity.valueMissing
-      ) {
-        ipElement.setCustomValidity(
-          'Please input a proper IP number (eg. 192.45.23.64)'
-        );
-        ipElement.reportValidity();
-      } else ipElement.setCustomValidity('');
-      const alreadyAddedServerIP: boolean = serverList.some(
-        (elem) => elem.IP === ipElement.value
-      );
+    const alreadyAddedServerEndpoint: boolean = serverList.some(
+      (elem) => elem.endpoint === endpointElement.value
+    );
 
-      if (alreadyAddedServerIP) {
-        ipElement.setCustomValidity(
-          'This IP address has already been added. Please input a unique IP.'
-        );
-        ipElement.reportValidity();
-      } else if (
-        ipElement.validity.patternMismatch &&
-        ipElement.validity.valueMissing
-      )
-        ipElement.setCustomValidity('');
-      return (
-        nameElement.validity.valid &&
-        ipElement.validity.valid &&
-        !alreadyAddedServerIP &&
-        portElement.validity.valid &&
-        !alreadyAddedServerName
+    if (alreadyAddedServerEndpoint) {
+      endpointElement.setCustomValidity(
+        'This endpoint URL has already been added. Please input a unique IP.'
       );
-    }
-
+      endpointElement.reportValidity();
+    } else if (
+      endpointElement.validity.patternMismatch &&
+      endpointElement.validity.valueMissing
+    )
+      endpointElement.setCustomValidity('');
     return (
       nameElement.validity.valid &&
-      endpointElement &&
+     // endpointElement.validity.valid &&
       portElement.validity.valid &&
-      !alreadyAddedServerName
+      !alreadyAddedServerName &&
+      !alreadyAddedServerEndpoint
     );
   };
 
   const postServerToDataBase = (
     name: string,
-    IP: string,
-    PORT: string,
-    endPoint: string,
-    password: string
+    endpoint: string,
+    password: string,
+    PORT: string
   ) => {
-    fetch('/api/addServer', {
+    fetch('/api/servers_Endpoint', {
       method: 'POST',
-      body: JSON.stringify({ name, IP, PORT, username, endPoint, password }),
+      body: JSON.stringify({
+        name: name,
+        endpoint: endpoint,
+        password: password,
+        PORT: PORT,
+        username,
+      }),
       'Content-Type': 'application/json',
     });
   };
 
   const deleteServerFromDataBase = (name: string) => {
-    fetch('/api/deleteServer', {
+    fetch('/api/servers_Endpoint', {
       method: 'DELETE',
       body: JSON.stringify({ name }),
       'Content-Type': 'application/json',
@@ -118,34 +104,31 @@ function Sidebar(props) {
   const addServer = (e) => {
     e.preventDefault();
     const name: HTMLInputElement = document.querySelector('#name');
-    const IP: HTMLInputElement = document.querySelector('#IP');
-    const PORT: HTMLInputElement = document.querySelector('#PORT');
     const endpoint: HTMLInputElement = document.querySelector('#endpoint');
-    const password: HTMLInputElement = document.querySelector(
-      '#cloudServerPassword'
-    );
+    const password: HTMLInputElement = document.querySelector('#redisPassword');
+    const PORT: HTMLInputElement = document.querySelector('#PORT');
 
-    if (validityCheckOnSubmit(name, IP, PORT, endpoint)) {
-      const postIP = IP ?? endpoint;
+    if (validityCheckOnSubmit(name, endpoint, PORT)) {
       updateList(
         serverList.concat({
           name: name.value,
-          postIP: postIP.value,
+          endpoint: endpoint.value,
           PORT: PORT.value,
         })
       );
 
       postServerToDataBase(
         name.value,
-        postIP.value,
+        endpoint.value,
+        password.value,
         PORT.value,
-        password.value
       );
     }
   };
 
   const removeServer = (e) => {
     const serverNameToRemove: string = e.target.id;
+    console.log(serverNameToRemove);
     if (!serverNameToRemove) return;
     deleteServerFromDataBase(serverNameToRemove);
     updateList(serverList.filter((elem) => elem.name !== serverNameToRemove));
@@ -170,8 +153,8 @@ function Sidebar(props) {
 
   return (
     <div className={styles.sideBarWrapper} id='sideBar'>
-      <ServerAdd addServer={addServer} />
-      <ServerList
+      <ServerAdd_Endpoint addServer={addServer} />
+      <ServerList_Endpoint
         serverList={serverList}
         removeServer={removeServer}
         currentDivHover={currentDivHover}

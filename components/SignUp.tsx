@@ -77,7 +77,7 @@ function SignUp({ previousPage }: SignUpProps) {
           </label>
         </div>
         <button
-          onClick={() => router.replace('/dashboard')}
+          //onClick={() => router.replace('/dashboard')}
           className={styles.submitButton}
           type="submit"
         >

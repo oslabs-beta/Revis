@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCube } from '@fortawesome/free-solid-svg-icons';
-import ServerAdd from './ServerAdd';
-import ServerList from './ServerList';
-import { useStore } from '../context/Provider';
-import styles from '../styles/Sidebar.module.scss';
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCube } from "@fortawesome/free-solid-svg-icons";
+import ServerAdd from "./ServerAdd";
+import ServerAdd_Endpoint from './ServerAdd_Endpoint'
+import ServerList from "./ServerList";
+import { useStore } from "../context/Provider";
+import styles from "../styles/Sidebar.module.scss";
 
-function Sidebar() {
+function Sidebar(props) {
   const [sideBarHidden, showOrHideSideBar] = useState(false);
   const { user, servers }: any = useStore();
   const {
@@ -99,6 +100,32 @@ function Sidebar() {
       !alreadyAddedServerIP &&
       !alreadyAddedServerName
     );
+  };
+
+  const populateServerList = () => {
+    fetch("/api/servers")
+      .then((response) => response.json())
+      .then((data) => {
+        const cloudData: string[] = data.cloud;
+        const localData: string[] = data.local;
+        updateList([...cloudData, ...localData]);
+      });
+  };
+
+  const postServerToDataBase = (name: string, IP: string, PORT: string) => {
+    fetch("/api/servers", {
+      method: "POST",
+      body: JSON.stringify({ name, IP, PORT, username }),
+      "Content-Type": "application/json",
+    });
+  };
+
+  const deleteServerFromDataBase = (name: string) => {
+    fetch("/api/servers", {
+      method: "DELETE",
+      body: JSON.stringify({ name }),
+      "Content-Type": "application/json",
+    });
   };
 
   const addServer = (e: Event) => {
