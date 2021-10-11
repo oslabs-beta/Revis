@@ -21,11 +21,18 @@
     color: $logoRed;
     font-family: $fontOfSummaryTitle;
   }
+  .LeftMenu {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+  }
+  .GraphFlex {
+    width: 100%;
+  }
 
   .Graph {
     background-color: rgb(27, 27, 28);
     border-radius: 4px;
     font-family: $fontOfMetrics;
-
   }
 }
