@@ -11,7 +11,6 @@ import Welcome from "./Welcome";
 import Loading from "./Loading";
 
 export default function Summary() {
-  const [metrics, setMetrics] = useState({});
   const { metricsStore }: any = useStore();
 
   useEffect(() => {
@@ -20,13 +19,11 @@ export default function Summary() {
         method: "GET",
       });
       response = await response.json();
-      setMetrics(response);
-      
+
       await metricsStore.metricsDispatch({
         type: "updateMetrics",
         message: response,
       });
-
     }
     fetchDataFromRedis();
     const interval = setInterval(() => {
@@ -37,8 +34,11 @@ export default function Summary() {
 
   const metricsForTable = [];
 
-  Object.entries(metrics).forEach((el) => {
-    metricsForTable.push(<Metrics key={el[0]} keys={el[0]} values={el[1]} />);
+  Object.entries(
+    metricsStore.metricState[metricsStore.metricState.length - 1]
+  ).forEach((el) => {
+    if (el[0] !== "time")
+      metricsForTable.push(<Metrics key={el[0]} keys={el[0]} values={el[1]} />);
   });
 
   return (
