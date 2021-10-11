@@ -6,7 +6,6 @@ function GraphContainer() {
   return (
     <div className={styles.GraphContainer}>
       <BackButton />
-      <h1>Metric</h1>
       <Graph />
     </div>
   );
