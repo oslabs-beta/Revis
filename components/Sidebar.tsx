@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCube } from "@fortawesome/free-solid-svg-icons";
 import ServerAdd from "./ServerAdd";
+import ServerAdd_Endpoint from './ServerAdd_Endpoint'
 import ServerList from "./ServerList";
 import { useStore } from "../context/Provider";
 import styles from "../styles/Sidebar.module.scss";
@@ -83,7 +84,6 @@ function Sidebar(props) {
     );
   };
 
-<<<<<<< HEAD
   const populateServerList = () => {
     fetch("/api/servers")
       .then((response) => response.json())
@@ -99,19 +99,6 @@ function Sidebar(props) {
       method: "POST",
       body: JSON.stringify({ name, IP, PORT, username }),
       "Content-Type": "application/json",
-=======
-  const postServerToDataBase = (
-    name: string,
-    IP: string,
-    PORT: string,
-    endPoint: string,
-    password: string
-  ) => {
-    fetch('/api/addServer', {
-      method: 'POST',
-      body: JSON.stringify({ name, IP, PORT, username, endPoint, password }),
-      'Content-Type': 'application/json',
->>>>>>> chaosBranch
     });
   };
 

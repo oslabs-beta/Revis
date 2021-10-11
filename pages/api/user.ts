@@ -14,6 +14,7 @@ const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
   username = parsedBody.username;
   password = parsedBody.password;
   email = parsedBody.email;
+  console.log(username, 'userNAME');
 
   const SALT_WORK_FACTOR: number = 10;
   try {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import router from 'next/router';
 import styles from '../styles/RightSideLogin.module.scss';
 
-function SignUp() {
+function SignUp(props) {
   const [userInfo, setUserInfo] = useState<any>({
     username: '',
     email: '',
@@ -12,7 +12,7 @@ function SignUp() {
   const { username, password, email } = userInfo;
 
   // MUST INCORPORATE BACK PAGE
-  let previousPage = 1;
+  let previousPage = props.previousPage;
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -38,9 +38,9 @@ function SignUp() {
               className={styles.userInput}
               type="text"
               onChange={(e) =>
-                setUserInfo({ ...userInfo, userName: e.target.value })
+                setUserInfo({ ...userInfo, username: e.target.value })
               }
-              value={userInfo.userName}
+              value={userInfo.username}
               required
             ></input>
           </label>
@@ -73,9 +73,9 @@ function SignUp() {
           </label>
         </div>
         <button
-          onClick={() => router.replace('/dashboard')}
+          //onClick={() => router.replace('/dashboard')}
           className={styles.submitButton}
-          type="button"
+          type="submit"
         >
           Submit
         </button>
