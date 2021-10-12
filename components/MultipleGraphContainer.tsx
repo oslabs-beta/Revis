@@ -17,9 +17,11 @@ function MultipleGraphContainer() {
   const { multipleGraphSelections } = useStore();
   // const arrayWithGraphs = multipleGraphSelections.multipleGraphState;
   const arrayWithGraphs = multipleGraphSelections.multipleGraphState.map((el,index)=>{
-    <div key={index.toString()}>
-    <MultipleGraph keys={el}/>
-  </div>
+    return(
+      <div key={index.toString()}>
+      <MultipleGraph keys={el}/>
+    </div>
+    )
   })
 
   return (
@@ -35,22 +37,7 @@ function MultipleGraphContainer() {
           // cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
         >
           {arrayWithGraphs}
-          {/* <div key="a" style={{ padding: "70px 0 0 37%" }}>
-          <div key="0">
-            <Graph />
-          </div>
-          {/* <div key="b" style={{ padding: "600px 0 0 37%" }}> */}
-          {/* <div key="1">
-            <Graph />
-          </div>
-          <div key="2">
-            {/* <div key="c" style={{ padding: "1100px 0 0 37%" }}> */}
-            {/* <Graph />
-          </div>
-          <div key="3"> */}
-            {/* <div key="c" style={{ padding: "1100px 0 0 37%" }}> */}
-            {/* <Graph />
-          </div> */} */} */}
+
         </GridLayout>
       </div>
     </div>

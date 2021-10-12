@@ -12,13 +12,30 @@ function MetricsForGraph(props) {
     }
   });
 
+  const updateMetric = () => {
+    const checkbox = document.getElementById(`${keys}`);
+    if (multipleGraphSelections.multipleGraphState.length >= 4) {
+      return alert("Only 4 graphs can be shown simultaneously");
+    }
+    if (checkbox.getAttribute("checked")) {
+      multipleGraphSelections.multipleGraphDispatch({
+        type: "metricUnselected",
+        message: keys,
+      });
+      checkbox.setAttribute("checked", "false");
+    } else {
+      multipleGraphSelections.multipleGraphDispatch({
+        type: "newMetricSelected",
+        message: keys,
+      });
+
+      checkbox.setAttribute("checked", "true");
+    }
+  };
+
   return (
     <div>
-      <input
-        id={keys}
-        type="checkbox"
-        // onClick={() => /*if check is true, then remove the element from the global state, if it's false add it to the array*/}
-      ></input>
+      <input id={keys} type="checkbox" onClick={updateMetric}></input>
       {keys}
     </div>
   );

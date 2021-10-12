@@ -1,3 +1,3 @@
-const metricsBeingCompared: Array<string> = ['used_memory','evicted_keys','keyspace_hits','keyspace_misses'];
+const metricsBeingCompared: Array<string> = [];
 
 export default metricsBeingCompared;

@@ -9,8 +9,9 @@ import {
 import { useStore } from "../context/Provider";
 import styles from "../styles/GraphContainer.module.scss";
 
-function MultipleGraph() {
+function MultipleGraph(props) {
   const { metricsStore, metricToGraph }: any = useStore();
+  const {keys} = props;
 
   useEffect(() => {
     async function fetchDataFromRedis() {
@@ -35,7 +36,7 @@ function MultipleGraph() {
 
   return (
     <div>
-      <h1>{metricToGraph.metricToGraph}</h1>
+      <h1>{keys}</h1>
       <div className={styles.Graph}>
 
           <LineChart
@@ -46,7 +47,7 @@ function MultipleGraph() {
           >
             <Line
               type="monotone"
-              dataKey={metricToGraph.metricToGraph}
+              dataKey={keys}
               stroke="#d33b51"
             />
             {/* <Line type="monotone" dataKey="evicted_keys" stroke="#77EC7F" /> */}
