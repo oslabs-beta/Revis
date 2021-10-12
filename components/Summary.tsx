@@ -21,7 +21,7 @@ export default function Summary() {
       response = await response.json();
 
       await metricsStore.metricsDispatch({
-        type: "updateMetrics",
+        type: 'updateMetrics',
         message: response,
       });
     }
@@ -37,7 +37,7 @@ export default function Summary() {
   Object.entries(
     metricsStore.metricState[metricsStore.metricState.length - 1]
   ).forEach((el) => {
-    if (el[0] !== "time")
+    if (el[0] !== 'time')
       metricsForTable.push(<Metrics key={el[0]} keys={el[0]} values={el[1]} />);
   });
 

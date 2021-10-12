@@ -14,6 +14,15 @@ const metricsUpdated = {
 
 const metrics = async (req, res) => {
   // how long you've been at the server for
+  const parsedBody = JSON.parse(req.body);
+  const { endpoint, password, PORT } = parsedBody;
+  try {
+    async function creatingMetricsObject() {
+      const redis = new Redis({
+        host: endpoint || process.env.REDIS_URL,
+        port: PORT || process.env.REDIS_PORT,
+        password: password || process.env.REDIS_PW,
+      });
 
   async function creatingMetricsObject() {
     const redis = new Redis({
@@ -39,7 +48,12 @@ const metrics = async (req, res) => {
       await redis.quit(() => {
         console.log("exited redis server");
       });
-  }
+      res.json(metricsToEvaluate);
+      if (data)
+        await redis.quit(() => {
+          // console.log('exited redis server');
+        });
+    }
 
   await creatingMetricsObject();
 

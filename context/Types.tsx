@@ -5,6 +5,9 @@ export type Server = {
   ip: string;
   port: string;
   username: string;
+  endpoint: string;
+  password: string;
+  currentServer?: string[];
 };
 
 export type Action = {

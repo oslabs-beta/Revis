@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 
 function ServerAdd(props) {
   const { addServer } = props;
-
-  const URL_REG_EX =
-    (/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g);
-  const PORT_REG_EX: string = '[0-9]{4}';
+  const PORT_REG_EX: string = '[0-9]{4,5}';
 
   const validityCheckOnChange = () => {
     const nameElement: HTMLInputElement = document.querySelector('#name');
@@ -44,7 +41,7 @@ function ServerAdd(props) {
               required
               minLength={4}
               onChange={validityCheckOnChange}
-              placeholder='My Redis Server'
+              placeholder='Server Name'
             ></input>
             <div className={styles.errorDiv}></div>
           </div>
@@ -56,7 +53,6 @@ function ServerAdd(props) {
               id='endpoint'
               autoComplete='off'
               required
-              pattern={URL_REG_EX}
               onChange={validityCheckOnChange}
               placeholder='my-redis-server.com'
             ></input>
