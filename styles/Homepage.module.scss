@@ -15,16 +15,23 @@
   height: 100vh;
 
   #UserLogin {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 15rem;
+
     h1 {
       color: var(--background);
       font-family: $fontOfHomePage;
     }
     .userInput {
-      border: solid 5px transparent;
-      border-radius: 4px;
+      border: solid 0.25rem transparent;
+      border-radius: 0.25rem;
       display: flex;
-      margin-bottom: 10px;
       background-color: var(--background);
+      align-content: center;
+      margin: auto;
+      margin-bottom: 0.5rem;
     }
 
     .logInButtonWrapper {
@@ -32,9 +39,9 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 10px;
-      margin-top: 20px;
-      margin-bottom: 100px;
+
+      margin-top: 1rem;
+      margin-bottom: 2rem;
 
       #logInButton {
         font-family: $fontOfButtons;
@@ -57,6 +64,13 @@
         font-size: 13px;
         text-decoration: underline;
       }
+    }
+
+    #errorDiv {
+      display: flex;
+      word-wrap: break-word;
+      width: 50%;
+      height: 4rem;
     }
 
     .signUpWrapper {
@@ -92,6 +106,10 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    background: linear-gradient(180deg, #fefefe 30%, var(--logoColor) 30%);
+    background: linear-gradient(
+      180deg,
+      var(--background) 30%,
+      var(--logoColor) 30%
+    );
   }
 }

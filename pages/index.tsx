@@ -3,7 +3,7 @@ import LogoHomeScreen from '../components/LeftSideHomeScreen';
 import UserLogin from '../components/UserLogin';
 import ForgotPassword from '../components/ForgotPassword';
 import SignUp from '../components/SignUp';
-import styles from '../styles/RightSideLogin.module.scss';
+import styles from '../styles/Homepage.module.scss';
 
 function HomePage() {
   const [pages, setPages] = useState<string>('userLogin');
@@ -23,12 +23,7 @@ function HomePage() {
       <LogoHomeScreen />
       <div className="rightSide">
         {pages === 'userLogin' ? (
-          <div id={styles.UserLogin}>
-            <UserLogin
-              onForgotPassword={onForgotPassword}
-              onSignUp={onSignUp}
-            />
-          </div>
+          <UserLogin onForgotPassword={onForgotPassword} onSignUp={onSignUp} />
         ) : pages === 'forgotPassword' ? (
           <ForgotPassword previousPage={previousPage} />
         ) : (

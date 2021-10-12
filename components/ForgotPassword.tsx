@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 
-
 function ForgotPassword(props) {
   const [userEmail, setUserEmail] = useState<any>('');
-  const previousPage = props.previousPage;
+  const { previousPage } = props;
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    /*fetch here */
+    /* fetch here */
     console.log(userEmail);
   };
   return (
@@ -16,16 +15,16 @@ function ForgotPassword(props) {
         <div>
           <label>email:</label>
           <input
-            className='userInput'
-            type='email'
+            className="userInput"
+            type="email"
             onChange={(e) => setUserEmail(e.target.value)}
             value={userEmail}
             required
           ></input>
         </div>
-        <input className='submitButton' type='submit' value='SUBMIT' />
+        <input className="submitButton" type="submit" value="Submit" />
       </form>
-      <button className='backButton' onClick={() => previousPage()}>
+      <button className="backButton" onClick={() => previousPage()}>
         Back
       </button>
     </div>
