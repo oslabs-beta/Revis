@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCube } from '@fortawesome/free-solid-svg-icons';
 import ServerAdd_Endpoint from './ServerAdd_Endpoint';
@@ -12,8 +12,20 @@ function Sidebar(props) {
   const { user }: any = useStore();
   const { username }: { username: string } = user.userState;
 
-  const [currentServer, setCurrentServer] = useState(null);
+  const [currentServer, setCurrentServer] = useState([]);
   const [currentDivHover, changeDivHover] = useState(null);
+
+  useEffect(() => populateServerList(), []);
+
+  const populateServerList = () => {
+    fetch('/api/servers_Endpoint')
+      .then((response) => response.json())
+      .then((data) => {
+        const cloudData: string[] = data.cloud;
+        console.log(cloudData)
+        updateList(cloudData);
+      });
+  };
 
   //modularize the IP check,
   const validityCheckOnSubmit = (
@@ -65,9 +77,10 @@ function Sidebar(props) {
       endpointElement.validity.valueMissing
     )
       endpointElement.setCustomValidity('');
+      console.log(endpointElement.validity.valid);
     return (
       nameElement.validity.valid &&
-     // endpointElement.validity.valid &&
+      endpointElement.validity.valid &&
       portElement.validity.valid &&
       !alreadyAddedServerName &&
       !alreadyAddedServerEndpoint
@@ -121,7 +134,7 @@ function Sidebar(props) {
         name.value,
         endpoint.value,
         password.value,
-        PORT.value,
+        PORT.value
       );
     }
   };
@@ -147,8 +160,11 @@ function Sidebar(props) {
   };
 
   const changeCurrentServer = (e) => {
-    const severIP: string = e.target.id;
-    setCurrentServer(e.target.id);
+    const currentServer: string = e.target.id;
+    const currentPORT: any = e.target.value;
+    setCurrentServer([currentServer, currentPORT]);
+    console.log(currentServer);
+    console.log(currentPORT);
   };
 
   return (
@@ -159,6 +175,7 @@ function Sidebar(props) {
         removeServer={removeServer}
         currentDivHover={currentDivHover}
         changeDivHover={changeDivHover}
+        changeCurrentServer={changeCurrentServer}
       />
       <FontAwesomeIcon
         id={styles.cube}

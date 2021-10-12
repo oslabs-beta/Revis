@@ -1,5 +1,6 @@
 import { Server } from '../Types';
 
+
 type State = Server[];
 
 type Action = {
@@ -48,8 +49,15 @@ const servers = (state: State, action: Action) => {
       return newServerList.filter((elem) => elem.name !== server.name);
     }
     case 'populateList': {
-      return newServerList.concat(server);
+      if (!newServerList.includes(server)) return newServerList.concat(server);
+      else return newServerList;
     }
+
+    case 'currentServer': {
+      newServerList[currentServer] = server.currentServer;
+      return newServerList;
+    }
+    
     default:
       return state;
   }

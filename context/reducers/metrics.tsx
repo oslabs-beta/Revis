@@ -1,11 +1,17 @@
 import { Metrics, Action } from '../Types';
 
-const metrics = (state: Metrics, action: Action) => {
-  const metricsUpdated: any = action.message;
+type State = Metrics[]; 
+
+type Action = {
+  type: string,
+  message: Metrics
+}
+const metrics = (state: State, action: Action) => {
+  const metric = action.message;
 
   switch (action.type) {
     case 'updateMetrics':
-      return { ...state, metricsUpdated };
+      return { state };
     default:
       return state;
   }
