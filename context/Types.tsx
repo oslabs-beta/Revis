@@ -2,10 +2,10 @@ export type Metrics = [{}];
 
 export type Server = {
   name: string;
-  ip: string;
+  ip?: string;
   port: string;
   username: string;
-  endpoint: string;
+  endpoint?: string;
   password: string;
   currentServer?: string[];
 };

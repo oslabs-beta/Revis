@@ -1,6 +1,5 @@
 import { Server } from '../Types';
 
-
 type State = Server[];
 
 type Action = {
@@ -42,22 +41,19 @@ const servers = (state: State, action: Action) => {
         server.username
       );
       return newServerList;
-    }
+    };
     case 'deleteServer': {
       if (!server) return state;
       deleteServerFromDataBase(server.name);
       return newServerList.filter((elem) => elem.name !== server.name);
-    }
+    };
     case 'populateList': {
       if (!newServerList.includes(server)) return newServerList.concat(server);
       else return newServerList;
-    }
-
+    };
     case 'currentServer': {
-      newServerList[currentServer] = server.currentServer;
-      return newServerList;
-    }
-    
+      return { ...newServerList, currentServer: server.currentServer };
+    };
     default:
       return state;
   }

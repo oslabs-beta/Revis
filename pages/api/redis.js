@@ -1,28 +1,19 @@
-const Redis = require("ioredis");
+const Redis = require('ioredis');
 
 // this object is for the front end:
 const metricsUpdated = {
-  total_net_output_bytes: "",
-  used_memory: "",
-  connected_clients: "",
-  evicted_keys: "",
-  keyspace_hits: "",
-  keyspace_misses: "",
-  total_net_input_bytes: "",
-  uptime_in_seconds: "",
+  total_net_output_bytes: '',
+  used_memory: '',
+  connected_clients: '',
+  evicted_keys: '',
+  keyspace_hits: '',
+  keyspace_misses: '',
+  total_net_input_bytes: '',
+  uptime_in_seconds: '',
 };
 
 const metrics = async (req, res) => {
   // how long you've been at the server for
-  const parsedBody = JSON.parse(req.body);
-  const { endpoint, password, PORT } = parsedBody;
-  try {
-    async function creatingMetricsObject() {
-      const redis = new Redis({
-        host: endpoint || process.env.REDIS_URL,
-        port: PORT || process.env.REDIS_PORT,
-        password: password || process.env.REDIS_PW,
-      });
 
   async function creatingMetricsObject() {
     const redis = new Redis({
@@ -33,11 +24,11 @@ const metrics = async (req, res) => {
 
     let data = await redis.info();
     // we receive the information from redis in a string so we split it
-    data = data.split("\r\n");
+    data = data.split('\r\n');
 
     data.forEach((el) => {
       // we split it again to find the keys and values of each line
-      const keysAndValues = el.split(":");
+      const keysAndValues = el.split(':');
 
       if (metricsUpdated.hasOwnProperty(keysAndValues[0])) {
         metricsUpdated[keysAndValues[0]] = keysAndValues[1];
@@ -46,32 +37,27 @@ const metrics = async (req, res) => {
 
     if (data)
       await redis.quit(() => {
-        console.log("exited redis server");
+        console.log('exited redis server');
       });
-      res.json(metricsToEvaluate);
-      if (data)
-        await redis.quit(() => {
-          // console.log('exited redis server');
-        });
-    }
+  }
 
   await creatingMetricsObject();
 
   const { method } = req;
   switch (method) {
-    case "GET": {
+    case 'GET': {
       try {
         await creatingMetricsObject();
         return res.status(200).json(metricsUpdated);
       } catch (err) {
-        console.log("error in getting metrics");
+        console.log('error in getting metrics');
         return res.status(400).json({ success: false, error: err });
       }
     }
     default: {
       return res
         .status(400)
-        .json({ success: false, error: "Error at redis.js Switch" });
+        .json({ success: false, error: 'Error at redis.js Switch' });
     }
   }
 };
