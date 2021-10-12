@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useStore } from "../context/Provider";
 import GridLayout from "react-grid-layout";
 import MultipleGraph from "./MultipleGraph";
@@ -8,21 +8,43 @@ import styles from "../styles/GraphContainer.module.scss";
 //minW: 4, maxW: 8
 const layout = [
   { i: "0", x: 0, y: 0, w: 6, h: 1.2 },
-  { i: "1", x: 10, y: 1, w: 6, h: 1.2 },
-  { i: "2", x: 0, y: 2, w: 6, h: 1.2 },
-  { i: "3", x: 10, y: 1, w: 6, h: 1.2 },
+  { i: "1", x: 5, y: 5, w: 6, h: 1.2 },
+  { i: "2", x: 0, y: 0, w: 6, h: 1.2 },
+  { i: "3", x: 5, y: 5, w: 6, h: 1.2 },
 ];
 
 function MultipleGraphContainer() {
-  const { multipleGraphSelections } = useStore();
+  const { multipleGraphSelections, metricsStore, metricToGraph } = useStore();
+  useEffect(() => {
+    async function fetchDataFromRedis() {
+      let response = await fetch("http://localhost:3000/api/redis", {
+        method: "GET",
+      });
+      response = await response.json();
+
+      await metricsStore.metricsDispatch({
+        type: "updateMetrics",
+        message: response,
+      });
+    }
+    fetchDataFromRedis();
+    const interval = setInterval(() => {
+      fetchDataFromRedis();
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const data = metricsStore.metricState;
   // const arrayWithGraphs = multipleGraphSelections.multipleGraphState;
-  const arrayWithGraphs = multipleGraphSelections.multipleGraphState.map((el,index)=>{
-    return(
-      <div key={index.toString()}>
-      <MultipleGraph keys={el}/>
-    </div>
-    )
-  })
+  const arrayWithGraphs = multipleGraphSelections.multipleGraphState.map(
+    (el, index) => {
+      return (
+        <div key={index}>
+          <MultipleGraph data={data} keys={el} />
+        </div>
+      );
+    }
+  );
 
   return (
     <div className={styles.MultipleGraphContainer}>
@@ -37,7 +59,6 @@ function MultipleGraphContainer() {
           // cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
         >
           {arrayWithGraphs}
-
         </GridLayout>
       </div>
     </div>
