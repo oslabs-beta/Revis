@@ -51,9 +51,7 @@ const servers = (state: State, action: Action) => {
       if (!newServerList.includes(server)) return newServerList.concat(server);
       else return newServerList;
     };
-    case 'currentServer': {
-      return { ...newServerList, currentServer: server.currentServer };
-    };
+
     default:
       return state;
   }

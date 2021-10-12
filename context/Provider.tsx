@@ -4,11 +4,13 @@ import initialStateMetrics from './initialStates/initialStateMetrics';
 import initialStateUser from './initialStates/initialStateUser';
 import initialStateSelectedMetric from './initialStates/initialStateSelectedMetric';
 import initialStateTheme from './initialStates/initialStateTheme';
+import initialStateSelectedServer from './initialStates/initialStateSelectedServer';
 import user from './reducers/user';
 import metrics from './reducers/metrics';
 import servers from './reducers/servers';
 import selectedMetric from './reducers/selectedMetric';
 import theme from './reducers/theme';
+import currentServer from './reducers/currentServer';
 
 export const GlobalContext = createContext({}); // the provider needs to fill the state
 export const GlobalProvider = ({ children }) => {
@@ -31,12 +33,19 @@ export const GlobalProvider = ({ children }) => {
   );
   const [currentTheme, themeDispatch]: [{ light: boolean }, Function] =
     useReducer(theme, initialStateTheme);
+
+  const [selectedServer, selectedServerDispatch]: [any, Function] = useReducer(
+    currentServer,
+    initialStateSelectedServer
+  );
+
   return (
     <GlobalContext.Provider
       value={{
         user: { userState, userDispatch },
         metricsStore: { metricState, metricsDispatch },
         servers: { serverList, serversDispatch },
+        currentServer: { selectedServer, selectedServerDispatch },
         metricToGraph: { metricToGraph, selectedMetricDispatch },
         theme: { currentTheme, themeDispatch },
       }}
