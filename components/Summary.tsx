@@ -2,21 +2,21 @@
 // the table can have two tables for each row
 // import Metrics from "./metricsForSummary";
 
-import React, { useContext, useEffect, useState } from "react";
-import router from "next/router";
-import styles from "../styles/Summary.module.scss";
-import { useStore } from "../context/Provider";
-import Metrics from "./Metrics";
-import Welcome from "./Welcome";
-import Loading from "./Loading";
+import React, { useContext, useEffect, useState } from 'react';
+import router from 'next/router';
+import styles from '../styles/Summary.module.scss';
+import { useStore } from '../context/Provider';
+import Metrics from './Metrics';
+import Welcome from './Welcome';
+import Loading from './Loading';
 
 export default function Summary() {
   const { metricsStore }: any = useStore();
 
   useEffect(() => {
     async function fetchDataFromRedis() {
-      let response = await fetch("http://localhost:3000/api/redis", {
-        method: "GET",
+      let response = await fetch('http://localhost:3000/api/redis', {
+        method: 'GET',
       });
       response = await response.json();
 
@@ -59,7 +59,7 @@ export default function Summary() {
         )}
       </div>
       <p> Click on each metric to view details </p>
-      <button type="button" onClick={() => router.replace("/redisinfo")}>
+      <button type="button" onClick={() => router.replace('/redisinfo')}>
         Graphs
       </button>
     </div>
