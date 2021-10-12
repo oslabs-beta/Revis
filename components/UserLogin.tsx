@@ -35,7 +35,8 @@ function UserLogin({ onForgotPassword, onSignUp }: UserLoginProps) {
           router.replace('/dashboard');
         } else throw response;
       })
-      .catch((error) => {
+      .catch((error) => error.json())
+      .then((error) => {
         document.querySelector('#errorDiv').innerHTML = error.error;
       });
   };
