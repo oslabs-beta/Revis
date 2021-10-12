@@ -36,15 +36,25 @@ function MultipleGraphContainer() {
 
   const data = metricsStore.metricState;
   // const arrayWithGraphs = multipleGraphSelections.multipleGraphState;
-  const arrayWithGraphs = multipleGraphSelections.multipleGraphState.map(
-    (el, index) => {
-      return (
-        <div key={index}>
-          <MultipleGraph data={data} keys={el} />
-        </div>
-      );
+  // const arrayWithGraphs = multipleGraphSelections.multipleGraphState.map(
+  //   (el, index) => {
+  //     return (
+  //       <div key={index}>
+  //         <MultipleGraph data={data} keys={el} />
+  //       </div>
+  //     );
+  //   }
+  // );
+
+  const arrayWithGraphs: [] = [];
+  for (const [key, value] of Object.entries(
+    multipleGraphSelections.multipleGraphState
+  )) {
+    if (value) {
+      arrayWithGraphs.push(key);
+      // console.log(l)
     }
-  );
+  }
 
   return (
     <div className={styles.MultipleGraphContainer}>
@@ -65,7 +75,6 @@ function MultipleGraphContainer() {
   );
 }
 export default MultipleGraphContainer;
-
 
 // import { Responsive, WidthProvider } from 'react-grid-layout';
 

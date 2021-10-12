@@ -1,4 +1,4 @@
-@import './colorsAndFonts.scss';
+@import "./colorsAndFonts.scss";
 
 .GraphContainer {
   display: flex;
@@ -10,17 +10,7 @@
     font-family: $fontOfMetrics;
     color: $summaryTitleGrey;
   }
-  #backButton {
-    position: absolute;
-    left: 4%;
-    top: 5%;
-    background-color: transparent;
-    border-color: transparent;
-    text-decoration: underline;
-    font-size: 20px;
-    color: $logoRed;
-    font-family: $fontOfSummaryTitle;
-  }
+
   .LeftMenu {
     position: absolute;
     top: 20%;
@@ -39,33 +29,31 @@
 
 .MultipleGraphContainer {
   h1 {
-    font-family: $fontOfMetrics;
+    font-family: $fontOfSummaryTitle;
     color: $summaryTitleGrey;
   }
-  #backButton {
-    position: absolute;
-    left: 4%;
-    top: 5%;
-    background-color: transparent;
-    border-color: transparent;
-    text-decoration: underline;
-    font-size: 20px;
-    color: $logoRed;
-    font-family: $fontOfSummaryTitle;
-  }
+
   .LeftMenu {
     position: absolute;
     top: 20%;
     left: 5%;
+    font-family: $fontOfMetrics;
+
+    .emptySquare {
+      color: rgb(182, 137, 137);
+      border-radius: 4px;
+      margin-right: 10px;
+    }
   }
+
   .GraphFlex {
-    margin-left: 20%;
+    margin-left: 30%;
     position: relative;
   }
 
   .Graph {
     background-color: rgb(27, 27, 28);
     border-radius: 4px;
-    font-family: $fontOfMetrics;
+    font-family: $fontOfSummaryTitle;
   }
 }

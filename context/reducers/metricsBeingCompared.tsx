@@ -1,19 +1,24 @@
 import { Action } from "../Types";
 
-const metricsBeingCompared = (state: Array<string>, action: Action) => {
+const metricsBeingCompared = (state: {}, action: Action) => {
   const newMetricsSelected: string = action.message;
-  const metricsSelectedArray: Array<string> = state.slice();
+  const metricsSelectedObject: {} = {...state};
   switch (action.type) {
     case "newMetricSelected": {
-      console.log('metrics select4ed')
-      metricsSelectedArray.push(newMetricsSelected);
-      return metricsSelectedArray;
+      // if (Object.keys(metricsSelectedObject).length >= 4) {
+      //   alert("Only 4 graphs can be shown simultaneously");
+      //   return metricsSelectedObject;
+      // }
+
+      metricsSelectedObject[newMetricsSelected] = true;
+      return metricsSelectedObject;
     }
     case "metricUnselected": {
-      console.log('metric unselected')
-      const indexToDelete = metricsSelectedArray.indexOf(newMetricsSelected)
-      metricsSelectedArray.splice(indexToDelete,1);
-      return metricsSelectedArray;
+      // const indexToDelete = metricsSelectedObject.indexOf(newMetricsSelected);
+      // metricsSelectedObject.splice(indexToDelete, 1);
+      // return metricsSelectedObject;
+      delete metricsSelectedObject[newMetricsSelected];
+      return metricsSelectedObject;
     }
     default:
       return state;
