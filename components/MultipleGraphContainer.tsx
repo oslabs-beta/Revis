@@ -27,7 +27,7 @@ function MultipleGraphContainer() {
         message: response,
       });
     }
-    fetchDataFromRedis();
+
     const interval = setInterval(() => {
       fetchDataFromRedis();
     }, 10000);
@@ -65,6 +65,8 @@ function MultipleGraphContainer() {
   );
 }
 export default MultipleGraphContainer;
+
+
 // import { Responsive, WidthProvider } from 'react-grid-layout';
 
 // const ResponsiveGridLayout = WidthProvider(Responsive);
