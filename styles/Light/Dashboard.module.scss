@@ -1,0 +1,13 @@
+.dashboardWrapper {
+  display: flex;
+
+  .summaryWrapper {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .sidebarWrapper {
+    width: 20rem;
+    overflow: hidden;
+  }
+}

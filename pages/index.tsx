@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import LogoHomeScreen from "../components/LeftSideHomeScreen";
-import UserLogin from "../components/UserLogin";
-import ForgotPassword from "../components/ForgotPassword";
-import SignUp from "../components/SignUp";
-import styles from "../styles/RightSideLogin.module.scss";
-
+import React, { useState } from 'react';
+import LogoHomeScreen from '../components/LeftSideHomeScreen';
+import UserLogin from '../components/UserLogin';
+import ForgotPassword from '../components/ForgotPassword';
+import SignUp from '../components/SignUp';
+import styles from '../styles/RightSideLogin.module.scss';
 
 function HomePage() {
   const [pages, setPages] = useState<string>('userLogin');
@@ -18,12 +17,12 @@ function HomePage() {
   const onSignUp = () => {
     setPages('signUp');
   };
-  
+
   return (
-    <div className='homePageWrapper'>
+    <div className="homePageWrapper">
       <LogoHomeScreen />
       <div className="rightSide">
-        {pages === "userLogin" ? (
+        {pages === 'userLogin' ? (
           <div id={styles.UserLogin}>
             <UserLogin
               onForgotPassword={onForgotPassword}

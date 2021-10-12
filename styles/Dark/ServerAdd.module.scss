@@ -1,0 +1,54 @@
+@import './colorsAndFonts.scss';
+.serverAddWrapper {
+  margin-top: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+
+  #addServerBtn {
+    background-color: $logoRed;
+    color: white;
+    margin-left: 70px;
+    margin-top: 30px;
+    padding: 5px;
+    cursor: pointer;
+  }
+  .inputWrapper {
+    width: 100%;
+    text-align: left;
+
+    .indivInputs {
+      display: flex;
+      align-items: center;
+
+      .errorDiv {
+        position: relative;
+        left: 50px;
+        font-size: 0.5rem;
+        z-index: 1px;
+      }
+      label {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        width: 20%;
+      }
+      input {
+        width: 50%;
+        display: flex;
+        flex-direction: row;
+      }
+      input:focus {
+        outline: none;
+      }
+      input:valid {
+        background-color: rgb(161, 184, 161);
+      }
+      input:invalid {
+        background-color: rgb(255, 255, 255);
+      }
+    }
+  }
+}

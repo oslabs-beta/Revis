@@ -1,0 +1,30 @@
+@import "./colorsAndFonts.scss";
+
+#logo {
+  font-family: $fontOfLogo;
+  font-size: 10vh;
+  color: $logoRed;
+  margin-top: 4vh;
+}
+
+#cube {
+  width: 14vh;
+  color: $logoRed;
+  height: 10vh;
+}
+
+.leftSideWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+#logoRedis {
+  width: 37vh;
+  height: 37vh;
+}
+
+.logoAndCubeWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

@@ -29,7 +29,7 @@ const postServerToDataBase = (
 };
 
 const servers = (state: State, action: Action) => {
-  const server = action.message;
+  const server: Server = action.message;
   const newServerList = state.slice();
   switch (action.type) {
     case 'addServer': {

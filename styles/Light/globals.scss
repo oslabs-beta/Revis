@@ -9,18 +9,9 @@ body {
     justify-items: center;
     align-items: center;
     background-color: $logoRed;
-    background: linear-gradient(90deg, #fefefe 50%, $logoRed 50%);
-    // background: linear-gradient(90deg, #000000 50%, $logoRed 50%);
+    // background: linear-gradient(90deg, #fefefe 50%, $logoRed 50%);
+    background: linear-gradient(90deg, #000000 50%, $logoRed 50%);
     height: 100vh;
-  }
-
-  @media (max-width: 700px) {
-    .homePageWrapper {
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-      background: linear-gradient(180deg, #fefefe 30%, $logoRed 30%);
-    }
   }
 
   .dashboardWrapper {

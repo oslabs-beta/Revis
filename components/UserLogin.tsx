@@ -4,15 +4,19 @@ import PropTypes from 'prop-types';
 import styles from '../styles/RightSideLogin.module.scss';
 import { useStore } from '../context/Provider';
 import { User } from '../interfaces';
+import DarkModeToggle from './DarkModeToggle';
 
 interface UserLoginProps {
   // use type Function or () => void if no arguments
   onForgotPassword: () => void;
   onSignUp: () => void;
-};
+}
 
 function UserLogin({ onForgotPassword, onSignUp }: UserLoginProps) {
-  const [userInfo, setUserInfo] = useState<User>({ username: '', password: '' });
+  const [userInfo, setUserInfo] = useState<User>({
+    username: '',
+    password: '',
+  });
   const { user }: any = useStore();
   const { username, password } = userInfo;
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
@@ -39,6 +43,7 @@ function UserLogin({ onForgotPassword, onSignUp }: UserLoginProps) {
 
   return (
     <div>
+      <DarkModeToggle />
       <h1>Sign In</h1>
       <form onSubmit={onSubmitHandler}>
         <div>
