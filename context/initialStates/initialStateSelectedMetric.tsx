@@ -1,6 +1,4 @@
-const selectedMetric: { selectedMetric: string } = {
-    selectedMetric: '',
-  };
+const selectedMetric: { selectedMetric: string } = '';
   
   export default selectedMetric;
   

@@ -4,9 +4,7 @@ import {
   Line,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
-  ResponsiveContainer,
 } from "recharts";
 import { useStore } from "../context/Provider";
 import styles from "../styles/GraphContainer.module.scss";
@@ -39,7 +37,7 @@ function Graph() {
     <div>
       <h1>{metricToGraph.metricToGraph}</h1>
       <div className={styles.Graph}>
-        <ResponsiveContainer width={900} height={400}>
+
           <LineChart
             width={600}
             height={400}
@@ -57,7 +55,7 @@ function Graph() {
             <YAxis stroke="#ce6030" tick={{ fill: "#d8d8d4" }} />
             <Tooltip />
           </LineChart>
-        </ResponsiveContainer>
+
       </div>
     </div>
   );

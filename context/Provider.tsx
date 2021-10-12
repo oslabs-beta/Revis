@@ -1,13 +1,15 @@
-import React, { createContext, useReducer, useContext } from 'react';
-import initialStateServers from './initialStates/initialStateServers';
-import initialStateMetrics from './initialStates/initialStateMetrics';
-import initialStateUser from './initialStates/initialStateUser';
-import initialStateSelectedMetric from './initialStates/initialStateSelectedMetric';
+import React, { createContext, useReducer, useContext } from "react";
+import initialStateServers from "./initialStates/initialStateServers";
+import initialStateMetrics from "./initialStates/initialStateMetrics";
+import initialStateUser from "./initialStates/initialStateUser";
+import initialStateSelectedMetric from "./initialStates/initialStateSelectedMetric";
+import initialStateOfMultipleGraphs from "./initialStates/initialStateOfMultipleGraphs";
 import initialStateTheme from './initialStates/initialStateTheme';
-import user from './reducers/user';
-import metrics from './reducers/metrics';
-import servers from './reducers/servers';
-import selectedMetric from './reducers/selectedMetric';
+import user from "./reducers/user";
+import metrics from "./reducers/metrics";
+import servers from "./reducers/servers";
+import selectedMetric from "./reducers/selectedMetric";
+import metricsBeingCompared from "./reducers/metricsBeingCompared";
 import theme from './reducers/theme';
 
 export const GlobalContext = createContext({}); // the provider needs to fill the state
@@ -29,6 +31,10 @@ export const GlobalProvider = ({ children }) => {
     selectedMetric,
     initialStateSelectedMetric
   );
+  const [multipleGraphState, multipleGraphDispatch]: [any, any] = useReducer(
+    metricsBeingCompared,
+    initialStateOfMultipleGraphs
+  );
   const [currentTheme, themeDispatch]: [{ light: boolean }, Function] =
     useReducer(theme, initialStateTheme);
   return (
@@ -38,6 +44,7 @@ export const GlobalProvider = ({ children }) => {
         metricsStore: { metricState, metricsDispatch },
         servers: { serverList, serversDispatch },
         metricToGraph: { metricToGraph, selectedMetricDispatch },
+        multipleGraphSelections: { multipleGraphState, multipleGraphDispatch },
         themeContext: { currentTheme, themeDispatch },
       }}
     >

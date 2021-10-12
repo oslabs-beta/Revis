@@ -1,10 +1,14 @@
 import React from "react";
-import GraphContainer from "../components/GraphContainer";
+import MultipleGraphContainer from "../components/MultipleGraphContainer";
+import BackButton from "../components/BackButton";
+import Welcome from "../components/Welcome";
 
 function redisInfo() {
   return (
     <div>
-      <GraphContainer />
+      <BackButton />
+      <Welcome />
+      <MultipleGraphContainer />
     </div>
   );
 }
