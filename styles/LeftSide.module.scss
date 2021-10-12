@@ -1,15 +1,15 @@
-@import "./colorsAndFonts.scss";
+@import './colorsAndFonts.scss';
 
 #logo {
   font-family: $fontOfLogo;
   font-size: 10vh;
-  color: $logoRed;
+  color: var(--logoColor);
   margin-top: 4vh;
 }
 
 #cube {
   width: 14vh;
-  color: $logoRed;
+  color: var(--logoColor);
   height: 10vh;
 }
 

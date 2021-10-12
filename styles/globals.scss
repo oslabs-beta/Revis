@@ -1,27 +1,15 @@
 @import './colorsAndFonts.scss';
 
+html[data-theme='light'] {
+  --logoColor: #ce6030; //logoRed
+  --background: rgb(247, 246, 240);
+}
+html[data-theme='dark'] {
+  --logoColor: #ce6030;
+  --background: black;
+}
 body {
-  background-color: $background;
-
-  .homePageWrapper {
-    display: grid;
-    grid-template-columns: repeat(2, 50%);
-    justify-items: center;
-    align-items: center;
-    background-color: $logoRed;
-    background: linear-gradient(90deg, #fefefe 50%, $logoRed 50%);
-    // background: linear-gradient(90deg, #000000 50%, $logoRed 50%);
-    height: 100vh;
-  }
-
-  @media (max-width: 700px) {
-    .homePageWrapper {
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-      background: linear-gradient(180deg, #fefefe 30%, $logoRed 30%);
-    }
-  }
+  background-color: var(--background);
 
   .dashboardWrapper {
     display: grid;

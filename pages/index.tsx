@@ -19,7 +19,7 @@ function HomePage() {
   };
 
   return (
-    <div className="homePageWrapper">
+    <div className={styles.homePageWrapper}>
       <LogoHomeScreen />
       <div className="rightSide">
         {pages === 'userLogin' ? (

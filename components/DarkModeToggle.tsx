@@ -1,10 +1,9 @@
 import React from 'react';
-import { useStore } from '../context/Provider';
+import { useTheme } from 'next-themes';
 import styles from '../styles/DarkModeToggleSwitch.module.scss';
 
 export default function DarkModeToggle() {
-  const { theme }: { currentTheme: boolean; themeDispatch: Function } =
-    useStore();
+  const { theme, setTheme } = useTheme();
 
   return (
     <div>
@@ -12,12 +11,7 @@ export default function DarkModeToggle() {
         <input
           type="checkbox"
           id="darkMode"
-          onClick={() =>
-            theme.themeDispatch({
-              type: 'changeStatus',
-              message: theme.currentTheme.light,
-            })
-          }
+          onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
         ></input>
         <span className={styles.slider}></span>
       </label>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { ThemeProvider } from 'next-themes';
 import { GlobalProvider } from '../context/Provider';
 import '../styles/globals.scss';
 import DarkModeToggle from '../components/DarkModeToggle';
@@ -6,8 +7,10 @@ import DarkModeToggle from '../components/DarkModeToggle';
 function MyApp({ Component, pageProps }) {
   return (
     <GlobalProvider>
-      <DarkModeToggle />
-      <Component {...pageProps} />
+      <ThemeProvider enableSystem={false}>
+        <DarkModeToggle />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </GlobalProvider>
   );
 }
