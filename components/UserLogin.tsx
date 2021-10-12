@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import router from 'next/router';
 import PropTypes from 'prop-types';
-import styles from '../styles/RightSideLogin.module.scss';
+import styles from '../styles/Homepage.module.scss';
 import { useStore } from '../context/Provider';
 import { User } from '../interfaces';
 
@@ -42,7 +42,7 @@ function UserLogin({ onForgotPassword, onSignUp }: UserLoginProps) {
   };
 
   return (
-    <div>
+    <div id={styles.UserLogin}>
       <h1>Sign In</h1>
       <form onSubmit={onSubmitHandler}>
         <div>
@@ -72,6 +72,7 @@ function UserLogin({ onForgotPassword, onSignUp }: UserLoginProps) {
           <input id={styles.logInButton} type="submit" value="Login" />
         </div>
       </form>
+      <div id="errorDiv" name="Log-in Errors"></div>
       <div className={styles.logInButtonWrapper}>
         <button
           id={styles.forgotPasswordButton}
@@ -87,7 +88,6 @@ function UserLogin({ onForgotPassword, onSignUp }: UserLoginProps) {
           Sign Up
         </button>
       </div>
-      <div id="errorDiv"></div>
     </div>
   );
 }
