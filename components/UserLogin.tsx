@@ -9,10 +9,13 @@ interface UserLoginProps {
   // use type Function or () => void if no arguments
   onForgotPassword: () => void;
   onSignUp: () => void;
-};
+}
 
 function UserLogin({ onForgotPassword, onSignUp }: UserLoginProps) {
-  const [userInfo, setUserInfo] = useState<User>({ username: '', password: '' });
+  const [userInfo, setUserInfo] = useState<User>({
+    username: '',
+    password: '',
+  });
   const { user }: any = useStore();
   const { username, password } = userInfo;
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
@@ -32,7 +35,8 @@ function UserLogin({ onForgotPassword, onSignUp }: UserLoginProps) {
           router.replace('/dashboard');
         } else throw response;
       })
-      .catch((error) => {
+      .catch((error) => error.json())
+      .then((error) => {
         document.querySelector('#errorDiv').innerHTML = error.error;
       });
   };

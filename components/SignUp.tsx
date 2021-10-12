@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import router from 'next/router';
 import styles from '../styles/RightSideLogin.module.scss';
 import { User } from '../interfaces';
 
@@ -77,7 +76,7 @@ function SignUp({ previousPage }: SignUpProps) {
           </label>
         </div>
         <button
-          //onClick={() => router.replace('/dashboard')}
+          // onClick={() => router.replace('/dashboard')}
           className={styles.submitButton}
           type="submit"
         >
@@ -97,6 +96,6 @@ function SignUp({ previousPage }: SignUpProps) {
 
 SignUp.propTypes = {
   previousPage: PropTypes.func.isRequired,
-}
+};
 
 export default SignUp;

@@ -1,0 +1,12 @@
+@import './colorsAndFonts.scss';
+.light {
+  --theme-color: #a80000;
+  --theme-page-background: #fff;
+  --theme-page-text: #111;
+}
+
+.dark {
+  --theme-color: #0000a8;
+  --theme-page-background: #111;
+  --theme-page-text: #fff;
+}

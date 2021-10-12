@@ -1,0 +1,61 @@
+@import './colorsAndFonts.scss';
+
+.switch {
+  position: fixed;
+  display: inline-block;
+  cursor: pointer;
+  width: 6rem;
+  height: 2rem;
+  border-radius: 1rem;
+  left: auto;
+  right: 1rem;
+  top: 1rem;
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fefefe;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    border-radius: 1rem;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: '';
+    height: 1.5rem;
+    width: 1.5rem;
+    left: 0.5rem;
+    bottom: 0.25rem;
+    background-color: #fefefe;
+    opacity: 100%;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    border-radius: 50%;
+    background-image: url(./sun-solid.svg);
+  }
+
+  input:checked + .slider {
+    background-color: black;
+  }
+
+  $distanceFromEdge: 3.6rem;
+  input:checked + .slider:before {
+    -webkit-transform: translateX($distanceFromEdge);
+    -ms-transform: translateX($distanceFromEdge);
+    transform: translateX($distanceFromEdge);
+    background-image: url(./moon-solid.svg);
+  }
+}

@@ -29,7 +29,7 @@ const postServerToDataBase = (
 };
 
 const servers = (state: State, action: Action) => {
-  const server = action.message;
+  const server: Server = action.message;
   const newServerList = state.slice();
   switch (action.type) {
     case 'addServer': {
@@ -41,15 +41,19 @@ const servers = (state: State, action: Action) => {
         server.username
       );
       return newServerList;
-    }
+    };
     case 'deleteServer': {
       if (!server) return state;
       deleteServerFromDataBase(server.name);
       return newServerList.filter((elem) => elem.name !== server.name);
-    }
+    };
     case 'populateList': {
-      return newServerList.concat(server);
-    }
+      if (!newServerList.includes(server)) return newServerList.concat(server);
+      else return newServerList;
+    };
+    case 'currentServer': {
+      return { ...newServerList, currentServer: server.currentServer };
+    };
     default:
       return state;
   }

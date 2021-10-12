@@ -1,17 +1,15 @@
 @import './colorsAndFonts.scss';
 
+html[data-theme='light'] {
+  --logoColor: #ce6030; //logoRed
+  --background: rgb(247, 246, 240);
+}
+html[data-theme='dark'] {
+  --logoColor: #ce6030;
+  --background: rgb(0, 0, 0);
+}
 body {
-  background-color: $background;
-
-  .homePageWrapper {
-    display: grid;
-    grid-template-columns: repeat(2, 50%);
-    justify-items: center;
-    align-items: center;
-    background-color: $logoRed;
-    background: linear-gradient(90deg, #fefefe 50%, $logoRed 50%);
-    height: 100vh;
-  }
+  background-color: var(--background);
 
   .dashboardWrapper {
     display: grid;
