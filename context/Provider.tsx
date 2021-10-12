@@ -10,7 +10,9 @@ import metrics from "./reducers/metrics";
 import servers from "./reducers/servers";
 import selectedMetric from "./reducers/selectedMetric";
 import metricsBeingCompared from "./reducers/metricsBeingCompared";
+import initialStateSelectedServer from './initialStates/initialStateSelectedServer';
 import theme from './reducers/theme';
+import currentServer from './reducers/currentServer';
 
 export const GlobalContext = createContext({}); // the provider needs to fill the state
 export const GlobalProvider = ({ children }) => {
@@ -37,12 +39,19 @@ export const GlobalProvider = ({ children }) => {
   );
   const [currentTheme, themeDispatch]: [{ light: boolean }, Function] =
     useReducer(theme, initialStateTheme);
+
+  const [selectedServer, selectedServerDispatch]: [any, Function] = useReducer(
+    currentServer,
+    initialStateSelectedServer
+  );
+
   return (
     <GlobalContext.Provider
       value={{
         user: { userState, userDispatch },
         metricsStore: { metricState, metricsDispatch },
         servers: { serverList, serversDispatch },
+        currentServer: { selectedServer, selectedServerDispatch },
         metricToGraph: { metricToGraph, selectedMetricDispatch },
         multipleGraphSelections: { multipleGraphState, multipleGraphDispatch },
         themeContext: { currentTheme, themeDispatch },

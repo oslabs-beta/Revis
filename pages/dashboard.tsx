@@ -1,5 +1,6 @@
 import Sidebar from '../components/Sidebar';
 import Sidebar_Endpoint from '../components/Sidebar_Endpoint';
+import Summary_Endpoint from '../components/Summary_Endpoint';
 import Summary from '../components/Summary';
 import styles from '../styles/Dashboard.module.scss';
 
@@ -11,7 +12,7 @@ export default function about() {
         {/* <Sidebar /> */}
       </div>
       <div className={styles.summaryWrapper}>
-        <Summary />
+        <Summary_Endpoint />
       </div>
     </div>
   );

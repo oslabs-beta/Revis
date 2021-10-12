@@ -9,10 +9,11 @@ import styles from '../styles/Sidebar.module.scss';
 function Sidebar(props) {
   const [sideBarHidden, showOrHideSideBar] = useState(false);
   const [serverList, updateList] = useState([]);
-  const { user }: any = useStore();
+  const { user, servers, currentServer }: any = useStore();
   const { username }: { username: string } = user.userState;
+  const { selectedServerDispatch }: { selectedServerDispatch: Function } =
+    currentServer;
 
-  const [currentServer, setCurrentServer] = useState([]);
   const [currentDivHover, changeDivHover] = useState(null);
 
   useEffect(() => populateServerList(), []);
@@ -22,7 +23,6 @@ function Sidebar(props) {
       .then((response) => response.json())
       .then((data) => {
         const cloudData: string[] = data.cloud;
-        console.log(cloudData)
         updateList(cloudData);
       });
   };
@@ -77,7 +77,7 @@ function Sidebar(props) {
       endpointElement.validity.valueMissing
     )
       endpointElement.setCustomValidity('');
-      console.log(endpointElement.validity.valid);
+    console.log(endpointElement.validity.valid);
     return (
       nameElement.validity.valid &&
       endpointElement.validity.valid &&
@@ -162,9 +162,27 @@ function Sidebar(props) {
   const changeCurrentServer = (e) => {
     const currentServer: string = e.target.id;
     const currentPORT: any = e.target.value;
-    setCurrentServer([currentServer, currentPORT]);
-    console.log(currentServer);
-    console.log(currentPORT);
+    if (
+      currentServer === 'redis-16424.c289.us-west-1-2.ec2.cloud.redislabs.com'
+    ) {
+      selectedServerDispatch({
+        type: 'currentServer',
+        payload: {
+          endpoint: currentServer,
+          password: 'redis',
+          port: 16424,
+        },
+      });
+    } else {
+      selectedServerDispatch({
+        type: 'currentServer',
+        payload: {
+          endpoint: currentServer,
+          password: 'Etttmq5T4ubqnE6TaYltcjXmdobQAjfq',
+          port: 18891,
+        },
+      });
+    }
   };
 
   return (
