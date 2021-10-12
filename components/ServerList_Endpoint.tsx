@@ -4,12 +4,18 @@ import styles from '../styles/ServerList.module.scss';
 import PropTypes from 'prop-types';
 
 export default function ServerList(props) {
-  const { serverList, removeServer, currentDivHover, changeDivHover } = props;
+  const {
+    serverList,
+    removeServer,
+    currentDivHover,
+    changeDivHover,
+    changeCurrentServer,
+  } = props;
 
   interface server {
     name: string;
     endpoint: string;
-    PORT: string;
+    port: string | number;
   }
 
   const servers: server[] = serverList.map((elem, index) => (
@@ -17,10 +23,11 @@ export default function ServerList(props) {
       key={index}
       name={elem.name}
       endpoint={elem.endpoint}
-      PORT={elem.PORT}
+      PORT={elem.port}
       removeServer={removeServer}
       currentDivHover={currentDivHover}
       changeDivHover={changeDivHover}
+      changeCurrentServer={changeCurrentServer}
     />
   ));
   return <div className={styles.serverList}>{servers}</div>;
@@ -31,4 +38,5 @@ ServerList.propTypes = {
   removeServer: PropTypes.func.isRequired,
   currentDivHover: PropTypes.any,
   changeDivHover: PropTypes.func,
+  changeCurrentServer: PropTypes.func,
 };

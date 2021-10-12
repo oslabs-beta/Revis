@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCube } from "@fortawesome/free-solid-svg-icons";
 import ServerAdd from "./ServerAdd";
-import ServerAdd_Endpoint from './ServerAdd_Endpoint'
 import ServerList from "./ServerList";
 import { useStore } from "../context/Provider";
 import styles from "../styles/Sidebar.module.scss";
@@ -36,6 +35,7 @@ function Sidebar(props) {
       });
   };
   useEffect(() => populateServerList(), []);
+
   const validityCheckOnSubmit = (
     nameElement: HTMLInputElement,
     ipElement: HTMLInputElement,

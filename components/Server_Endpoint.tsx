@@ -1,9 +1,16 @@
 import styles from '../styles/Server.module.scss';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 export default function Server(props) {
-  const { name, endpoint, PORT, removeServer, currentDivHover, changeDivHover } =
-    props;
+  const {
+    name,
+    endpoint,
+    port,
+    removeServer,
+    currentDivHover,
+    changeDivHover,
+    changeCurrentServer,
+  } = props;
 
   const removeServerAnimation = (e) => {
     const wrapperName: HTMLDivElement = e.target.attributes[1].value;
@@ -38,8 +45,15 @@ export default function Server(props) {
       <div className={styles.server}>
         <p>Name: {name}</p>
         <p>URL: {endpoint}</p>
-        <p>Port: {PORT}</p>
+        <p>Port: {port}</p>
       </div>
+      <input
+        id={endpoint}
+        type='radio'
+        name='currentServer'
+        value={port}
+        onChange={changeCurrentServer}
+      />
     </div>
   );
 }
@@ -51,4 +65,5 @@ Server.propTypes = {
   removeServer: PropTypes.func.isRequired,
   currentDivHover: PropTypes.any,
   changeDivHover: PropTypes.func,
+  changeCurrentServer: PropTypes.func,
 };
