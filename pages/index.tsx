@@ -21,15 +21,13 @@ function HomePage() {
   return (
     <div className={styles.homePageWrapper}>
       <LogoHomeScreen />
-      <div className="rightSide">
-        {pages === 'userLogin' ? (
-          <UserLogin onForgotPassword={onForgotPassword} onSignUp={onSignUp} />
-        ) : pages === 'forgotPassword' ? (
-          <ForgotPassword previousPage={previousPage} />
-        ) : (
-          <SignUp previousPage={previousPage} />
-        )}
-      </div>
+      {pages === 'userLogin' ? (
+        <UserLogin onForgotPassword={onForgotPassword} onSignUp={onSignUp} />
+      ) : pages === 'forgotPassword' ? (
+        <ForgotPassword previousPage={previousPage} />
+      ) : (
+        <SignUp previousPage={previousPage} />
+      )}
     </div>
   );
 }

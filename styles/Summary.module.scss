@@ -8,10 +8,12 @@
 
   .Welcome {
     display: flex;
+    word-wrap: break-word;
     position: absolute;
-    left: 92%;
-    top: 1%;
+    left: 85%;
+    top: 0.25%;
     color: $summaryTitleGrey;
+    width: 16rem;
   }
 
   h1 {

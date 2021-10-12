@@ -30,6 +30,7 @@
     -webkit-transition: 0.4s;
     transition: 0.4s;
     border-radius: 1rem;
+    border: solid var(--logoColor) 1px;
   }
 
   .slider:before {
@@ -43,12 +44,12 @@
     opacity: 100%;
     -webkit-transition: 0.4s;
     transition: 0.4s;
-    border-radius: 50%;
+    border-radius: 1rem;
     background-image: url(./sun-solid.svg);
   }
 
   input:checked + .slider {
-    background-color: black;
+    background-color: rgb(51, 51, 51);
   }
 
   $distanceFromEdge: 3.6rem;
@@ -57,5 +58,6 @@
     -ms-transform: translateX($distanceFromEdge);
     transform: translateX($distanceFromEdge);
     background-image: url(./moon-solid.svg);
+    background-color: var(--logoColor);
   }
 }
