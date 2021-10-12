@@ -36,3 +36,36 @@
     font-family: $fontOfMetrics;
   }
 }
+
+.MultipleGraphContainer {
+  h1 {
+    font-family: $fontOfMetrics;
+    color: $summaryTitleGrey;
+  }
+  #backButton {
+    position: absolute;
+    left: 4%;
+    top: 5%;
+    background-color: transparent;
+    border-color: transparent;
+    text-decoration: underline;
+    font-size: 20px;
+    color: $logoRed;
+    font-family: $fontOfSummaryTitle;
+  }
+  .LeftMenu {
+    position: absolute;
+    top: 20%;
+    left: 5%;
+  }
+  .GraphFlex {
+    margin-left: 20%;
+    position: relative;
+  }
+
+  .Graph {
+    background-color: rgb(27, 27, 28);
+    border-radius: 4px;
+    font-family: $fontOfMetrics;
+  }
+}

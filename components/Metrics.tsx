@@ -23,7 +23,7 @@ export default function Metrics(props) {
             type: "updateSelectedMetric",
             message: keys,
           });
-          router.replace("/redisinfo");
+          router.replace("/graphs");
         }}
       >
         {values}

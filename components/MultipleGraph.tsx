@@ -9,7 +9,7 @@ import {
 import { useStore } from "../context/Provider";
 import styles from "../styles/GraphContainer.module.scss";
 
-function Graph() {
+function MultipleGraph() {
   const { metricsStore, metricToGraph }: any = useStore();
 
   useEffect(() => {
@@ -60,7 +60,7 @@ function Graph() {
     </div>
   );
 }
-export default Graph;
+export default MultipleGraph;
 
 // console.log(metricsStore.metricState.metricsUpdated);
 // const data = [
