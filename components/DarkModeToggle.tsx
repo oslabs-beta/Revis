@@ -11,7 +11,10 @@ export default function DarkModeToggle() {
         <input
           type="checkbox"
           id="darkMode"
-          onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+          defaultChecked={theme !== 'light'}
+          onClick={() => {
+            setTheme(theme === 'light' ? 'dark' : 'light');
+          }}
         ></input>
         <span className={styles.slider}></span>
       </label>

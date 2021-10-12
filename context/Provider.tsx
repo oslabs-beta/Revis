@@ -38,7 +38,7 @@ export const GlobalProvider = ({ children }) => {
         metricsStore: { metricState, metricsDispatch },
         servers: { serverList, serversDispatch },
         metricToGraph: { metricToGraph, selectedMetricDispatch },
-        theme: { currentTheme, themeDispatch },
+        themeContext: { currentTheme, themeDispatch },
       }}
     >
       {children}
