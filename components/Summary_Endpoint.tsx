@@ -2,13 +2,13 @@
 // the table can have two tables for each row
 // import Metrics from "./metricsForSummary";
 
-import React, { useContext, useEffect, useState } from 'react';
-import router from 'next/router';
-import styles from '../styles/Summary.module.scss';
-import { useStore } from '../context/Provider';
-import Metrics from './Metrics';
-import Welcome from './Welcome';
-import Loading from './Loading';
+import React, { useContext, useEffect, useState } from "react";
+import router from "next/router";
+import styles from "../styles/Summary.module.scss";
+import { useStore } from "../context/Provider";
+import Metrics from "./Metrics";
+import Welcome from "./Welcome";
+import Loading from "./Loading";
 
 export default function Summary() {
   const [metrics, setMetrics] = useState({});
@@ -23,8 +23,8 @@ export default function Summary() {
 
   useEffect(() => {
     async function fetchDataFromRedis() {
-      let response = await fetch('http://localhost:3000/api/redis_Endpoint', {
-        method: 'POST',
+      let response = await fetch("http://localhost:3000/api/redis_Endpoint", {
+        method: "POST",
         body: JSON.stringify({
           endpoint: `${endpoint}`,
           password: `${password}`,
@@ -40,8 +40,8 @@ export default function Summary() {
       setMetrics(response);
     }
 
-    if (selectedServer.length !== 0) {
-      fetchDataFromRedis()
+    if (selectedServer.endpoint) {
+      fetchDataFromRedis();
       const interal = setInterval(fetchDataFromRedis, 10000);
       return () => clearInterval(interal);
     }
@@ -70,7 +70,7 @@ export default function Summary() {
           </div>
         )}
       </div>
-      <button type="button" onClick={() => router.replace('/graphs')}>
+      <button type="button" onClick={() => router.replace("/redisinfo")}>
         Graphs
       </button>
     </div>

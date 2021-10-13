@@ -1,8 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import Cookies from 'cookies';
-import db from '../../models/Revis';
+import type { NextApiRequest, NextApiResponse } from "next";
+import Cookies from "cookies";
+import db from "../../models/Revis";
 
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 
 const servers = async (req: NextApiRequest, res: NextApiResponse) => {
   let hashedPassword: string;
@@ -16,12 +16,12 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
   };
 
   const cookies: Cookies = new Cookies(req, res);
-  const userId: String = cookies.get('ssid');
+  const userId: String = cookies.get("ssid");
   const SALT_WORK_FACTOR: number = 10;
 
   const { method } = req;
   switch (method) {
-    case 'GET':
+    case "GET":
       try {
         SQLquery = `SELECT name, endpoint FROM "serverCloud" WHERE user_id = ${userId};`;
         const cloudDataFull = await db.query(SQLquery);
@@ -32,7 +32,7 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(400).json({ success: false, error: err });
       }
 
-    case 'POST':
+    case "POST":
       try {
         const parsedBody: Server = JSON.parse(req.body);
         const { name, endpoint, password } = parsedBody;
@@ -48,7 +48,7 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(400).json({ success: false, error: err });
       }
 
-    case 'DELETE':
+    case "DELETE":
       try {
         const parsedBody: Server = JSON.parse(req.body);
         const { name } = parsedBody;
@@ -60,7 +60,7 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(400).json({ success: false, error: err });
       }
     default:
-      return res.status(400).json({ success: false, error: 'Invalid request' });
+      return res.status(400).json({ success: false, error: "Invalid request" });
   }
 };
 export default servers;

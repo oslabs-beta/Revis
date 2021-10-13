@@ -1,6 +1,6 @@
-import React from 'react';
-import styles from '../styles/Server.module.scss';
-import { useStore } from '../context/Provider';
+import React from "react";
+import styles from "../styles/Server.module.scss";
+import { useStore } from "../context/Provider";
 
 export default function Server(props) {
   const { name, IP, PORT, currentDivHover, changeDivHover } = props;
@@ -9,7 +9,7 @@ export default function Server(props) {
   const { serversDispatch }: { serversDispatch: Function } = servers;
   const removeServer = (e: Event) => {
     serversDispatch({
-      type: 'deleteServer',
+      type: "deleteServer",
       message: { name: e.target.id },
     });
   };
@@ -19,16 +19,16 @@ export default function Server(props) {
       `#${wrapperName}`
     );
     changeDivHover(removeServerDiv);
-    removeServerDiv.style.width = '100%';
-    removeServerDiv.style.backgroundColor = 'red';
-    removeServerDiv.innerHTML = 'X';
+    removeServerDiv.style.width = "100%";
+    removeServerDiv.style.backgroundColor = "red";
+    removeServerDiv.innerHTML = "X";
   };
 
   const keepServerAnimation = (e) => {
     if (currentDivHover) {
-      currentDivHover.style.width = '0%';
-      currentDivHover.style.backgroundColor = 'white';
-      currentDivHover.innerHTML = '';
+      currentDivHover.style.width = "0%";
+      currentDivHover.style.backgroundColor = "white";
+      currentDivHover.innerHTML = "";
     }
   };
 
