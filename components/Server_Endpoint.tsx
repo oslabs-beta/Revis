@@ -1,17 +1,17 @@
-import styles from '../styles/Server.module.scss';
 import PropTypes from 'prop-types';
-import React from 'react';
-import { useStore } from '../context/Provider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckSquare } from '@fortawesome/free-solid-svg-icons';
+import { useStore } from '../context/Provider';
+import styles from '../styles/Server.module.scss';
 
 export default function Server(props) {
   const { name, endpoint, PORT, currentDivHover, changeDivHover } = props;
+
   const { servers, currentServer }: any = useStore();
   const { serversDispatch }: { serversDispatch: Function } = servers;
   const { selectedServerDispatch }: { selectedServerDispatch: Function } =
     currentServer;
-
+    
   const removeServer = (e: Event) => {
     serversDispatch({
       type: 'deleteServer',

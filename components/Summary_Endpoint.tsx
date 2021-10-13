@@ -65,7 +65,7 @@ export default function Summary() {
           </div>
         )}
       </div>
-      <button type='button' onClick={() => router.replace('/graphs')}>
+      <button type='button' onClick={() => router.replace('/redisinfo')}>
         Graphs
       </button>
     </div>

@@ -8,20 +8,28 @@ import styles from '../styles/Sidebar.module.scss';
 
 function Sidebar(props) {
   const [sideBarHidden, showOrHideSideBar] = useState(false);
-  const { user, servers }: any = useStore();
+  const { user, servers, currentServer }: any = useStore();
+  const { username }: { username: string } = user.userState;
   const {
     serverList,
     serversDispatch,
   }: { serverList: string[]; serversDispatch: Function } = servers;
+  const { selectedServerDispatch }: { selectedServerDispatch: Function } =
+    currentServer;
 
-  const { username }: { username: string } = user.userState;
   const [currentDivHover, changeDivHover] = useState(null);
   useEffect(() => populateServerList(), []);
   const populateServerList = () => {
+    console.log('fetch server list')
     fetch('/api/servers_Endpoint')
       .then((response) => response.json())
       .then((data) => {
         const cloudData: string[] = data.cloud;
+
+        if (!cloudData) {
+          serversDispatch({});
+          return;
+        }
         if (cloudData.length === 0) {
           serversDispatch({});
           return;
@@ -32,7 +40,7 @@ function Sidebar(props) {
         });
       });
   };
-
+  
   const checkEndpoint = async (
     endpoint: string,
     password: string,
@@ -125,33 +133,6 @@ function Sidebar(props) {
     return nameValidity && endpointValidity && portValidity;
   };
 
-  const postServerToDataBase = (
-    name: string,
-    endpoint: string,
-    password: string,
-    PORT: string
-  ) => {
-    fetch('/api/servers_Endpoint', {
-      method: 'POST',
-      body: JSON.stringify({
-        name,
-        endpoint,
-        password,
-        PORT,
-        username,
-      }),
-      'Content-Type': 'application/json',
-    });
-  };
-
-  const deleteServerFromDataBase = (name: string) => {
-    fetch('/api/servers_Endpoint', {
-      method: 'DELETE',
-      body: JSON.stringify({ name }),
-      'Content-Type': 'application/json',
-    });
-  };
-
   const addServer = async (e) => {
     e.preventDefault();
     const name: HTMLInputElement = document.querySelector('#name');
@@ -171,9 +152,16 @@ function Sidebar(props) {
         return;
       }
       endpoint.setCustomValidity('');
+
       serversDispatch({
         type: 'addServer',
-        message: { name: name, endpoint: endpoint, port: PORT, username },
+        message: {
+          name: name.value,
+          endpoint: endpoint.value,
+          password: password.value,
+          port: PORT.value,
+          username,
+        },
       });
     }
   };
@@ -190,6 +178,32 @@ function Sidebar(props) {
       document.querySelector(`#${styles.cube}`).style.top = '50%';
     }
     showOrHideSideBar(!sideBarHidden);
+  };
+
+  const changeCurrentServer = (e) => {
+    const currentServer: string = e.target.id;
+    const currentPORT: any = e.target.value;
+    if (
+      currentServer === 'redis-16424.c289.us-west-1-2.ec2.cloud.redislabs.com'
+    ) {
+      selectedServerDispatch({
+        type: 'currentServer',
+        payload: {
+          endpoint: currentServer,
+          password: 'redis',
+          port: 16424,
+        },
+      });
+    } else {
+      selectedServerDispatch({
+        type: 'currentServer',
+        payload: {
+          endpoint: currentServer,
+          password: 'Etttmq5T4ubqnE6TaYltcjXmdobQAjfq',
+          port: 18891,
+        },
+      });
+    }
   };
 
   return (

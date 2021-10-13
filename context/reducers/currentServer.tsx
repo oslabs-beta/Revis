@@ -14,7 +14,7 @@ const currentServer = (state: State, action: Action) => {
   switch (action.type) {
     case 'currentServer':
       console.log(currentInfo);
-      return { ...newServer, endpoint:endpoint, password:password, port:port, sessionToken:sessionToken };
+      return { ...newServer, endpoint, password, port, sessionToken };
 
     default:
       return state;

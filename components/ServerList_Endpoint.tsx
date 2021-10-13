@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Server_Endpoint from './Server_Endpoint';
 import styles from '../styles/ServerList.module.scss';
-import PropTypes from 'prop-types';
 
 export default function ServerList(props) {
-  const [currentDivHover, changeDivHover] = useState(null);
-
-  const { serverList } = props;
+  const { serverList, currentDivHover, changeDivHover } =
+    props;
 
   interface server {
     name: string;
