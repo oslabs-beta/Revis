@@ -8,24 +8,32 @@ import styles from '../styles/Sidebar.module.scss';
 
 function Sidebar(props) {
   const [sideBarHidden, showOrHideSideBar] = useState(false);
-  const [serverList, updateList] = useState([]);
-  const { user, servers, currentServer }: any = useStore();
+  const { user, servers }: any = useStore();
+  const {
+    serverList,
+    serversDispatch,
+  }: { serverList: string[]; serversDispatch: Function } = servers;
+
   const { username }: { username: string } = user.userState;
-  const { selectedServerDispatch }: { selectedServerDispatch: Function } =
-    currentServer;
-
   const [currentDivHover, changeDivHover] = useState(null);
-
-  useEffect(() => populateServerList(), []);
 
   const populateServerList = () => {
     fetch('/api/servers_Endpoint')
       .then((response) => response.json())
       .then((data) => {
         const cloudData: string[] = data.cloud;
-        updateList(cloudData);
+        if (cloudData.length === 0) {
+          serversDispatch({});
+          return;
+        }
+        serversDispatch({
+          type: 'populateList',
+          message: [...cloudData],
+        });
       });
   };
+
+  useEffect(() => populateServerList(), []);
 
   //modularize the IP check,
   const validityCheckOnSubmit = (
@@ -122,29 +130,11 @@ function Sidebar(props) {
     const PORT: HTMLInputElement = document.querySelector('#PORT');
 
     if (validityCheckOnSubmit(name, endpoint, PORT)) {
-      updateList(
-        serverList.concat({
-          name: name.value,
-          endpoint: endpoint.value,
-          PORT: PORT.value,
-        })
-      );
-
-      postServerToDataBase(
-        name.value,
-        endpoint.value,
-        password.value,
-        PORT.value
-      );
+      serversDispatch({
+        type: 'addServer',
+        message: { name: name, endpoint: endpoint, port: PORT, username },
+      });
     }
-  };
-
-  const removeServer = (e) => {
-    const serverNameToRemove: string = e.target.id;
-    console.log(serverNameToRemove);
-    if (!serverNameToRemove) return;
-    deleteServerFromDataBase(serverNameToRemove);
-    updateList(serverList.filter((elem) => elem.name !== serverNameToRemove));
   };
 
   const changeSidebarVisual = () => {
@@ -159,41 +149,13 @@ function Sidebar(props) {
     showOrHideSideBar(!sideBarHidden);
   };
 
-  const changeCurrentServer = (e) => {
-    const currentServer: string = e.target.id;
-    const currentPORT: any = e.target.value;
-    if (
-      currentServer === 'redis-16424.c289.us-west-1-2.ec2.cloud.redislabs.com'
-    ) {
-      selectedServerDispatch({
-        type: 'currentServer',
-        payload: {
-          endpoint: currentServer,
-          password: 'redis',
-          port: 16424,
-        },
-      });
-    } else {
-      selectedServerDispatch({
-        type: 'currentServer',
-        payload: {
-          endpoint: currentServer,
-          password: 'Etttmq5T4ubqnE6TaYltcjXmdobQAjfq',
-          port: 18891,
-        },
-      });
-    }
-  };
-
   return (
     <div className={styles.sideBarWrapper} id='sideBar'>
       <ServerAdd_Endpoint addServer={addServer} />
       <ServerList_Endpoint
         serverList={serverList}
-        removeServer={removeServer}
         currentDivHover={currentDivHover}
         changeDivHover={changeDivHover}
-        changeCurrentServer={changeCurrentServer}
       />
       <FontAwesomeIcon
         id={styles.cube}

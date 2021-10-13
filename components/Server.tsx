@@ -7,6 +7,7 @@ export default function Server(props) {
 
   const { servers }: any = useStore();
   const { serversDispatch }: { serversDispatch: Function } = servers;
+
   const removeServer = (e: Event) => {
     serversDispatch({
       type: 'deleteServer',
@@ -23,7 +24,6 @@ export default function Server(props) {
     removeServerDiv.style.backgroundColor = 'red';
     removeServerDiv.innerHTML = 'X';
   };
-
   const keepServerAnimation = (e) => {
     if (currentDivHover) {
       currentDivHover.style.width = '0%';

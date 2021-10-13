@@ -22,7 +22,7 @@ export default function Summary() {
   // }: { metricState: string[], metricsDispatch: Function } = metrics;
 
   useEffect(() => {
-    console.log(selectedServer);
+    console.log(selectedServer)
     async function fetchDataFromRedis() {
       let response = await fetch('http://localhost:3000/api/redis_Endpoint', {
         method: 'POST',
@@ -42,6 +42,7 @@ export default function Summary() {
     }
 
     if (selectedServer.length !== 0) {
+      fetchDataFromRedis()
       const interal = setInterval(fetchDataFromRedis, 10000);
       return () => clearInterval(interal);
     }
