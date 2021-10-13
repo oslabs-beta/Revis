@@ -2,17 +2,19 @@
 // the table can have two tables for each row
 // import Metrics from "./metricsForSummary";
 
-import React, { useContext, useEffect, useState } from "react";
-import router from "next/router";
-import styles from "../styles/Summary.module.scss";
-import { useStore } from "../context/Provider";
-import Metrics from "./Metrics";
-import Welcome from "./Welcome";
-import Loading from "./Loading";
+import React, { useContext, useEffect, useState } from 'react';
+import router from 'next/router';
+import styles from '../styles/Summary.module.scss';
+import { useStore } from '../context/Provider';
+import Metrics from './Metrics';
+import Welcome from './Welcome';
+import Loading from './Loading';
+import UpdateInterval from './UpdateInterval';
 
 export default function Summary() {
   const [metrics, setMetrics] = useState({});
-  const { currentServer }: any = useStore();
+  const { currentServer, graphInterval }: any = useStore();
+  const time = graphInterval.updateInterval.interval;
   const { selectedServer }: any = currentServer;
   const { endpoint, password, port } = selectedServer;
   // const { metrics }: any = useStore();
@@ -45,7 +47,7 @@ export default function Summary() {
       const interal = setInterval(fetchDataFromRedis, 10000);
       return () => clearInterval(interal);
     }
-  }, [selectedServer]);
+  });
 
   const metricsForTable = [];
 
@@ -70,9 +72,10 @@ export default function Summary() {
           </div>
         )}
       </div>
-      <button type="button" onClick={() => router.replace("/redisinfo")}>
+      <button type='button' onClick={() => router.replace('/redisinfo')}>
         Graphs
       </button>
+      <UpdateInterval />
     </div>
   );
 }
