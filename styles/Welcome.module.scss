@@ -1,0 +1,8 @@
+@import "./colorsAndFonts.scss";
+.Welcome {
+  display: flex;
+  position: absolute;
+  left: 91%;
+  top: 5%;
+  color: $summaryTitleGrey;
+}

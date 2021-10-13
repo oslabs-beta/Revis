@@ -1,68 +1,54 @@
 import React, { useState, useEffect } from "react";
 import { useStore } from "../context/Provider";
+import styles from "../styles/GraphContainer.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
+import { faSquare } from "@fortawesome/free-solid-svg-icons";
 
 function MetricsForGraph(props) {
   const { multipleGraphSelections } = useStore();
   const { keys } = props;
 
-  useEffect(() => {
-    if (multipleGraphSelections.multipleGraphState.includes(keys)) {
-      const checkbox = document.getElementById(`${keys}`);
-      checkbox.setAttribute("checked", "true");
-    }
-  });
-
-  const updateMetric = () => {
-    const checkbox = document.getElementById(`${keys}`);
-    if (multipleGraphSelections.multipleGraphState.length >= 4) {
-      return alert("Only 4 graphs can be shown simultaneously");
-    }
-    if (checkbox.getAttribute("checked")) {
+  const changeMetric = () => {
+    if (multipleGraphSelections.multipleGraphState[keys]) {
       multipleGraphSelections.multipleGraphDispatch({
         type: "metricUnselected",
         message: keys,
       });
-      checkbox.setAttribute("checked", "false");
     } else {
+      if (Object.keys(multipleGraphSelections.multipleGraphState).length > 3) {
+        return alert("Only 4 graphs can be simultaneously shown");
+      }
       multipleGraphSelections.multipleGraphDispatch({
         type: "newMetricSelected",
         message: keys,
       });
-
-      checkbox.setAttribute("checked", "true");
     }
   };
 
+  const squareUnChecked = (
+    <span onClick={changeMetric} key={keys}>
+      <FontAwesomeIcon
+        id={keys}
+        icon={faSquare}
+        className={styles.emptySquare}
+      />
+    </span>
+  );
+  const squareChecked = (
+    <span onClick={changeMetric} key={keys}>
+      <FontAwesomeIcon id={keys} icon={faCheckSquare} />
+    </span>
+  );
+
   return (
     <div>
-      <input id={keys} type="checkbox" onClick={updateMetric}></input>
+      {multipleGraphSelections.multipleGraphState[keys]
+        ? squareChecked
+        : squareUnChecked}
       {keys}
     </div>
   );
 }
 
 export default MetricsForGraph;
-
-// componentDidMount() {
-//   if (multipleGraphSelections.multipleGraphState.includes(keys)) {
-//     // const checkbox = document.querySelector(`#${keys}`);
-//     const checkbox = document.getElementById(`${keys}`);
-//     checkbox.setAttribute("checked", true);
-//   }
-// }
-
-// console.log(multipleGraphSelections.multipleGraphState)
-// if (multipleGraphSelections.multipleGraphState.includes(keys)) {
-//   // const checkbox = document.querySelector(`#${keys}`);
-//   const checkbox = document.getElementById(`${keys}`);
-//   checkbox.setAttribute("checked", true);
-// }
-// console.log(multipleGraphSelections.multipleGraphState.includes(keys));
-// if keys is in the global state then useState is set to true\
-//
-
-{
-  /* <button type="button" onClick={() => (checked = !checked)}>
-        check
-      </button> */
-}
