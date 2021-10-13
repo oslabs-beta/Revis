@@ -11,18 +11,11 @@ import Welcome from './Welcome';
 import Loading from './Loading';
 
 export default function Summary() {
-  const [metrics, setMetrics] = useState({});
-  const { currentServer }: any = useStore();
+  const { metricsStore, currentServer }: any = useStore();
   const { selectedServer }: any = currentServer;
-  const { endpoint, password, port } = selectedServer;
-  //const { metrics }: any = useStore();
-  // const {
-  //   metricState,
-  //   metricsDispatch,
-  // }: { metricState: string[], metricsDispatch: Function } = metrics;
 
+  const { endpoint, password, port } = selectedServer;
   useEffect(() => {
-    console.log(selectedServer)
     async function fetchDataFromRedis() {
       let response = await fetch('http://localhost:3000/api/redis_Endpoint', {
         method: 'POST',
@@ -33,16 +26,14 @@ export default function Summary() {
         }),
       });
       response = await response.json();
-      // metricsDispatch({
-      //   type: 'updateMetrics',
-      //   message: [...response] ,
-      // });
-      //console.log(metricState)
-      setMetrics(response);
+      await metricsStore.metricsDispatch({
+        type: 'updateMetrics',
+        message: response,
+      });
     }
 
     if (selectedServer.length !== 0) {
-      fetchDataFromRedis()
+      fetchDataFromRedis();
       const interal = setInterval(fetchDataFromRedis, 10000);
       return () => clearInterval(interal);
     }
@@ -50,8 +41,11 @@ export default function Summary() {
 
   const metricsForTable = [];
 
-  Object.entries(metrics).forEach((el) => {
-    metricsForTable.push(<Metrics key={el[0]} keys={el[0]} values={el[1]} />);
+  Object.entries(
+    metricsStore.metricState[metricsStore.metricState.length - 1]
+  ).forEach((el) => {
+    if (el[0] !== 'time')
+      metricsForTable.push(<Metrics key={el[0]} keys={el[0]} values={el[1]} />);
   });
 
   return (

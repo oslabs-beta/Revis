@@ -2,18 +2,16 @@ import styles from '../styles/Server.module.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useStore } from '../context/Provider';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckSquare } from '@fortawesome/free-solid-svg-icons';
+
 export default function Server(props) {
-  const {
-    name,
-    endpoint,
-    PORT,
-    currentDivHover,
-    changeDivHover,
-      } = props;
+  const { name, endpoint, PORT, currentDivHover, changeDivHover } = props;
   const { servers, currentServer }: any = useStore();
   const { serversDispatch }: { serversDispatch: Function } = servers;
   const { selectedServerDispatch }: { selectedServerDispatch: Function } =
     currentServer;
+
   const removeServer = (e: Event) => {
     serversDispatch({
       type: 'deleteServer',
@@ -74,6 +72,11 @@ export default function Server(props) {
         <div className={styles.removeServerDiv} id={name}></div>
       </div>
       <div className={styles.server}>
+        <FontAwesomeIcon
+          onClick={changeCurrentServer}
+          id={styles.checkBox}
+          icon={faCheckSquare}
+        />
         <p>Name: {name}</p>
         <p>URL: {endpoint}</p>
         <p>Port: {PORT}</p>

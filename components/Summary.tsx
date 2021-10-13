@@ -59,7 +59,7 @@ export default function Summary() {
         )}
       </div>
       <p> Click on each metric to view details </p>
-      <button type="button" onClick={() => router.replace('/redisinfo')}>
+      <button type='button' onClick={() => router.replace('/redisinfo')}>
         Graphs
       </button>
     </div>
