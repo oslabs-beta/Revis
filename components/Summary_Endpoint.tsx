@@ -15,14 +15,13 @@ export default function Summary() {
   const { currentServer }: any = useStore();
   const { selectedServer }: any = currentServer;
   const { endpoint, password, port } = selectedServer;
-  //const { metrics }: any = useStore();
+  // const { metrics }: any = useStore();
   // const {
   //   metricState,
   //   metricsDispatch,
   // }: { metricState: string[], metricsDispatch: Function } = metrics;
 
   useEffect(() => {
-    console.log(selectedServer);
     async function fetchDataFromRedis() {
       let response = await fetch('http://localhost:3000/api/redis_Endpoint', {
         method: 'POST',
@@ -37,7 +36,7 @@ export default function Summary() {
       //   type: 'updateMetrics',
       //   message: [...response] ,
       // });
-      //console.log(metricState)
+      // console.log(metricState)
       setMetrics(response);
     }
 
@@ -70,7 +69,7 @@ export default function Summary() {
           </div>
         )}
       </div>
-      <button type='button' onClick={() => router.replace('/graphs')}>
+      <button type="button" onClick={() => router.replace('/graphs')}>
         Graphs
       </button>
     </div>

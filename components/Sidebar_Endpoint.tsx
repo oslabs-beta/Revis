@@ -27,26 +27,24 @@ function Sidebar(props) {
       });
   };
 
-  //modularize the IP check,
-  const validityCheckOnSubmit = (
-    nameElement: HTMLInputElement,
-    endpointElement: HTMLInputElement,
-    portElement: HTMLInputElement
-  ) => {
-    if (nameElement.validity.tooShort || nameElement.validity.valueMissing) {
+  const checkEndpoint = async (
+    endpoint: string,
+    password: string,
+    port: string
+  ) =>
+    fetch('/api/verifyEndpoint', {
+      method: 'POST',
+      body: JSON.stringify({ endpoint, password, port }),
+      'Content-Type': 'application/json',
+    }).then((response) => response.status === 200);
+
+  const nameValidityChecks = (nameElement: HTMLInputElement) => {
+    if (nameElement.validity.valueMissing) {
       nameElement.setCustomValidity('Please input at least four characters');
       nameElement.reportValidity();
-    } else nameElement.setCustomValidity('');
-
-    if (
-      portElement.validity.patternMismatch ||
-      portElement.validity.valueMissing
-    ) {
-      portElement.setCustomValidity(
-        'Please input a proper port number (eg. 8080)'
-      );
-      portElement.reportValidity();
-    } else portElement.setCustomValidity('');
+      return false;
+    }
+    nameElement.setCustomValidity('');
 
     const alreadyAddedServerName: boolean = serverList.some(
       (elem) => elem.name === nameElement.value
@@ -57,34 +55,70 @@ function Sidebar(props) {
         'This name has already been added. Please enter a unique name.'
       );
       nameElement.reportValidity();
-    } else if (
-      nameElement.validity.tooShort &&
-      nameElement.validity.valueMissing
+      return false;
+    }
+
+    if (nameElement.validity.patternMismatch) {
+      nameElement.setCustomValidity(
+        'Names can only be letters and must be at least 4 characters long.'
+      );
+      nameElement.reportValidity();
+    }
+
+    if (
+      !nameElement.validity.valueMissing &&
+      !nameElement.validity.patternMismatch
     )
       nameElement.setCustomValidity('');
+    return true;
+  };
+  const portValidityChecks = (portElement: HTMLInputElement) => {
+    if (
+      portElement.validity.patternMismatch ||
+      portElement.validity.valueMissing
+    ) {
+      portElement.setCustomValidity(
+        'Please input a proper port number (eg. 8080)'
+      );
+      portElement.reportValidity();
+      return false;
+    }
+    portElement.setCustomValidity('');
+    return true;
+  };
 
+  const endpointValidityChecks = (endpointElement: HTMLInputElement) => {
     const alreadyAddedServerEndpoint: boolean = serverList.some(
       (elem) => elem.endpoint === endpointElement.value
     );
 
     if (alreadyAddedServerEndpoint) {
       endpointElement.setCustomValidity(
-        'This endpoint URL has already been added. Please input a unique IP.'
+        'This endpoint URL has already been added. Please input a unique URL.'
       );
       endpointElement.reportValidity();
-    } else if (
+      return false;
+    }
+    if (
       endpointElement.validity.patternMismatch &&
       endpointElement.validity.valueMissing
-    )
-      endpointElement.setCustomValidity('');
-    console.log(endpointElement.validity.valid);
-    return (
-      nameElement.validity.valid &&
-      endpointElement.validity.valid &&
-      portElement.validity.valid &&
-      !alreadyAddedServerName &&
-      !alreadyAddedServerEndpoint
-    );
+    ) {
+      return false;
+    }
+    endpointElement.setCustomValidity('');
+    return true;
+  };
+
+  const validityCheckOnSubmit = (
+    nameElement: HTMLInputElement,
+    endpointElement: HTMLInputElement,
+    portElement: HTMLInputElement
+  ) => {
+    const nameValidity: boolean = nameValidityChecks(nameElement);
+    const endpointValidity: boolean = endpointValidityChecks(endpointElement);
+    const portValidity: boolean = portValidityChecks(portElement);
+
+    return nameValidity && endpointValidity && portValidity;
   };
 
   const postServerToDataBase = (
@@ -96,10 +130,10 @@ function Sidebar(props) {
     fetch('/api/servers_Endpoint', {
       method: 'POST',
       body: JSON.stringify({
-        name: name,
-        endpoint: endpoint,
-        password: password,
-        PORT: PORT,
+        name,
+        endpoint,
+        password,
+        PORT,
         username,
       }),
       'Content-Type': 'application/json',
@@ -114,7 +148,7 @@ function Sidebar(props) {
     });
   };
 
-  const addServer = (e) => {
+  const addServer = async (e) => {
     e.preventDefault();
     const name: HTMLInputElement = document.querySelector('#name');
     const endpoint: HTMLInputElement = document.querySelector('#endpoint');
@@ -122,6 +156,17 @@ function Sidebar(props) {
     const PORT: HTMLInputElement = document.querySelector('#PORT');
 
     if (validityCheckOnSubmit(name, endpoint, PORT)) {
+      const correctServerEndpoint = await checkEndpoint(
+        endpoint.value,
+        password.value,
+        PORT.value
+      );
+      if (!correctServerEndpoint) {
+        endpoint.setCustomValidity('Invalid endpoint or password.');
+        endpoint.reportValidity();
+        return;
+      }
+      endpoint.setCustomValidity('');
       updateList(
         serverList.concat({
           name: name.value,
@@ -141,7 +186,6 @@ function Sidebar(props) {
 
   const removeServer = (e) => {
     const serverNameToRemove: string = e.target.id;
-    console.log(serverNameToRemove);
     if (!serverNameToRemove) return;
     deleteServerFromDataBase(serverNameToRemove);
     updateList(serverList.filter((elem) => elem.name !== serverNameToRemove));
@@ -186,7 +230,7 @@ function Sidebar(props) {
   };
 
   return (
-    <div className={styles.sideBarWrapper} id='sideBar'>
+    <div className={styles.sideBarWrapper} id="sideBar">
       <ServerAdd_Endpoint addServer={addServer} />
       <ServerList_Endpoint
         serverList={serverList}

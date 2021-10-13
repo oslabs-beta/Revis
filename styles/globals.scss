@@ -1,8 +1,8 @@
 @import './colorsAndFonts.scss';
 
-html {
-  transition: all 10s linear;
-}
+// html {
+//   transition: all 10s linear;
+// }
 html[data-theme='light'] {
   --logoColor: #ce6030; //logoRed
   --background: rgb(247, 246, 240);
