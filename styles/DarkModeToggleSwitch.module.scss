@@ -19,6 +19,8 @@
     width: 0;
     height: 0;
   }
+
+  $transitionTime: 0.72s;
   .slider {
     position: absolute;
     cursor: pointer;
@@ -27,8 +29,8 @@
     right: 0;
     bottom: 0;
     background-color: #fefefe;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
+    -webkit-transition: $transitionTime;
+    transition: $transitionTime;
     border-radius: 1rem;
     border: solid var(--logoColor) 1px;
   }
@@ -42,8 +44,8 @@
     bottom: 0.25rem;
     background-color: #fefefe;
     opacity: 100%;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
+    -webkit-transition: $transitionTime;
+    transition: $transitionTime;
     border-radius: 1rem;
     background-image: url(./sun-solid.svg);
   }
@@ -53,10 +55,13 @@
   }
 
   $distanceFromEdge: 3.6rem;
+
   input:checked + .slider:before {
-    -webkit-transform: translateX($distanceFromEdge);
-    -ms-transform: translateX($distanceFromEdge);
-    transform: translateX($distanceFromEdge);
+    //
+    -ms-transform: translateX($distanceFromEdge) rotate(360deg);
+
+    transform: translateX($distanceFromEdge) rotate(360deg);
+
     background-image: url(./moon-solid.svg);
     background-color: var(--logoColor);
   }
