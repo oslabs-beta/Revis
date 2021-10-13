@@ -1,4 +1,4 @@
-@import './colorsAndFonts.scss';
+@import "./colorsAndFonts.scss";
 .serverAddWrapper {
   margin-top: 50px;
   width: 100%;
@@ -10,10 +10,13 @@
   #addServerBtn {
     background-color: $logoRed;
     color: white;
-    margin-left: 70px;
+    margin-left: 35%;
     margin-top: 30px;
     padding: 5px;
     cursor: pointer;
+    font-size: 1.1rem;
+    font-family: $fontOfSummaryTitle;
+    margin-bottom: 2.5rem;
   }
   .inputWrapper {
     width: 100%;
@@ -32,8 +35,8 @@
       label {
         display: flex;
         flex-direction: row;
-        justify-content: flex-end;
-        width: 20%;
+        // justify-content: flex-end;
+        width: 30%;
       }
       input {
         width: 50%;

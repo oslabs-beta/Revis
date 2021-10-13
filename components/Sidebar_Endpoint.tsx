@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCube } from '@fortawesome/free-solid-svg-icons';
-import ServerAdd_Endpoint from './ServerAdd_Endpoint';
-import ServerList_Endpoint from './ServerList_Endpoint';
-import { useStore } from '../context/Provider';
-import styles from '../styles/Sidebar.module.scss';
+import React, { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCube } from "@fortawesome/free-solid-svg-icons";
+import ServerAdd_Endpoint from "./ServerAdd_Endpoint";
+import ServerList_Endpoint from "./ServerList_Endpoint";
+import { useStore } from "../context/Provider";
+import styles from "../styles/Sidebar.module.scss";
 
 function Sidebar(props) {
   const [sideBarHidden, showOrHideSideBar] = useState(false);
-  const [serverList, updateList] = useState([]);
   const { user, servers, currentServer }: any = useStore();
   const { username }: { username: string } = user.userState;
+  const {
+    serverList,
+    serversDispatch,
+  }: { serverList: string[]; serversDispatch: Function } = servers;
   const { selectedServerDispatch }: { selectedServerDispatch: Function } =
     currentServer;
 
@@ -19,34 +22,45 @@ function Sidebar(props) {
   useEffect(() => populateServerList(), []);
 
   const populateServerList = () => {
-    fetch('/api/servers_Endpoint')
+    if (serverList.length > 0) return;
+    fetch("/api/servers_Endpoint")
       .then((response) => response.json())
       .then((data) => {
         const cloudData: string[] = data.cloud;
-        updateList(cloudData);
+
+        if (!cloudData) {
+          serversDispatch({});
+          return;
+        }
+        if (cloudData.length === 0) {
+          serversDispatch({});
+          return;
+        }
+        serversDispatch({
+          type: "populateList",
+          message: [...cloudData],
+        });
       });
   };
 
-  //modularize the IP check,
-  const validityCheckOnSubmit = (
-    nameElement: HTMLInputElement,
-    endpointElement: HTMLInputElement,
-    portElement: HTMLInputElement
-  ) => {
-    if (nameElement.validity.tooShort || nameElement.validity.valueMissing) {
-      nameElement.setCustomValidity('Please input at least four characters');
-      nameElement.reportValidity();
-    } else nameElement.setCustomValidity('');
+  const checkEndpoint = async (
+    endpoint: string,
+    password: string,
+    port: string
+  ) =>
+    fetch("/api/verifyEndpoint", {
+      method: "POST",
+      body: JSON.stringify({ endpoint, password, port }),
+      "Content-Type": "application/json",
+    }).then((response) => response.status === 200);
 
-    if (
-      portElement.validity.patternMismatch ||
-      portElement.validity.valueMissing
-    ) {
-      portElement.setCustomValidity(
-        'Please input a proper port number (eg. 8080)'
-      );
-      portElement.reportValidity();
-    } else portElement.setCustomValidity('');
+  const nameValidityChecks = (nameElement: HTMLInputElement) => {
+    if (nameElement.validity.valueMissing) {
+      nameElement.setCustomValidity("Please input at least four characters");
+      nameElement.reportValidity();
+      return false;
+    }
+    nameElement.setCustomValidity("");
 
     const alreadyAddedServerName: boolean = serverList.some(
       (elem) => elem.name === nameElement.value
@@ -54,152 +68,163 @@ function Sidebar(props) {
 
     if (alreadyAddedServerName) {
       nameElement.setCustomValidity(
-        'This name has already been added. Please enter a unique name.'
+        "This name has already been added. Please enter a unique name."
       );
       nameElement.reportValidity();
-    } else if (
-      nameElement.validity.tooShort &&
-      nameElement.validity.valueMissing
-    )
-      nameElement.setCustomValidity('');
+      return false;
+    }
 
+    if (nameElement.validity.patternMismatch) {
+      nameElement.setCustomValidity(
+        "Names can only be letters and must be at least 4 characters long."
+      );
+      nameElement.reportValidity();
+    }
+
+    if (
+      !nameElement.validity.valueMissing &&
+      !nameElement.validity.patternMismatch
+    )
+      nameElement.setCustomValidity("");
+    return true;
+  };
+  const portValidityChecks = (portElement: HTMLInputElement) => {
+    if (
+      portElement.validity.patternMismatch ||
+      portElement.validity.valueMissing
+    ) {
+      portElement.setCustomValidity(
+        "Please input a proper port number (eg. 8080)"
+      );
+      portElement.reportValidity();
+      return false;
+    }
+    portElement.setCustomValidity("");
+    return true;
+  };
+
+  const endpointValidityChecks = (endpointElement: HTMLInputElement) => {
     const alreadyAddedServerEndpoint: boolean = serverList.some(
       (elem) => elem.endpoint === endpointElement.value
     );
 
     if (alreadyAddedServerEndpoint) {
       endpointElement.setCustomValidity(
-        'This endpoint URL has already been added. Please input a unique IP.'
+        "This endpoint URL has already been added. Please input a unique URL."
       );
       endpointElement.reportValidity();
-    } else if (
+      return false;
+    }
+    if (
       endpointElement.validity.patternMismatch &&
       endpointElement.validity.valueMissing
-    )
-      endpointElement.setCustomValidity('');
-    console.log(endpointElement.validity.valid);
-    return (
-      nameElement.validity.valid &&
-      endpointElement.validity.valid &&
-      portElement.validity.valid &&
-      !alreadyAddedServerName &&
-      !alreadyAddedServerEndpoint
-    );
+    ) {
+      return false;
+    }
+    endpointElement.setCustomValidity("");
+    return true;
   };
 
-  const postServerToDataBase = (
-    name: string,
-    endpoint: string,
-    password: string,
-    PORT: string
+  const validityCheckOnSubmit = (
+    nameElement: HTMLInputElement,
+    endpointElement: HTMLInputElement,
+    portElement: HTMLInputElement
   ) => {
-    fetch('/api/servers_Endpoint', {
-      method: 'POST',
-      body: JSON.stringify({
-        name: name,
-        endpoint: endpoint,
-        password: password,
-        PORT: PORT,
-        username,
-      }),
-      'Content-Type': 'application/json',
-    });
+    const nameValidity: boolean = nameValidityChecks(nameElement);
+    const endpointValidity: boolean = endpointValidityChecks(endpointElement);
+    const portValidity: boolean = portValidityChecks(portElement);
+
+    return nameValidity && endpointValidity && portValidity;
   };
 
-  const deleteServerFromDataBase = (name: string) => {
-    fetch('/api/servers_Endpoint', {
-      method: 'DELETE',
-      body: JSON.stringify({ name }),
-      'Content-Type': 'application/json',
-    });
-  };
-
-  const addServer = (e) => {
+  const addServer = async (e) => {
     e.preventDefault();
-    const name: HTMLInputElement = document.querySelector('#name');
-    const endpoint: HTMLInputElement = document.querySelector('#endpoint');
-    const password: HTMLInputElement = document.querySelector('#redisPassword');
-    const PORT: HTMLInputElement = document.querySelector('#PORT');
+    const name: HTMLInputElement = document.querySelector("#name");
+    const endpoint: HTMLInputElement = document.querySelector("#endpoint");
+    const password: HTMLInputElement = document.querySelector("#redisPassword");
+    const PORT: HTMLInputElement = document.querySelector("#PORT");
 
     if (validityCheckOnSubmit(name, endpoint, PORT)) {
-      updateList(
-        serverList.concat({
-          name: name.value,
-          endpoint: endpoint.value,
-          PORT: PORT.value,
-        })
-      );
-
-      postServerToDataBase(
-        name.value,
+      const correctServerEndpoint = await checkEndpoint(
         endpoint.value,
         password.value,
         PORT.value
       );
-    }
-  };
+      if (!correctServerEndpoint) {
+        endpoint.setCustomValidity("Invalid endpoint or password.");
+        endpoint.reportValidity();
+        return;
+      }
+      endpoint.setCustomValidity("");
 
-  const removeServer = (e) => {
-    const serverNameToRemove: string = e.target.id;
-    console.log(serverNameToRemove);
-    if (!serverNameToRemove) return;
-    deleteServerFromDataBase(serverNameToRemove);
-    updateList(serverList.filter((elem) => elem.name !== serverNameToRemove));
+      serversDispatch({
+        type: "addServer",
+        message: {
+          name: name.value,
+          endpoint: endpoint.value,
+          password: password.value,
+          port: PORT.value,
+          username,
+        },
+      });
+    }
   };
 
   const changeSidebarVisual = () => {
     if (sideBarHidden) {
-      document.querySelector('#sideBar').style.width = '100%';
-      document.querySelector(`#${styles.cube}`).style.left = '15rem';
+      document.querySelector("#sideBar").style.width = "100%";
+      document.querySelector(`#${styles.cube}`).style.left = "15rem";
+      document.querySelector(`#${styles.cube}`).style.top = "5rem";
     } else {
-      document.querySelector('#sideBar').style.width = '0px';
-      document.querySelector('#sideBar').style.overflow = 'hidden';
-      document.querySelector(`#${styles.cube}`).style.left = '0%';
+      document.querySelector("#sideBar").style.width = "0px";
+      document.querySelector("#sideBar").style.overflow = "hidden";
+      document.querySelector(`#${styles.cube}`).style.left = "0%";
+      document.querySelector(`#${styles.cube}`).style.top = "50%";
     }
     showOrHideSideBar(!sideBarHidden);
   };
 
-  const changeCurrentServer = (e) => {
-    const currentServer: string = e.target.id;
-    const currentPORT: any = e.target.value;
-    if (
-      currentServer === 'redis-16424.c289.us-west-1-2.ec2.cloud.redislabs.com'
-    ) {
-      selectedServerDispatch({
-        type: 'currentServer',
-        payload: {
-          endpoint: currentServer,
-          password: 'redis',
-          port: 16424,
-        },
-      });
-    } else {
-      selectedServerDispatch({
-        type: 'currentServer',
-        payload: {
-          endpoint: currentServer,
-          password: 'Etttmq5T4ubqnE6TaYltcjXmdobQAjfq',
-          port: 18891,
-        },
-      });
-    }
-  };
+  // const changeCurrentServer = (e) => {
+  //   const currentServer: string = e.target.id;
+  //   const currentPORT: any = e.target.value;
+  //   if (
+  //     currentServer === "redis-16424.c289.us-west-1-2.ec2.cloud.redislabs.com"
+  //   ) {
+  //     selectedServerDispatch({
+  //       type: "currentServer",
+  //       payload: {
+  //         endpoint: currentServer,
+  //         password: "redis",
+  //         port: 16424,
+  //       },
+  //     });
+  //   } else {
+  //     selectedServerDispatch({
+  //       type: "currentServer",
+  //       payload: {
+  //         endpoint: currentServer,
+  //         password: "Etttmq5T4ubqnE6TaYltcjXmdobQAjfq",
+  //         port: 18891,
+  //       },
+  //     });
+  //   }
+  // };
 
   return (
-    <div className={styles.sideBarWrapper} id='sideBar'>
+    <div className={styles.sideBarWrapper} id="sideBar">
       <ServerAdd_Endpoint addServer={addServer} />
       <ServerList_Endpoint
         serverList={serverList}
-        removeServer={removeServer}
         currentDivHover={currentDivHover}
         changeDivHover={changeDivHover}
-        changeCurrentServer={changeCurrentServer}
+        // changeCurrentServer={changeCurrentServer}
       />
       <FontAwesomeIcon
         id={styles.cube}
         icon={faCube}
         onClick={changeSidebarVisual}
       />
+      <div id={styles.closeX}>x</div>
     </div>
   );
 }

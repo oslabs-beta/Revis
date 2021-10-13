@@ -1,15 +1,14 @@
-import React from 'react';
-import Server_Endpoint from './Server_Endpoint';
-import styles from '../styles/ServerList.module.scss';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import Server_Endpoint from "./Server_Endpoint";
+import styles from "../styles/ServerList.module.scss";
 
 export default function ServerList(props) {
   const {
     serverList,
-    removeServer,
     currentDivHover,
     changeDivHover,
-    changeCurrentServer,
+    //changeCurrentServer
   } = props;
 
   interface server {
@@ -24,18 +23,17 @@ export default function ServerList(props) {
       name={elem.name}
       endpoint={elem.endpoint}
       PORT={elem.port}
-      removeServer={removeServer}
       currentDivHover={currentDivHover}
       changeDivHover={changeDivHover}
-      changeCurrentServer={changeCurrentServer}
+      // changeCurrentServer={changeCurrentServer}
     />
   ));
+
   return <div className={styles.serverList}>{servers}</div>;
 }
 
 ServerList.propTypes = {
   serverList: PropTypes.array.isRequired,
-  removeServer: PropTypes.func.isRequired,
   currentDivHover: PropTypes.any,
   changeDivHover: PropTypes.func,
   changeCurrentServer: PropTypes.func,

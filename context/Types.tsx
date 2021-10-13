@@ -1,6 +1,7 @@
 export type Metrics = [{}];
 
 export type CurrentServer = {
+  name?: string;
   endpoint: string;
   password: string;
   port: string | number;

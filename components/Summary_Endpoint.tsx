@@ -17,14 +17,13 @@ export default function Summary() {
   const time = graphInterval.updateInterval.interval;
   const { selectedServer }: any = currentServer;
   const { endpoint, password, port } = selectedServer;
-  //const { metrics }: any = useStore();
+  // const { metrics }: any = useStore();
   // const {
   //   metricState,
   //   metricsDispatch,
   // }: { metricState: string[], metricsDispatch: Function } = metrics;
 
   useEffect(() => {
-    console.log(selectedServer);
     async function fetchDataFromRedis() {
       let response = await fetch('http://localhost:3000/api/redis_Endpoint', {
         method: 'POST',
@@ -39,7 +38,7 @@ export default function Summary() {
       //   type: 'updateMetrics',
       //   message: [...response] ,
       // });
-      //console.log(metricState)
+      // console.log(metricState)
       setMetrics(response);
     }
     if (selectedServer.length !== 0) {
