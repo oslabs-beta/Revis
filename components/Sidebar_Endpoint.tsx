@@ -8,9 +8,12 @@ import styles from '../styles/Sidebar.module.scss';
 
 function Sidebar(props) {
   const [sideBarHidden, showOrHideSideBar] = useState(false);
-  const [serverList, updateList] = useState([]);
   const { user, servers, currentServer }: any = useStore();
   const { username }: { username: string } = user.userState;
+  const {
+    serverList,
+    serversDispatch,
+  }: { serverList: string[]; serversDispatch: Function } = servers;
   const { selectedServerDispatch }: { selectedServerDispatch: Function } =
     currentServer;
 
@@ -23,7 +26,19 @@ function Sidebar(props) {
       .then((response) => response.json())
       .then((data) => {
         const cloudData: string[] = data.cloud;
-        updateList(cloudData);
+
+        if (!cloudData) {
+          serversDispatch({});
+          return;
+        }
+        if (cloudData.length === 0) {
+          serversDispatch({});
+          return;
+        }
+        serversDispatch({
+          type: 'populateList',
+          message: [...cloudData],
+        });
       });
   };
 
@@ -121,33 +136,6 @@ function Sidebar(props) {
     return nameValidity && endpointValidity && portValidity;
   };
 
-  const postServerToDataBase = (
-    name: string,
-    endpoint: string,
-    password: string,
-    PORT: string
-  ) => {
-    fetch('/api/servers_Endpoint', {
-      method: 'POST',
-      body: JSON.stringify({
-        name,
-        endpoint,
-        password,
-        PORT,
-        username,
-      }),
-      'Content-Type': 'application/json',
-    });
-  };
-
-  const deleteServerFromDataBase = (name: string) => {
-    fetch('/api/servers_Endpoint', {
-      method: 'DELETE',
-      body: JSON.stringify({ name }),
-      'Content-Type': 'application/json',
-    });
-  };
-
   const addServer = async (e) => {
     e.preventDefault();
     const name: HTMLInputElement = document.querySelector('#name');
@@ -167,28 +155,18 @@ function Sidebar(props) {
         return;
       }
       endpoint.setCustomValidity('');
-      updateList(
-        serverList.concat({
+
+      serversDispatch({
+        type: 'addServer',
+        message: {
           name: name.value,
           endpoint: endpoint.value,
-          PORT: PORT.value,
-        })
-      );
-
-      postServerToDataBase(
-        name.value,
-        endpoint.value,
-        password.value,
-        PORT.value
-      );
+          password: password.value,
+          port: PORT.value,
+          username,
+        },
+      });
     }
-  };
-
-  const removeServer = (e) => {
-    const serverNameToRemove: string = e.target.id;
-    if (!serverNameToRemove) return;
-    deleteServerFromDataBase(serverNameToRemove);
-    updateList(serverList.filter((elem) => elem.name !== serverNameToRemove));
   };
 
   const changeSidebarVisual = () => {
@@ -234,7 +212,6 @@ function Sidebar(props) {
       <ServerAdd_Endpoint addServer={addServer} />
       <ServerList_Endpoint
         serverList={serverList}
-        removeServer={removeServer}
         currentDivHover={currentDivHover}
         changeDivHover={changeDivHover}
         changeCurrentServer={changeCurrentServer}

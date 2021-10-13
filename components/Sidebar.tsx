@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCube } from "@fortawesome/free-solid-svg-icons";
-import ServerAdd from "./ServerAdd";
-import ServerList from "./ServerList";
-import { useStore } from "../context/Provider";
-import styles from "../styles/Sidebar.module.scss";
+import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCube } from '@fortawesome/free-solid-svg-icons';
+import ServerAdd from './ServerAdd';
+import ServerList from './ServerList';
+import { useStore } from '../context/Provider';
+import styles from '../styles/Sidebar.module.scss';
 
 function Sidebar(props) {
   const [sideBarHidden, showOrHideSideBar] = useState(false);
@@ -100,22 +100,6 @@ function Sidebar(props) {
       !alreadyAddedServerIP &&
       !alreadyAddedServerName
     );
-  };
-
-  const postServerToDataBase = (name: string, IP: string, PORT: string) => {
-    fetch("/api/servers", {
-      method: "POST",
-      body: JSON.stringify({ name, IP, PORT, username }),
-      "Content-Type": "application/json",
-    });
-  };
-
-  const deleteServerFromDataBase = (name: string) => {
-    fetch("/api/servers", {
-      method: "DELETE",
-      body: JSON.stringify({ name }),
-      "Content-Type": "application/json",
-    });
   };
 
   const addServer = (e: Event) => {

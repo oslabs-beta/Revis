@@ -1,17 +1,26 @@
-import styles from '../styles/Server.module.scss';
 import PropTypes from 'prop-types';
+import { useStore } from '../context/Provider';
+import styles from '../styles/Server.module.scss';
 
 export default function Server(props) {
   const {
     name,
     endpoint,
     port,
-    removeServer,
     currentDivHover,
     changeDivHover,
     changeCurrentServer,
   } = props;
 
+  const { servers }: any = useStore();
+  const { serversDispatch }: { serversDispatch: Function } = servers;
+
+  const removeServer = (e: Event) => {
+    serversDispatch({
+      type: 'deleteServer',
+      message: { name: e.target.id },
+    });
+  };
   const removeServerAnimation = (e) => {
     const wrapperName: HTMLDivElement = e.target.attributes[1].value;
     const removeServerDiv: HTMLDivElement = document.querySelector(
@@ -49,8 +58,8 @@ export default function Server(props) {
       </div>
       <input
         id={endpoint}
-        type='radio'
-        name='currentServer'
+        type="radio"
+        name="currentServer"
         value={port}
         onChange={changeCurrentServer}
       />
