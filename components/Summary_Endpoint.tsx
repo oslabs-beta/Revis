@@ -41,6 +41,7 @@ export default function Summary() {
     }
 
     if (selectedServer.length !== 0) {
+      fetchDataFromRedis()
       const interal = setInterval(fetchDataFromRedis, 10000);
       return () => clearInterval(interal);
     }
