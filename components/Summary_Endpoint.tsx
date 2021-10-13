@@ -9,10 +9,12 @@ import { useStore } from '../context/Provider';
 import Metrics from './Metrics';
 import Welcome from './Welcome';
 import Loading from './Loading';
+import UpdateInterval from './UpdateInterval';
 
 export default function Summary() {
   const [metrics, setMetrics] = useState({});
-  const { currentServer }: any = useStore();
+  const { currentServer, graphInterval }: any = useStore();
+  const time = graphInterval.updateInterval.interval;
   const { selectedServer }: any = currentServer;
   const { endpoint, password, port } = selectedServer;
   // const { metrics }: any = useStore();
@@ -39,13 +41,12 @@ export default function Summary() {
       // console.log(metricState)
       setMetrics(response);
     }
-
     if (selectedServer.length !== 0) {
-      fetchDataFromRedis()
-      const interal = setInterval(fetchDataFromRedis, 10000);
-      return () => clearInterval(interal);
+      const interval = setInterval(fetchDataFromRedis, time);
+      if (graphInterval.updateInterval.update === false) clearInterval(interval);
+      return () => clearInterval(interval);
     }
-  }, [selectedServer]);
+  });
 
   const metricsForTable = [];
 
@@ -70,9 +71,10 @@ export default function Summary() {
           </div>
         )}
       </div>
-      <button type="button" onClick={() => router.replace('/graphs')}>
+      <button type='button' onClick={() => router.replace('/redisinfo')}>
         Graphs
       </button>
+      <UpdateInterval />
     </div>
   );
 }

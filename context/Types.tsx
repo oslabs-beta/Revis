@@ -21,3 +21,8 @@ export type Action = {
   type: string;
   message: string;
 };
+
+export type Interval = {
+  update: boolean;
+  interval: number;
+}
