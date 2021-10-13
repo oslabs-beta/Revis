@@ -173,10 +173,12 @@ function Sidebar(props) {
     if (sideBarHidden) {
       document.querySelector('#sideBar').style.width = '100%';
       document.querySelector(`#${styles.cube}`).style.left = '15rem';
+      document.querySelector(`#${styles.cube}`).style.top = '5rem';
     } else {
       document.querySelector('#sideBar').style.width = '0px';
       document.querySelector('#sideBar').style.overflow = 'hidden';
       document.querySelector(`#${styles.cube}`).style.left = '0%';
+      document.querySelector(`#${styles.cube}`).style.top = '50%';
     }
     showOrHideSideBar(!sideBarHidden);
   };
@@ -221,6 +223,7 @@ function Sidebar(props) {
         icon={faCube}
         onClick={changeSidebarVisual}
       />
+      <div id={styles.closeX}>x</div>
     </div>
   );
 }

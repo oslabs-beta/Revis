@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckSquare } from '@fortawesome/free-solid-svg-icons';
 import { useStore } from '../context/Provider';
 import styles from '../styles/Server.module.scss';
 
@@ -52,17 +54,21 @@ export default function Server(props) {
         <div className={styles.removeServerDiv} id={name}></div>
       </div>
       <div className={styles.server}>
+        <FontAwesomeIcon
+          onClick={changeCurrentServer}
+          id={styles.checkBox}
+          icon={faCheckSquare}
+        />
         <p>Name: {name}</p>
-        <p>URL: {endpoint}</p>
         <p>Port: {port}</p>
       </div>
-      <input
+      {/* <input
         id={endpoint}
         type="radio"
         name="currentServer"
         value={port}
         onChange={changeCurrentServer}
-      />
+      /> */}
     </div>
   );
 }
