@@ -22,7 +22,8 @@ function Sidebar(props) {
   // useEffect(() => populateServerList(), []);
 
   const populateServerList = () => {
-    fetch("/api/servers_Endpoint")
+    if (serverList.length > 0) return;
+    fetch('/api/servers_Endpoint')
       .then((response) => response.json())
       .then((data) => {
         const cloudData: string[] = data.cloud;
