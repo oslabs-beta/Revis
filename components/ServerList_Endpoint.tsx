@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Server_Endpoint from './Server_Endpoint';
-import styles from '../styles/ServerList.module.scss';
+import React from "react";
+import PropTypes from "prop-types";
+import Server_Endpoint from "./Server_Endpoint";
+import styles from "../styles/ServerList.module.scss";
 
 export default function ServerList(props) {
   const { serverList, currentDivHover, changeDivHover, changeCurrentServer } =
@@ -24,6 +24,7 @@ export default function ServerList(props) {
       changeCurrentServer={changeCurrentServer}
     />
   ));
+
   return <div className={styles.serverList}>{servers}</div>;
 }
 
