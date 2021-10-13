@@ -20,7 +20,7 @@ function Sidebar(props) {
   const [currentDivHover, changeDivHover] = useState(null);
   useEffect(() => populateServerList(), []);
   const populateServerList = () => {
-    console.log('fetch server list')
+    if (serverList.length > 0) return;
     fetch('/api/servers_Endpoint')
       .then((response) => response.json())
       .then((data) => {
