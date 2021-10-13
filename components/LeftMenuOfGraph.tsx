@@ -13,12 +13,7 @@ function LeftMenuOfGraph() {
     if (el[0] !== "time")
       metricsForCheckBoxes.push(<MetricsForGraph keys={el[0]} />);
   });
-  return (
-    <div className={styles.LeftMenu}>
-      <li>Hello</li>
-      {metricsForCheckBoxes}
-    </div>
-  );
+  return <div className={styles.LeftMenu}>{metricsForCheckBoxes}</div>;
 }
 
 export default LeftMenuOfGraph;

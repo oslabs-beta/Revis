@@ -30,11 +30,3 @@ function MultipleGraph(props) {
 }
 export default MultipleGraph;
 
-// console.log(metricsStore.metricState.metricsUpdated);
-// const data = [
-//   { name: "metric 1", metric1: 400, metric2: 10, metric3: 2400 },
-//   { name: "metric 1", metric1: 300, metric2: 15, metric3: 2600 },
-//   { name: "metric 1", metric1: 200, metric2: 20, metric3: 2600 },
-//   { name: "metric 1", metric1: 100, metric2: 50, metric3: 2600 },
-// ];
-// <img src="https://i.pinimg.com/originals/2e/e6/99/2ee6998e34c3e2eff7b894c66cfc5267.jpg"></img>
