@@ -77,7 +77,6 @@ Server.propTypes = {
   name: PropTypes.string.isRequired,
   endpoint: PropTypes.string.isRequired,
   PORT: PropTypes.string.isRequired,
-  removeServer: PropTypes.func.isRequired,
   currentDivHover: PropTypes.any,
   changeDivHover: PropTypes.func,
   changeCurrentServer: PropTypes.func,
