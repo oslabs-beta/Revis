@@ -1,4 +1,4 @@
-@import './colorsAndFonts.scss';
+@import "./colorsAndFonts.scss";
 
 .sideBarWrapper {
   border-right: 5px solid $logoRed;
@@ -9,17 +9,24 @@
 
   h1 {
     color: $summaryTitleGrey;
-    font-family: $fontOfSummaryTitle;
+    font-family: $fontOfMetrics;
+    margin-top: 5rem;
   }
   #cube {
     position: fixed;
-    top: 50%;
-    left: 10%;
+    top: 3.5rem;
+    left: 16rem;
     width: 10vh;
     color: $logoRed;
     height: 6vh;
     cursor: pointer;
     transition: 0.75s ease;
+  }
+  #closeX {
+    position: fixed;
+    top: 4.6rem;
+    left: 17.5rem;
+    color: $background;
   }
   input {
     border-color: transparent;

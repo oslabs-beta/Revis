@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCube } from '@fortawesome/free-solid-svg-icons';
-import ServerAdd_Endpoint from './ServerAdd_Endpoint';
-import ServerList_Endpoint from './ServerList_Endpoint';
-import { useStore } from '../context/Provider';
-import styles from '../styles/Sidebar.module.scss';
+import React, { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCube } from "@fortawesome/free-solid-svg-icons";
+import ServerAdd_Endpoint from "./ServerAdd_Endpoint";
+import ServerList_Endpoint from "./ServerList_Endpoint";
+import { useStore } from "../context/Provider";
+import styles from "../styles/Sidebar.module.scss";
 
 function Sidebar(props) {
   const [sideBarHidden, showOrHideSideBar] = useState(false);
@@ -19,7 +19,7 @@ function Sidebar(props) {
   useEffect(() => populateServerList(), []);
 
   const populateServerList = () => {
-    fetch('/api/servers_Endpoint')
+    fetch("/api/servers_Endpoint")
       .then((response) => response.json())
       .then((data) => {
         const cloudData: string[] = data.cloud;
@@ -34,19 +34,19 @@ function Sidebar(props) {
     portElement: HTMLInputElement
   ) => {
     if (nameElement.validity.tooShort || nameElement.validity.valueMissing) {
-      nameElement.setCustomValidity('Please input at least four characters');
+      nameElement.setCustomValidity("Please input at least four characters");
       nameElement.reportValidity();
-    } else nameElement.setCustomValidity('');
+    } else nameElement.setCustomValidity("");
 
     if (
       portElement.validity.patternMismatch ||
       portElement.validity.valueMissing
     ) {
       portElement.setCustomValidity(
-        'Please input a proper port number (eg. 8080)'
+        "Please input a proper port number (eg. 8080)"
       );
       portElement.reportValidity();
-    } else portElement.setCustomValidity('');
+    } else portElement.setCustomValidity("");
 
     const alreadyAddedServerName: boolean = serverList.some(
       (elem) => elem.name === nameElement.value
@@ -54,14 +54,14 @@ function Sidebar(props) {
 
     if (alreadyAddedServerName) {
       nameElement.setCustomValidity(
-        'This name has already been added. Please enter a unique name.'
+        "This name has already been added. Please enter a unique name."
       );
       nameElement.reportValidity();
     } else if (
       nameElement.validity.tooShort &&
       nameElement.validity.valueMissing
     )
-      nameElement.setCustomValidity('');
+      nameElement.setCustomValidity("");
 
     const alreadyAddedServerEndpoint: boolean = serverList.some(
       (elem) => elem.endpoint === endpointElement.value
@@ -69,14 +69,14 @@ function Sidebar(props) {
 
     if (alreadyAddedServerEndpoint) {
       endpointElement.setCustomValidity(
-        'This endpoint URL has already been added. Please input a unique IP.'
+        "This endpoint URL has already been added. Please input a unique IP."
       );
       endpointElement.reportValidity();
     } else if (
       endpointElement.validity.patternMismatch &&
       endpointElement.validity.valueMissing
     )
-      endpointElement.setCustomValidity('');
+      endpointElement.setCustomValidity("");
     console.log(endpointElement.validity.valid);
     return (
       nameElement.validity.valid &&
@@ -93,8 +93,8 @@ function Sidebar(props) {
     password: string,
     PORT: string
   ) => {
-    fetch('/api/servers_Endpoint', {
-      method: 'POST',
+    fetch("/api/servers_Endpoint", {
+      method: "POST",
       body: JSON.stringify({
         name: name,
         endpoint: endpoint,
@@ -102,24 +102,24 @@ function Sidebar(props) {
         PORT: PORT,
         username,
       }),
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     });
   };
 
   const deleteServerFromDataBase = (name: string) => {
-    fetch('/api/servers_Endpoint', {
-      method: 'DELETE',
+    fetch("/api/servers_Endpoint", {
+      method: "DELETE",
       body: JSON.stringify({ name }),
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     });
   };
 
   const addServer = (e) => {
     e.preventDefault();
-    const name: HTMLInputElement = document.querySelector('#name');
-    const endpoint: HTMLInputElement = document.querySelector('#endpoint');
-    const password: HTMLInputElement = document.querySelector('#redisPassword');
-    const PORT: HTMLInputElement = document.querySelector('#PORT');
+    const name: HTMLInputElement = document.querySelector("#name");
+    const endpoint: HTMLInputElement = document.querySelector("#endpoint");
+    const password: HTMLInputElement = document.querySelector("#redisPassword");
+    const PORT: HTMLInputElement = document.querySelector("#PORT");
 
     if (validityCheckOnSubmit(name, endpoint, PORT)) {
       updateList(
@@ -149,12 +149,14 @@ function Sidebar(props) {
 
   const changeSidebarVisual = () => {
     if (sideBarHidden) {
-      document.querySelector('#sideBar').style.width = '100%';
-      document.querySelector(`#${styles.cube}`).style.left = '15rem';
+      document.querySelector("#sideBar").style.width = "100%";
+      document.querySelector(`#${styles.cube}`).style.left = "15rem";
+      document.querySelector(`#${styles.cube}`).style.top = "5rem";
     } else {
-      document.querySelector('#sideBar').style.width = '0px';
-      document.querySelector('#sideBar').style.overflow = 'hidden';
-      document.querySelector(`#${styles.cube}`).style.left = '0%';
+      document.querySelector("#sideBar").style.width = "0px";
+      document.querySelector("#sideBar").style.overflow = "hidden";
+      document.querySelector(`#${styles.cube}`).style.left = "0%";
+      document.querySelector(`#${styles.cube}`).style.top = "50%";
     }
     showOrHideSideBar(!sideBarHidden);
   };
@@ -163,22 +165,22 @@ function Sidebar(props) {
     const currentServer: string = e.target.id;
     const currentPORT: any = e.target.value;
     if (
-      currentServer === 'redis-16424.c289.us-west-1-2.ec2.cloud.redislabs.com'
+      currentServer === "redis-16424.c289.us-west-1-2.ec2.cloud.redislabs.com"
     ) {
       selectedServerDispatch({
-        type: 'currentServer',
+        type: "currentServer",
         payload: {
           endpoint: currentServer,
-          password: 'redis',
+          password: "redis",
           port: 16424,
         },
       });
     } else {
       selectedServerDispatch({
-        type: 'currentServer',
+        type: "currentServer",
         payload: {
           endpoint: currentServer,
-          password: 'Etttmq5T4ubqnE6TaYltcjXmdobQAjfq',
+          password: "Etttmq5T4ubqnE6TaYltcjXmdobQAjfq",
           port: 18891,
         },
       });
@@ -186,7 +188,7 @@ function Sidebar(props) {
   };
 
   return (
-    <div className={styles.sideBarWrapper} id='sideBar'>
+    <div className={styles.sideBarWrapper} id="sideBar">
       <ServerAdd_Endpoint addServer={addServer} />
       <ServerList_Endpoint
         serverList={serverList}
@@ -200,6 +202,7 @@ function Sidebar(props) {
         icon={faCube}
         onClick={changeSidebarVisual}
       />
+      <div id={styles.closeX}>x</div>
     </div>
   );
 }

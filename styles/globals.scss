@@ -1,11 +1,11 @@
-@import './colorsAndFonts.scss';
+@import "./colorsAndFonts.scss";
 
-html[data-theme='light'] {
-  --logoColor: #ce6030; //logoRed
+html[data-theme="light"] {
+  --logoColor: #ce5f30d9; //logoRed
   --background: rgb(247, 246, 240);
 }
-html[data-theme='dark'] {
-  --logoColor: #ce6030;
+html[data-theme="dark"] {
+  --logoColor: #ce5f30d9;
   --background: rgb(51, 51, 51);
 }
 body {
