@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from '../styles/Homepage.module.scss';
 
 function ForgotPassword(props) {
   const [userEmail, setUserEmail] = useState<any>('');
@@ -9,9 +10,9 @@ function ForgotPassword(props) {
     console.log(userEmail);
   };
   return (
-    <div>
+    <div className={styles.forgotPasswordWrapper}>
       <h1>Password Reset Page</h1>
-      <form onSubmit={onSubmitHandler}>
+      <form>
         <div>
           <label>email:</label>
           <input
@@ -22,11 +23,11 @@ function ForgotPassword(props) {
             required
           ></input>
         </div>
-        <input className="submitButton" type="submit" value="Submit" />
       </form>
-      <button className="backButton" onClick={() => previousPage()}>
-        Back
-      </button>
+      <div className={styles.buttonWrapper}>
+        <button onClick={previousPage}>Back</button>
+        <button onClick={(e) => onSubmitHandler(e)}>Submit</button>
+      </div>
     </div>
   );
 }

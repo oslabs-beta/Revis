@@ -33,11 +33,12 @@ function UserLogin({ onForgotPassword, onSignUp }: UserLoginProps) {
         if (response.status === 200) {
           user.userDispatch({ type: 'updateUsername', message: username });
           router.replace('/dashboard');
-        } else throw response;
+        } else throw response.json();
       })
-      .catch((error) => error.json())
-      .then((error) => {
-        document.querySelector('#errorDiv').innerHTML = error.error;
+      .catch((error) => {
+        error.then((err) => {
+          document.querySelector('#errorDiv').innerHTML = err.error;
+        });
       });
   };
 

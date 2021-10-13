@@ -1,13 +1,19 @@
 export type Metrics = [{}];
 
+export type CurrentServer = {
+  endpoint: string;
+  password: string;
+  port: string | number;
+  sessionToken?: string;
+};
+
 export type Server = {
   name: string;
-  ip?: string;
+  ip: string;
   port: string;
   username: string;
-  endpoint?: string;
+  endpoint: string;
   password: string;
-  currentServer?: string[];
 };
 
 export type Action = {

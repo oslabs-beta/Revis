@@ -12,6 +12,9 @@ import Loading from './Loading';
 
 export default function Summary() {
   const [metrics, setMetrics] = useState({});
+  const { currentServer }: any = useStore();
+  const { selectedServer }: any = currentServer;
+  const { endpoint, password, port } = selectedServer;
   //const { metrics }: any = useStore();
   // const {
   //   metricState,
@@ -20,16 +23,17 @@ export default function Summary() {
 
   useEffect(() => {
     async function fetchDataFromRedis() {
+      console.log(selectedServer);
+
       let response = await fetch('http://localhost:3000/api/redis_Endpoint', {
         method: 'POST',
         body: JSON.stringify({
-          endpoint: 'redis-18891.c9.us-east-1-4.ec2.cloud.redislabs.com',
-          password: 'Etttmq5T4ubqnE6TaYltcjXmdobQAjfq',
-          port: 18891,
+          endpoint: `${endpoint}`,
+          password: `${password}`,
+          port: `${port}`,
         }),
       });
       response = await response.json();
-      console.log(response)
       // metricsDispatch({
       //   type: 'updateMetrics',
       //   message: [...response] ,
@@ -40,7 +44,7 @@ export default function Summary() {
     const interal = setInterval(fetchDataFromRedis, 10000);
     return () => clearInterval(interal);
     fetchDataFromRedis();
-  }, []);
+  }, [selectedServer]);
 
   const metricsForTable = [];
 

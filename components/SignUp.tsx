@@ -20,7 +20,6 @@ function SignUp({ previousPage }: SignUpProps) {
     e.preventDefault();
     fetch('/api/user', {
       method: 'POST',
-      // headers: requestHeaders,
       body: JSON.stringify({
         username,
         password,
@@ -31,11 +30,12 @@ function SignUp({ previousPage }: SignUpProps) {
   };
 
   return (
-    <div>
+    <div className={styles.signUpComponentWrapper}>
       <h1>Sign Up</h1>
+
       <form onSubmit={submitHandler}>
-        <div>
-          <label htmlFor="username">
+        <div className={styles.formEntry}>
+          <label htmlFor="username" className={styles.labels}>
             username:
             <input
               className={styles.userInput}
@@ -45,11 +45,13 @@ function SignUp({ previousPage }: SignUpProps) {
               }
               value={userInfo.username}
               required
+              autoComplete="none"
             ></input>
           </label>
         </div>
-        <div>
-          <label htmlFor="email">
+
+        <div className={styles.formEntry}>
+          <label htmlFor="email" className={styles.labels}>
             email:
             <input
               className={styles.userInput}
@@ -59,11 +61,13 @@ function SignUp({ previousPage }: SignUpProps) {
               }
               value={userInfo.email}
               required
+              autoComplete="none"
             ></input>
           </label>
         </div>
-        <div>
-          <label htmlFor="password">
+
+        <div className={styles.formEntry}>
+          <label htmlFor="password" className={styles.labels}>
             password:
             <input
               className={styles.userInput}
@@ -72,24 +76,29 @@ function SignUp({ previousPage }: SignUpProps) {
                 setUserInfo({ ...userInfo, password: e.target.value })
               }
               required
+              autoComplete="none"
             ></input>
           </label>
         </div>
-        <button
-          // onClick={() => router.replace('/dashboard')}
-          className={styles.submitButton}
-          type="submit"
-        >
-          Submit
-        </button>
+
+        <div className={styles.buttonWrapper}>
+          <button
+            className={styles.backButton}
+            onClick={previousPage}
+            type="button"
+          >
+            Back
+          </button>
+
+          <button
+            // onClick={() => router.replace('/dashboard')}
+            className={styles.submitButton}
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
       </form>
-      <button
-        className={styles.backButton}
-        onClick={previousPage}
-        type="button"
-      >
-        Back
-      </button>
     </div>
   );
 }
