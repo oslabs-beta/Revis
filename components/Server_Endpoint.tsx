@@ -82,7 +82,7 @@ export default function Server(props) {
         id={endpoint}
         type='radio'
         name='currentServer'
-        value={port}
+        value={PORT}
         onChange={changeCurrentServer}
       />
     </div>
