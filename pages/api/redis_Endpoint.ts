@@ -33,8 +33,8 @@ const metrics = async (req: NextApiRequest, res: NextApiResponse) => {
         const { endpoint, password, port } = parsedBody;
         const redis = new Redis({
           host: endpoint,
-          port: port,
-          password: password,
+          port,
+          password,
         });
         const metrics = await redis.info();
         const splitMetrics = metrics.split('\r\n');
@@ -51,8 +51,10 @@ const metrics = async (req: NextApiRequest, res: NextApiResponse) => {
       } catch (err) {
         console.log(err);
         return res.status(400).send('Unable to get metrics from Redis server');
-      };
-  };
+      }
+    default:
+      return res.status(400).send('Error in Endpoint');
+  }
 };
 
 export default metrics;

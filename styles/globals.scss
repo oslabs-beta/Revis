@@ -1,7 +1,15 @@
 @import "./colorsAndFonts.scss";
 
+<<<<<<< HEAD
 html[data-theme="light"] {
   --logoColor: #ce5f30d9; //logoRed
+=======
+// html {
+//   transition: all 10s linear;
+// }
+html[data-theme='light'] {
+  --logoColor: #ce6030; //logoRed
+>>>>>>> 36f6fb8a65d98372618d1e8cce1c11bc243224af
   --background: rgb(247, 246, 240);
 }
 html[data-theme="dark"] {
