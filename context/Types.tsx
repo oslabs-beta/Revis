@@ -1,6 +1,7 @@
 export type Metrics = [{}];
 
 export type CurrentServer = {
+  name?: string;
   endpoint: string;
   password: string;
   port: string | number;
@@ -21,3 +22,8 @@ export type Action = {
   type: string;
   message: string;
 };
+
+export type Interval = {
+  update: boolean;
+  interval: number;
+}

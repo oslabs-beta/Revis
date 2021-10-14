@@ -1,18 +1,21 @@
-import React, { createContext, useReducer, useContext } from "react";
-import initialStateServers from "./initialStates/initialStateServers";
-import initialStateMetrics from "./initialStates/initialStateMetrics";
-import initialStateUser from "./initialStates/initialStateUser";
-import initialStateSelectedMetric from "./initialStates/initialStateSelectedMetric";
-import initialStateOfMultipleGraphs from "./initialStates/initialStateOfMultipleGraphs";
+import React, { createContext, useReducer, useContext } from 'react';
+import initialStateServers from './initialStates/initialStateServers';
+import initialStateMetrics from './initialStates/initialStateMetrics';
+import initialStateUser from './initialStates/initialStateUser';
+import initialStateSelectedMetric from './initialStates/initialStateSelectedMetric';
+import initialStateOfMultipleGraphs from './initialStates/initialStateOfMultipleGraphs';
 import initialStateTheme from './initialStates/initialStateTheme';
-import user from "./reducers/user";
-import metrics from "./reducers/metrics";
-import servers from "./reducers/servers";
-import selectedMetric from "./reducers/selectedMetric";
-import metricsBeingCompared from "./reducers/metricsBeingCompared";
+import initialStateUpdateInterval from './initialStates/InitialStateUpdateInterval';
 import initialStateSelectedServer from './initialStates/initialStateSelectedServer';
+import user from './reducers/user';
+import metrics from './reducers/metrics';
+import servers from './reducers/servers';
+import selectedMetric from './reducers/selectedMetric';
+import metricsBeingCompared from './reducers/metricsBeingCompared';
 import theme from './reducers/theme';
 import currentServer from './reducers/currentServer';
+import interval from './reducers/interval';
+import { Interval } from './Types';
 
 export const GlobalContext = createContext({}); // the provider needs to fill the state
 export const GlobalProvider = ({ children }) => {
@@ -44,7 +47,8 @@ export const GlobalProvider = ({ children }) => {
     currentServer,
     initialStateSelectedServer
   );
-
+  const [updateInterval, updateIntervalDispatch]: [Interval, Function] =
+    useReducer(interval, initialStateUpdateInterval);
   return (
     <GlobalContext.Provider
       value={{
@@ -55,6 +59,7 @@ export const GlobalProvider = ({ children }) => {
         metricToGraph: { metricToGraph, selectedMetricDispatch },
         multipleGraphSelections: { multipleGraphState, multipleGraphDispatch },
         themeContext: { currentTheme, themeDispatch },
+        graphInterval: { updateInterval, updateIntervalDispatch },
       }}
     >
       {children}
