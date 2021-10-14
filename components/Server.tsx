@@ -113,7 +113,7 @@ export default function Server(props) {
 Server.propTypes = {
   name: PropTypes.string.isRequired,
   endpoint: PropTypes.string.isRequired,
-  port: PropTypes.string.isRequired,
+  port: PropTypes.string,
   currentDivHover: PropTypes.any,
   changeDivHover: PropTypes.func,
   changeCurrentServer: PropTypes.func,

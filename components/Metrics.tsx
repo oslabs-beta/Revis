@@ -1,12 +1,12 @@
-import React from "react";
-import propTypes from "prop-types";
-import router from "next/router";
-import { useStore } from "../context/Provider";
-import styles from "../styles/Summary.module.scss";
+import React from 'react';
+import propTypes from 'prop-types';
+import router from 'next/router';
+import { useStore } from '../context/Provider';
+import styles from '../styles/Summary.module.scss';
 
 interface MetricsProps {
-  keys: string;
-  values: string;
+  keys: string[];
+  values: string[];
 }
 
 export default function Metrics(props) {
@@ -17,13 +17,13 @@ export default function Metrics(props) {
     <div className={styles.metrics}>
       <h5>{keys}</h5>
       <button
-        type="button"
+        type='button'
         onClick={() => {
           metricToGraph.selectedMetricDispatch({
-            type: "updateSelectedMetric",
+            type: 'updateSelectedMetric',
             message: keys,
           });
-          router.replace("/graphs");
+          router.replace('/graphs');
         }}
       >
         {values}
@@ -33,6 +33,12 @@ export default function Metrics(props) {
 }
 
 Metrics.propTypes = {
-  keys: propTypes.string.isRequired,
-  values: propTypes.string.isRequired,
+  keys: propTypes.oneOfType([
+    propTypes.string,
+    propTypes.arrayOf(propTypes.string),
+  ]).isRequired,
+  values: propTypes.oneOfType([
+    propTypes.string,
+    propTypes.arrayOf(propTypes.string),
+  ]).isRequired,
 };

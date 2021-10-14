@@ -44,7 +44,7 @@ export default function Summary() {
   const metricsForTable = [];
   const latestDataLength = metricState.length -1
   Object.entries(metricState[latestDataLength]).forEach((el) => {
-    metricsForTable.push(<Metrics key={el[0]} keys={el[0]} values={el[1]} />);
+    if(el[0] !== 'time') metricsForTable.push(<Metrics key={el[0]} keys={el[0]} values={el[1]} />);
   });
 
   return (
