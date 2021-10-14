@@ -12,24 +12,24 @@ import styles from "../styles/GraphContainer.module.scss";
 function Graph() {
   const { metricsStore, metricToGraph }: any = useStore();
 
-  // useEffect(() => {
-  //   async function fetchDataFromRedis() {
-  //     let response = await fetch("http://localhost:3000/api/redis", {
-  //       method: "GET",
-  //     });
-  //     response = await response.json();
+  useEffect(() => {
+    async function fetchDataFromRedis() {
+      let response = await fetch("http://localhost:3000/api/redis", {
+        method: "GET",
+      });
+      response = await response.json();
 
-  //     await metricsStore.metricsDispatch({
-  //       type: "updateMetrics",
-  //       message: response,
-  //     });
-  //   }
-  //   fetchDataFromRedis();
-  //   const interval = setInterval(() => {
-  //     fetchDataFromRedis();
-  //   }, 10000);
-  //   return () => clearInterval(interval);
-  // }, []);
+      await metricsStore.metricsDispatch({
+        type: "updateMetrics",
+        message: response,
+      });
+    }
+    fetchDataFromRedis();
+    const interval = setInterval(() => {
+      fetchDataFromRedis();
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
 
   const data = metricsStore.metricState;
 

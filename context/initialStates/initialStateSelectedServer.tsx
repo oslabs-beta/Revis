@@ -1,6 +1,6 @@
 import { CurrentServer } from '../Types';
 
-const selectedServer: CurrentServer[] = [];
+const selectedServer: CurrentServer[] = {};
 ;
 
 export default selectedServer;

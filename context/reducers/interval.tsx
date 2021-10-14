@@ -1,3 +1,5 @@
+
+   
 import { Interval, Action } from '../Types'
 
 const interval = (state: Interval, action: Action) => {

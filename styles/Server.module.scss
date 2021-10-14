@@ -1,4 +1,4 @@
-@import './colorsAndFonts.scss';
+@import "./colorsAndFonts.scss";
 .serverWrapper {
   display: flex;
   margin-bottom: 1rem;
@@ -15,7 +15,7 @@
       text-align: center;
       align-content: center;
       overflow: hidden;
-      color: white;
+      // color: white;
       font-weight: bolder;
       font-size: 2rem;
       transition: ease 0.5s;
@@ -38,8 +38,8 @@
     // text-align: center;
     font-size: 01rem;
     width: 9rem;
-    color: $summaryTitleGrey;
-    background-color: #b8afacb3;
+    // color: var(--logoColor);
+    background-color: var(--lightgrey);
     font-family: $fontOfSummaryTitle;
 
     #checkBox {

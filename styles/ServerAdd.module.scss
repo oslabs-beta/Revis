@@ -8,7 +8,7 @@
   gap: 15px;
 
   #addServerBtn {
-    background-color: $logoRed;
+    background-color: var(--green);
     color: white;
     margin-left: 35%;
     margin-top: 30px;
@@ -42,15 +42,17 @@
         width: 50%;
         display: flex;
         flex-direction: row;
+        font-family: $fontOfButtons;
+        font-size: 0.9rem;
       }
       input:focus {
         outline: none;
       }
       input:valid {
-        background-color: rgb(161, 184, 161);
+        background-color: var(--green);
       }
       input:invalid {
-        background-color: rgb(255, 255, 255);
+        background-color: rgba(239, 243, 247, 0.893);
       }
     }
   }

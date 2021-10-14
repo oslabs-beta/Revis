@@ -5,14 +5,7 @@ import { useStore } from '../context/Provider';
 import styles from '../styles/Server.module.scss';
 
 export default function Server(props) {
-  const {
-    name,
-    endpoint,
-    port,
-    currentDivHover,
-    changeDivHover,
-    // changeCurrentServer,
-  } = props;
+  const { name, endpoint, port, currentDivHover, changeDivHover } = props;
 
   const { servers, currentServer }: any = useStore();
   const { selectedServerDispatch }: { selectedServerDispatch: Function } =
@@ -43,8 +36,13 @@ export default function Server(props) {
   };
 
   const updateSelectedServer = () => {
+<<<<<<< HEAD:components/Server_Endpoint.tsx
+    console.log(servers.serverList);
+    if (!currentServer.selectedServer[name])
+=======
     if (!currentServer.selectedServer[name]) {
       // look for the information at the serverlist global state
+>>>>>>> dc574079b48d500cb156d205ee67283e7b694cb8:components/Archive/Server.tsx
       servers.serverList.forEach((el) => {
         if (el.name === name)
           selectedServerDispatch({
@@ -57,7 +55,6 @@ export default function Server(props) {
             },
           });
       });
-    }
   };
 
   const squareUnChecked = (
@@ -90,11 +87,6 @@ export default function Server(props) {
         {currentServer.selectedServer.name === name
           ? squareChecked
           : squareUnChecked}
-        {/* <FontAwesomeIcon
-          onClick={changeCurrentServer}
-          id={styles.checkBox}
-          icon={faCheckSquare}
-        /> */}
         <p>Name: {name}</p>
         <p>IP: {IP}</p>
         <p>Port: {PORT}</p>
