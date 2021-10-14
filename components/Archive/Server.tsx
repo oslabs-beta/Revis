@@ -96,22 +96,9 @@ export default function Server(props) {
           icon={faCheckSquare}
         /> */}
         <p>Name: {name}</p>
-<<<<<<< HEAD:components/Server_Endpoint.tsx
-        <p>URL: {endpoint}</p>
-        <p>Port: {PORT}</p>
-      </div>
-      <input
-        id={endpoint}
-        type='radio'
-        name='currentServer'
-        value={PORT}
-        onChange={changeCurrentServer}
-      />
-=======
         <p>IP: {IP}</p>
         <p>Port: {PORT}</p>
       </div>
->>>>>>> dc574079b48d500cb156d205ee67283e7b694cb8:components/Archive/Server.tsx
     </div>
   );
 }
