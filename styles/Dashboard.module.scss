@@ -13,7 +13,7 @@
     overflow: hidden;
   }
   #signOutButton {
-    background-color: $logoRed;
+    background-color: var(--background);
     color: white;
     margin-left: 35%;
     margin-top: 30px;
