@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import router from 'next/router';
-import { useStore } from '../context/Provider';
-import styles from '../styles/UpdateInterval.module.scss';
+import React, { useState, useEffect } from "react";
+import router from "next/router";
+import { useStore } from "../context/Provider";
+import styles from "../styles/UpdateInterval.module.scss";
 
 function UpdateInterval() {
   const { metricsStore, metricToGraph, graphInterval, currentServer } =
@@ -13,8 +13,8 @@ function UpdateInterval() {
   const [render, reRender] = useState(false);
   useEffect(() => {
     async function fetchDataFromRedis() {
-      let response = await fetch('/api/redis', {
-        method: 'POST',
+      let response = await fetch("/api/redis", {
+        method: "POST",
         body: JSON.stringify({
           endpoint: `${endpoint}`,
           password: `${password}`,
@@ -23,7 +23,7 @@ function UpdateInterval() {
       });
       response = await response.json();
       metricsDispatch({
-        type: 'updateMetrics',
+        type: "updateMetrics",
         message: response,
       });
     }
@@ -35,18 +35,18 @@ function UpdateInterval() {
 
   const change = () => {
     graphInterval.updateIntervalDispatch({
-      type: 'toggleInterval',
+      type: "toggleInterval",
       message: !graphInterval.updateInterval.update,
     });
     reRender(!render);
   };
   const updateInterval = () => {
-    const newInterval = document.getElementById('intervalInput');
+    const newInterval = document.getElementById("intervalInput");
     graphInterval.updateIntervalDispatch({
-      type: 'updateInterval',
+      type: "updateInterval",
       message: newInterval.value,
     });
-    newInterval.value = '';
+    newInterval.value = "";
     reRender(!render);
   };
   return (
@@ -67,7 +67,7 @@ function UpdateInterval() {
       <button type="button" onClick={updateInterval}>
         Update
       </button>
-      <button type="button" onClick={() => router.replace('/redisinfo')}>
+      <button type="button" onClick={() => router.replace("/redisinfo")}>
         Graphs
       </button>
     </div>

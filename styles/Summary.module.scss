@@ -1,4 +1,4 @@
-@import './colorsAndFonts.scss';
+@import "./colorsAndFonts.scss";
 .SummaryWrapper {
   margin: 2%;
   display: flex;
@@ -21,9 +21,9 @@
   }
 
   h1 {
-    font-family: $fontOfLogo;
+    font-family: $fontOfMetrics;
     text-align: center;
-    color: $summaryTitleGrey;
+    color: var(--grey);
   }
 
   .tableWrapper {
@@ -34,9 +34,9 @@
     justify-items: center;
     padding-top: 2%;
     padding-bottom: 4%;
-    background-color: $logoRed;
+    background-color: var(--logoColor);
     color: white;
-    font-family: $fontOfMetrics;
+    font-family: $fontOfButtons;
     font-size: 3vh;
 
     .metrics {
@@ -51,7 +51,7 @@
       font-size: 3vh;
       border-color: transparent;
       background-color: transparent;
-      color: $background;
+      color: var(--background);
       font-family: $fontOfMetrics;
       word-wrap: break-word;
       max-width: 100%;

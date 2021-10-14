@@ -1,14 +1,14 @@
 @import "./colorsAndFonts.scss";
 
 .sideBarWrapper {
-  border-right: 5px solid $logoRed;
-  background-color: transparent;
+  border-right: 5px solid var(--logoColor);
+
   width: 100%;
   height: 60rem;
   transition: 0.5s ease;
-
+  color: var(--grey);
   h1 {
-    color: $summaryTitleGrey;
+    color: var(--grey);
     font-family: $fontOfMetrics;
     margin-top: 5rem;
   }
@@ -17,22 +17,18 @@
     top: 3.5rem;
     left: 16rem;
     width: 10vh;
-    color: $logoRed;
+    color: var(--logoColor);
     height: 6vh;
     cursor: pointer;
     transition: 0.75s ease;
-  }
-  #closeX {
-    position: fixed;
-    top: 4.6rem;
-    left: 17.5rem;
-    color: $background;
   }
   input {
     border-color: transparent;
     padding: 1%;
     margin: 2%;
     border-radius: 4px;
+    color: var(--grey);
+ 
   }
   label {
     font-family: $fontOfMetrics;

@@ -1,15 +1,15 @@
-@import './colorsAndFonts.scss';
+@import "./colorsAndFonts.scss";
 
 .switch {
   position: fixed;
   display: inline-block;
   cursor: pointer;
-  width: 6rem;
+  width: 4.5rem;
   height: 2rem;
   border-radius: 1rem;
   left: auto;
-  right: 1rem;
-  top: 1rem;
+  right: 2rem;
+  top: 3rem;
   text-align: center;
   align-content: center;
   justify-content: center;
@@ -28,7 +28,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #fefefe;
+    background-color: white;
     -webkit-transition: $transitionTime;
     transition: $transitionTime;
     border-radius: 1rem;
@@ -37,12 +37,12 @@
 
   .slider:before {
     position: absolute;
-    content: '';
+    content: "";
     height: 1.5rem;
     width: 1.5rem;
     left: 0.5rem;
     bottom: 0.25rem;
-    background-color: #fefefe;
+    background-color: var(--background);
     opacity: 100%;
     -webkit-transition: $transitionTime;
     transition: $transitionTime;
