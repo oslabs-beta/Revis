@@ -1,4 +1,4 @@
-import { CurrentServer } from "../Types";
+import { CurrentServer } from '../Types';
 
 type State = CurrentServer[];
 
@@ -16,12 +16,12 @@ const currentServer = (state: State, action: Action) => {
   let port;
 
   switch (action.type) {
-    case "currentServer":
-      if (endpoint === "redis-18891.c9.us-east-1-4.ec2.cloud.redislabs.com") {
-        password = "Etttmq5T4ubqnE6TaYltcjXmdobQAjfq";
+    case 'currentServer':
+      if (endpoint === 'redis-18891.c9.us-east-1-4.ec2.cloud.redislabs.com') {
+        password = 'Etttmq5T4ubqnE6TaYltcjXmdobQAjfq';
         port = 18891;
       } else {
-        password = "redis";
+        password = 'redis';
         port = 16424;
       }
 
