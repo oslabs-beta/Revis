@@ -3,8 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
 import { useStore } from '../context/Provider';
 import styles from '../styles/Server.module.scss';
+import { useState } from 'react';
 
 export default function Server(props) {
+  const [serverBlockBackground, setServerBlockBackground] = useState(
+    styles.serverSelected
+  );
   const {
     name,
     endpoint,
@@ -70,7 +74,7 @@ export default function Server(props) {
       />
     </span>
   );
-  const squareChecked = (
+  const squareChecked = (    
     <span onClick={updateSelectedServer} key={name}>
       <FontAwesomeIcon id={name} icon={faCheckSquare} />
     </span>
@@ -87,7 +91,7 @@ export default function Server(props) {
       >
         <div className={styles.removeServerDiv} id={name}></div>
       </div>
-      <div className={styles.server}>
+      <div className={serverBlockBackground}>
         {currentServer.selectedServer.name === name
           ? squareChecked
           : squareUnChecked}
