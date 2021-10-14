@@ -11,16 +11,19 @@ function MetricsForGraph(props) {
 
   const changeMetric = () => {
     if (multipleGraphSelections.multipleGraphState[keys]) {
-      return multipleGraphSelections.multipleGraphDispatch({
+      multipleGraphSelections.multipleGraphDispatch({
         type: "metricUnselected",
         message: keys,
       });
+    } else {
+      if (Object.keys(multipleGraphSelections.multipleGraphState).length > 3) {
+        return alert("Only 4 graphs can be simultaneously shown");
+      }
+      multipleGraphSelections.multipleGraphDispatch({
+        type: "newMetricSelected",
+        message: keys,
+      });
     }
-    if (Object.keys(multipleGraphSelections.multipleGraphState).length > 3) return 
-    return multipleGraphSelections.multipleGraphDispatch({
-      type: "newMetricSelected",
-      message: keys,
-    });
   };
 
   const squareUnChecked = (

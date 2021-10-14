@@ -2,19 +2,17 @@
 // the table can have two tables for each row
 // import Metrics from "./metricsForSummary";
 
-import React, { useContext, useEffect, useState } from 'react';
-import router from 'next/router';
-import styles from '../styles/Summary.module.scss';
-import { useStore } from '../context/Provider';
-import Metrics from './Metrics';
-import Welcome from './Welcome';
-import Loading from './Loading';
-import UpdateInterval from './UpdateInterval';
+import React, { useContext, useEffect, useState } from "react";
+import router from "next/router";
+import styles from "../styles/Summary.module.scss";
+import { useStore } from "../context/Provider";
+import Metrics from "./Metrics";
+import Welcome from "./Welcome";
+import Loading from "./Loading";
 
 export default function Summary() {
   const [metrics, setMetrics] = useState({});
-  const { currentServer, graphInterval }: any = useStore();
-  const time = graphInterval.updateInterval.interval;
+  const { currentServer }: any = useStore();
   const { selectedServer }: any = currentServer;
   const { endpoint, password, port } = selectedServer;
   // const { metrics }: any = useStore();
@@ -60,7 +58,7 @@ export default function Summary() {
       return () => clearInterval(interval);
 >>>>>>> dc574079b48d500cb156d205ee67283e7b694cb8:components/Archive/Summary.tsx
     }
-  });
+  }, [selectedServer]);
 
   const metricsForTable = [];
 
@@ -88,10 +86,13 @@ export default function Summary() {
           </div>
         )}
       </div>
+<<<<<<< HEAD:components/Archive/Summary.tsx
       <button type="button" onClick={() => router.replace('/redisinfo')}>
+=======
+      <button type="button" onClick={() => router.replace("/redisinfo")}>
+>>>>>>> parent of 1b2dd8f (solving conflict with jason):components/Summary_Endpoint.tsx
         Graphs
       </button>
-      <UpdateInterval />
     </div>
   );
 }
