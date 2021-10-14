@@ -25,7 +25,6 @@ export default function ServerList(props) {
       port={elem.port}
       currentDivHover={currentDivHover}
       changeDivHover={changeDivHover}
-      // changeCurrentServer={changeCurrentServer}
     />
   ));
 

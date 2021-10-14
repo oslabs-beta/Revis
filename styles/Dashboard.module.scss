@@ -1,4 +1,4 @@
-@import './colorsAndFonts.scss';
+@import "./colorsAndFonts.scss";
 
 .dashboardWrapper {
   display: flex;
@@ -9,18 +9,20 @@
   }
 
   .sidebarWrapper {
-    width: 20rem;
+    width: 30rem;
     overflow: hidden;
   }
   #signOutButton {
-    background-color: var(--background);
-    color: white;
-    margin-left: 35%;
-    margin-top: 30px;
-    padding: 5px;
+
+    border-color: transparent;
+    position: absolute;
+    left: 88%;
+    top: 2.5%;
+    color: var(--logoColor);
+    background-color: transparent;
+
     cursor: pointer;
     font-size: 1.1rem;
     font-family: $fontOfSummaryTitle;
-    margin-bottom: 2.5rem;
   }
 }
