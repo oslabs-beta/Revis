@@ -6,7 +6,7 @@
   .summaryWrapper {
     width: 100%;
     overflow: hidden;
-    margin-top: 2.3%;;
+    margin-top: 2.3%;
   }
 
   .sidebarWrapper {
@@ -18,9 +18,9 @@
     position: absolute;
     left: 88%;
     top: 2.5%;
-    color: var(--logoColor);
+    color: var(--grey);
     background-color: transparent;
-
+    text-decoration: underline;
     cursor: pointer;
     font-size: 1.1rem;
     font-family: $fontOfSummaryTitle;

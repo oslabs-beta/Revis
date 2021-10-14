@@ -32,25 +32,27 @@
     display: grid;
     border-color: transparent;
     grid-template-columns: repeat(4, 1fr);
-    row-gap: 10%;
+    row-gap: 2%;
     column-gap: 2%;
     justify-items: center;
-    padding-top: 5%;
-    padding-right: 12%;
-    padding-left: 5%;
-    padding-bottom: 12%;
+    padding-top: 3%;
+    padding-right: 10%;
+    padding-left: 10%;
+    padding-bottom: 7%;
     background-color: var(--logoColor);
     color: white;
     font-family: $fontOfButtons;
     font-size: 3vh;
     width: fit-content;
+    font-family: $fontOfMetrics;
 
     .metrics {
       display: flex;
       flex-direction: column;
       align-items: center;
       word-wrap: break-word;
-      max-width: 60%;
+      max-width: 100%;
+      // justify-content: center;
     }
     button {
       margin-top: 0px;
