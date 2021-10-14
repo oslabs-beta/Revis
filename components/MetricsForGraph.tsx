@@ -37,12 +37,12 @@ function MetricsForGraph(props) {
   );
   const squareChecked = (
     <span onClick={changeMetric} key={keys}>
-      <FontAwesomeIcon id={keys} icon={faCheckSquare} />
+      <FontAwesomeIcon id={keys} icon={faCheckSquare} className={styles.fullSquare} />
     </span>
   );
 
   return (
-    <div>
+    <div className={styles.metrics}>
       {multipleGraphSelections.multipleGraphState[keys]
         ? squareChecked
         : squareUnChecked}
