@@ -1,55 +1,106 @@
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 3.7rem;
-  height: 2.1rem;
-  margin-top: 5%;
-}
+@import "./colorsAndFonts.scss";
+.underDashboard {
+  margin-top: 4%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-family: $fontOfMetrics;
+  color: var(--grey);
 
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+  .textAndSwitch {
+    position: absolute;
+    top: 19%;
+    left: 36rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    p {
+      font-size: 0.9rem;
+    }
 
-/* The slider */
-.slider {
-  border-radius: 34px;
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--grey);
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 3rem;
+      height: 1.7rem;
+      // margin-top: 5%;
+    }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: var(--lightgrey);
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  border-radius: 50%;
-}
+    /* Hide default HTML checkbox */
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
 
-input:checked + .slider {
-  background-color: var(--green);
-}
+    /* The slider */
+    .slider {
+      border-radius: 34px;
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--grey);
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+      margin-bottom: 1px;
+    }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px var(--grey);
-}
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 1.2rem;
+      width: 1.2rem;
+      left: 0.1rem;
+      bottom: 4px;
+      background-color: var(--lightgrey);
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+  }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+  input:checked + .slider {
+    background-color: var(--green);
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px var(--grey);
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  .intervalInput {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+  input {
+    border: transparent;
+    background-color: var(--lightgrey);
+    color: var(--grey);
+    height: 1.5rem;
+    border-radius: 4px;
+  }
+  button {
+    background-color: var(--green);
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-family: $fontOfSummaryTitle;
+    // margin-bottom: 2.5rem;
+    border-color: transparent;
+    border-radius: 4px;
+  }
 }

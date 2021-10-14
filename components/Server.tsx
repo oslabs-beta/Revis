@@ -97,7 +97,7 @@ export default function Server(props) {
           icon={faCheckSquare}
         /> */}
         <p>Name: {name}</p>
-        <p>Port: {port}</p>
+      
       </div>
       {/* <input
         id={endpoint}
