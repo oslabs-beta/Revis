@@ -38,15 +38,12 @@ export default function Summary() {
     }
     if (selectedServer.length !== 0) {
       fetchDataFromRedis();
-      const interval = setInterval(fetchDataFromRedis, time);
-      if (graphInterval.updateInterval.update === false)
-        clearInterval(interval);
-      return () => clearInterval(interval);
     }
-  });
+  }, [selectedServer]);
 
   const metricsForTable = [];
-  Object.entries(metricState[0]).forEach((el) => {
+  const latestDataLength = metricState.length -1
+  Object.entries(metricState[latestDataLength]).forEach((el) => {
     metricsForTable.push(<Metrics key={el[0]} keys={el[0]} values={el[1]} />);
   });
 

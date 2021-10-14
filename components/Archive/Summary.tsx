@@ -16,25 +16,18 @@ export default function Summary() {
   const { currentServer, graphInterval }: any = useStore();
   const time = graphInterval.updateInterval.interval;
   const { selectedServer }: any = currentServer;
-  const { endpoint, password, port } = selectedServer;
-  // const { metrics }: any = useStore();
-  // const {
-  //   metricState,
-  //   metricsDispatch,
-  // }: { metricState: string[], metricsDispatch: Function } = metrics;
 
+  const { endpoint, password, port } = selectedServer;
   useEffect(() => {
     async function fetchDataFromRedis() {
       let response = await fetch('http://localhost:3000/api/redis', {
         method: 'GET',
       });
       response = await response.json();
-      // metricsDispatch({
-      //   type: 'updateMetrics',
-      //   message: [...response] ,
-      // });
-      // console.log(metricState)
-      setMetrics(response);
+      await metricsStore.metricsDispatch({
+        type: 'updateMetrics',
+        message: response,
+      });
     }
     if (selectedServer.length !== 0) {
       const interval = setInterval(fetchDataFromRedis, time);
