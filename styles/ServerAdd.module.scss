@@ -1,17 +1,16 @@
-@import './colorsAndFonts.scss';
+@import "./colorsAndFonts.scss";
 .serverAddWrapper {
-  margin-top: 50px;
+  margin-top: 15%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
 
   #addServerBtn {
     background-color: var(--green);
     color: white;
     margin-left: 35%;
-    margin-top: 30px;
+    margin-top: 10%;
     padding: 5px;
     cursor: pointer;
     font-size: 1.1rem;
