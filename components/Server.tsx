@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 import { useStore } from '../context/Provider';
 import styles from '../styles/Server.module.scss';
-import { useState } from 'react';
 
 export default function Server(props) {
   const [serverBlockBackground, setServerBlockBackground] = useState(
@@ -25,7 +25,7 @@ export default function Server(props) {
 
   const removeServer = (e: Event) => {
     serversDispatch({
-      type: "deleteServer",
+      type: 'deleteServer',
       message: { name: e.target.id },
     });
   };
@@ -35,15 +35,15 @@ export default function Server(props) {
       `#${wrapperName}`
     );
     changeDivHover(removeServerDiv);
-    removeServerDiv.style.width = "100%";
-    removeServerDiv.style.backgroundColor = "red";
-    removeServerDiv.innerHTML = "X";
+    removeServerDiv.style.width = '100%';
+    removeServerDiv.style.backgroundColor = 'var(--logoColor)';
+    removeServerDiv.innerHTML = 'X';
   };
   const keepServerAnimation = (e) => {
     if (currentDivHover) {
-      currentDivHover.style.width = "0%";
-      currentDivHover.style.backgroundColor = "white";
-      currentDivHover.innerHTML = "";
+      currentDivHover.style.width = '0%';
+      currentDivHover.style.backgroundColor = 'white';
+      currentDivHover.innerHTML = '';
     }
   };
 
@@ -74,7 +74,7 @@ export default function Server(props) {
       />
     </span>
   );
-  const squareChecked = (    
+  const squareChecked = (
     <span onClick={updateSelectedServer} key={name}>
       <FontAwesomeIcon id={name} icon={faCheckSquare} />
     </span>
@@ -101,7 +101,6 @@ export default function Server(props) {
           icon={faCheckSquare}
         /> */}
         <p>Name: {name}</p>
-      
       </div>
       {/* <input
         id={endpoint}

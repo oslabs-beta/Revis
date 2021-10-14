@@ -1,18 +1,18 @@
-@import "./colorsAndFonts.scss";
+@import './colorsAndFonts.scss';
 
-html[data-theme="light"] {
+html[data-theme='light'] {
   --logoColor: #e38d41e9; //logoRed
   --background: rgb(255, 255, 255);
   --green: rgb(161, 184, 161);
   --grey: rgb(106, 99, 99);
   --lightgrey: rgba(243, 245, 247, 0.893);
 }
-html[data-theme="dark"] {
+html[data-theme='dark'] {
   --logoColor: #e38d41e7;
   --background: rgb(51, 51, 51);
   --green: rgb(161, 184, 161);
-  --grey: rgb(106, 99, 99);
-  --lightgrey:rgba(205, 200, 200, 0.845);
+  --grey: rgba(230, 213, 213, 0.831);
+  --lightgrey: rgba(205, 200, 200, 0.845);
 }
 body {
   background-color: var(--background);

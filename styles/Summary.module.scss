@@ -1,4 +1,4 @@
-@import "./colorsAndFonts.scss";
+@import './colorsAndFonts.scss';
 .SummaryWrapper {
   margin: 2%;
   display: flex;
@@ -52,6 +52,7 @@
       align-items: center;
       word-wrap: break-word;
       max-width: 100%;
+      color: var(--background);
       // justify-content: center;
     }
     button {
