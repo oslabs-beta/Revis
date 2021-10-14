@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Cookies from 'cookies';
 import db from '../../models/Revis';
-// import { parseBody } from 'next/dist/server/api-utils';
 
 const bcrypt = require('bcryptjs');
 
@@ -22,7 +21,8 @@ const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
          RETURNING user_id;`;
     const userId = await db.query(SQLquery);
 
-    cookies.set('ssid', `${userId}`);
+    cookies.set('ssid', `${userId}`, { httpOnly: true });
+    cookies.set('username', `${username}`, { httpOnly: true });
     return res.status(200).json({ success: true });
   } catch (err) {
     // console.log(err);

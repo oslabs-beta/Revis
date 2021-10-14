@@ -18,7 +18,7 @@ function SignUp({ previousPage }: SignUpProps) {
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch('/api/user', {
+    fetch('/api/createUser', {
       method: 'POST',
       body: JSON.stringify({
         username,
