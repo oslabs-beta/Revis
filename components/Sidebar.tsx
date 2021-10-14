@@ -27,7 +27,6 @@ function Sidebar(props) {
       .then((response) => response.json())
       .then((data) => {
         const cloudData: string[] = data.cloud;
-
         if (!cloudData) {
           serversDispatch({});
           return;

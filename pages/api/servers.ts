@@ -23,7 +23,7 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'GET':
       try {
-        SQLquery = `SELECT name, endpoint, port FROM "serverCloud" WHERE user_id = ${userId};`;
+        SQLquery = `SELECT * FROM "serverCloud" WHERE user_id = ${userId};`;
         const cloudDataFull = await db.query(SQLquery);
         const cloud: String[] = cloudDataFull.rows;
         return res.status(200).json({ success: true, cloud });
@@ -35,11 +35,11 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
     case 'POST':
       try {
         const parsedBody: Server = JSON.parse(req.body);
-        const { name, endpoint, password } = parsedBody;
+        const { name, endpoint, password, PORT } = parsedBody;
 
         hashedPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
-        SQLquery = `INSERT INTO "serverCloud" (name,endpoint,password,user_id)
-          VALUES ('${name}','${endpoint}','${hashedPassword}',${userId});`;
+        SQLquery = `INSERT INTO "serverCloud" (name,endpoint,port,password,user_id)
+          VALUES ('${name}','${endpoint}','${PORT}','${hashedPassword}',${userId});`;
 
         await db.query(SQLquery);
         return res.status(200).json({ success: true });
