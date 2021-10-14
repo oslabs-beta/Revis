@@ -33,7 +33,7 @@ const metrics = async (req: NextApiRequest, res: NextApiResponse) => {
         const { endpoint, password, port } = parsedBody;
         const redis = new Redis({
           host: endpoint,
-          port,
+          port: Number(port),
           password,
         });
         const metrics = await redis.info();
