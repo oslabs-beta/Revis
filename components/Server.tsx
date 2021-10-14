@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckSquare } from '@fortawesome/free-solid-svg-icons';
+import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
 import { useStore } from '../context/Provider';
 import styles from '../styles/Server.module.scss';
 
@@ -11,10 +11,12 @@ export default function Server(props) {
     port,
     currentDivHover,
     changeDivHover,
-    changeCurrentServer,
+    // changeCurrentServer,
   } = props;
 
-  const { servers }: any = useStore();
+  const { servers, currentServer }: any = useStore();
+  const { selectedServerDispatch }: { selectedServerDispatch: Function } =
+    currentServer;
   const { serversDispatch }: { serversDispatch: Function } = servers;
 
   const removeServer = (e: Event) => {
@@ -33,7 +35,6 @@ export default function Server(props) {
     removeServerDiv.style.backgroundColor = 'red';
     removeServerDiv.innerHTML = 'X';
   };
-
   const keepServerAnimation = (e) => {
     if (currentDivHover) {
       currentDivHover.style.width = '0%';
@@ -41,6 +42,39 @@ export default function Server(props) {
       currentDivHover.innerHTML = '';
     }
   };
+
+  const updateSelectedServer = () => {
+    if (!currentServer.selectedServer[name]) {
+      // look for the information at the serverlist global state
+      servers.serverList.forEach((el) => {
+        if (el.name === name)
+          selectedServerDispatch({
+            type: 'currentServer',
+            payload: {
+              name: el.name,
+              endpoint: el.endpoint,
+              password: el.password,
+              port: el.port,
+            },
+          });
+      });
+    }
+  };
+
+  const squareUnChecked = (
+    <span onClick={updateSelectedServer} key={name}>
+      <FontAwesomeIcon
+        id={name}
+        icon={faSquare}
+        className={styles.emptySquare}
+      />
+    </span>
+  );
+  const squareChecked = (
+    <span onClick={updateSelectedServer} key={name}>
+      <FontAwesomeIcon id={name} icon={faCheckSquare} />
+    </span>
+  );
 
   return (
     <div className={styles.serverWrapper}>
@@ -54,11 +88,14 @@ export default function Server(props) {
         <div className={styles.removeServerDiv} id={name}></div>
       </div>
       <div className={styles.server}>
-        <FontAwesomeIcon
+        {currentServer.selectedServer.name === name
+          ? squareChecked
+          : squareUnChecked}
+        {/* <FontAwesomeIcon
           onClick={changeCurrentServer}
           id={styles.checkBox}
           icon={faCheckSquare}
-        />
+        /> */}
         <p>Name: {name}</p>
         <p>Port: {port}</p>
       </div>
@@ -76,7 +113,7 @@ export default function Server(props) {
 Server.propTypes = {
   name: PropTypes.string.isRequired,
   endpoint: PropTypes.string.isRequired,
-  PORT: PropTypes.string.isRequired,
+  port: PropTypes.string,
   currentDivHover: PropTypes.any,
   changeDivHover: PropTypes.func,
   changeCurrentServer: PropTypes.func,

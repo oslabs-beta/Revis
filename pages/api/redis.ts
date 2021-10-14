@@ -35,7 +35,10 @@ const metrics = async (req: NextApiRequest, res: NextApiResponse) => {
           host: endpoint,
           port,
           password,
+          connectTimeout: 10000,
+          reconnectOnError: false,
         });
+
         const metrics = await redis.info();
         const splitMetrics = metrics.split('\r\n');
         splitMetrics.forEach((el) => {

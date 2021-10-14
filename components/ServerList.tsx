@@ -4,8 +4,12 @@ import Server from './Server';
 import styles from '../styles/ServerList.module.scss';
 
 export default function ServerList(props) {
-  const { serverList, currentDivHover, changeDivHover, changeCurrentServer } =
-    props;
+  const {
+    serverList,
+    currentDivHover,
+    changeDivHover,
+    // changeCurrentServer
+  } = props;
 
   interface server {
     name: string;
@@ -18,12 +22,13 @@ export default function ServerList(props) {
       key={index}
       name={elem.name}
       endpoint={elem.endpoint}
-      PORT={elem.port}
+      port={elem.port}
       currentDivHover={currentDivHover}
       changeDivHover={changeDivHover}
-      changeCurrentServer={changeCurrentServer}
+      // changeCurrentServer={changeCurrentServer}
     />
   ));
+
   return <div className={styles.serverList}>{servers}</div>;
 }
 

@@ -1,7 +1,7 @@
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 
-function Test() {
+function Four04() {
   return (
     <div>
       <h1>404 error</h1>
@@ -16,4 +16,4 @@ function Test() {
   );
 }
 
-export default Test;
+export default Four04;

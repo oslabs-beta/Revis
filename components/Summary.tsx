@@ -5,18 +5,20 @@ import Metrics from './Metrics';
 import Welcome from './Welcome';
 import { CurrentServer } from '../context/Types';
 import SummaryTable from './SummaryTable';
+import UpdateInterval from './UpdateInterval';
 
 export default function Summary() {
-  const [metrics, setMetrics] = useState({});
-  const { currentServer, servers }: any = useStore();
+  const { currentServer, graphInterval, servers, metricsStore }: any =
+    useStore();
   const { serverList }: { serverList: string[] } = servers;
-  const { selectedServer } = currentServer;
+
+  const time = graphInterval.updateInterval.interval;
+  const { selectedServer }: any = currentServer;
   const { endpoint, password, port } = selectedServer;
-  // const { metrics }: any = useStore();
-  // const {
-  //   metricState,
-  //   metricsDispatch,
-  // }: { metricState: string[], metricsDispatch: Function } = metrics;
+  const {
+    metricState,
+    metricsDispatch,
+  }: { metricState: string[]; metricsDispatch: Function } = metricsStore;
 
   useEffect(() => {
     async function fetchDataFromRedis() {
@@ -29,24 +31,20 @@ export default function Summary() {
         }),
       });
       response = await response.json();
-      // metricsDispatch({
-      //   type: 'updateMetrics',
-      //   message: [...response] ,
-      // });
-      // console.log(metricState)
-      setMetrics(response);
+      metricsDispatch({
+        type: 'updateMetrics',
+        message: response,
+      });
     }
-
     if (selectedServer.length !== 0) {
-      const interal = setInterval(fetchDataFromRedis, 10000);
-      return () => clearInterval(interal);
+      fetchDataFromRedis();
     }
   }, [selectedServer]);
 
   const metricsForTable = [];
-
-  Object.entries(metrics).forEach((el) => {
-    metricsForTable.push(<Metrics key={el[0]} keys={el[0]} values={el[1]} />);
+  const latestDataLength = metricState.length -1
+  Object.entries(metricState[latestDataLength]).forEach((el) => {
+    if(el[0] !== 'time') metricsForTable.push(<Metrics key={el[0]} keys={el[0]} values={el[1]} />);
   });
 
   return (

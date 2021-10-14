@@ -184,40 +184,40 @@ function Sidebar(props) {
     showOrHideSideBar(!sideBarHidden);
   };
 
-  const changeCurrentServer = (e) => {
-    const currentServer: string = e.target.id;
-    const currentPORT: any = e.target.value;
-    if (
-      currentServer === 'redis-16424.c289.us-west-1-2.ec2.cloud.redislabs.com'
-    ) {
-      selectedServerDispatch({
-        type: 'currentServer',
-        payload: {
-          endpoint: currentServer,
-          password: 'redis',
-          port: 16424,
-        },
-      });
-    } else {
-      selectedServerDispatch({
-        type: 'currentServer',
-        payload: {
-          endpoint: currentServer,
-          password: 'Etttmq5T4ubqnE6TaYltcjXmdobQAjfq',
-          port: 18891,
-        },
-      });
-    }
-  };
+  // const changeCurrentServer = (e) => {
+  //   const currentServer: string = e.target.id;
+  //   const currentPORT: any = e.target.value;
+  //   if (
+  //     currentServer === "redis-16424.c289.us-west-1-2.ec2.cloud.redislabs.com"
+  //   ) {
+  //     selectedServerDispatch({
+  //       type: "currentServer",
+  //       payload: {
+  //         endpoint: currentServer,
+  //         password: "redis",
+  //         port: 16424,
+  //       },
+  //     });
+  //   } else {
+  //     selectedServerDispatch({
+  //       type: "currentServer",
+  //       payload: {
+  //         endpoint: currentServer,
+  //         password: "Etttmq5T4ubqnE6TaYltcjXmdobQAjfq",
+  //         port: 18891,
+  //       },
+  //     });
+  //   }
+  // };
 
   return (
-    <div className={styles.sideBarWrapper} id="sideBar">
+    <div className={styles.sideBarWrapper} id='sideBar'>
       <ServerAdd addServer={addServer} />
       <ServerList
         serverList={serverList}
         currentDivHover={currentDivHover}
         changeDivHover={changeDivHover}
-        changeCurrentServer={changeCurrentServer}
+        // changeCurrentServer={changeCurrentServer}
       />
       <FontAwesomeIcon
         id={styles.cube}

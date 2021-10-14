@@ -23,7 +23,7 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'GET':
       try {
-        SQLquery = `SELECT name, endpoint FROM "serverCloud" WHERE user_id = ${userId};`;
+        SQLquery = `SELECT name, endpoint, port FROM "serverCloud" WHERE user_id = ${userId};`;
         const cloudDataFull = await db.query(SQLquery);
         const cloud: String[] = cloudDataFull.rows;
         return res.status(200).json({ success: true, cloud });
