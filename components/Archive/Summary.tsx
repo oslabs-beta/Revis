@@ -25,13 +25,8 @@ export default function Summary() {
 
   useEffect(() => {
     async function fetchDataFromRedis() {
-      let response = await fetch('http://localhost:3000/api/redis_Endpoint', {
-        method: 'POST',
-        body: JSON.stringify({
-          endpoint: `${endpoint}`,
-          password: `${password}`,
-          port: `${port}`,
-        }),
+      let response = await fetch('http://localhost:3000/api/redis', {
+        method: 'GET',
       });
       response = await response.json();
       // metricsDispatch({
@@ -43,15 +38,19 @@ export default function Summary() {
     }
     if (selectedServer.length !== 0) {
       const interval = setInterval(fetchDataFromRedis, time);
-      if (graphInterval.updateInterval.update === false) clearInterval(interval);
+      if (graphInterval.updateInterval.update === false)
+        clearInterval(interval);
       return () => clearInterval(interval);
     }
   });
 
   const metricsForTable = [];
 
-  Object.entries(metrics).forEach((el) => {
-    metricsForTable.push(<Metrics key={el[0]} keys={el[0]} values={el[1]} />);
+  Object.entries(
+    metricsStore.metricState[metricsStore.metricState.length - 1]
+  ).forEach((el) => {
+    if (el[0] !== 'time')
+      metricsForTable.push(<Metrics key={el[0]} keys={el[0]} values={el[1]} />);
   });
 
   return (
@@ -71,7 +70,7 @@ export default function Summary() {
           </div>
         )}
       </div>
-      <button type='button' onClick={() => router.replace('/redisinfo')}>
+      <button type="button" onClick={() => router.replace('/redisinfo')}>
         Graphs
       </button>
       <UpdateInterval />

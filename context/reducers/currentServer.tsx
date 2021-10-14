@@ -16,6 +16,7 @@ const currentServer = (state: State, action: Action) => {
   let port;
 
   switch (action.type) {
+<<<<<<< HEAD
     case "currentServer":
       if (endpoint === "redis-18891.c9.us-east-1-4.ec2.cloud.redislabs.com") {
         password = "Etttmq5T4ubqnE6TaYltcjXmdobQAjfq";
@@ -34,6 +35,10 @@ const currentServer = (state: State, action: Action) => {
         sessionToken,
       });
       return { ...newServer, name, endpoint, password, port, sessionToken };
+=======
+    case 'currentServer':
+      return { ...newServer, endpoint, password, port, sessionToken };
+>>>>>>> liam/loadingChange
 
     default:
       return state;

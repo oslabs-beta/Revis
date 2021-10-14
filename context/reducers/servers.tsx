@@ -8,7 +8,7 @@ type Action = {
 };
 
 const deleteServerFromDataBase = (name: string) => {
-  fetch('/api/servers_Endpoint', {
+  fetch('/api/servers', {
     method: 'DELETE',
     body: JSON.stringify({ name }),
     'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ const postServerToDataBase = (
   username: string,
   password: string
 ) => {
-  fetch('/api/servers_Endpoint', {
+  fetch('/api/servers', {
     method: 'POST',
     body: JSON.stringify({ name, endpoint, PORT, username, password }),
     'Content-Type': 'application/json',

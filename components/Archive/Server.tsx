@@ -1,9 +1,8 @@
-import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSquare } from "@fortawesome/free-solid-svg-icons";
-import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
-import { useStore } from "../context/Provider";
-import styles from "../styles/Server.module.scss";
+import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
+import { useStore } from '../context/Provider';
+import styles from '../styles/Server.module.scss';
 
 export default function Server(props) {
   const {
@@ -19,10 +18,9 @@ export default function Server(props) {
   const { selectedServerDispatch }: { selectedServerDispatch: Function } =
     currentServer;
   const { serversDispatch }: { serversDispatch: Function } = servers;
-
   const removeServer = (e: Event) => {
     serversDispatch({
-      type: "deleteServer",
+      type: 'deleteServer',
       message: { name: e.target.id },
     });
   };
@@ -32,26 +30,26 @@ export default function Server(props) {
       `#${wrapperName}`
     );
     changeDivHover(removeServerDiv);
-    removeServerDiv.style.width = "100%";
-    removeServerDiv.style.backgroundColor = "red";
-    removeServerDiv.innerHTML = "X";
+    removeServerDiv.style.width = '100%';
+    removeServerDiv.style.backgroundColor = 'red';
+    removeServerDiv.innerHTML = 'X';
   };
 
   const keepServerAnimation = (e) => {
     if (currentDivHover) {
-      currentDivHover.style.width = "0%";
-      currentDivHover.style.backgroundColor = "white";
-      currentDivHover.innerHTML = "";
+      currentDivHover.style.width = '0%';
+      currentDivHover.style.backgroundColor = 'white';
+      currentDivHover.innerHTML = '';
     }
   };
 
   const updateSelectedServer = () => {
     if (!currentServer.selectedServer[name]) {
-      //look for the information at the serverlist global state
+      // look for the information at the serverlist global state
       servers.serverList.forEach((el) => {
         if (el.name === name)
           selectedServerDispatch({
-            type: "currentServer",
+            type: 'currentServer',
             payload: {
               name: el.name,
               endpoint: el.endpoint,
@@ -99,15 +97,9 @@ export default function Server(props) {
           icon={faCheckSquare}
         /> */}
         <p>Name: {name}</p>
-        <p>Port: {port}</p>
+        <p>IP: {IP}</p>
+        <p>Port: {PORT}</p>
       </div>
-      {/* <input
-        id={endpoint}
-        type="radio"
-        name="currentServer"
-        value={port}
-        onChange={changeCurrentServer}
-      /> */}
     </div>
   );
 }
