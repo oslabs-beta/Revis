@@ -27,7 +27,6 @@ export default function Server(props) {
     removeServerDiv.style.backgroundColor = 'red';
     removeServerDiv.innerHTML = 'X';
   };
-
   const keepServerAnimation = (e) => {
     if (currentDivHover) {
       currentDivHover.style.width = '0%';
@@ -102,5 +101,4 @@ Server.propTypes = {
   port: PropTypes.string.isRequired,
   currentDivHover: PropTypes.any,
   changeDivHover: PropTypes.func,
-  changeCurrentServer: PropTypes.func,
 };

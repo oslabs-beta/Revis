@@ -14,13 +14,8 @@ export default function Summary() {
   const [metrics, setMetrics] = useState({});
   const { currentServer }: any = useStore();
   const { selectedServer }: any = currentServer;
-  const { endpoint, password, port } = selectedServer;
-  // const { metrics }: any = useStore();
-  // const {
-  //   metricState,
-  //   metricsDispatch,
-  // }: { metricState: string[], metricsDispatch: Function } = metrics;
 
+  const { endpoint, password, port } = selectedServer;
   useEffect(() => {
     async function fetchDataFromRedis() {
 <<<<<<< HEAD:components/Summary_Endpoint.tsx
@@ -37,12 +32,10 @@ export default function Summary() {
 >>>>>>> dc574079b48d500cb156d205ee67283e7b694cb8:components/Archive/Summary.tsx
       });
       response = await response.json();
-      // metricsDispatch({
-      //   type: 'updateMetrics',
-      //   message: [...response] ,
-      // });
-      // console.log(metricState)
-      setMetrics(response);
+      await metricsStore.metricsDispatch({
+        type: 'updateMetrics',
+        message: response,
+      });
     }
 <<<<<<< HEAD:components/Summary_Endpoint.tsx
 

@@ -4,13 +4,18 @@ import { useStore } from "../context/Provider";
 import styles from "../styles/UpdateInterval.module.scss";
 
 function UpdateInterval() {
-  const { metricsStore, metricToGraph, graphInterval, currentServer } =
+  const { metricsStore, metricToGraph, graphInterval, currentServer }: any =
     useStore();
   const time = graphInterval.updateInterval.interval;
   const placeholder = graphInterval.updateInterval.interval / 1000;
   const { selectedServer }: any = currentServer;
   const { endpoint, password, port } = selectedServer;
   const [render, reRender] = useState(false);
+  const {
+    metricState,
+    metricsDispatch,
+  }: { metricState: string[]; metricsDispatch: Function } = metricsStore;
+
   useEffect(() => {
     async function fetchDataFromRedis() {
       let response = await fetch("/api/redis", {
@@ -27,11 +32,14 @@ function UpdateInterval() {
         message: response,
       });
     }
-
-    const interval = setInterval(fetchDataFromRedis, time);
-    if (graphInterval.updateInterval.update === false) clearInterval(interval);
-    return () => clearInterval(interval);
-  }, [render]);
+    if (selectedServer.length !== 0) {
+      fetchDataFromRedis();
+      const interval = setInterval(fetchDataFromRedis, time);
+      if (graphInterval.updateInterval.update === false)
+        clearInterval(interval);
+      return () => clearInterval(interval);
+    }
+  }, [selectedServer,render]);
 
   const change = () => {
     graphInterval.updateIntervalDispatch({
@@ -56,18 +64,20 @@ function UpdateInterval() {
         <label className={styles.switch}>
           <input
             checked={graphInterval.updateInterval.update}
-            type="checkbox"
+            type='checkbox'
             onChange={change}
           ></input>
           <span className={styles.slider}></span>
         </label>
       </div>
       Update interval in seconds:
-      <input id="intervalInput" type="number" placeholder={placeholder}></input>
-      <button type="button" onClick={updateInterval}>
+      <input id='intervalInput' type='number' placeholder={placeholder}></input>
+      <button type='button' onClick={updateInterval}>
         Update
       </button>
-      <button type="button" onClick={() => router.replace("/redisinfo")}>
+
+      <button type='button' onClick={() => router.replace('/redisinfo')}>
+
         Graphs
       </button>
     </div>

@@ -27,7 +27,6 @@ function Sidebar(props) {
       .then((response) => response.json())
       .then((data) => {
         const cloudData: string[] = data.cloud;
-
         if (!cloudData) {
           serversDispatch({});
           return;
@@ -211,7 +210,7 @@ function Sidebar(props) {
   // };
 
   return (
-    <div className={styles.sideBarWrapper} id="sideBar">
+    <div className={styles.sideBarWrapper} id='sideBar'>
       <ServerAdd addServer={addServer} />
       <ServerList
         serverList={serverList}

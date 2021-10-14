@@ -22,7 +22,7 @@ export default function ServerList(props) {
       key={index}
       name={elem.name}
       endpoint={elem.endpoint}
-      PORT={elem.port}
+      port={elem.port}
       currentDivHover={currentDivHover}
       changeDivHover={changeDivHover}
       // changeCurrentServer={changeCurrentServer}

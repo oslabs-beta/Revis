@@ -15,6 +15,7 @@ export type Server = {
   username: string;
   endpoint: string;
   password: string;
+  currentServer?: CurrentServer;
 };
 
 export type Action = {

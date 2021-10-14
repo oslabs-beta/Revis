@@ -21,16 +21,15 @@ const userLogin = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!compare)
       throw Error('Incorrect username or password. Please try again.');
     console.log(`User: ${username} logged in`);
-    cookies.set('ssid', `${userData.user_id}`);
+    cookies.set('ssid', `${userData.user_id}`, { httpOnly: true });
+    cookies.set('username', `${username}`, { httpOnly: true });
     return res.status(200).json(username);
   } catch (err) {
     console.log(err);
-    return res
-      .status(401)
-      .json({
-        success: false,
-        error: 'Incorrect username or password. Please try again.',
-      });
+    return res.status(401).json({
+      success: false,
+      error: 'Incorrect username or password. Please try again.',
+    });
   }
 };
 export default userLogin;
