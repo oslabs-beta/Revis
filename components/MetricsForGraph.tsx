@@ -17,7 +17,7 @@ function MetricsForGraph(props) {
       });
     } else {
       if (Object.keys(multipleGraphSelections.multipleGraphState).length > 3) {
-        return alert("Only 4 graphs can be simultaneously shown");
+        return 
       }
       multipleGraphSelections.multipleGraphDispatch({
         type: "newMetricSelected",
