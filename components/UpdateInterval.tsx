@@ -18,7 +18,6 @@ function UpdateInterval() {
 
   useEffect(() => {
     async function fetchDataFromRedis() {
-      console.log(endpoint, port, password);
       let response = await fetch('/api/redis', {
         method: 'POST',
         body: JSON.stringify({

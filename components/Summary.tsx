@@ -36,13 +36,8 @@ export default function Summary() {
         message: response,
       });
     }
-    console.log(metricState)
     if (selectedServer.length !== 0) {
       fetchDataFromRedis();
-      // const interval = setInterval(fetchDataFromRedis, time);
-      // if (graphInterval.updateInterval.update === false)
-      //   clearInterval(interval);
-      // return () => clearInterval(interval);
     }
   }, [selectedServer]);
 
