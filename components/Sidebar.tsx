@@ -211,7 +211,7 @@ function Sidebar(props) {
   // };
 
   return (
-    <div className={styles.sideBarWrapper} id="sideBar">
+    <div className={styles.sideBarWrapper} id='sideBar'>
       <ServerAdd addServer={addServer} />
       <ServerList
         serverList={serverList}
