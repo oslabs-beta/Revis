@@ -5,3 +5,8 @@ export interface User {
   email?: string | null;
   session?: string;
 }
+
+interface Dog {
+  name: string
+  age: number
+}
