@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from '../../styles/Homepage.module.scss';
-import { User } from '../../context/interfaces';
+import { User, HomePageProps } from '../../context/interfaces';
 
-interface SignUpProps {
-  previousPage: () => () => void;
-}
-
-function SignUp({ previousPage }: SignUpProps) {
+function SignUp({ previousPage }: HomePageProps) {
   const [userInfo, setUserInfo] = useState<User>({
     username: '',
     email: '',
@@ -35,48 +31,48 @@ function SignUp({ previousPage }: SignUpProps) {
 
       <form onSubmit={submitHandler}>
         <div className={styles.formEntry}>
-          <label htmlFor="username" className={styles.labels}>
+          <label htmlFor='username' className={styles.labels}>
             username:
             <input
               className={styles.userInput}
-              type="text"
+              type='text'
               onChange={(e) =>
                 setUserInfo({ ...userInfo, username: e.target.value })
               }
               value={userInfo.username}
               required
-              autoComplete="none"
+              autoComplete='none'
             ></input>
           </label>
         </div>
 
         <div className={styles.formEntry}>
-          <label htmlFor="email" className={styles.labels}>
+          <label htmlFor='email' className={styles.labels}>
             email:
             <input
               className={styles.userInput}
-              type="email"
+              type='email'
               onChange={(e) =>
                 setUserInfo({ ...userInfo, email: e.target.value })
               }
               value={userInfo.email}
               required
-              autoComplete="none"
+              autoComplete='none'
             ></input>
           </label>
         </div>
 
         <div className={styles.formEntry}>
-          <label htmlFor="password" className={styles.labels}>
+          <label htmlFor='password' className={styles.labels}>
             password:
             <input
               className={styles.userInput}
-              type="password"
+              type='password'
               onChange={(e) =>
                 setUserInfo({ ...userInfo, password: e.target.value })
               }
               required
-              autoComplete="none"
+              autoComplete='none'
             ></input>
           </label>
         </div>
@@ -85,15 +81,14 @@ function SignUp({ previousPage }: SignUpProps) {
           <button
             className={styles.backButton}
             onClick={previousPage}
-            type="button"
+            type='button'
           >
             Back
           </button>
 
           <button
-            // onClick={() => router.replace('/dashboard')}
             className={styles.submitButton}
-            type="submit"
+            type='submit'
           >
             Submit
           </button>
