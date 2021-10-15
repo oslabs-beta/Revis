@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCube } from '@fortawesome/free-solid-svg-icons';
 import ServerAdd from './Servers/ServerAdd';
@@ -6,8 +6,8 @@ import ServerList from './Servers/ServerList';
 import { useStore } from '../../context/Provider';
 import styles from '../../styles/Sidebar.module.scss';
 
-function Sidebar(props) {
-  const [sideBarHidden, showOrHideSideBar] = useState(false);
+function Sidebar() {
+  const [sideBarHidden, showOrHideSideBar]: [boolean, Dispatch<SetStateAction<boolean>>] = useState(false);
   const { user, servers, currentServer }: any = useStore();
   const { username }: { username: string } = user.userState;
   const {

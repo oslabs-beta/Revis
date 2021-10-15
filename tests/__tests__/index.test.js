@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {render, fireEvent, screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { GlobalProvider } from '../context/Provider';
-import HomePage from '../pages/index';
+import { GlobalProvider } from '../../src/context/Provider';
+import HomePage from '../../src/pages/index';
 
 describe('testing functionality of homepage',() => {
   
