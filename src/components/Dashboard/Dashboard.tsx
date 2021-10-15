@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import router from 'next/router';
 import { useStore } from '../../context/Provider';
 import Sidebar from './Sidebar';
@@ -9,10 +9,11 @@ import { UserProvider } from '../../context/interfaces';
 
 export default function Dashboard() {
   const { user }: UserProvider = useStore();
-  const [noUsername, changeUsernameBool] = useState(true);
-  const {
-    userDispatch,
-  }: { userState: { username: string }; userDispatch: Function } = user;
+  const [noUsername, changeUsernameBool]: [
+    boolean,
+    Dispatch<SetStateAction<boolean>>
+  ] = useState(true);
+  const { userDispatch } = user;
 
   useEffect(() => {
     fetch('/api/validateUser')
