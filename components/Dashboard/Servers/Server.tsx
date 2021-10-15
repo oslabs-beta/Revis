@@ -6,9 +6,6 @@ import { useStore } from '../../../context/Provider';
 import styles from '../../../styles/Server.module.scss';
 
 export default function Server(props) {
-  const [serverBlockBackground, setServerBlockBackground] = useState(
-    styles.serverSelected
-  );
   const {
     name,
     endpoint,
@@ -91,32 +88,26 @@ export default function Server(props) {
       >
         <div className={styles.removeServerDiv} id={name}></div>
       </div>
-      <div className={serverBlockBackground}>
+      <div
+        className={
+          currentServer.selectedServer.name === name
+            ? styles.serverSelected
+            : styles.server
+        }
+      >
         {currentServer.selectedServer.name === name
           ? squareChecked
           : squareUnChecked}
-        {/* <FontAwesomeIcon
-          onClick={changeCurrentServer}
-          id={styles.checkBox}
-          icon={faCheckSquare}
-        /> */}
         <p>Name: {name}</p>
       </div>
-      {/* <input
-        id={endpoint}
-        type="radio"
-        name="currentServer"
-        value={port}
-        onChange={changeCurrentServer}
-      /> */}
     </div>
   );
 }
 
 Server.propTypes = {
   name: PropTypes.string.isRequired,
-  endpoint: PropTypes.string.isRequired,
-  port: PropTypes.string,
+  endpoint: PropTypes.string,
+  port: PropTypes.string.isRequired,
   currentDivHover: PropTypes.any,
   changeDivHover: PropTypes.func,
   changeCurrentServer: PropTypes.func,
