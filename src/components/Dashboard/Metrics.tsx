@@ -1,22 +1,19 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import propTypes from 'prop-types';
 import router from 'next/router';
 import { useStore } from '../../context/Provider';
 import styles from '../../styles/Summary.module.scss';
+import { MetricsProps } from '../../context/interfaces';
 
-interface MetricsProps {
-  keys: string;
-  values: string;
-}
-
-export default function Metrics(props) {
+export default function Metrics(props: MetricsProps):ReactElement {
+  // keys is metric name, values is metric value
   const { keys, values }: MetricsProps = props;
   const { metricToGraph } = useStore();
 
-  const cleanKeys = (string) => {
-    const splitKeys = string.split('_');
-    const updatedKeys = splitKeys.map((str) => {
-      const firstLetter = str[0].toUpperCase();
+  const cleanKeys = (string: string):string[] => {
+    const splitKeys:string[] = string.split('_');
+    const updatedKeys:string[] = splitKeys.map((str) => {
+      const firstLetter:string = str[0].toUpperCase();
       return firstLetter + str.slice(1);
     });
     return updatedKeys;
@@ -27,7 +24,7 @@ export default function Metrics(props) {
       <h5>{cleanKeys(keys).join(' ')}</h5>
       <button
         type="button"
-        onClick={() => {
+        onClick={():void => {
           metricToGraph.selectedMetricDispatch({
             type: 'updateSelectedMetric',
             message: keys,
