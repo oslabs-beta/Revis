@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
-import { useStore } from '../context/Provider';
-import styles from '../../../styles/GraphContainer.module.scss';
+import React from "react";
+import { LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
+import PropTypes from "prop-types";
+import styles from "../../../styles/GraphContainer.module.scss";
+import { MetricsProps } from "../../../context/interfaces";
 
-function MultipleGraph(props) {
-  // const { metricsStore, metricToGraph }: any = useStore();
-  const { keys, data } = props;
-
+function MultipleGraph({ keys, values }: MetricsProps) {
   return (
     <div>
       <h1>{keys}</h1>
@@ -14,14 +12,12 @@ function MultipleGraph(props) {
         <LineChart
           width={600}
           height={400}
-          data={data}
+          data={values}
           margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
         >
           <Line type="monotone" dataKey={keys} stroke="#d33b51" />
-          {/* <Line type="monotone" dataKey="evicted_keys" stroke="#77EC7F" /> */}
-
-          <XAxis stroke="#ce6030" dataKey="time" tick={{ fill: '#d8d8d4' }} />
-          <YAxis stroke="#ce6030" tick={{ fill: '#d8d8d4' }} />
+          <XAxis stroke="#ce6030" dataKey="time" tick={{ fill: "#d8d8d4" }} />
+          <YAxis stroke="#ce6030" tick={{ fill: "#d8d8d4" }} />
           <Tooltip />
         </LineChart>
       </div>
@@ -29,3 +25,8 @@ function MultipleGraph(props) {
   );
 }
 export default MultipleGraph;
+
+MultipleGraph.propTypes = {
+  keys: PropTypes.string.isRequired,
+  values: PropTypes.string.isRequired,
+};

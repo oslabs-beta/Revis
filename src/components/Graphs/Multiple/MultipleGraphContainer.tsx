@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import GridLayout from 'react-grid-layout';
-import { useStore } from '../../../context/Provider';
-import MultipleGraph from './MultipleGraph';
+import React, { useEffect, useState } from "react";
+import GridLayout from "react-grid-layout";
+import { useStore } from "../../../context/Provider";
+import MultipleGraph from "./MultipleGraph";
 
-import LeftMenuOfGraph from './LeftMenuOfGraph';
-import styles from '../../../styles/GraphContainer.module.scss';
+import LeftMenuOfGraph from "./LeftMenuOfGraph";
+import styles from "../../../styles/GraphContainer.module.scss";
 // minW: 4, maxW: 8
 
 function MultipleGraphContainer() {
   const { multipleGraphSelections, metricsStore } = useStore();
   const [layout, setLayout] = useState([
-    { i: '0', x: 0, y: 0, w: 6, h: 1.2 },
-    { i: '1', x: 5, y: 5, w: 6, h: 1.2 },
-    { i: '2', x: 0, y: 0, w: 6, h: 1.2 },
-    { i: '3', x: 5, y: 5, w: 6, h: 1.2 },
+    { i: "0", x: 0, y: 0, w: 6, h: 1.2 },
+    { i: "1", x: 5, y: 5, w: 6, h: 1.2 },
+    { i: "2", x: 0, y: 0, w: 6, h: 1.2 },
+    { i: "3", x: 5, y: 5, w: 6, h: 1.2 },
   ]);
   const arrayWithGraphs: [] = [];
 
@@ -21,10 +21,10 @@ function MultipleGraphContainer() {
 
   async function layoutFunction() {
     await setLayout([
-      { i: '0', x: 0, y: 0, w: 6, h: 1.2 },
-      { i: '1', x: 5, y: 5, w: 6, h: 1.2 },
-      { i: '2', x: 0, y: 0, w: 6, h: 1.2 },
-      { i: '3', x: 5, y: 5, w: 6, h: 1.2 },
+      { i: "0", x: 0, y: 0, w: 6, h: 1.2 },
+      { i: "1", x: 5, y: 5, w: 6, h: 1.2 },
+      { i: "2", x: 0, y: 0, w: 6, h: 1.2 },
+      { i: "3", x: 5, y: 5, w: 6, h: 1.2 },
     ]);
   }
 
@@ -35,7 +35,7 @@ function MultipleGraphContainer() {
     if (value) {
       arrayWithGraphs.push(
         <div key={i} data-grid={{ x: 0, y: 0, w: 6, h: 1.2 }}>
-          <MultipleGraph data={data} keys={key} />
+          <MultipleGraph values={data} keys={key} />
         </div>
       );
 
