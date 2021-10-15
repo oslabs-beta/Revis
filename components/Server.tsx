@@ -3,12 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
 import { useStore } from '../context/Provider';
 import styles from '../styles/Server.module.scss';
-import { useState } from 'react';
+import { useRef } from 'react';
 
 export default function Server(props) {
-  const [serverBlockBackground, setServerBlockBackground] = useState(
-    styles.serverSelected
-  );
+  const serverBlockBackground = useRef(styles.server);
   const {
     name,
     endpoint,
@@ -25,7 +23,7 @@ export default function Server(props) {
 
   const removeServer = (e: Event) => {
     serversDispatch({
-      type: "deleteServer",
+      type: 'deleteServer',
       message: { name: e.target.id },
     });
   };
@@ -35,15 +33,15 @@ export default function Server(props) {
       `#${wrapperName}`
     );
     changeDivHover(removeServerDiv);
-    removeServerDiv.style.width = "100%";
-    removeServerDiv.style.backgroundColor = "red";
-    removeServerDiv.innerHTML = "X";
+    removeServerDiv.style.width = '100%';
+    removeServerDiv.style.backgroundColor = 'red';
+    removeServerDiv.innerHTML = 'X';
   };
   const keepServerAnimation = (e) => {
     if (currentDivHover) {
-      currentDivHover.style.width = "0%";
-      currentDivHover.style.backgroundColor = "white";
-      currentDivHover.innerHTML = "";
+      currentDivHover.style.width = '0%';
+      currentDivHover.style.backgroundColor = 'white';
+      currentDivHover.innerHTML = '';
     }
   };
 
@@ -64,6 +62,18 @@ export default function Server(props) {
       });
     }
   };
+  // const deSelect = () => {
+  //   if (serverBlockBackground === styles.serverSelected)
+  //     setServerBlockBackground(styles.server);
+  //   //else setServerBlockBackground(styles.serverSelected);
+  // };
+  // const onClick = () => {
+  //   updateSelectedServer();
+  //   if (serverBlockBackground === styles.server)
+  //     setServerBlockBackground(styles.serverSelected);
+  //   else setServerBlockBackground(styles.server);
+  //   deSelect();
+  // };
 
   const squareUnChecked = (
     <span onClick={updateSelectedServer} key={name}>
@@ -74,7 +84,7 @@ export default function Server(props) {
       />
     </span>
   );
-  const squareChecked = (    
+  const squareChecked = (
     <span onClick={updateSelectedServer} key={name}>
       <FontAwesomeIcon id={name} icon={faCheckSquare} />
     </span>
@@ -91,7 +101,14 @@ export default function Server(props) {
       >
         <div className={styles.removeServerDiv} id={name}></div>
       </div>
-      <div className={serverBlockBackground}>
+
+      <div
+        className={
+          currentServer.selectedServer.name === name
+            ? styles.serverSelected
+            : styles.server
+        }
+      >
         {currentServer.selectedServer.name === name
           ? squareChecked
           : squareUnChecked}

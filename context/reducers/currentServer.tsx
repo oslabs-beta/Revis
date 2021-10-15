@@ -23,16 +23,7 @@ const currentServer = (state: State, action: Action) => {
       } else {
         password = 'redis';
         port = 16424;
-      }
-
-      console.log({
-        ...newServer,
-        name,
-        endpoint,
-        password,
-        port,
-        sessionToken,
-      });
+      };
       return { ...newServer, name, endpoint, password, port, sessionToken };
 
     default:
