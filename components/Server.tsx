@@ -3,10 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
 import { useStore } from '../context/Provider';
 import styles from '../styles/Server.module.scss';
-import { useRef } from 'react';
 
 export default function Server(props) {
-  const serverBlockBackground = useRef(styles.server);
   const {
     name,
     endpoint,
@@ -62,18 +60,6 @@ export default function Server(props) {
       });
     }
   };
-  // const deSelect = () => {
-  //   if (serverBlockBackground === styles.serverSelected)
-  //     setServerBlockBackground(styles.server);
-  //   //else setServerBlockBackground(styles.serverSelected);
-  // };
-  // const onClick = () => {
-  //   updateSelectedServer();
-  //   if (serverBlockBackground === styles.server)
-  //     setServerBlockBackground(styles.serverSelected);
-  //   else setServerBlockBackground(styles.server);
-  //   deSelect();
-  // };
 
   const squareUnChecked = (
     <span onClick={updateSelectedServer} key={name}>
@@ -101,7 +87,6 @@ export default function Server(props) {
       >
         <div className={styles.removeServerDiv} id={name}></div>
       </div>
-
       <div
         className={
           currentServer.selectedServer.name === name
@@ -112,29 +97,17 @@ export default function Server(props) {
         {currentServer.selectedServer.name === name
           ? squareChecked
           : squareUnChecked}
-        {/* <FontAwesomeIcon
-          onClick={changeCurrentServer}
-          id={styles.checkBox}
-          icon={faCheckSquare}
-        /> */}
         <p>Name: {name}</p>
         <p>Port: {port}</p>
       </div>
-      {/* <input
-        id={endpoint}
-        type="radio"
-        name="currentServer"
-        value={port}
-        onChange={changeCurrentServer}
-      /> */}
     </div>
   );
 }
 
 Server.propTypes = {
   name: PropTypes.string.isRequired,
-  endpoint: PropTypes.string.isRequired,
-  port: PropTypes.string,
+  endpoint: PropTypes.string,
+  port: PropTypes.string.isRequired,
   currentDivHover: PropTypes.any,
   changeDivHover: PropTypes.func,
   changeCurrentServer: PropTypes.func,
