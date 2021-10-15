@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 import { useStore } from '../context/Provider';
 import styles from '../styles/Server.module.scss';
 
@@ -32,7 +33,7 @@ export default function Server(props) {
     );
     changeDivHover(removeServerDiv);
     removeServerDiv.style.width = '100%';
-    removeServerDiv.style.backgroundColor = 'red';
+    removeServerDiv.style.backgroundColor = 'var(--logoColor)';
     removeServerDiv.innerHTML = 'X';
   };
   const keepServerAnimation = (e) => {
@@ -98,7 +99,6 @@ export default function Server(props) {
           ? squareChecked
           : squareUnChecked}
         <p>Name: {name}</p>
-        <p>Port: {port}</p>
       </div>
     </div>
   );

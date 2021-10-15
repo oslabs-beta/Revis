@@ -17,7 +17,7 @@ function MetricsForGraph(props) {
       });
     } else {
       if (Object.keys(multipleGraphSelections.multipleGraphState).length > 3) {
-        return alert("Only 4 graphs can be simultaneously shown");
+        return 
       }
       multipleGraphSelections.multipleGraphDispatch({
         type: "newMetricSelected",
@@ -37,12 +37,12 @@ function MetricsForGraph(props) {
   );
   const squareChecked = (
     <span onClick={changeMetric} key={keys}>
-      <FontAwesomeIcon id={keys} icon={faCheckSquare} />
+      <FontAwesomeIcon id={keys} icon={faCheckSquare} className={styles.fullSquare} />
     </span>
   );
 
   return (
-    <div>
+    <div className={styles.metrics}>
       {multipleGraphSelections.multipleGraphState[keys]
         ? squareChecked
         : squareUnChecked}

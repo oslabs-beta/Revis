@@ -1,7 +1,8 @@
-import React from "react";
-import MultipleGraphContainer from "../components/MultipleGraphContainer";
-import BackButton from "../components/BackButton";
-import Welcome from "../components/Welcome";
+import React from 'react';
+import MultipleGraphContainer from '../components/MultipleGraphContainer';
+import BackButton from '../components/BackButton';
+import Welcome from '../components/Welcome';
+import UpdateInterval from '../components/UpdateInterval';
 
 function redisInfo() {
   return (
@@ -9,6 +10,9 @@ function redisInfo() {
       <BackButton />
       <Welcome />
       <MultipleGraphContainer />
+      <div style={{ visibility: 'hidden' }}>
+        <UpdateInterval />
+      </div>
     </div>
   );
 }

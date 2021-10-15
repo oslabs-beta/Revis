@@ -1,4 +1,4 @@
-@import "./colorsAndFonts.scss";
+@import './colorsAndFonts.scss';
 
 .switch {
   position: fixed;
@@ -37,7 +37,7 @@
 
   .slider:before {
     position: absolute;
-    content: "";
+    content: '';
     height: 1.5rem;
     width: 1.5rem;
     left: 0.5rem;
@@ -54,7 +54,7 @@
     background-color: rgb(51, 51, 51);
   }
 
-  $distanceFromEdge: 3.6rem;
+  $distanceFromEdge: 2rem;
 
   input:checked + .slider:before {
     //
