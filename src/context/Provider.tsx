@@ -24,31 +24,25 @@ export const GlobalProvider = ({ children }) => {
     user,
     initialStateUser
   );
-  const [metricState, metricsDispatch]: [any, Function] = useReducer(
+  const [metricState, metricsDispatch]: [any, Dispatch<Action>] = useReducer(
     metrics,
     initialStateMetrics
   );
-  const [serverList, serversDispatch]: [any, Function] = useReducer(
+  const [serverList, serversDispatch]: [any, Dispatch<Action>] = useReducer(
     servers,
     initialStateServers
   );
 
-  const [metricToGraph, selectedMetricDispatch]: [any, Function] = useReducer(
-    selectedMetric,
-    initialStateSelectedMetric
-  );
-  const [multipleGraphState, multipleGraphDispatch]: [any, any] = useReducer(
-    metricsBeingCompared,
-    initialStateOfMultipleGraphs
-  );
-  const [currentTheme, themeDispatch]: [{ light: boolean }, Function] =
+  const [metricToGraph, selectedMetricDispatch]: [any, Dispatch<Action>] =
+    useReducer(selectedMetric, initialStateSelectedMetric);
+  const [multipleGraphState, multipleGraphDispatch]: [any, Dispatch<Action>] =
+    useReducer(metricsBeingCompared, initialStateOfMultipleGraphs);
+  const [currentTheme, themeDispatch]: [{ light: boolean }, Dispatch<Action>] =
     useReducer(theme, initialStateTheme);
 
-  const [selectedServer, selectedServerDispatch]: [any, Function] = useReducer(
-    currentServer,
-    initialStateSelectedServer
-  );
-  const [updateInterval, updateIntervalDispatch]: [Interval, Function] =
+  const [selectedServer, selectedServerDispatch]: [any, Dispatch<Action>] =
+    useReducer(currentServer, initialStateSelectedServer);
+  const [updateInterval, updateIntervalDispatch]: [Interval, Dispatch<Action>] =
     useReducer(interval, initialStateUpdateInterval);
   return (
     <GlobalContext.Provider
