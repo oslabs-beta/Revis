@@ -7,8 +7,7 @@ const bcrypt = require('bcryptjs');
 
 const userLogin = async (req: NextApiRequest, res: NextApiResponse) => {
   const parsedBody = JSON.parse(req.body);
-  const { username }: { username: string | string[] } = parsedBody;
-  const { password }: { password: string | string[] } = parsedBody;
+  const { username, password }: User = parsedBody;
 
   res.setHeader('Content-Type', 'application/json');
   try {

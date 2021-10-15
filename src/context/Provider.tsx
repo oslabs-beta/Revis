@@ -15,8 +15,8 @@ import metricsBeingCompared from './reducers/metricsBeingCompared';
 import theme from './reducers/theme';
 import currentServer from './reducers/currentServer';
 import interval from './reducers/interval';
-import { Action, Interval } from './Types';
-import { User } from './interfaces';
+// import { Action, Interval } from './Types';
+import { User, Action, Interval } from './interfaces';
 
 export const GlobalContext = createContext({}); // the provider needs to fill the state
 export const GlobalProvider = ({ children }) => {
