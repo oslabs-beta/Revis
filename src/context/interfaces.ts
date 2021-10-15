@@ -5,3 +5,8 @@ export interface User {
   email?: string | null;
   session?: string;
 }
+
+export interface MetricsProps {
+  keys: string;
+  values: string;
+}
