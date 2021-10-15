@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import LogoHomeScreen from '../components/LeftSideHomeScreen';
-import UserLogin from '../components/UserLogin';
-import ForgotPassword from '../components/ForgotPassword';
-import SignUp from '../components/SignUp';
+import LogoHomeScreen from '../components/Homepage/LeftSideHomeScreen';
+import UserLogin from '../components/Homepage/UserLogin';
+import ForgotPassword from '../components/Homepage/ForgotPassword';
+import SignUp from '../components/Homepage/SignUp';
 import styles from '../styles/Homepage.module.scss';
 
 function HomePage() {

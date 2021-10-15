@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import router from 'next/router';
 import { useStore } from '../context/Provider';
-import Sidebar from '../components/Sidebar';
-import Summary from '../components/Summary';
+import Sidebar from '../components/Dashboard/Sidebar';
+import Summary from '../components/Dashboard/Summary';
 import styles from '../styles/Dashboard.module.scss';
-import SignOutButton from '../components/SignOutButton';
+import SignOutButton from '../components/Globals/SignOutButton';
 
 export default function dashboard() {
   const { user }: any = useStore();

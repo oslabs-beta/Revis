@@ -1,8 +1,8 @@
 import React from 'react';
-import MultipleGraphContainer from '../components/MultipleGraphContainer';
-import BackButton from '../components/BackButton';
-import Welcome from '../components/Welcome';
-import UpdateInterval from '../components/UpdateInterval';
+import MultipleGraphContainer from '../components/Graphs/Multiple/MultipleGraphContainer';
+import BackButton from '../components/Globals/BackButton';
+import Welcome from '../components/Globals/Welcome';
+import UpdateInterval from '../components/Globals/UpdateInterval';
 
 function redisInfo() {
   return (
