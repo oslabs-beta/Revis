@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styles from '../../styles/Homepage.module.scss';
+import PropTypes from 'prop-types'
+import { HomePageProps } from '../../context/interfaces';
 
-function ForgotPassword(props) {
-  const [userEmail, setUserEmail] = useState<any>('');
-  const { previousPage } = props;
+function ForgotPassword({ previousPage }: HomePageProps) {
+  const [userEmail, setUserEmail] = useState<string>('');
   const onSubmitHandler = (e) => {
     e.preventDefault();
     /* fetch here */
@@ -33,3 +34,7 @@ function ForgotPassword(props) {
 }
 
 export default ForgotPassword;
+
+ForgotPassword.PropTypes = {
+  previousPage: PropTypes.func.isRequired,
+};

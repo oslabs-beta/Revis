@@ -5,3 +5,9 @@ export interface User {
   email?: string | null;
   session?: string;
 }
+
+export interface HomePageProps {
+  onForgotPassword?: () => void;
+  onSignUp?: () => void;
+  previousPage?: () => () => void;
+}
