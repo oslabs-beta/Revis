@@ -9,7 +9,7 @@ function MultipleGraphContainer() {
   const { multipleGraphSelections, metricsStore } = useStore(); //missing typescript
   const arrayWithGraphs: ReactElement[] = [];
 
-  const data = metricsStore.metricState;
+  const data: string = metricsStore.metricState;
 
   let i = 0;
 

@@ -4,9 +4,10 @@ import { faCheckSquare, faSquare } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import styles from "../../../styles/GraphContainer.module.scss";
 import { useStore } from "../../../context/Provider";
+import { GlobalContext } from "../../../context/interfaces";
 
 function MetricsForGraph({ metricName }: { metricName: string }) {
-  const { multipleGraphSelections } = useStore(); //missing TypeScript
+  const { multipleGraphSelections } = useStore(); //missing Typescript
 
   const changeMetric = () => {
     if (multipleGraphSelections.multipleGraphState[metricName]) {
