@@ -87,3 +87,17 @@ export interface MetricsList {
   total_net_input_bytes?: string | string[];
   uptime_in_seconds?: string | string[];
 }
+
+export interface GlobalContext {
+  user: { User: User; userDispatch: Dispatch<Action> };
+  metricsStore: { metricState: MetricsList; metricsDispatch: Dispatch<Action> };
+  servers: { serverList; serversDispatch: Dispatch<Action> };
+  currentServer: { selectedServer; selectedServerDispatch: Dispatch<Action> };
+  metricToGraph: { metricToGraph; selectedMetricDispatch: Dispatch<Action> };
+  multipleGraphSelections: {
+    multipleGraphState;
+    multipleGraphDispatch: Dispatch<Action>;
+  };
+  themeContext: { currentTheme; themeDispatch: Dispatch<Action> };
+  graphInterval: { updateInterval; updateIntervalDispatch: Dispatch<Action> };
+}
