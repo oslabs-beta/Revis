@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Cookies from 'cookies';
 import db from '../../models/Revis';
-import { User } from '../../interfaces';
+import { User } from '../../context/interfaces';
 
 const bcrypt = require('bcryptjs');
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from '../../styles/Homepage.module.scss';
-import { User } from '../../interfaces';
+import { User } from '../../context/interfaces';
 
 interface SignUpProps {
   previousPage: () => () => void;
