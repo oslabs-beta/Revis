@@ -1,12 +1,16 @@
 export interface User {
   user_id?: number;
   username: string;
-  password: string;
+  password?: string;
   email?: string | null;
   session?: string;
 }
 
-interface Dog {
-  name: string
-  age: number
+export interface MetricsProps {
+  keys: string;
+  values: string;
+}
+export interface UserProvider {
+  userState: User;
+  userDispatch: Function;
 }

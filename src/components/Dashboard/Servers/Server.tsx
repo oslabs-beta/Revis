@@ -6,9 +6,6 @@ import { useStore } from '../../../context/Provider';
 import styles from '../../../styles/Server.module.scss';
 
 export default function Server(props) {
-  const [serverBlockBackground, setServerBlockBackground] = useState(
-    styles.serverSelected
-  );
   const {
     name,
     endpoint,
@@ -91,7 +88,13 @@ export default function Server(props) {
       >
         <div className={styles.removeServerDiv} id={name}></div>
       </div>
-      <div className={serverBlockBackground}>
+      <div
+        className={
+          currentServer.selectedServer.name === name
+            ? styles.serverSelected
+            : styles.server
+        }
+      >
         {currentServer.selectedServer.name === name
           ? squareChecked
           : squareUnChecked}
