@@ -36,7 +36,7 @@ export default function Summary() {
         message: response,
       });
     }
-    if (selectedServer.length !== 0) {
+    if (selectedServer.name !== undefined) {
       fetchDataFromRedis();
     }
   }, [selectedServer]);
