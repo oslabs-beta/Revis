@@ -5,7 +5,7 @@ import styles from "../../../styles/GraphContainer.module.scss";
 import MetricsForGraph from "./MetricsForGraph";
 
 function LeftMenuOfGraph() {
-  const {metricsStore, multipleGraphSelections}:{ metricsStore, multipleGraphSelections } = useStore();
+  const {metricsStore, multipleGraphSelections} = useStore(); //missing typescript
   const metricsForCheckBoxes: ReactElement[] = [];
 
   Object.entries(metricsStore.metricState[0]).forEach((el) => {
