@@ -1,3 +1,6 @@
+import { Dispatch } from 'react';
+import { Action } from './Types';
+
 export interface User {
   user_id?: number;
   username: string;
@@ -60,4 +63,27 @@ export interface HomePageProps {
 export interface MetricsProps {
   keys: string;
   values: string;
+}
+
+export interface ParsedBodyRedis {
+  endpoint: string;
+  password: string;
+  port: string;
+}
+export interface ParsedBodyServer {
+  name: string;
+  endpoint: string;
+  password: string;
+  port: string;
+}
+
+export interface MetricsList {
+  total_net_output_bytes?: string | string[];
+  used_memory?: string | string[];
+  connected_clients?: string | string[];
+  evicted_keys?: string | string[];
+  keyspace_hits?: string | string[];
+  keyspace_misses?: string | string[];
+  total_net_input_bytes?: string | string[];
+  uptime_in_seconds?: string | string[];
 }

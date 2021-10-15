@@ -56,6 +56,11 @@
         color: var(--green);
       }
     }
+    .MaxGraphsMessage {
+      color: rgb(205, 93, 93);
+      max-width: 12rem;
+      margin-top: 1rem;
+    }
   }
 
   .GraphFlex {

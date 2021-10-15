@@ -5,7 +5,7 @@ import styles from "../../../styles/GraphContainer.module.scss";
 import MetricsForGraph from "./MetricsForGraph";
 
 function LeftMenuOfGraph() {
-  const {metricsStore, multipleGraphSelections} = useStore(); //missing typescript
+  const { metricsStore, multipleGraphSelections } = useStore(); //missing typescript
   const metricsForCheckBoxes: ReactElement[] = [];
 
   Object.entries(metricsStore.metricState[0]).forEach((el) => {
@@ -16,7 +16,9 @@ function LeftMenuOfGraph() {
     <div className={styles.LeftMenu}>
       {metricsForCheckBoxes}
       {Object.keys(multipleGraphSelections.multipleGraphState).length > 3 ? (
-        <Message />
+        <div className={styles.MaxGraphsMessage}>
+          Only 4 graphs can be simultaneously displayed
+        </div>
       ) : (
         ""
       )}

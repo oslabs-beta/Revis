@@ -1,10 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { MetricsList, ParsedBodyRedis } from '../../context/interfaces';
 
 const Redis = require('ioredis');
 
-const metrics = async (req: NextApiRequest, res: NextApiResponse) => {
+const redisAPI = async (req: NextApiRequest, res: NextApiResponse) => {
   // this object is for the front end:
-  const metricsUpdated = {
+  const metricsUpdated: MetricsList = {
     total_net_output_bytes: '',
     used_memory: '',
     connected_clients: '',
@@ -14,8 +15,9 @@ const metrics = async (req: NextApiRequest, res: NextApiResponse) => {
     total_net_input_bytes: '',
     uptime_in_seconds: '',
   };
+
   // this object is for the graphs
-  const metricsToEvaluate = {
+  const metricsToEvaluate: MetricsList = {
     total_net_output_bytes: [],
     used_memory: [],
     connected_clients: [],
@@ -25,11 +27,11 @@ const metrics = async (req: NextApiRequest, res: NextApiResponse) => {
     total_net_input_bytes: [],
     uptime_in_seconds: [],
   };
-  const { method } = req;
+  const { method }: { method?: string } = req;
   switch (method) {
     case 'POST':
       try {
-        const parsedBody = JSON.parse(req.body);
+        const parsedBody: ParsedBodyRedis = JSON.parse(req.body);
         const { endpoint, password, port } = parsedBody;
         const redis = new Redis({
           host: endpoint,
@@ -39,14 +41,16 @@ const metrics = async (req: NextApiRequest, res: NextApiResponse) => {
           reconnectOnError: false,
         });
 
-        const metrics = await redis.info();
-        const splitMetrics = metrics.split('\r\n');
-        splitMetrics.forEach((el) => {
+        const metrics: string = await redis.info();
+        const splitMetrics: string[] = metrics.split('\r\n');
+        splitMetrics.forEach((currentMetric: string) => {
           // we split it again to find the keys and values of each line
-          const keysAndValues = el.split(':');
-          if (metricsToEvaluate.hasOwnProperty(keysAndValues[0])) {
-            metricsToEvaluate[keysAndValues[0]].push(keysAndValues[1]);
-            metricsUpdated[keysAndValues[0]] = keysAndValues[1];
+          // currentMetric format example:
+          // 'used_memory:572856'
+          const [metricName, metricValue] = currentMetric.split(':');
+          if (metricName in metricsToEvaluate) {
+            metricsToEvaluate[metricName].push(metricValue);
+            metricsUpdated[metricName] = metricValue;
           }
         });
         redis.quit();
@@ -60,4 +64,4 @@ const metrics = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default metrics;
+export default redisAPI;
