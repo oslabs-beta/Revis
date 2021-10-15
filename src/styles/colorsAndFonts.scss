@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
+
+// Light Mode
+// $logoRed: #ce5f30d9;
+// $background: rgb(249, 248, 246);
+
+$summaryTitleGrey: rgb(106, 99, 99);
+
+// Dark Mode
+
+@font-face {
+  font-family: "Marker Notes";
+  src: url("./marker_notes/Marker Notes.ttf");
+}
+
+$fontOfLogo: Marker Notes;
+$fontOfHomePage: Indie Flower;
+$fontOfButtons: Anton;
+$fontOfMetrics: Staatliches;
+$fontOfSummaryTitle: Staatliches;

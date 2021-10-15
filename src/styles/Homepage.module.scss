@@ -1,0 +1,221 @@
+@import './colorsAndFonts.scss';
+@import './theme.scss';
+
+.homePageWrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  justify-items: center;
+  align-items: center;
+  background-color: var(--background);
+  background: linear-gradient(
+    90deg,
+    var(--background) 50%,
+    var(--logoColor) 50%
+  );
+  height: 100vh;
+
+  #UserLogin {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 11rem;
+
+    h1 {
+      color: var(--background);
+      font-family: $fontOfHomePage;
+    }
+    .userInput {
+      border: solid 0.25rem transparent;
+      border-radius: 0.25rem;
+      display: flex;
+      background-color: var(--background);
+      align-content: center;
+      margin: auto;
+      margin-bottom: 0.5rem;
+    }
+    .userInput:focus {
+      outline: none;
+    }
+
+    .logInButtonWrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+
+      #logInButton {
+        font-family: $fontOfButtons;
+        font-size: 1.25rem;
+        background-color: var(--background);
+        border-radius: 0.75rem;
+        border-color: transparent;
+        color: var(--logoColor);
+        font-weight: bold;
+        width: 60%;
+        padding: 0.5rem;
+        cursor: pointer;
+      }
+
+      #forgotPasswordButton {
+        background-color: transparent;
+        border-color: transparent;
+        color: var(--background);
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+          'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-size: 13px;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+
+    #errorDiv {
+      display: flex;
+      word-wrap: break-word;
+      width: 50%;
+      height: 4rem;
+    }
+
+    .signUpWrapper {
+      display: flex;
+      flex-direction: column;
+      font-size: 15px;
+      gap: 5px;
+      text-align: inline;
+      color: var(--background);
+      font-family: $fontOfHomePage;
+      padding: 5px;
+      white-space: nowrap;
+      justify-content: center;
+      align-items: center;
+
+      #signUpButton {
+        font-family: $fontOfMetrics;
+        font-size: 18px;
+        background-color: transparent;
+        border-radius: 7px;
+        border-color: transparent;
+        color: var(--background);
+        font-weight: bold;
+        width: 60%;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .forgotPasswordWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 20rem;
+    font-family: $fontOfHomePage;
+    color: var(--background);
+
+    form {
+      width: 100%;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+        'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      margin-bottom: 1rem;
+
+      input {
+        width: 100%;
+        border: solid 0.25rem transparent;
+        border-radius: 0.25rem;
+      }
+      input:focus {
+        outline: none;
+      }
+    }
+
+    .buttonWrapper {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-evenly;
+
+      button {
+        font-family: $fontOfButtons;
+        font-size: 1.25rem;
+        background-color: var(--background);
+        border-radius: 0.75rem;
+        border-color: transparent;
+        color: var(--logoColor);
+        font-weight: bold;
+        width: 40%;
+        padding: 0.5rem;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .signUpComponentWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 20rem;
+    font-family: $fontOfHomePage;
+    color: var(--background);
+
+    form {
+      width: 100%;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+        'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+      .formEntry {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+
+        .labels {
+          display: flex;
+          width: 100%;
+          justify-content: flex-end;
+        }
+        input {
+          width: 70%;
+          border: solid 0.25rem transparent;
+          border-radius: 0.25rem;
+        }
+        input:focus {
+          outline: none;
+        }
+      }
+    }
+    .buttonWrapper {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-evenly;
+
+      button {
+        font-family: $fontOfButtons;
+        font-size: 1.25rem;
+        background-color: var(--background);
+        border-radius: 0.75rem;
+        border-color: transparent;
+        color: var(--logoColor);
+        font-weight: bold;
+        width: 40%;
+        padding: 0.5rem;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .homePageWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background: linear-gradient(
+      180deg,
+      var(--background) 30%,
+      var(--logoColor) 30%
+    );
+  }
+}

@@ -1,0 +1,8 @@
+@import "./colorsAndFonts.scss";
+.Welcome {
+  position: absolute;
+  left: 92.5%;
+  top: 0.3%;
+  color: var(--grey);
+  font-family: $fontOfMetrics;
+}

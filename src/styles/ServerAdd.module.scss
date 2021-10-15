@@ -1,0 +1,58 @@
+@import "./colorsAndFonts.scss";
+.serverAddWrapper {
+  margin-top: 15%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  #addServerBtn {
+    background-color: var(--green);
+    color: white;
+    margin-left: 35%;
+    margin-top: 10%;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-family: $fontOfSummaryTitle;
+    margin-bottom: 2.5rem;
+  }
+  .inputWrapper {
+    width: 100%;
+    text-align: left;
+
+    .indivInputs {
+      display: flex;
+      align-items: center;
+
+      .errorDiv {
+        position: relative;
+        left: 50px;
+        font-size: 0.5rem;
+        z-index: 1px;
+      }
+      label {
+        display: flex;
+        flex-direction: row;
+        // justify-content: flex-end;
+        width: 30%;
+      }
+      input {
+        width: 50%;
+        display: flex;
+        flex-direction: row;
+        font-family: $fontOfButtons;
+        font-size: 0.9rem;
+      }
+      input:focus {
+        outline: none;
+      }
+      input:valid {
+        background-color: var(--green);
+      }
+      input:invalid {
+        background-color: rgba(239, 243, 247, 0.893);
+      }
+    }
+  }
+}

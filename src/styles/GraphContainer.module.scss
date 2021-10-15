@@ -1,0 +1,71 @@
+@import "./colorsAndFonts.scss";
+
+.GraphContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+
+  h1 {
+    font-family: $fontOfMetrics;
+    color: var(--grey);
+  }
+
+  .LeftMenu {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+  }
+  .GraphFlex {
+    width: 100%;
+  }
+
+  .Graph {
+    background-color: rgb(27, 27, 28);
+    border-radius: 4px;
+    font-family: $fontOfMetrics;
+  }
+}
+
+.MultipleGraphContainer {
+  margin-top: 3rem;
+  h1 {
+    font-family: $fontOfSummaryTitle;
+    color: var(--grey);
+  }
+
+  .LeftMenu {
+    position: absolute;
+    top: 20%;
+    left: 15%;
+    font-size: 1.2rem;
+    font-family: $fontOfMetrics;
+    display: flex;
+    gap: 0.7rem;
+    flex-direction: column;
+    .metrics {
+      display: flex;
+      gap: 1rem;
+      .emptySquare {
+        color: var(--logoColor);
+        border-radius: 4px;
+        margin-right: 10px;
+      }
+      .fullSquare {
+        color: var(--green);
+      }
+    }
+  }
+
+  .GraphFlex {
+    margin-left: 37%;
+    position: relative;
+  }
+
+  .Graph {
+    background-color: rgb(27, 27, 28);
+    border-radius: 4px;
+    font-family: $fontOfSummaryTitle;
+  }
+}

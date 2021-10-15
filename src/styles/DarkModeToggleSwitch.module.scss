@@ -1,0 +1,68 @@
+@import './colorsAndFonts.scss';
+
+.switch {
+  position: fixed;
+  display: inline-block;
+  cursor: pointer;
+  width: 4.5rem;
+  height: 2rem;
+  border-radius: 1rem;
+  left: 1rem;
+  right: auto;
+  top: 1rem;
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  $transitionTime: 0.72s;
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    -webkit-transition: $transitionTime;
+    transition: $transitionTime;
+    border-radius: 1rem;
+    border: solid var(--logoColor) 0.2px;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: '';
+    height: 1.5rem;
+    width: 1.5rem;
+    left: 0.5rem;
+    bottom: 0.25rem;
+    background-color: var(--background);
+    opacity: 100%;
+    -webkit-transition: $transitionTime;
+    transition: $transitionTime;
+    border-radius: 1rem;
+    background-image: url(./sun-solid.svg);
+  }
+
+  input:checked + .slider {
+    background-color: rgb(51, 51, 51);
+  }
+
+  $distanceFromEdge: 2rem;
+
+  input:checked + .slider:before {
+    //
+    -ms-transform: translateX($distanceFromEdge) rotate(360deg);
+
+    transform: translateX($distanceFromEdge) rotate(360deg);
+
+    background-image: url(./moon-solid.svg);
+    background-color: var(--logoColor);
+  }
+}

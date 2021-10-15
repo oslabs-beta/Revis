@@ -1,0 +1,41 @@
+@import "./colorsAndFonts.scss";
+
+.sideBarWrapper {
+  border-right: 5px solid var(--logoColor);
+
+  width: 100%;
+  height: 60rem;
+  transition: 0.5s ease;
+  color: var(--grey);
+
+  h1 {
+    color: var(--grey);
+    font-family: $fontOfMetrics;
+    margin-top: 3rem;
+  }
+
+  .cubeSpan {
+    #cube {
+      position: fixed;
+      top: 3.2rem;
+      left: 20rem;
+      width: 10vh;
+      color: rgba(184, 180, 180, 0.845);
+      height: 6vh;
+      cursor: pointer;
+      transition: 0.75s ease;
+    }
+  }
+
+  input {
+    border-color: transparent;
+    padding: 1%;
+    margin: 2%;
+    border-radius: 4px;
+    color: var(--grey);
+  }
+  label {
+    font-family: $fontOfMetrics;
+    margin-left: 30px;
+  }
+}
