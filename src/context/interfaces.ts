@@ -45,3 +45,4 @@ export interface MetricsList {
   total_net_input_bytes?: string | string[];
   uptime_in_seconds?: string | string[];
 }
+
