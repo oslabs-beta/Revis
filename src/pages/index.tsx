@@ -18,16 +18,23 @@ function HomePage() {
     setPages('signUp');
   };
 
+  const renderSwitch = (page: string) => {
+    switch (page) {
+      case 'forgotPassword':
+        return <ForgotPassword previousPage={previousPage} />;
+      case 'signUp':
+        return <SignUp previousPage={previousPage} />;
+      default:
+        return (
+          <UserLogin onForgotPassword={onForgotPassword} onSignUp={onSignUp} />
+        );
+    }
+  };
+
   return (
     <div className={styles.homePageWrapper}>
       <LogoHomeScreen />
-      {pages === 'userLogin' ? (
-        <UserLogin onForgotPassword={onForgotPassword} onSignUp={onSignUp} />
-      ) : pages === 'forgotPassword' ? (
-        <ForgotPassword previousPage={previousPage} />
-      ) : (
-        <SignUp previousPage={previousPage} />
-      )}
+      {renderSwitch(pages)}
     </div>
   );
 }
