@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { ParsedBodyRedis } from '../../context/interfaces';
 
 const Redis = require('ioredis');
 
@@ -8,7 +9,7 @@ const verifyEndpoint = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'POST':
       try {
-        const parsedBody = JSON.parse(req.body);
+        const parsedBody: ParsedBodyRedis = JSON.parse(req.body);
         const { endpoint, password, port } = parsedBody;
         if (!(endpoint && password && port))
           throw Error('Endpoint, password, and port required.');
