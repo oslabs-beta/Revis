@@ -1,14 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Cookies from 'cookies';
 import db from '../../models/Revis';
-import { ParsedBodyCreateUser } from '../../context/interfaces';
+import { User } from '../../context/interfaces';
 
 const bcrypt = require('bcryptjs');
 
 const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
   let hashedPassword: string;
 
-  const parsedBody: ParsedBodyCreateUser = JSON.parse(req.body);
+  const parsedBody: User = JSON.parse(req.body);
   const { username } = parsedBody;
   const { password } = parsedBody;
   const { email } = parsedBody;
