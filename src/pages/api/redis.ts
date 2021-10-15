@@ -42,13 +42,15 @@ const redisAPI = async (req: NextApiRequest, res: NextApiResponse) => {
         });
 
         const metrics: string = await redis.info();
-        const splitMetrics = metrics.split('\r\n');
-        splitMetrics.forEach((el) => {
+        const splitMetrics: string[] = metrics.split('\r\n');
+        splitMetrics.forEach((currentMetric: string) => {
           // we split it again to find the keys and values of each line
-          const keysAndValues = el.split(':');
-          if (metricsToEvaluate.hasOwnProperty(keysAndValues[0])) {
-            metricsToEvaluate[keysAndValues[0]].push(keysAndValues[1]);
-            metricsUpdated[keysAndValues[0]] = keysAndValues[1];
+          // currentMetric format example:
+          // 'used_memory:572856'
+          const [metricName, metricValue] = currentMetric.split(':');
+          if (metricName in metricsToEvaluate) {
+            metricsToEvaluate[metricName].push(metricValue);
+            metricsUpdated[metricName] = metricValue;
           }
         });
         redis.quit();

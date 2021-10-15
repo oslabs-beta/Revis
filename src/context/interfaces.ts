@@ -23,16 +23,16 @@ export interface UserProvider {
   userDispatch: Dispatch<Action>;
 }
 
-export interface ParsedBodyCreateUser {
-  username: string;
-  password: string;
-  email: string;
-}
-
 export interface ParsedBodyRedis {
   endpoint: string;
   password: string;
-  port: number;
+  port: string;
+}
+export interface ParsedBodyServer {
+  name: string;
+  endpoint: string;
+  password: string;
+  port: string;
 }
 
 export interface MetricsList {

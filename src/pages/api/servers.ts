@@ -1,19 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Cookies from 'cookies';
 import db from '../../models/Revis';
+import { ParsedBodyServer } from '../../context/interfaces';
 
 const bcrypt = require('bcryptjs');
 
 const servers = async (req: NextApiRequest, res: NextApiResponse) => {
   let hashedPassword: string;
   let SQLquery: string;
-  let SQLqueryCloud: string;
-  type Server = {
-    name: string;
-    PORT: string;
-    endpoint: string;
-    password: string;
-  };
 
   const cookies: Cookies = new Cookies(req, res);
   const userId: String = cookies.get('ssid');
@@ -34,12 +28,12 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'POST':
       try {
-        const parsedBody: Server = JSON.parse(req.body);
-        const { name, endpoint, password, PORT } = parsedBody;
+        const parsedBody: ParsedBodyServer = JSON.parse(req.body);
+        const { name, endpoint, password, port } = parsedBody;
 
         hashedPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
         SQLquery = `INSERT INTO "serverCloud" (name,endpoint,port,password,user_id)
-          VALUES ('${name}','${endpoint}','${PORT}','${hashedPassword}',${userId});`;
+          VALUES ('${name}','${endpoint}','${port}','${hashedPassword}',${userId});`;
 
         await db.query(SQLquery);
         return res.status(200).json({ success: true });
