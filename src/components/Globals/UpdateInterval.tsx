@@ -32,7 +32,7 @@ function UpdateInterval() {
         message: response,
       });
     }
-    if (selectedServer.length !== 0) {
+    if (selectedServer.name !== undefined) {
       fetchDataFromRedis();
       const interval = setInterval(fetchDataFromRedis, time);
       if (graphInterval.updateInterval.update === false)
