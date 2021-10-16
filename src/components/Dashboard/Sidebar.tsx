@@ -7,19 +7,15 @@ import { useStore } from '../../context/Provider';
 import styles from '../../styles/Sidebar.module.scss';
 
 function Sidebar() {
-  const [sideBarHidden, showOrHideSideBar]: [boolean, Dispatch<SetStateAction<boolean>>] = useState(false);
-  const { user, servers, currentServer }: any = useStore();
+  const [sideBarHidden, showOrHideSideBar] = useState(false);
+  const { user, servers }: any = useStore();
   const { username }: { username: string } = user.userState;
   const {
     serverList,
     serversDispatch,
   }: { serverList: string[]; serversDispatch: Function } = servers;
-  const { selectedServerDispatch }: { selectedServerDispatch: Function } =
-    currentServer;
 
   const [currentDivHover, changeDivHover] = useState(null);
-
-  useEffect(() => populateServerList(), []);
 
   const populateServerList = () => {
     if (serverList.length > 0) return;
@@ -41,6 +37,7 @@ function Sidebar() {
         });
       });
   };
+  useEffect(() => populateServerList(), []);
 
   const checkEndpoint = async (
     endpoint: string,
