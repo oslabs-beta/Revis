@@ -18,7 +18,6 @@ import interval from './reducers/interval';
 import {
   User,
   Metrics,
-  MetricsList,
   MultipleGraphs,
   Action,
   Interval,
@@ -38,7 +37,7 @@ export const GlobalProvider = ({ children }) => {
     user,
     initialStateUser
   );
-  const [metricState, metricsDispatch]: [Metrics, Dispatch<ActionMetrics>] =
+  const [metricState, metricsDispatch]: [Metrics[], Dispatch<ActionMetrics>] =
     useReducer(metrics, initialStateMetrics);
 
   const [serverList, serversDispatch]: [

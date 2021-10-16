@@ -1,6 +1,6 @@
 import { Metrics } from '../interfaces';
 
-const metricsInitialState: Metrics = [
+const metricsInitialState: Metrics[] = [
   {
     total_net_output_bytes: '',
     used_memory: '',
