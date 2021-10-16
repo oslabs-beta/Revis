@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCube } from '@fortawesome/free-solid-svg-icons';
 import ServerAdd from './Servers/ServerAdd';
 import ServerList from './Servers/ServerList';
 import { useStore } from '../../context/Provider';
 import styles from '../../styles/Sidebar.module.scss';
+import { Context } from '../../context/interfaces';
 
-function Sidebar(props) {
+function Sidebar() {
   const [sideBarHidden, showOrHideSideBar] = useState(false);
-  const { user, servers, currentServer }: any = useStore();
-  const { username }: { username: string } = user.userState;
-  const {
-    serverList,
-    serversDispatch,
-  }: { serverList: string[]; serversDispatch: Function } = servers;
-  const { selectedServerDispatch }: { selectedServerDispatch: Function } =
-    currentServer;
+  const { user, servers }: Context = useStore();
+  const { username } = user.userState;
+  const { serverList, serversDispatch } = servers;
 
   const [currentDivHover, changeDivHover] = useState(null);
-
-  useEffect(() => populateServerList(), []);
 
   const populateServerList = () => {
     if (serverList.length > 0) return;
@@ -27,20 +21,16 @@ function Sidebar(props) {
       .then((response) => response.json())
       .then((data) => {
         const cloudData: string[] = data.cloud;
-        if (!cloudData) {
-          serversDispatch({});
-          return;
+
+        if (cloudData && cloudData.length > 0) {
+          serversDispatch({
+            type: 'populateList',
+            message: [...cloudData],
+          });
         }
-        if (cloudData.length === 0) {
-          serversDispatch({});
-          return;
-        }
-        serversDispatch({
-          type: 'populateList',
-          message: [...cloudData],
-        });
       });
   };
+  useEffect(() => populateServerList(), []);
 
   const checkEndpoint = async (
     endpoint: string,

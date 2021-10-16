@@ -1,4 +1,4 @@
-import { Server } from '../Types';
+import { Server } from '../interfaces';
 
 const Servers: Server[] = [];
 

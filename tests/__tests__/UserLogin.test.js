@@ -3,8 +3,8 @@ import {render, screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import user from '@testing-library/user-event';
 import { server, rest } from '../__mocks__/testServer';
-import UserLogin from '../components/UserLogin';
-import { GlobalProvider } from '../context/Provider'
+import UserLogin from '../../src/components/../Homepage/UserLogin';
+import { GlobalProvider } from '../../src/context/Provider'
 
 beforeEach(() => render(
   <GlobalProvider>

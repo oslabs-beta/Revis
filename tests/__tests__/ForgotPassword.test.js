@@ -1,8 +1,8 @@
 import React from 'react'
 import {render, fireEvent, screen, cleanup} from '@testing-library/react'
 import '@testing-library/jest-dom'
-import ForgotPassword from '../components/ForgotPassword';
-import { GlobalProvider } from '../context/Provider';
+import ForgotPassword from '../../src/components/Homepage/ForgotPassword';
+import { GlobalProvider } from '../../src/context/Provider';
 
 describe('testing functionality of forgot password component', () => {
   beforeEach(() => render(
