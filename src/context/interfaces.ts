@@ -52,7 +52,16 @@ export interface UserProvider {
   serversDispatch?: Function;
 }
 
-export interface UseStore {}
+export interface UseStore {
+  currentServer?: CurrentServer;
+  interval?: any;
+  metrics?: Metrics;
+  metricsBeingCompared?: any;
+  selectedMetric?: any;
+  servers?: Server;
+  theme?: any;
+  user?: string;
+}
 
 export interface HomePageProps {
   onForgotPassword?: () => void;
