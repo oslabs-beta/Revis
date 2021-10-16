@@ -1,11 +1,4 @@
-import { Server } from '../Types';
-
-type State = Server[];
-
-type Action = {
-  type: string;
-  message: Server;
-};
+import { Server, ActionServerList } from '../interfaces';
 
 const deleteServerFromDataBase = (name: string) => {
   fetch('/api/servers', {
@@ -29,7 +22,7 @@ const postServerToDataBase = (
   });
 };
 
-const servers = (state: State, action: Action) => {
+const servers = (state: Server[], action: ActionServerList) => {
   const server: Server = action.message;
   const newServerList = state.slice();
   switch (action.type) {

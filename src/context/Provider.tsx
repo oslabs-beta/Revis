@@ -15,8 +15,18 @@ import metricsBeingCompared from './reducers/metricsBeingCompared';
 import theme from './reducers/theme';
 import currentServer from './reducers/currentServer';
 import interval from './reducers/interval';
-// import { Action, Interval } from './Types';
-import { User, Action, Interval } from './interfaces';
+import {
+  User,
+  Metrics,
+  Action,
+  Interval,
+  Server,
+  Theme,
+  Context,
+  CurrentServer,
+  ActionServerList,
+  ActionCurrentServer,
+} from './interfaces';
 
 export const GlobalContext = createContext({}); // the provider needs to fill the state
 export const GlobalProvider = ({ children }) => {
@@ -24,24 +34,28 @@ export const GlobalProvider = ({ children }) => {
     user,
     initialStateUser
   );
-  const [metricState, metricsDispatch]: [any, Dispatch<Action>] = useReducer(
-    metrics,
-    initialStateMetrics
-  );
-  const [serverList, serversDispatch]: [any, Dispatch<Action>] = useReducer(
-    servers,
-    initialStateServers
-  );
+  const [metricState, metricsDispatch]: [Metrics, Dispatch<Action>] =
+    useReducer(metrics, initialStateMetrics);
 
-  const [metricToGraph, selectedMetricDispatch]: [any, Dispatch<Action>] =
+  const [serverList, serversDispatch]: [Server[], Dispatch<ActionServerList>] =
+    useReducer(servers, initialStateServers);
+
+  const [metricToGraph, selectedMetricDispatch]: [string, Dispatch<Action>] =
     useReducer(selectedMetric, initialStateSelectedMetric);
+
   const [multipleGraphState, multipleGraphDispatch]: [any, Dispatch<Action>] =
     useReducer(metricsBeingCompared, initialStateOfMultipleGraphs);
-  const [currentTheme, themeDispatch]: [{ light: boolean }, Dispatch<Action>] =
-    useReducer(theme, initialStateTheme);
 
-  const [selectedServer, selectedServerDispatch]: [any, Dispatch<Action>] =
-    useReducer(currentServer, initialStateSelectedServer);
+  const [currentTheme, themeDispatch]: [Theme, Dispatch<Action>] = useReducer(
+    theme,
+    initialStateTheme
+  );
+
+  const [selectedServer, selectedServerDispatch]: [
+    CurrentServer,
+    Dispatch<ActionCurrentServer>
+  ] = useReducer(currentServer, initialStateSelectedServer);
+
   const [updateInterval, updateIntervalDispatch]: [Interval, Dispatch<Action>] =
     useReducer(interval, initialStateUpdateInterval);
   return (

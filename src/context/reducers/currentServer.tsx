@@ -1,16 +1,8 @@
-import { CurrentServer } from '../Types';
+import { CurrentServer, ActionCurrentServer } from '../interfaces';
 
-type State = CurrentServer[];
-
-type Action = {
-  type: string;
-  payload: CurrentServer;
-};
-
-const currentServer = (state: State, action: Action) => {
-  const currentInfo: CurrentServer = action.payload;
+const currentServer = (state: CurrentServer, action: ActionCurrentServer) => {
+  const currentInfo: CurrentServer = action.message;
   const newServer = state;
-  // const { name, endpoint, password, port, sessionToken } = currentInfo;
   const { name, endpoint, sessionToken } = currentInfo;
   let password;
   let port;
@@ -23,7 +15,7 @@ const currentServer = (state: State, action: Action) => {
       } else {
         password = 'redis';
         port = 16424;
-      };
+      }
       return { ...newServer, name, endpoint, password, port, sessionToken };
 
     default:

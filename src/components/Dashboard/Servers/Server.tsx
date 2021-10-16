@@ -1,19 +1,12 @@
 import PropTypes from 'prop-types';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
 import { useStore } from '../../../context/Provider';
 import styles from '../../../styles/Server.module.scss';
 
 export default function Server(props) {
-  const {
-    name,
-    endpoint,
-    port,
-    currentDivHover,
-    changeDivHover,
-    // changeCurrentServer,
-  } = props;
+  const { name, currentDivHover, changeDivHover } = props;
 
   const { servers, currentServer }: any = useStore();
   const { selectedServerDispatch }: { selectedServerDispatch: Function } =
@@ -47,15 +40,15 @@ export default function Server(props) {
   const updateSelectedServer = () => {
     if (!currentServer.selectedServer[name]) {
       // look for the information at the serverlist global state
-      servers.serverList.forEach((el) => {
-        if (el.name === name)
+      servers.serverList.forEach((server) => {
+        if (server.name === name)
           selectedServerDispatch({
             type: 'currentServer',
             payload: {
-              name: el.name,
-              endpoint: el.endpoint,
-              password: el.password,
-              port: el.port,
+              name: server.name,
+              endpoint: server.endpoint,
+              password: server.password,
+              port: server.port,
             },
           });
       });

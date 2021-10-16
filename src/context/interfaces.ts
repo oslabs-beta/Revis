@@ -1,5 +1,4 @@
 import { Dispatch } from 'react';
-import { Action } from './Types';
 
 export interface User {
   user_id?: number;
@@ -8,30 +7,33 @@ export interface User {
   email?: string | null;
   session?: string;
 }
+export interface Theme {
+  light: boolean;
+}
 
 export interface Metrics {
-  total_net_output_bytes: string | number;
-  used_memory: string | number;
-  connected_clients: string | number;
-  evicted_keys: string | number;
-  keyspace_hits: string | number;
-  keyspace_misses: string | number;
-  total_net_input_bytes: string | number;
-  uptime_in_seconds: string | number;
+  total_net_output_bytes: string;
+  used_memory: string;
+  connected_clients: string;
+  evicted_keys: string;
+  keyspace_hits: string;
+  keyspace_misses: string;
+  total_net_input_bytes: string;
+  uptime_in_seconds: string;
 }
 
 export interface CurrentServer {
   name?: string;
   endpoint: string;
   password: string;
-  port: string | number;
+  port: string;
   sessionToken?: string;
 }
 
 export interface Server {
-  name: string;
-  ip: string;
-  port: string;
+  name?: string;
+  ip?: string;
+  port?: string;
   username: string;
   endpoint: string;
   password: string;
@@ -43,16 +45,15 @@ export interface Action {
   message: string;
 }
 
-export interface UserProvider {
-  userState?: User;
-  userDispatch?: Function;
-  metricState?: Metrics;
-  metricsDispatch?: Function;
-  severList?: Server[];
-  serversDispatch?: Function;
+export interface ActionServerList {
+  type: string;
+  message: Server;
 }
 
-export interface UseStore {}
+export interface ActionCurrentServer {
+  type: string;
+  message: CurrentServer;
+}
 
 export interface HomePageProps {
   onForgotPassword?: () => void;
@@ -88,8 +89,8 @@ export interface MetricsList {
   uptime_in_seconds?: string | string[];
 }
 
-export interface GlobalContext {
-  user: { User: User; userDispatch: Dispatch<Action> };
+export interface Context {
+  user: { userState: User; userDispatch: Dispatch<Action> };
   metricsStore: { metricState: MetricsList; metricsDispatch: Dispatch<Action> };
   servers: { serverList; serversDispatch: Dispatch<Action> };
   currentServer: { selectedServer; selectedServerDispatch: Dispatch<Action> };
