@@ -5,15 +5,13 @@ import ServerAdd from './Servers/ServerAdd';
 import ServerList from './Servers/ServerList';
 import { useStore } from '../../context/Provider';
 import styles from '../../styles/Sidebar.module.scss';
+import { Context } from '../../context/interfaces';
 
 function Sidebar() {
   const [sideBarHidden, showOrHideSideBar] = useState(false);
-  const { user, servers }: any = useStore();
-  const { username }: { username: string } = user.userState;
-  const {
-    serverList,
-    serversDispatch,
-  }: { serverList: string[]; serversDispatch: Function } = servers;
+  const { user, servers }: Context = useStore();
+  const { username } = user.userState;
+  const { serverList, serversDispatch } = servers;
 
   const [currentDivHover, changeDivHover] = useState(null);
 
@@ -23,18 +21,13 @@ function Sidebar() {
       .then((response) => response.json())
       .then((data) => {
         const cloudData: string[] = data.cloud;
-        if (!cloudData) {
-          serversDispatch({});
-          return;
+
+        if (cloudData && cloudData.length > 0) {
+          serversDispatch({
+            type: 'populateList',
+            message: [...cloudData],
+          });
         }
-        if (cloudData.length === 0) {
-          serversDispatch({});
-          return;
-        }
-        serversDispatch({
-          type: 'populateList',
-          message: [...cloudData],
-        });
       });
   };
   useEffect(() => populateServerList(), []);

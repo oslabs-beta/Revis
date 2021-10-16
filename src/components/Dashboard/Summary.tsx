@@ -1,28 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import styles from '../../styles/Summary.module.scss';
 import { useStore } from '../../context/Provider';
 import Metrics from './Metrics';
 import Welcome from '../Globals/Welcome';
-import { CurrentServer } from '../../context/Types';
 import SummaryTable from './SummaryTable';
-import UpdateInterval from '../Globals/UpdateInterval';
+import { Context } from '../../context/interfaces';
 
 export default function Summary() {
-  const { currentServer, graphInterval, servers, metricsStore }: any =
-    useStore();
-  const { serverList }: { serverList: string[] } = servers;
+  const { currentServer, servers, metricsStore }: Context = useStore();
+  const { serverList } = servers;
 
-  const time = graphInterval.updateInterval.interval;
-  const { selectedServer }: any = currentServer;
+  const { selectedServer } = currentServer;
   const { endpoint, password, port } = selectedServer;
-  const {
-    metricState,
-    metricsDispatch,
-  }: { metricState: string[]; metricsDispatch: Function } = metricsStore;
+  const { metricState, metricsDispatch } = metricsStore;
 
   useEffect(() => {
     async function fetchDataFromRedis() {
-      let response = await fetch('/api/redis', {
+      const response = await fetch('/api/redis', {
         method: 'POST',
         body: JSON.stringify({
           endpoint: `${endpoint}`,
@@ -30,10 +24,10 @@ export default function Summary() {
           port: `${port}`,
         }),
       });
-      response = await response.json();
+      const updatedMetrics: string[] = await response.json();
       metricsDispatch({
         type: 'updateMetrics',
-        message: response,
+        message: updatedMetrics,
       });
     }
     if (selectedServer.name !== undefined) {
@@ -41,12 +35,21 @@ export default function Summary() {
     }
   }, [selectedServer]);
 
-  const metricsForTable = [];
+  const metricsForTable: ReactElement[] = [];
   const latestDataLength = metricState.length - 1;
-  Object.entries(metricState[latestDataLength]).forEach((el) => {
-    if (el[0] !== 'time')
-      metricsForTable.push(<Metrics key={el[0]} keys={el[0]} values={el[1]} />);
-  });
+
+  Object.entries(metricState[latestDataLength]).forEach(
+    (metric: [string, string]) => {
+      if (metric[0] !== 'time')
+        metricsForTable.push(
+          <Metrics
+            key={metric[0]}
+            metricName={metric[0]}
+            metricValue={metric[1]}
+          />
+        );
+    }
+  );
 
   return (
     <div className={styles.SummaryWrapper}>

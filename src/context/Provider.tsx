@@ -18,33 +18,41 @@ import interval from './reducers/interval';
 import {
   User,
   Metrics,
+  MetricsList,
+  MultipleGraphs,
   Action,
   Interval,
-  Server,
+  ServerInterface,
   Theme,
   Context,
   CurrentServer,
   ActionServerList,
   ActionCurrentServer,
+  ActionInterval,
+  ActionMetrics,
 } from './interfaces';
 
-export const GlobalContext = createContext({}); // the provider needs to fill the state
+export const GlobalContext = createContext<Partial<Context>>({}); // the provider needs to fill the state
 export const GlobalProvider = ({ children }) => {
   const [userState, userDispatch]: [User, Dispatch<Action>] = useReducer(
     user,
     initialStateUser
   );
-  const [metricState, metricsDispatch]: [Metrics, Dispatch<Action>] =
+  const [metricState, metricsDispatch]: [Metrics, Dispatch<ActionMetrics>] =
     useReducer(metrics, initialStateMetrics);
 
-  const [serverList, serversDispatch]: [Server[], Dispatch<ActionServerList>] =
-    useReducer(servers, initialStateServers);
+  const [serverList, serversDispatch]: [
+    ServerInterface[],
+    Dispatch<ActionServerList>
+  ] = useReducer(servers, initialStateServers);
 
   const [metricToGraph, selectedMetricDispatch]: [string, Dispatch<Action>] =
     useReducer(selectedMetric, initialStateSelectedMetric);
 
-  const [multipleGraphState, multipleGraphDispatch]: [any, Dispatch<Action>] =
-    useReducer(metricsBeingCompared, initialStateOfMultipleGraphs);
+  const [multipleGraphState, multipleGraphDispatch]: [
+    MultipleGraphs,
+    Dispatch<Action>
+  ] = useReducer(metricsBeingCompared, initialStateOfMultipleGraphs);
 
   const [currentTheme, themeDispatch]: [Theme, Dispatch<Action>] = useReducer(
     theme,
@@ -56,8 +64,10 @@ export const GlobalProvider = ({ children }) => {
     Dispatch<ActionCurrentServer>
   ] = useReducer(currentServer, initialStateSelectedServer);
 
-  const [updateInterval, updateIntervalDispatch]: [Interval, Dispatch<Action>] =
-    useReducer(interval, initialStateUpdateInterval);
+  const [updateInterval, updateIntervalDispatch]: [
+    Interval,
+    Dispatch<ActionInterval>
+  ] = useReducer(interval, initialStateUpdateInterval);
   return (
     <GlobalContext.Provider
       value={{

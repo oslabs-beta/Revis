@@ -5,10 +5,10 @@ import Sidebar from './Sidebar';
 import Summary from './Summary';
 import styles from '../../styles/Dashboard.module.scss';
 import SignOutButton from '../Globals/SignOutButton';
-import { UserProvider } from '../../context/interfaces';
+import { Context } from '../../context/interfaces';
 
 export default function Dashboard() {
-  const { user }: UserProvider = useStore();
+  const { user }: Context = useStore();
   const [noUsername, changeUsernameBool]: [
     boolean,
     Dispatch<SetStateAction<boolean>>

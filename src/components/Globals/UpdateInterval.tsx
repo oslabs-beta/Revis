@@ -2,23 +2,20 @@ import React, { useState, useEffect } from 'react';
 import router from 'next/router';
 import { useStore } from '../../context/Provider';
 import styles from '../../styles/UpdateInterval.module.scss';
+import { Context } from '../../context/interfaces';
 
 function UpdateInterval() {
-  const { metricsStore, metricToGraph, graphInterval, currentServer }: any =
-    useStore();
+  const { metricsStore, graphInterval, currentServer }: Context = useStore();
   const time = graphInterval.updateInterval.interval;
   const placeholder = graphInterval.updateInterval.interval / 1000;
-  const { selectedServer }: any = currentServer;
+  const { selectedServer } = currentServer;
   const { endpoint, password, port } = selectedServer;
   const [render, reRender] = useState(false);
-  const {
-    metricState,
-    metricsDispatch,
-  }: { metricState: string[]; metricsDispatch: Function } = metricsStore;
+  const { metricsDispatch } = metricsStore;
 
   useEffect(() => {
     async function fetchDataFromRedis() {
-      let response = await fetch('/api/redis', {
+      const response = await fetch('/api/redis', {
         method: 'POST',
         body: JSON.stringify({
           endpoint: `${endpoint}`,
@@ -26,10 +23,10 @@ function UpdateInterval() {
           port: `${port}`,
         }),
       });
-      response = await response.json();
+      const updatedMetrics: string[] = await response.json();
       metricsDispatch({
         type: 'updateMetrics',
-        message: response,
+        message: updatedMetrics,
       });
     }
     if (selectedServer.name !== undefined) {

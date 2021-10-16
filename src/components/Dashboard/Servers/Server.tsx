@@ -4,14 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
 import { useStore } from '../../../context/Provider';
 import styles from '../../../styles/Server.module.scss';
+import { Context } from '../../../context/interfaces';
 
 export default function Server(props) {
   const { name, currentDivHover, changeDivHover } = props;
 
-  const { servers, currentServer }: any = useStore();
-  const { selectedServerDispatch }: { selectedServerDispatch: Function } =
-    currentServer;
-  const { serversDispatch }: { serversDispatch: Function } = servers;
+  const { servers, currentServer }: Context = useStore();
+  const { selectedServerDispatch } = currentServer;
+  const { serversDispatch } = servers;
 
   const removeServer = (e: Event) => {
     serversDispatch({
@@ -29,7 +29,7 @@ export default function Server(props) {
     removeServerDiv.style.backgroundColor = 'var(--logoColor)';
     removeServerDiv.innerHTML = 'X';
   };
-  const keepServerAnimation = (e) => {
+  const keepServerAnimation = () => {
     if (currentDivHover) {
       currentDivHover.style.width = '0%';
       currentDivHover.style.backgroundColor = 'white';
@@ -44,7 +44,7 @@ export default function Server(props) {
         if (server.name === name)
           selectedServerDispatch({
             type: 'currentServer',
-            payload: {
+            message: {
               name: server.name,
               endpoint: server.endpoint,
               password: server.password,
@@ -91,29 +91,15 @@ export default function Server(props) {
         {currentServer.selectedServer.name === name
           ? squareChecked
           : squareUnChecked}
-        {/* <FontAwesomeIcon
-          onClick={changeCurrentServer}
-          id={styles.checkBox}
-          icon={faCheckSquare}
-        /> */}
+
         <p>Name: {name}</p>
       </div>
-      {/* <input
-        id={endpoint}
-        type="radio"
-        name="currentServer"
-        value={port}
-        onChange={changeCurrentServer}
-      /> */}
     </div>
   );
 }
 
 Server.propTypes = {
   name: PropTypes.string.isRequired,
-  endpoint: PropTypes.string.isRequired,
-  port: PropTypes.string,
-  currentDivHover: PropTypes.any,
-  changeDivHover: PropTypes.func,
-  changeCurrentServer: PropTypes.func,
+  currentDivHover: PropTypes.instanceOf(Element).isRequired,
+  changeDivHover: PropTypes.func.isRequired,
 };

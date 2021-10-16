@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import router from 'next/router';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import styles from '../../styles/Summary.module.scss';

@@ -1,15 +1,16 @@
-import React, { ReactElement } from "react";
-import GridLayout from "react-grid-layout";
-import { useStore } from "../../../context/Provider";
-import MultipleGraph from "./MultipleGraph";
-import LeftMenuOfGraph from "./LeftMenuOfGraph";
-import styles from "../../../styles/GraphContainer.module.scss";
+import React, { ReactElement } from 'react';
+import GridLayout from 'react-grid-layout';
+import { useStore } from '../../../context/Provider';
+import MultipleGraph from './MultipleGraph';
+import LeftMenuOfGraph from './LeftMenuOfGraph';
+import styles from '../../../styles/GraphContainer.module.scss';
+import { Context } from '../../../context/interfaces';
 
 function MultipleGraphContainer() {
-  const { multipleGraphSelections, metricsStore } = useStore(); //missing typescript
+  const { multipleGraphSelections, metricsStore }: Context = useStore();
   const arrayWithGraphs: ReactElement[] = [];
 
-  const data: string = metricsStore.metricState;
+  const data = metricsStore.metricState;
 
   let i = 0;
 

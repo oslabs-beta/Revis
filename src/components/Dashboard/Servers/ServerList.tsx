@@ -2,17 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Server from './Server';
 import styles from '../../../styles/ServerList.module.scss';
+import { ServerInterface } from '../../../context/interfaces';
 
 export default function ServerList(props) {
   const { serverList, currentDivHover, changeDivHover } = props;
 
-  interface server {
-    name: string;
-    endpoint: string;
-    port: string | number;
-  }
-
-  const servers: server[] = serverList.map((elem, index) => (
+  const servers: ServerInterface[] = serverList.map((elem, index) => (
     <Server
       key={index}
       name={elem.name}
