@@ -3,7 +3,7 @@ import { CurrentServer, ActionCurrentServer } from '../interfaces';
 const currentServer = (state: CurrentServer, action: ActionCurrentServer) => {
   const currentInfo: CurrentServer = action.message;
   const newServer = state;
-  const { name, endpoint, port } = currentInfo;
+  const { name, endpoint, port, password } = currentInfo;
 
   /* Chao server:
   redis-18891.c9.us-east-1-4.ec2.cloud.redislabs.com
@@ -24,14 +24,7 @@ const currentServer = (state: CurrentServer, action: ActionCurrentServer) => {
     case 'currentServer':
       // fetch password for selected server based on user_id, name, endpont
 
-      fetch('/api/validateUser', {
-        method: 'POST',
-        body: JSON.stringify({ endpoint }),
-        'Content-Type': 'application/json',
-      })
-        .then((response) => response.json())
-        .then((data) => console.log(data));
-      return { ...newServer, name, endpoint, port };
+      return { ...newServer, name, endpoint, port, password };
 
     default:
       return state;
