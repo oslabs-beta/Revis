@@ -1,13 +1,12 @@
 import { Metrics, Action } from "../Types";
 
 const metrics = (state: Metrics, action: Action) => {
-  const metricsUpdated: any = action.message;
   const metricsList: any = state.slice();
   const today = new Date();
   const time =
     today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-  const metricsWithTime = {time, ...action.message};  
+  const metricsWithTime = { time, ...action.message };
 
   switch (action.type) {
     case "updateMetrics":

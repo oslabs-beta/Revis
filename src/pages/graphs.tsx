@@ -10,9 +10,8 @@ export default function graphs() {
       <BackButton />
       <Welcome />
       <GraphContainer />
-      <div style={{ visibility: 'hidden' }}>
-        <UpdateInterval />
-      </div>
+      <UpdateInterval />
+    
     </div>
   );
 }

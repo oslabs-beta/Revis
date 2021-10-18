@@ -12,7 +12,7 @@ describe('testing functionality of forgot password component', () => {
   afterEach(cleanup);
 
   it('should have the forgot password heading', () => {
-    const headingElement = screen.getByText('Password Reset Page');
+    const headingElement = screen.getByRole('heading');
     expect(headingElement).toHaveTextContent('Password Reset Page');
     expect(headingElement).toContainHTML('h1');
   });
