@@ -100,6 +100,6 @@ export default function Server(props) {
 
 Server.propTypes = {
   name: PropTypes.string.isRequired,
-  currentDivHover: PropTypes.instanceOf(Element).isRequired,
+  // currentDivHover: PropTypes.instanceOf(Element).isRequired,
   changeDivHover: PropTypes.func.isRequired,
 };

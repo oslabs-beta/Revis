@@ -15,6 +15,7 @@ export default function Summary() {
   const { metricState, metricsDispatch } = metricsStore;
 
   useEffect(() => {
+    if (selectedServer.name === '') return;
     async function fetchDataFromRedis() {
       const response = await fetch('/api/redis', {
         method: 'POST',
