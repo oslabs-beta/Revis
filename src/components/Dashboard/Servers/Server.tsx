@@ -42,12 +42,10 @@ export default function Server(props) {
       // look for the information at the serverlist global state
       servers.serverList.forEach((server) => {
         if (server.name === name) {
-          const requestHeaders: HeadersInit = new Headers();
-          requestHeaders.set('Content-Type', 'application/json');
           fetch('/api/validateUser', {
             method: 'POST',
             body: JSON.stringify({ endpoint: server.endpoint }),
-            headers: { 'Content-Type': 'application/json' },
+            // headers: { 'Content-Type': 'application/json' },
           })
             .then((response) => response.json())
             .then((data) => {
