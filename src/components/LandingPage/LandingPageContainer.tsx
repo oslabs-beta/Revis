@@ -3,12 +3,19 @@ import router from "next/router";
 import styles from "../../styles/LandingPage.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCube } from "@fortawesome/free-solid-svg-icons";
+import NavBarLandingPage from "./NavBarLandingPage";
 
 function LandingPage() {
   return (
     <div className={styles.LandingPageWrapper}>
+      <NavBarLandingPage />
+      <div className={styles.cubeAndShadow}>
+        <span id={styles.cubeSpan}>
+          <FontAwesomeIcon id={styles.cube} icon={faCube} />
+        </span>
+        <div id={styles.shadow}>..</div>
+      </div>
       <div className={styles.leftLandingPageWrapper}>
-        <span><FontAwesomeIcon id={styles.cube} icon={faCube} /></span>
         <h1 id={styles.logo}>Revis</h1>
       </div>
       <div className={styles.rightLandingPageWrapper}>

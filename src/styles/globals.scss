@@ -16,11 +16,14 @@ html[data-theme="dark"] {
 }
 body {
   background-color: var(--background);
-
-  .dashboardWrapper {
-    display: grid;
-    grid-template-columns: 0.5fr 2fr;
-    height: 100vh;
-    margin: -10px;
+  width: 100%;
+  .general {
+    width: 100%;
+    margin-top: -1%;
+    .dashboardWrapper {
+      display: grid;
+      grid-template-columns: 0.5fr 2fr;
+      // height: 200%;
+    }
   }
 }
