@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from '../../../styles/ServerAdd.module.scss';
 
 function ServerAdd(props) {
-  const { addServer } = props;
+  const { addServer }: { addServer: Function } = props;
   const PORT_REG_EX: string = '[0-9]{4,5}';
   const NAME_REG_EX: string = '[a-zA-Z]{4,25}';
 

@@ -4,7 +4,7 @@ import styles from '../../styles/Dashboard.module.scss';
 
 function SignOutButton() {
   const signOut = () => {
-    fetch('/api/signOut').then((response) => router.replace('/'));
+    fetch('/api/signOut').then(() => router.replace('/'));
   };
   return (
     <button type="button" onClick={signOut} id={styles.signOutButton}>

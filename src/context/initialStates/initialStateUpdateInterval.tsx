@@ -1,7 +1,8 @@
+import { Interval } from '../interfaces';
 
-const interval: { update: boolean, interval: number } = {
-    update: true,
-    interval: 7000,
-  }
-  
-  export default interval;
+const interval: Interval = {
+  update: true,
+  interval: 10000,
+};
+
+export default interval;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import propTypes from 'prop-types';
 import styles from '../../styles/Homepage.module.scss';
-import PropTypes from 'prop-types'
 import { HomePageProps } from '../../context/interfaces';
 
 function ForgotPassword({ previousPage }: HomePageProps) {
@@ -35,6 +35,6 @@ function ForgotPassword({ previousPage }: HomePageProps) {
 
 export default ForgotPassword;
 
-ForgotPassword.PropTypes = {
-  previousPage: PropTypes.func.isRequired,
+ForgotPassword.propTypes = {
+  previousPage: propTypes.func.isRequired,
 };

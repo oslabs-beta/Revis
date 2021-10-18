@@ -1,0 +1,83 @@
+@import "./colorsAndFonts.scss";
+.LandingPageWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 200vh;
+
+  .leftLandingPageWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5%;
+
+    #cube {
+      width: 16vh;
+      color: var(--logoColor);
+      height: 12vh;
+      animation: cubeAnimation 0.6s cubic-bezier(0.5, 0.05, 1, 0.5);
+      animation-direction: alternate;
+      animation-iteration-count: infinite;
+      position: absolute;
+      left: 50vh;
+    }
+    #logo {
+      font-family: $fontOfLogo;
+      font-size: 15vh;
+      color: var(--logoColor);
+    }
+
+    @keyframes cubeAnimation {
+      0% {
+        transform: translate3d(0, -100%, 0);
+      }
+
+      100% {
+        transform: translate(0, 0, 0);
+      }
+    }
+  }
+
+  .rightLandingPageWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    h2 {
+      width: 50%;
+      text-align: center;
+      font-family: $fontOfButtons;
+    }
+
+    .buttonDiv {
+      display: flex;
+      gap: 2vh;
+
+      button {
+        animation: buttonAnimation 5s 1;
+        background-color: var(--green);
+        border-radius: 10%;
+        color: var(--background);
+        border-color: transparent;
+        width: 10vh;
+        height: 5vh;
+        font-size: 2vh;
+        font-family: $fontOfSummaryTitle;
+      }
+    }
+
+    @keyframes buttonAnimation {
+      0% {
+        transform: scale(0);
+        color: transparent;
+      }
+      100% {
+        transform: scale(1);
+        color: var(--background);
+      }
+    }
+  }
+}

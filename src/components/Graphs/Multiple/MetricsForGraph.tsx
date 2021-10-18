@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckSquare, faSquare } from "@fortawesome/free-solid-svg-icons";
-import PropTypes from "prop-types";
-import styles from "../../../styles/GraphContainer.module.scss";
-import { useStore } from "../../../context/Provider";
-import { GlobalContext } from "../../../context/interfaces";
+import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckSquare, faSquare } from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types';
+import styles from '../../../styles/GraphContainer.module.scss';
+import { useStore } from '../../../context/Provider';
+import { Context } from '../../../context/interfaces';
 
 function MetricsForGraph({ metricName }: { metricName: string }) {
-  const { multipleGraphSelections } = useStore(); //missing Typescript
+  const { multipleGraphSelections }: Context = useStore();
 
   const changeMetric = () => {
     if (multipleGraphSelections.multipleGraphState[metricName]) {
       multipleGraphSelections.multipleGraphDispatch({
-        type: "metricUnselected",
+        type: 'metricUnselected',
         message: metricName,
       });
     } else {
@@ -20,7 +20,7 @@ function MetricsForGraph({ metricName }: { metricName: string }) {
         return;
       }
       multipleGraphSelections.multipleGraphDispatch({
-        type: "newMetricSelected",
+        type: 'newMetricSelected',
         message: metricName,
       });
     }

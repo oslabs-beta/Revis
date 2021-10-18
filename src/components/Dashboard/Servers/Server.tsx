@@ -1,24 +1,17 @@
 import PropTypes from 'prop-types';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
 import { useStore } from '../../../context/Provider';
 import styles from '../../../styles/Server.module.scss';
+import { Context } from '../../../context/interfaces';
 
 export default function Server(props) {
-  const {
-    name,
-    endpoint,
-    port,
-    currentDivHover,
-    changeDivHover,
-    // changeCurrentServer,
-  } = props;
+  const { name, currentDivHover, changeDivHover } = props;
 
-  const { servers, currentServer }: any = useStore();
-  const { selectedServerDispatch }: { selectedServerDispatch: Function } =
-    currentServer;
-  const { serversDispatch }: { serversDispatch: Function } = servers;
+  const { servers, currentServer }: Context = useStore();
+  const { selectedServerDispatch } = currentServer;
+  const { serversDispatch } = servers;
 
   const removeServer = (e: Event) => {
     serversDispatch({
@@ -36,7 +29,7 @@ export default function Server(props) {
     removeServerDiv.style.backgroundColor = 'var(--logoColor)';
     removeServerDiv.innerHTML = 'X';
   };
-  const keepServerAnimation = (e) => {
+  const keepServerAnimation = () => {
     if (currentDivHover) {
       currentDivHover.style.width = '0%';
       currentDivHover.style.backgroundColor = 'white';
@@ -47,15 +40,15 @@ export default function Server(props) {
   const updateSelectedServer = () => {
     if (!currentServer.selectedServer[name]) {
       // look for the information at the serverlist global state
-      servers.serverList.forEach((el) => {
-        if (el.name === name)
+      servers.serverList.forEach((server) => {
+        if (server.name === name)
           selectedServerDispatch({
             type: 'currentServer',
-            payload: {
-              name: el.name,
-              endpoint: el.endpoint,
-              password: el.password,
-              port: el.port,
+            message: {
+              name: server.name,
+              endpoint: server.endpoint,
+              password: server.password,
+              port: server.port,
             },
           });
       });
@@ -98,29 +91,15 @@ export default function Server(props) {
         {currentServer.selectedServer.name === name
           ? squareChecked
           : squareUnChecked}
-        {/* <FontAwesomeIcon
-          onClick={changeCurrentServer}
-          id={styles.checkBox}
-          icon={faCheckSquare}
-        /> */}
+
         <p>Name: {name}</p>
       </div>
-      {/* <input
-        id={endpoint}
-        type="radio"
-        name="currentServer"
-        value={port}
-        onChange={changeCurrentServer}
-      /> */}
     </div>
   );
 }
 
 Server.propTypes = {
   name: PropTypes.string.isRequired,
-  endpoint: PropTypes.string.isRequired,
-  port: PropTypes.string,
-  currentDivHover: PropTypes.any,
-  changeDivHover: PropTypes.func,
-  changeCurrentServer: PropTypes.func,
+  currentDivHover: PropTypes.instanceOf(Element).isRequired,
+  changeDivHover: PropTypes.func.isRequired,
 };

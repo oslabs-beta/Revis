@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import { LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
-import { useStore } from "../../../context/Provider";
-import styles from "../../../styles/GraphContainer.module.scss";
-import { GlobalContext } from "../../../context/interfaces";
+import React from 'react';
+import { LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
+import { useStore } from '../../../context/Provider';
+import styles from '../../../styles/GraphContainer.module.scss';
+import { Context } from '../../../context/interfaces';
 
 function Graph() {
-  const { metricsStore, metricToGraph } = useStore(); //missing TYpescript
+  const { metricsStore, metricToGraph }: Context = useStore();
 
-  const data: string = metricsStore.metricState;
+  const data = metricsStore.metricState;
 
   return (
     <div>
@@ -25,8 +25,13 @@ function Graph() {
             stroke="#d33b51"
           />
 
+<<<<<<< HEAD
           <XAxis stroke="#ce6030" dataKey="time" tick={{ fill: "#d8d8d4" }}  />
           <YAxis stroke="#ce6030" tick={{ fill: "#d8d8d4" }} />
+=======
+          <XAxis stroke="#ce6030" dataKey="time" tick={{ fill: '#d8d8d4' }} />
+          <YAxis stroke="#ce6030" tick={{ fill: '#d8d8d4' }} />
+>>>>>>> 19ee998895259b0f74552a24ecda08eb02f7b178
           <Tooltip />
         </LineChart> 
        </div>
