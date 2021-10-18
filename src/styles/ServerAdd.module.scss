@@ -1,4 +1,4 @@
-@import "./colorsAndFonts.scss";
+@import './colorsAndFonts.scss';
 .serverAddWrapper {
   margin-top: 15%;
   width: 100%;
@@ -43,6 +43,7 @@
         flex-direction: row;
         font-family: $fontOfButtons;
         font-size: 0.9rem;
+        color: var(--background);
       }
       input:focus {
         outline: none;

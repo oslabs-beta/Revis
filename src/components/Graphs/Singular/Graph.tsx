@@ -25,13 +25,10 @@ function Graph() {
             stroke="#d33b51"
           />
 
-<<<<<<< HEAD
+
           <XAxis stroke="#ce6030" dataKey="time" tick={{ fill: "#d8d8d4" }}  />
           <YAxis stroke="#ce6030" tick={{ fill: "#d8d8d4" }} />
-=======
-          <XAxis stroke="#ce6030" dataKey="time" tick={{ fill: '#d8d8d4' }} />
-          <YAxis stroke="#ce6030" tick={{ fill: '#d8d8d4' }} />
->>>>>>> 19ee998895259b0f74552a24ecda08eb02f7b178
+
           <Tooltip />
         </LineChart> 
        </div>
