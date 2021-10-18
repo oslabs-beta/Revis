@@ -131,13 +131,13 @@ function Sidebar() {
     const name: HTMLInputElement = document.querySelector('#name');
     const endpoint: HTMLInputElement = document.querySelector('#endpoint');
     const password: HTMLInputElement = document.querySelector('#redisPassword');
-    const PORT: HTMLInputElement = document.querySelector('#PORT');
+    const port: HTMLInputElement = document.querySelector('#PORT');
 
-    if (validityCheckOnSubmit(name, endpoint, PORT)) {
+    if (validityCheckOnSubmit(name, endpoint, port)) {
       const correctServerEndpoint = await checkEndpoint(
         endpoint.value,
         password.value,
-        PORT.value
+        port.value
       );
       if (!correctServerEndpoint) {
         endpoint.setCustomValidity('Invalid endpoint or password.');
@@ -152,7 +152,7 @@ function Sidebar() {
           name: name.value,
           endpoint: endpoint.value,
           password: password.value,
-          port: PORT.value,
+          port: port.value,
           username,
         },
       });

@@ -4,6 +4,7 @@ import router from 'next/router';
 import { useStore } from '../../context/Provider';
 import styles from '../../styles/Summary.module.scss';
 import { Context, MetricsProps } from '../../context/interfaces';
+import Tooltip from './Tooltip';
 
 export default function Metrics(props: MetricsProps): ReactElement {
   const { metricName, metricValue }: MetricsProps = props;
@@ -21,6 +22,7 @@ export default function Metrics(props: MetricsProps): ReactElement {
   return (
     <div className={styles.metrics}>
       <h5>{cleanNames(metricName).join(' ')}</h5>
+      <Tooltip metric={metricName} />
       <button
         type="button"
         onClick={(): void => {
