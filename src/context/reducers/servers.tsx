@@ -11,13 +11,13 @@ const deleteServerFromDataBase = (name: string) => {
 const postServerToDataBase = (
   name: string,
   endpoint: string,
-  PORT: string,
+  port: string,
   username: string,
   password: string
 ) => {
   fetch('/api/servers', {
     method: 'POST',
-    body: JSON.stringify({ name, endpoint, PORT, username, password }),
+    body: JSON.stringify({ name, endpoint, port, username, password }),
     'Content-Type': 'application/json',
   });
 };
@@ -27,6 +27,7 @@ const servers = (state: Server[], action: ActionServerList) => {
   const newServerList = state.slice();
   switch (action.type) {
     case 'addServer': {
+      console.log(server);
       newServerList.push(server);
       postServerToDataBase(
         server.name,

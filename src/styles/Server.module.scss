@@ -19,6 +19,7 @@
       font-weight: bolder;
       font-size: 2rem;
       transition: ease 0.5s;
+      border-radius: 0.25rem;
     }
   }
   .server {
@@ -34,7 +35,7 @@
     // gap: 0.2%;
     // margin-top: 3rem;
     // margin-left: -2.6rem;
-    border-radius: 5px;
+    border-radius: 0.25rem;
     // border: 2px solid $summaryTitleGrey;
     // text-align: center;
     font-size: 01rem;
@@ -49,6 +50,7 @@
       top: 20%;
       height: 1.2rem;
       width: 1.2rem;
+      cursor: pointer;
     }
   }
   .serverSelected {
@@ -63,13 +65,13 @@
     // gap: 0.2%;
     // margin-top: 3rem;
     // margin-left: -2.6rem;
-    border-radius: 5px;
+    border-radius: 0.25rem;
     // border: 2px solid $summaryTitleGrey;
     // text-align: center;
     font-size: 1rem;
     width: 9rem;
     // color: var(--logoColor);
-    background-color: #A1B8A1;
+    background-color: #a1b8a1;
     font-family: $fontOfSummaryTitle;
 
     #checkBox {
@@ -78,6 +80,7 @@
       top: 20%;
       height: 1.2rem;
       width: 1.2rem;
+      cursor: pointer;
     }
   }
 }
