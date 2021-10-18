@@ -31,7 +31,7 @@ export interface Interval {
 export interface CurrentServer {
   name: string;
   endpoint: string;
-  password: string;
+  password?: string;
   port: string;
   sessionToken?: string;
 }

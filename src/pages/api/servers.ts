@@ -33,7 +33,7 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
 
         hashedPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
         SQLquery = `INSERT INTO "serverCloud" (name,endpoint,port,password,user_id)
-          VALUES ('${name}','${endpoint}','${port}','${hashedPassword}',${userId});`;
+          VALUES ('${name}','${endpoint}',${port},'${hashedPassword}',${userId});`;
         await db.query(SQLquery);
 
         SQLquery = `INSERT INTO "${process.env.PG_TABLE_REDIS}" (user_id,endpoint,password)

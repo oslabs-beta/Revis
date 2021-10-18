@@ -47,7 +47,6 @@ export default function Server(props) {
             message: {
               name: server.name,
               endpoint: server.endpoint,
-              password: server.password,
               port: server.port,
             },
           });
