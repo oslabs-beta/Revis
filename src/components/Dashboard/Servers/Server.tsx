@@ -13,7 +13,7 @@ export default function Server(props) {
   const { selectedServerDispatch } = currentServer;
   const { serversDispatch } = servers;
 
-  const removeServer = (e: Event) => {
+  const removeServer = (e) => {
     serversDispatch({
       type: 'deleteServer',
       message: { name: e.target.id },
@@ -37,23 +37,17 @@ export default function Server(props) {
     }
   };
 
-  const fetchRedisPassword = (endpoint) => {
-    fetch('/api/validateUser', {
-      method: 'POST',
-      body: JSON.stringify({ endpoint }),
-      'Content-Type': 'application/json',
-    });
-  };
-
   const updateSelectedServer = () => {
     if (!currentServer.selectedServer[name]) {
       // look for the information at the serverlist global state
       servers.serverList.forEach((server) => {
         if (server.name === name) {
+          const requestHeaders: HeadersInit = new Headers();
+          requestHeaders.set('Content-Type', 'application/json');
           fetch('/api/validateUser', {
             method: 'POST',
             body: JSON.stringify({ endpoint: server.endpoint }),
-            'Content-Type': 'application/json',
+            headers: { 'Content-Type': 'application/json' },
           })
             .then((response) => response.json())
             .then((data) => {
