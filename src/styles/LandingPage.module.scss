@@ -6,7 +6,6 @@
   height: 100vh;
   margin-left: 10%;
 
-
   .NavBar {
     position: absolute;
     left: 75%;
@@ -39,11 +38,8 @@
       }
     }
     #shadow {
-      background: radial-gradient(
-        50% 50%,
-        rgba(150, 150, 150, 1),
-        rgba(150, 150, 150, 0.05)
-      );
+
+      background: radial-gradient(50%,50%, rgba(150, 150, 150, 1),rgba(150, 150, 150, 0.05) );
       width: 50%;
       color: transparent;
       animation: shadowGrow 0.6s;
