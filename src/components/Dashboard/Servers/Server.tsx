@@ -37,20 +37,39 @@ export default function Server(props) {
     }
   };
 
+  const fetchRedisPassword = (endpoint) => {
+    fetch('/api/validateUser', {
+      method: 'POST',
+      body: JSON.stringify({ endpoint }),
+      'Content-Type': 'application/json',
+    });
+  };
+
   const updateSelectedServer = () => {
     if (!currentServer.selectedServer[name]) {
       // look for the information at the serverlist global state
       servers.serverList.forEach((server) => {
-        if (server.name === name)
-          selectedServerDispatch({
-            type: 'currentServer',
-            message: {
-              name: server.name,
-              endpoint: server.endpoint,
-              password: server.password,
-              port: server.port,
-            },
-          });
+        if (server.name === name) {
+          fetch('/api/validateUser', {
+            method: 'POST',
+            body: JSON.stringify({ endpoint: server.endpoint }),
+            'Content-Type': 'application/json',
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if ('password' in data) {
+                selectedServerDispatch({
+                  type: 'currentServer',
+                  message: {
+                    name: server.name,
+                    endpoint: server.endpoint,
+                    port: server.port,
+                    password: data.password,
+                  },
+                });
+              }
+            });
+        }
       });
     }
   };
