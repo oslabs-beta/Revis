@@ -9,7 +9,6 @@ import { Context } from '../../context/interfaces';
 export default function Summary() {
   const { currentServer, servers, metricsStore }: Context = useStore();
   const { serverList } = servers;
-
   const { selectedServer } = currentServer;
   const { endpoint, password, port } = selectedServer;
   const { metricState, metricsDispatch } = metricsStore;
