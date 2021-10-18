@@ -27,7 +27,6 @@ const servers = (state: Server[], action: ActionServerList) => {
   const newServerList = state.slice();
   switch (action.type) {
     case 'addServer': {
-      console.log(server);
       newServerList.push(server);
       postServerToDataBase(
         server.name,
