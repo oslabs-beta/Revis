@@ -18,7 +18,7 @@ function MultipleGraphContainer() {
     if (multipleGraphSelections.multipleGraphState[key]) {
       arrayWithGraphs.push(
         <div key={i} data-grid={{ x: 0, y: 0, w: 6, h: 1.2 }}>
-          <MultipleGraph values={data} keys={key} />
+          <MultipleGraph metricValue={data} metricName={key} />
         </div>
       );
     }

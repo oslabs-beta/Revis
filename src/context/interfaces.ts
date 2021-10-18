@@ -93,18 +93,6 @@ export interface ParsedBodyServer {
   password: string;
   port: string;
 }
-
-export interface MetricsList {
-  total_net_output_bytes?: string[];
-  used_memory?: string[];
-  connected_clients?: string[];
-  evicted_keys?: string[];
-  keyspace_hits?: string[];
-  keyspace_misses?: string[];
-  total_net_input_bytes?: string[];
-  uptime_in_seconds?: string[];
-}
-
 export interface MultipleGraphs {
   total_net_output_bytes?: boolean;
   used_memory?: boolean;
@@ -121,7 +109,7 @@ export interface UserContext {
   userDispatch: Dispatch<Action>;
 }
 export interface MetricsStoreContext {
-  metricState: MetricsList;
+  metricState: Metrics[];
   metricsDispatch: Dispatch<ActionMetrics>;
 }
 export interface ServersContext {
