@@ -1,5 +1,5 @@
-@import './colorsAndFonts.scss';
-@import './theme.scss';
+@import "./colorsAndFonts.scss";
+@import "./theme.scss";
 
 .homePageWrapper {
   display: grid;
@@ -12,7 +12,7 @@
     var(--background) 50%,
     var(--logoColor) 50%
   );
-  height: 100vh;
+  height: 110vh;
 
   #UserLogin {
     display: flex;
@@ -63,8 +63,8 @@
         background-color: transparent;
         border-color: transparent;
         color: var(--background);
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-          'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
         font-size: 13px;
         text-decoration: underline;
         cursor: pointer;
@@ -116,8 +116,8 @@
 
     form {
       width: 100%;
-      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-        'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
       margin-bottom: 1rem;
 
       input {
@@ -161,8 +161,8 @@
 
     form {
       width: 100%;
-      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-        'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 
       .formEntry {
         display: flex;

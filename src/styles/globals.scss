@@ -1,13 +1,13 @@
-@import './colorsAndFonts.scss';
+@import "./colorsAndFonts.scss";
 
-html[data-theme='light'] {
+html[data-theme="light"] {
   --logoColor: #e38d41e9; //logoRed
   --background: rgb(255, 255, 255);
-  --green: rgb(161, 184, 161);
+  --green: rgb(164, 186, 143);
   --grey: rgb(106, 99, 99);
   --lightgrey: rgba(243, 245, 247, 0.893);
 }
-html[data-theme='dark'] {
+html[data-theme="dark"] {
   --logoColor: #e38d41e7;
   --background: rgb(51, 51, 51);
   --green: rgb(161, 184, 161);
@@ -16,11 +16,14 @@ html[data-theme='dark'] {
 }
 body {
   background-color: var(--background);
-
-  .dashboardWrapper {
-    display: grid;
-    grid-template-columns: 0.5fr 2fr;
-    height: 100vh;
-    margin: -10px;
+  width: 100%;
+  .general {
+    width: 100%;
+    margin-top: -1%;
+    .dashboardWrapper {
+      display: grid;
+      grid-template-columns: 0.5fr 2fr;
+      // height: 200%;
+    }
   }
 }
