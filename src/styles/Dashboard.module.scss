@@ -4,11 +4,17 @@
   display: flex;
   width: 100vh;
   height: 100vh;
-.navBarDashboard{
-  position:absolute;
-  top:3%;
-  left:50%;
-}
+  .navBarDashboard {
+    position: absolute;
+    top: 3%;
+    left: 50%;
+    button {
+      background-color: transparent;
+      border-color: transparent;
+      border-bottom-color: var(--lightGrey);
+      font-family: $fontOfMetrics;
+    }
+  }
   .summaryWrapper {
     width: 100%;
     overflow: hidden;
@@ -22,8 +28,9 @@
   #signOutButton {
     border-color: transparent;
     position: absolute;
-    left: 88%;
-    top: 2.5%;
+    right: 2%;
+    top: 5%;
+    text-align: right;
     color: var(--grey);
     background-color: transparent;
     text-decoration: underline;
