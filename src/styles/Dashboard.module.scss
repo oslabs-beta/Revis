@@ -1,4 +1,4 @@
-@import "./colorsAndFonts.scss";
+@import './colorsAndFonts.scss';
 
 .dashboardWrapper {
   display: flex;
@@ -37,5 +37,6 @@
     cursor: pointer;
     font-size: 1.1rem;
     font-family: $fontOfSummaryTitle;
+    z-index: 1;
   }
 }
