@@ -11,8 +11,8 @@
 
   .textAndSwitch {
     position: absolute;
-    top: 19%;
-    left: 36rem;
+    top: 75vh;
+    right: 20vh;
     display: flex;
     gap: 1rem;
     align-items: center;
@@ -84,6 +84,9 @@
     gap: 2rem;
     align-items: center;
     margin-top: 3rem;
+    position:absolute;
+    top: 75vh;
+    right: 20vh;
   }
   input {
     border: transparent;

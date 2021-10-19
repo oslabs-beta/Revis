@@ -3,21 +3,77 @@
 .dashboardWrapper {
   display: flex;
 
-  .navBarDashboard {
+  .navBarDashboardWrapper {
     position: absolute;
     top: 3%;
     left: 50%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:2vh;
+
+    .cubeAndShadowWrapper {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+  
+      #cube {
+        width: 2vh;
+        color: var(--logoColor);
+        height: 2vh;
+        animation: cubeAnimation 0.6s cubic-bezier(0.5, 0.05, 1, 0.5);
+        animation-direction: alternate;
+        animation-iteration-count: infinite;
+      }
+  
+      #shadow {
+        background-image: radial-gradient(
+          rgb(80, 80, 80) 0%,
+          rgb(228, 227, 227),
+          rgba(150, 150, 150, 0.05)
+        );
+        width: 10%;
+        animation: shadowGrow 0.6s;
+        animation-direction: alternate;
+        animation-iteration-count: infinite;
+      }
+  
+      @keyframes shadowGrow {
+        from {
+          transform: scale(0.2, 0.5);
+        }
+  
+        to {
+          transform: scale(1, 0.1);
+        }
+      }
+      @keyframes cubeAnimation {
+        0% {
+          transform: translate3d(0, -100%, 0);
+        }
+  
+        100% {
+          transform: translate(0, 0, 0);
+        }
+      }}
+
+    #logo {
+    font-family: $fontOfLogo;
+    font-size: 2vh;
+    color: var(--logoColor);
+    }
     button {
       background-color: transparent;
       border-color: transparent;
-      border-bottom-color: var(--lightGrey);
       font-family: $fontOfMetrics;
+      font-size: 2vh;
     }
   }
+
   .summaryWrapper {
-    width: 100%;
+    width: 200%;
     overflow: hidden;
-    margin-top: 2.3%;
+    margin-top: 16vh;
   }
 
   .sidebarWrapper {

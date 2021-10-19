@@ -1,6 +1,6 @@
 @import "./colorsAndFonts.scss";
 .SummaryWrapper {
-  margin: 2%;
+  margin-top: 2%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,42 +27,44 @@
   }
 
   .tableWrapper {
-    margin-top: 7%;
     border-radius: 20px;
     display: grid;
     border-color: transparent;
     grid-template-columns: repeat(4, 1fr);
     row-gap: 2%;
-    column-gap: 2%;
+    column-gap: 5%;
     align-items: flex-end;
-    padding-top: 3%;
-    padding-right: 10%;
-    padding-left: 10%;
-    padding-bottom: 7%;
     background-color: var(--background);
     font-family: $fontOfButtons;
     font-size: 3vh;
     width: fit-content;
     font-family: $fontOfMetrics;
-
+    .metricsAndTooltip{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap:1vh;
+    }
     .metrics {
       display: flex;
-  
+      flex-direction: column;
       align-items: center;
       word-wrap: break-word;
       max-width: 100%;
       color: var(--grey);
-      // justify-content: center;
+     
     }
     button {
       margin-top: 0px;
       font-size: 3vh;
       border-color: transparent;
-      background-color: transparent;
-      color: var(--background);
+      background-color: var(--logoColor);
+      color: var(--grey);
+      width: 25vh;
       font-family: $fontOfMetrics;
       word-wrap: break-word;
       max-width: 100%;
+    
     }
   }
 }

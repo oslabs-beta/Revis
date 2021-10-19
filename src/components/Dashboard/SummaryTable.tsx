@@ -18,7 +18,7 @@ export default function SummaryTable(props) {
           </div>
         ) : (
           <div>
-            <h1> Summary </h1>
+          
             <div className={styles.tableWrapper}>{metricsForTable}</div>
           </div>
         )}
