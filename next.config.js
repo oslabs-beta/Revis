@@ -11,4 +11,11 @@ module.exports = {
   images: {
     domains: ['tonygentilcore.com'],
   },
+  excludeFile: (str) => /\*.{spec,tests}.js/.test(str),
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };

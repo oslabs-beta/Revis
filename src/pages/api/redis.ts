@@ -31,12 +31,13 @@ const redisAPI = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'POST':
       try {
+        if (typeof req.body !== 'string')
+          return res
+            .status(400)
+            .send('Unable to get metrics from Redis server');
         const parsedBody: ParsedBodyRedis = JSON.parse(req.body);
         const { endpoint, password, port } = parsedBody;
-        // if (endpoint === '' || password === '' || port === '')
-        //   return res
-        //     .status(400)
-        //     .send('Unable to get metrics from Redis server');
+
         const redis = new Redis({
           host: endpoint,
           port,

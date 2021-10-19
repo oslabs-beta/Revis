@@ -1,4 +1,4 @@
-@import "./colorsAndFonts.scss";
+@import './colorsAndFonts.scss';
 .Welcome {
   position: absolute;
   right: 2%;
@@ -7,4 +7,5 @@
   font-size: 1.8vh;
   color: var(--grey);
   font-family: $fontOfMetrics;
+  height: fit-content;
 }
