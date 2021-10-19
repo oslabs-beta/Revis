@@ -31,8 +31,8 @@ export default function Dashboard() {
       .catch((err) => console.log(err));
   }, []);
 
-  const viewGraph = () => {
-    setCurrentRender("graph");
+  const viewLatency = () => {
+    setCurrentRender("latency");
   };
   const viewMultipleGraphs = () => {
     setCurrentRender("multipleGraphs");
@@ -42,23 +42,21 @@ export default function Dashboard() {
   };
 
   switch (currentRender) {
-    case "graph":
+    case "latency":
       return (
         <div className={styles.dashboardWrapper}>
           {!noUsername && (
             <>
               <div className={styles.sidebarWrapper}>
                 <NavBarDashboard
-                  viewGraph={viewGraph}
+                  viewGraph={viewLatency}
                   viewMultipleGraphs={viewMultipleGraphs}
                   viewDashboard={viewDashboard}
                 />
                 <SignOutButton />
               </div>
               <Sidebar />
-              <div className={styles.summaryWrapper}>
-                <Graph />
-              </div>
+              <div className={styles.summaryWrapper}></div>
             </>
           )}
         </div>
@@ -70,7 +68,7 @@ export default function Dashboard() {
             <>
               <div className={styles.sidebarWrapper}>
                 <NavBarDashboard
-                  viewGraph={viewGraph}
+                  viewGraph={viewLatency}
                   viewMultipleGraphs={viewMultipleGraphs}
                   viewDashboard={viewDashboard}
                 />
@@ -92,7 +90,7 @@ export default function Dashboard() {
             <>
               <div className={styles.sidebarWrapper}>
                 <NavBarDashboard
-                  viewGraph={viewGraph}
+                  viewGraph={viewLatency}
                   viewMultipleGraphs={viewMultipleGraphs}
                   viewDashboard={viewDashboard}
                 />

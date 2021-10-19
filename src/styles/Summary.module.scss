@@ -1,4 +1,4 @@
-@import './colorsAndFonts.scss';
+@import "./colorsAndFonts.scss";
 .SummaryWrapper {
   margin: 2%;
   display: flex;
@@ -34,13 +34,12 @@
     grid-template-columns: repeat(4, 1fr);
     row-gap: 2%;
     column-gap: 2%;
-    justify-items: center;
+    align-items: flex-end;
     padding-top: 3%;
     padding-right: 10%;
     padding-left: 10%;
     padding-bottom: 7%;
-    background-color: var(--logoColor);
-    color: white;
+    background-color: var(--background);
     font-family: $fontOfButtons;
     font-size: 3vh;
     width: fit-content;
@@ -48,11 +47,11 @@
 
     .metrics {
       display: flex;
-      flex-direction: column;
+  
       align-items: center;
       word-wrap: break-word;
       max-width: 100%;
-      color: var(--background);
+      color: var(--grey);
       // justify-content: center;
     }
     button {

@@ -32,6 +32,7 @@
       align-content: center;
       margin: auto;
       margin-bottom: 0.5rem;
+      font-family: sans-serif;
     }
     .userInput:focus {
       outline: none;
@@ -53,8 +54,8 @@
         border-radius: 0.75rem;
         border-color: transparent;
         color: var(--background);
-        font-weight: bold;
         width: 60%;
+        height: 3rem;
         padding: 0.5rem;
         cursor: pointer;
       }
