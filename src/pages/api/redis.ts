@@ -53,9 +53,15 @@ const redisAPI = async (req: NextApiRequest, res: NextApiResponse) => {
           // currentMetric format example:
           // 'used_memory:572856'
           const [metricName, metricValue] = currentMetric.split(':');
-          if (metricName in metricsToEvaluate) {
-            metricsToEvaluate[metricName].push(metricValue);
-            metricsUpdated[metricName] = metricValue;
+          if (metricValue !== undefined) {
+            if (metricName in metricsToEvaluate) {
+              metricsToEvaluate[metricName].push(metricValue);
+              // } else {
+              //   metricsToEvaluate[metricName] = [metricValue];
+              // }
+              metricsUpdated[metricName] = metricValue;
+            }
+            redis.rpush(metricName, metricValue);
           }
         });
         redis.quit();

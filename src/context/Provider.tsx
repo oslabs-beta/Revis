@@ -7,6 +7,8 @@ import initialStateOfMultipleGraphs from './initialStates/initialStateOfMultiple
 import initialStateTheme from './initialStates/initialStateTheme';
 import initialStateUpdateInterval from './initialStates/initialStateUpdateInterval';
 import initialStateSelectedServer from './initialStates/initialStateSelectedServer';
+import initialStateMetricHistory from './initialStates/initialStateMetricHistory';
+
 import user from './reducers/user';
 import metrics from './reducers/metrics';
 import servers from './reducers/servers';
@@ -15,6 +17,7 @@ import metricsBeingCompared from './reducers/metricsBeingCompared';
 import theme from './reducers/theme';
 import currentServer from './reducers/currentServer';
 import interval from './reducers/interval';
+import metricHistory from './reducers/metricHistory';
 import {
   User,
   Metrics,
@@ -23,12 +26,14 @@ import {
   Interval,
   ServerInterface,
   Theme,
+  MetricHistory,
   Context,
   CurrentServer,
   ActionServerList,
   ActionCurrentServer,
   ActionInterval,
   ActionMetrics,
+  ActionMetricHistory,
 } from './interfaces';
 
 export const GlobalContext = createContext<Partial<Context>>({}); // the provider needs to fill the state
@@ -67,6 +72,11 @@ export const GlobalProvider = ({ children }) => {
     Interval,
     Dispatch<ActionInterval>
   ] = useReducer(interval, initialStateUpdateInterval);
+
+  const [metricHistoryState, metricHistoryDispatch]: [
+    MetricHistory,
+    Dispatch<ActionMetricHistory>
+  ] = useReducer(metricHistory, initialStateMetricHistory);
   return (
     <GlobalContext.Provider
       value={{
@@ -78,6 +88,7 @@ export const GlobalProvider = ({ children }) => {
         multipleGraphSelections: { multipleGraphState, multipleGraphDispatch },
         themeContext: { currentTheme, themeDispatch },
         graphInterval: { updateInterval, updateIntervalDispatch },
+        metricHistory: { metricHistoryState, metricHistoryDispatch },
       }}
     >
       {children}
