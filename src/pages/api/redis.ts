@@ -48,6 +48,9 @@ const redisAPI = async (req: NextApiRequest, res: NextApiResponse) => {
 
         const metrics: string = await redis.info();
         const splitMetrics: string[] = metrics.split('\r\n');
+        const today = new Date();
+        const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
+        splitMetrics[splitMetrics.length] = `time: ${time}`;
         splitMetrics.forEach((currentMetric: string) => {
           // we split it again to find the keys and values of each line
           // currentMetric format example:

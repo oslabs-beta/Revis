@@ -1,4 +1,4 @@
-import { MetricHistory, ActionMetricHistory } from '../interfaces';
+import { MetricHistoryInterface, ActionMetricHistory } from '../interfaces';
 
 const deleteServerFromDataBase = (name: string) => {
   fetch('/api/servers', {
@@ -22,8 +22,11 @@ const postServerToDataBase = (
   });
 };
 
-const metricHistory = (state: MetricHistory, action: ActionMetricHistory) => {
-  const server: MetricHistory = action.message;
+const metricHistory = (
+  state: MetricHistoryInterface,
+  action: ActionMetricHistory
+) => {
+  const server: MetricHistoryInterface = action.message;
   switch (action.type) {
     case 'addServer': {
     }
