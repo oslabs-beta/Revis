@@ -1,4 +1,4 @@
-@import './colorsAndFonts.scss';
+@import "./colorsAndFonts.scss";
 
 .dashboardWrapper {
   display: flex;
@@ -7,16 +7,20 @@
     position: absolute;
     top: 3%;
     left: 50%;
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
-    gap:2vh;
+    gap: 2vh;
+
+    button {
+      color: var(--grey);
+    }
 
     .cubeAndShadowWrapper {
       display: flex;
       align-items: center;
       flex-direction: column;
-  
+
       #cube {
         width: 2vh;
         color: var(--logoColor);
@@ -25,7 +29,7 @@
         animation-direction: alternate;
         animation-iteration-count: infinite;
       }
-  
+
       #shadow {
         background-image: radial-gradient(
           rgb(80, 80, 80) 0%,
@@ -37,12 +41,12 @@
         animation-direction: alternate;
         animation-iteration-count: infinite;
       }
-  
+
       @keyframes shadowGrow {
         from {
           transform: scale(0.2, 0.5);
         }
-  
+
         to {
           transform: scale(1, 0.1);
         }
@@ -51,22 +55,24 @@
         0% {
           transform: translate3d(0, -100%, 0);
         }
-  
+
         100% {
           transform: translate(0, 0, 0);
         }
-      }}
+      }
+    }
 
     #logo {
-    font-family: $fontOfLogo;
-    font-size: 2vh;
-    color: var(--logoColor);
+      font-family: $fontOfLogo;
+      font-size: 2vh;
+      color: var(--logoColor);
     }
     button {
       background-color: transparent;
       border-color: transparent;
       font-family: $fontOfMetrics;
       font-size: 2vh;
+      color: var(--grey);
     }
   }
 
