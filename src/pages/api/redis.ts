@@ -1,12 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import Cookies from 'cookies';
 import { MetricsList, ParsedBodyRedis } from '../../context/interfaces';
 
 const Redis = require('ioredis');
 
 const redisAPI = async (req: NextApiRequest, res: NextApiResponse) => {
-  const cookies: Cookies = new Cookies(req, res);
-  const ssid: string = cookies.get('ssid');
   // this object is for the front end:
   const metricsUpdated: MetricsList = {
     time: '',
@@ -21,17 +18,17 @@ const redisAPI = async (req: NextApiRequest, res: NextApiResponse) => {
   };
 
   // this object is for the graphs
-  const metricsToEvaluate: MetricsList = {
-    time: [],
-    total_net_output_bytes: [],
-    used_memory: [],
-    connected_clients: [],
-    evicted_keys: [],
-    keyspace_hits: [],
-    keyspace_misses: [],
-    total_net_input_bytes: [],
-    uptime_in_seconds: [],
-  };
+  // const metricsToEvaluate: MetricsList = {
+  //   time: [],
+  //   total_net_output_bytes: [],
+  //   used_memory: [],
+  //   connected_clients: [],
+  //   evicted_keys: [],
+  //   keyspace_hits: [],
+  //   keyspace_misses: [],
+  //   total_net_input_bytes: [],
+  //   uptime_in_seconds: [],
+  // };
   const { method }: { method?: string } = req;
   switch (method) {
     case 'POST':
@@ -54,7 +51,6 @@ const redisAPI = async (req: NextApiRequest, res: NextApiResponse) => {
         const metrics: string = await redis.info();
         const splitMetrics: string[] = metrics.split('\r\n');
         const today = new Date();
-        const dateRecorded = today.toDateString();
         const updatedSeconds =
           today.getSeconds().toString().length === 1
             ? `0${today.getSeconds()}`
@@ -69,26 +65,22 @@ const redisAPI = async (req: NextApiRequest, res: NextApiResponse) => {
             : today.getHours();
         const time = `${updatedHours}-${updatedMinutes}-${updatedSeconds}`;
         splitMetrics[splitMetrics.length] = `time: ${time}`;
-        // console.log(splitMetrics);
         splitMetrics.forEach((currentMetric: string) => {
           // we split it again to find the keys and values of each line
           // currentMetric format example:
           // 'used_memory:572856'
-          const [metricName, metricValue] = currentMetric.split(':');
+          let [metricName, metricValue] = currentMetric.split(':');
           if (metricValue !== undefined) {
-            const metricNameUserDate = `${ssid}:${metricName}:${endpoint}:${dateRecorded}:${time}`;
-            if (metricName in metricsToEvaluate) {
-              metricsToEvaluate[metricName].push(metricValue);
-              // } else {
-              //   metricsToEvaluate[metricName] = [metricValue];
-              // }
+            if (metricName in metricsUpdated) {
+              if (metricName === 'time') {
+                metricValue = metricValue.replace(/-/g, ':').trim();
+              }
               metricsUpdated[metricName] = metricValue;
             }
-            redis.rpush(metricNameUserDate, metricValue);
           }
         });
         redis.quit();
-        return res.status(200).json(metricsToEvaluate);
+        return res.status(200).json(metricsUpdated);
       } catch (err) {
         console.log(err);
         return res.status(400).send('Unable to get metrics from Redis server');

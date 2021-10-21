@@ -63,7 +63,7 @@ export interface ActionCurrentServer {
 
 export interface ActionMetrics {
   type: string;
-  message: string[];
+  message: Metrics;
 }
 
 export interface ActionInterval {

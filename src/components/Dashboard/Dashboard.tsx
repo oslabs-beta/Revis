@@ -7,7 +7,6 @@ import styles from '../../styles/Dashboard.module.scss';
 import SignOutButton from '../Globals/SignOutButton';
 import NavBarDashboard from './NavBarDashboard';
 import { Context } from '../../context/interfaces';
-import Graph from '../Graphs/Singular/Graph';
 import MultipleGraphContainer from '../Graphs/Multiple/MultipleGraphContainer';
 
 export default function Dashboard() {

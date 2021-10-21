@@ -22,7 +22,6 @@ const validateUser = async (req: NextApiRequest, res: NextApiResponse) => {
         let SQLquery: string = `SELECT session FROM PUBLIC.USERS where username = '${username}';`;
         let { rows } = await db.query(SQLquery);
         const { session }: string = rows[0];
-        console.log(session, sessionCookie);
         if (session !== sessionCookie)
           throw Error('Invalid session token. Please log in to view servers.');
 

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import router from 'next/router';
 import { useStore } from '../../context/Provider';
 import styles from '../../styles/UpdateInterval.module.scss';
-import { Context } from '../../context/interfaces';
+import { Context, Metrics } from '../../context/interfaces';
 
 function UpdateInterval() {
   const { metricsStore, graphInterval, currentServer }: Context = useStore();
@@ -24,7 +23,7 @@ function UpdateInterval() {
           port: `${port}`,
         }),
       });
-      const updatedMetrics: string[] = await response.json();
+      const updatedMetrics: Metrics = await response.json();
       metricsDispatch({
         type: 'updateMetrics',
         message: updatedMetrics,
@@ -57,7 +56,6 @@ function UpdateInterval() {
   };
   return (
     <div className={styles.underDashboard}>
-     
       <div className={styles.textAndSwitch}>
         <label className={styles.switch}>
           <input
