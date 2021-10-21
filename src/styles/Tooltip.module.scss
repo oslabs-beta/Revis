@@ -9,7 +9,7 @@
   padding: 5px;
   border-radius: 5px;
   top: calc(100% + 5px);
-  display: none;
+
 }
 
 .tooltipBoxVisible {
@@ -25,10 +25,9 @@
   border-color: transparent transparent rgba(0, 0, 0, 0.7) transparent;
 }
 .tooltip {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-image: url('https://icons.veryicon.com/png/o/miscellaneous/cockpit/tooltip-2.png');
+  width: 3vh;
+  height: 3vh;
+  background-image: url("https://icons.veryicon.com/png/o/miscellaneous/cockpit/tooltip-2.png");
   background-size: cover;
   background-position: center;
   position: relative;
@@ -41,9 +40,10 @@
   --tooltip-color: #ce5f30d9;
 
   position: absolute;
-  top: -.25rem;
+  top: -0.25rem;
   left: 50%;
-  transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
+  transform: translateX(-50%) translateY(var(--translate-y, 0))
+    scale(var(--scale));
   transition: 150ms transform;
   transform-origin: bottom center;
 }
@@ -53,12 +53,11 @@
 
   content: attr(data-tooltip);
   color: white;
-  padding: .5rem;
-  border-radius: .3rem;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
   text-align: center;
-  width: max-content;
-  max-width: 100%;
   background: var(--tooltip-color);
+  z-index: 1;
 }
 
 .tooltip:hover::before,
@@ -69,7 +68,7 @@
 .tooltip::after {
   --translate-y: calc(-1 * var(--arrow-size));
 
-  content: '';
+  content: "";
   border: var(--arrow-size) solid transparent;
   border-top-color: var(--tooltip-color);
   transform-origin: top center;

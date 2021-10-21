@@ -1,4 +1,4 @@
-@import './colorsAndFonts.scss';
+@import "./colorsAndFonts.scss";
 .serverWrapper {
   display: flex;
   margin-bottom: 1rem;
@@ -15,33 +15,29 @@
       text-align: center;
       align-content: center;
       overflow: hidden;
-      // color: white;
+      font-family: $fontOfLogo;
       font-weight: bolder;
-      font-size: 2rem;
+      font-size: 1rem;
       transition: ease 0.5s;
       border-radius: 0.25rem;
     }
   }
+
   .server {
     display: flex;
     gap: 1rem;
+    height: 6vh;
     padding-left: 1.5rem;
     padding-top: 0.5rem;
     padding-bottom: 1rem;
     padding-right: 1rem;
     white-space: nowrap;
-    // grid-template-columns: repeat(2, 0.5fr);
     align-items: center;
-    // gap: 0.2%;
-    // margin-top: 3rem;
-    // margin-left: -2.6rem;
     border-radius: 0.25rem;
-    // border: 2px solid $summaryTitleGrey;
-    // text-align: center;
-    font-size: 01rem;
-    width: 9rem;
-    // color: var(--logoColor);
-    background-color: var(--lightgrey);
+    font-size: 1.7vh;
+    width: 16vh;
+    color: var(--grey);
+    background-color: var(--background);
     font-family: $fontOfSummaryTitle;
 
     #checkBox {
@@ -52,35 +48,11 @@
       width: 1.2rem;
       cursor: pointer;
     }
-  }
-  .serverSelected {
-    display: grid;
-    padding-left: 1.5rem;
-    padding-top: 0.5rem;
-    padding-bottom: 1rem;
-    padding-right: 1rem;
-    white-space: nowrap;
-    // grid-template-columns: repeat(2, 0.5fr);
-    align-items: center;
-    // gap: 0.2%;
-    // margin-top: 3rem;
-    // margin-left: -2.6rem;
-    border-radius: 0.25rem;
-    // border: 2px solid $summaryTitleGrey;
-    // text-align: center;
-    font-size: 1rem;
-    width: 9rem;
-    // color: var(--logoColor);
-    background-color: #a1b8a1;
-    font-family: $fontOfSummaryTitle;
-
-    #checkBox {
-      position: relative;
-      left: 90%;
-      top: 20%;
-      height: 1.2rem;
-      width: 1.2rem;
-      cursor: pointer;
+    #squareChecked {
+      color: var(--green);
+    }
+    #squareUnChecked {
+      color: var(--grey);
     }
   }
 }

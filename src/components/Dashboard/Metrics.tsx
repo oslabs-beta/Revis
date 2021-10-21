@@ -1,17 +1,17 @@
-import React, { ReactElement } from 'react';
-import propTypes from 'prop-types';
-import router from 'next/router';
-import { useStore } from '../../context/Provider';
-import styles from '../../styles/Summary.module.scss';
-import { Context, MetricsProps } from '../../context/interfaces';
-import Tooltip from './Tooltip';
+import React, { ReactElement } from "react";
+import propTypes from "prop-types";
+import router from "next/router";
+import { useStore } from "../../context/Provider";
+import styles from "../../styles/Summary.module.scss";
+import { Context, MetricsProps } from "../../context/interfaces";
+import Tooltip from "./Tooltip";
 
 export default function Metrics(props: MetricsProps): ReactElement {
   const { metricName, metricValue }: MetricsProps = props;
   const { metricToGraph }: Context = useStore();
 
   const cleanNames = (string: string): string[] => {
-    const splitNames: string[] = string.split('_');
+    const splitNames: string[] = string.split("_");
     const capitilizeFirstLetter: string[] = splitNames.map((str) => {
       const firstLetter: string = str[0].toUpperCase();
       return firstLetter + str.slice(1);
@@ -21,16 +21,18 @@ export default function Metrics(props: MetricsProps): ReactElement {
 
   return (
     <div className={styles.metrics}>
-      <h5>{cleanNames(metricName).join(' ')}</h5>
-      <Tooltip metric={metricName} />
+      <div className={styles.metricsAndTooltip}>
+        <h5>{cleanNames(metricName).join(" ")}</h5>
+        <Tooltip metric={metricName} />
+      </div>
       <button
         type="button"
         onClick={(): void => {
           metricToGraph.selectedMetricDispatch({
-            type: 'updateSelectedMetric',
+            type: "updateSelectedMetric",
             message: metricName,
           });
-          router.replace('/graphs');
+          router.replace("/graphs");
         }}
       >
         {metricValue}

@@ -23,6 +23,7 @@ export default function Summary() {
           password: `${password}`,
           port: `${port}`,
         }),
+        headers: { 'Content-Type': 'application/json' },
       });
       const updatedMetrics: string[] = await response.json();
       metricsDispatch({

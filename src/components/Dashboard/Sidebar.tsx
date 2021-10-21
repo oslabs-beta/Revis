@@ -1,11 +1,12 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCube } from '@fortawesome/free-solid-svg-icons';
-import ServerAdd from './Servers/ServerAdd';
-import ServerList from './Servers/ServerList';
-import { useStore } from '../../context/Provider';
-import styles from '../../styles/Sidebar.module.scss';
-import { Context } from '../../context/interfaces';
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCube } from "@fortawesome/free-solid-svg-icons";
+import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import ServerAdd from "./Servers/ServerAdd";
+import ServerList from "./Servers/ServerList";
+import { useStore } from "../../context/Provider";
+import styles from "../../styles/Sidebar.module.scss";
+import { Context } from "../../context/interfaces";
 
 function Sidebar() {
   const [sideBarHidden, showOrHideSideBar] = useState(false);
@@ -17,14 +18,14 @@ function Sidebar() {
 
   const populateServerList = () => {
     if (serverList.length > 0) return;
-    fetch('/api/servers')
+    fetch("/api/servers")
       .then((response) => response.json())
       .then((data) => {
         const cloudData: string[] = data.cloud;
 
         if (cloudData && cloudData.length > 0) {
           serversDispatch({
-            type: 'populateList',
+            type: "populateList",
             message: [...cloudData],
           });
         }
@@ -37,19 +38,19 @@ function Sidebar() {
     password: string,
     port: string
   ) =>
-    fetch('/api/verifyEndpoint', {
-      method: 'POST',
+    fetch("/api/verifyEndpoint", {
+      method: "POST",
       body: JSON.stringify({ endpoint, password, port }),
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     }).then((response) => response.status === 200);
 
   const nameValidityChecks = (nameElement: HTMLInputElement) => {
     if (nameElement.validity.valueMissing) {
-      nameElement.setCustomValidity('Please input at least four characters');
+      nameElement.setCustomValidity("Please input at least four characters");
       nameElement.reportValidity();
       return false;
     }
-    nameElement.setCustomValidity('');
+    nameElement.setCustomValidity("");
 
     const alreadyAddedServerName: boolean = serverList.some(
       (elem) => elem.name === nameElement.value
@@ -57,7 +58,7 @@ function Sidebar() {
 
     if (alreadyAddedServerName) {
       nameElement.setCustomValidity(
-        'This name has already been added. Please enter a unique name.'
+        "This name has already been added. Please enter a unique name."
       );
       nameElement.reportValidity();
       return false;
@@ -65,7 +66,7 @@ function Sidebar() {
 
     if (nameElement.validity.patternMismatch) {
       nameElement.setCustomValidity(
-        'Names can only be letters and must be at least 4 characters long.'
+        "Names can only be letters and must be at least 4 characters long."
       );
       nameElement.reportValidity();
     }
@@ -74,7 +75,7 @@ function Sidebar() {
       !nameElement.validity.valueMissing &&
       !nameElement.validity.patternMismatch
     )
-      nameElement.setCustomValidity('');
+      nameElement.setCustomValidity("");
     return true;
   };
   const portValidityChecks = (portElement: HTMLInputElement) => {
@@ -83,12 +84,12 @@ function Sidebar() {
       portElement.validity.valueMissing
     ) {
       portElement.setCustomValidity(
-        'Please input a proper port number (eg. 8080)'
+        "Please input a proper port number (eg. 8080)"
       );
       portElement.reportValidity();
       return false;
     }
-    portElement.setCustomValidity('');
+    portElement.setCustomValidity("");
     return true;
   };
 
@@ -99,7 +100,7 @@ function Sidebar() {
 
     if (alreadyAddedServerEndpoint) {
       endpointElement.setCustomValidity(
-        'This endpoint URL has already been added. Please input a unique URL.'
+        "This endpoint URL has already been added. Please input a unique URL."
       );
       endpointElement.reportValidity();
       return false;
@@ -110,7 +111,7 @@ function Sidebar() {
     ) {
       return false;
     }
-    endpointElement.setCustomValidity('');
+    endpointElement.setCustomValidity("");
     return true;
   };
 
@@ -128,10 +129,10 @@ function Sidebar() {
 
   const addServer = async (e) => {
     e.preventDefault();
-    const name: HTMLInputElement = document.querySelector('#name');
-    const endpoint: HTMLInputElement = document.querySelector('#endpoint');
-    const password: HTMLInputElement = document.querySelector('#redisPassword');
-    const port: HTMLInputElement = document.querySelector('#PORT');
+    const name: HTMLInputElement = document.querySelector("#name");
+    const endpoint: HTMLInputElement = document.querySelector("#endpoint");
+    const password: HTMLInputElement = document.querySelector("#redisPassword");
+    const port: HTMLInputElement = document.querySelector("#PORT");
 
     if (validityCheckOnSubmit(name, endpoint, port)) {
       const correctServerEndpoint = await checkEndpoint(
@@ -140,14 +141,14 @@ function Sidebar() {
         port.value
       );
       if (!correctServerEndpoint) {
-        endpoint.setCustomValidity('Invalid endpoint or password.');
+        endpoint.setCustomValidity("Invalid endpoint or password.");
         endpoint.reportValidity();
         return;
       }
-      endpoint.setCustomValidity('');
+      endpoint.setCustomValidity("");
 
       serversDispatch({
-        type: 'addServer',
+        type: "addServer",
         message: {
           name: name.value,
           endpoint: endpoint.value,
@@ -161,17 +162,20 @@ function Sidebar() {
 
   const changeSidebarVisual = () => {
     if (sideBarHidden) {
-      document.querySelector('#sideBar').style.width = '100%';
-      document.querySelector(`#${styles.cube}`).style.left = '20rem';
-      document.querySelector(`#${styles.cube}`).style.top = '3.2rem';
-      document.querySelector(`#${styles.cube}`).style.color =
-        'rgba(205, 200, 200, 0.845)';
+      document.querySelector("#sideBar").style.width = "40vh";
+      document.querySelector(`#${styles.cube}`).style.left = "15rem";
+      document.querySelector(`#${styles.cube}`).style.top = "1rem";
+      document.querySelector(`#${styles.cube}`).style.color = "transparent";
+      document.querySelector(`#${styles.close}`).style.color =
+        "rgba(205, 200, 200, 0.845)";
     } else {
-      document.querySelector('#sideBar').style.width = '0px';
-      document.querySelector('#sideBar').style.overflow = 'hidden';
-      document.querySelector(`#${styles.cube}`).style.left = '0%';
-      document.querySelector(`#${styles.cube}`).style.top = '46%';
-      document.querySelector(`#${styles.cube}`).style.color = '#e38d41e9';
+      document.querySelector("#sideBar").style.width = "0px";
+      document.querySelector("#sideBar").style.overflow = "hidden";
+      document.querySelector(`#${styles.cube}`).style.left = "0%";
+      document.querySelector(`#${styles.cube}`).style.top = "46%";
+      document.querySelector(`#${styles.cube}`).style.color = "#e38d41e9";
+
+      document.querySelector(`#${styles.close}`).style.color = "transparent";
     }
     showOrHideSideBar(!sideBarHidden);
   };
@@ -189,6 +193,14 @@ function Sidebar() {
         <FontAwesomeIcon
           id={styles.cube}
           icon={faCube}
+          onClick={changeSidebarVisual}
+          values="close"
+        />
+      </span>
+      <span className={styles.closeSpan}>
+        <FontAwesomeIcon
+          id={styles.close}
+          icon={faWindowClose}
           onClick={changeSidebarVisual}
           values="close"
         />

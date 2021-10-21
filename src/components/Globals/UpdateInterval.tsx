@@ -57,9 +57,7 @@ function UpdateInterval() {
   };
   return (
     <div className={styles.underDashboard}>
-      <button type="button" onClick={() => router.replace('/redisinfo')}>
-        Go to graphs
-      </button>
+     
       <div className={styles.textAndSwitch}>
         <label className={styles.switch}>
           <input

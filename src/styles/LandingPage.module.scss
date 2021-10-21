@@ -8,8 +8,8 @@
 
   .NavBar {
     position: absolute;
-    left: 75%;
-    top: 3%;
+    left: 73%;
+    top: 4%;
     display: flex;
     gap: 5%;
 
@@ -38,8 +38,11 @@
       }
     }
     #shadow {
-
-      background-image: radial-gradient(rgb(80, 80, 80) 0%, rgb(228, 227, 227),rgba(150, 150, 150, 0.05) );
+      background-image: radial-gradient(
+        rgb(80, 80, 80) 0%,
+        rgb(228, 227, 227),
+        rgba(150, 150, 150, 0.05)
+      );
       width: 40%;
       color: transparent;
       animation: shadowGrow 0.6s;
@@ -91,7 +94,8 @@
     h2 {
       width: 50%;
       text-align: center;
-      font-family: $fontOfButtons;
+      font-family: $fontOfMetrics;
+      font-size: 2rem;
     }
 
     .buttonDiv {
@@ -106,8 +110,9 @@
         border-color: transparent;
         width: 10vh;
         height: 5vh;
-        font-size: 2vh;
-        font-family: $fontOfSummaryTitle;
+        font-size: 1.8vh;
+        font-family: $fontOfButtons;
+        font-weight: bold;
       }
     }
 

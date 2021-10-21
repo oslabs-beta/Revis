@@ -31,12 +31,13 @@ const redisAPI = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'POST':
       try {
+        if (typeof req.body !== 'string')
+          return res
+            .status(400)
+            .send('Unable to get metrics from Redis server');
         const parsedBody: ParsedBodyRedis = JSON.parse(req.body);
         const { endpoint, password, port } = parsedBody;
-        // if (endpoint === '' || password === '' || port === '')
-        //   return res
-        //     .status(400)
-        //     .send('Unable to get metrics from Redis server');
+
         const redis = new Redis({
           host: endpoint,
           port,
@@ -47,14 +48,23 @@ const redisAPI = async (req: NextApiRequest, res: NextApiResponse) => {
 
         const metrics: string = await redis.info();
         const splitMetrics: string[] = metrics.split('\r\n');
+        const today = new Date();
+        const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
+        splitMetrics[splitMetrics.length] = `time: ${time}`;
         splitMetrics.forEach((currentMetric: string) => {
           // we split it again to find the keys and values of each line
           // currentMetric format example:
           // 'used_memory:572856'
           const [metricName, metricValue] = currentMetric.split(':');
-          if (metricName in metricsToEvaluate) {
-            metricsToEvaluate[metricName].push(metricValue);
-            metricsUpdated[metricName] = metricValue;
+          if (metricValue !== undefined) {
+            if (metricName in metricsToEvaluate) {
+              metricsToEvaluate[metricName].push(metricValue);
+              // } else {
+              //   metricsToEvaluate[metricName] = [metricValue];
+              // }
+              metricsUpdated[metricName] = metricValue;
+            }
+            redis.rpush(metricName, metricValue);
           }
         });
         redis.quit();

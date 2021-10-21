@@ -1,12 +1,19 @@
 @import "./colorsAndFonts.scss";
 
 .sideBarWrapper {
-  border-right: 5px solid var(--logoColor);
-
-  width: 100%;
-  height: 60rem;
+  background-color: var(--logoColor);
+  width: 40vh;
+  height: 100vh;
   transition: 0.5s ease;
-  color: var(--grey);
+  color: var(--background);
+  border-radius: 4px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  // flex-direction: column;
+  align-items: center;
+  justify-content:center;
 
   h1 {
     color: var(--grey);
@@ -17,23 +24,27 @@
   .cubeSpan {
     #cube {
       position: fixed;
-      top: 3.2rem;
-      left: 20rem;
+      top: 1rem;
+      left: 15rem;
       width: 10vh;
-      color: rgba(184, 180, 180, 0.845);
+      color: transparent;
       height: 6vh;
       cursor: pointer;
       transition: 0.75s ease;
     }
   }
-
-  input {
-    border-color: transparent;
-    padding: 1%;
-    margin: 2%;
-    border-radius: 4px;
-    color: var(--grey);
+  #close {
+    position: fixed;
+    top: 0;
+    left: 33vh;
+    width: 10vh;
+    color: rgba(184, 180, 180, 0.845);
+    height: 3vh;
+    cursor: pointer;
+    transition: 0.75s ease;
+    color: var(--background);
   }
+
   label {
     font-family: $fontOfMetrics;
     margin-left: 30px;
