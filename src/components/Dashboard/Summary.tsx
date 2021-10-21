@@ -45,6 +45,11 @@ export default function Summary() {
 
   Object.entries(metricState[latestDataLength]).forEach(
     (metric: [string, string]) => {
+      if (metric[0].includes('memory')) metric[0] += ' (MB)';
+      if (metric[0].includes('in_seconds'))
+        metric[0] = metric[0].replace(/in_seconds/i, '(Hours)');
+      if (metric[0].includes('bytes'))
+        metric[0] = metric[0].replace(/bytes/i, '(MB)');
       if (metric[0] !== 'time')
         metricsForTable.push(
           <Metrics
