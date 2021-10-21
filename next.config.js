@@ -10,6 +10,8 @@ module.exports = {
   },
   images: {
     domains: ['tonygentilcore.com'],
+    loader: 'imgix',
+    path: '/',
   },
   excludeFile: (str) => /\*.{spec,tests}.js/.test(str),
   typescript: {

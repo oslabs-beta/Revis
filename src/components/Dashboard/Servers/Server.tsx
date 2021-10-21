@@ -1,10 +1,10 @@
-import PropTypes from "prop-types";
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSquare, faCheckSquare } from "@fortawesome/free-solid-svg-icons";
-import { useStore } from "../../../context/Provider";
-import styles from "../../../styles/Server.module.scss";
-import { Context } from "../../../context/interfaces";
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
+import { useStore } from '../../../context/Provider';
+import styles from '../../../styles/Server.module.scss';
+import { Context } from '../../../context/interfaces';
 
 export default function Server(props) {
   const { name, currentDivHover, changeDivHover } = props;
@@ -15,7 +15,7 @@ export default function Server(props) {
 
   const removeServer = (e) => {
     serversDispatch({
-      type: "deleteServer",
+      type: 'deleteServer',
       message: { name: e.target.id },
     });
   };
@@ -25,15 +25,15 @@ export default function Server(props) {
       `#${wrapperName}`
     );
     changeDivHover(removeServerDiv);
-    removeServerDiv.style.width = "100%";
-    removeServerDiv.style.backgroundColor = "var(--red)";
-    removeServerDiv.innerHTML = "X";
+    removeServerDiv.style.width = '100%';
+    removeServerDiv.style.backgroundColor = 'var(--red)';
+    removeServerDiv.innerHTML = 'X';
   };
   const keepServerAnimation = () => {
     if (currentDivHover) {
-      currentDivHover.style.width = "0%";
-      currentDivHover.style.backgroundColor = "white";
-      currentDivHover.innerHTML = "";
+      currentDivHover.style.width = '0%';
+      currentDivHover.style.backgroundColor = 'white';
+      currentDivHover.innerHTML = '';
     }
   };
 
@@ -42,16 +42,16 @@ export default function Server(props) {
       // look for the information at the serverlist global state
       servers.serverList.forEach((server) => {
         if (server.name === name) {
-          fetch("/api/validateUser", {
-            method: "POST",
+          fetch('/api/validateUser', {
+            method: 'POST',
             body: JSON.stringify({ endpoint: server.endpoint }),
             // headers: { 'Content-Type': 'application/json' },
           })
             .then((response) => response.json())
             .then((data) => {
-              if ("password" in data) {
+              if ('password' in data) {
                 selectedServerDispatch({
-                  type: "currentServer",
+                  type: 'currentServer',
                   message: {
                     name: server.name,
                     endpoint: server.endpoint,
