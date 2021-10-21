@@ -71,6 +71,11 @@ export interface ActionInterval {
   message: boolean;
 }
 
+export interface ActionMetricHistory {
+  type: string;
+  message: { date: string; data: Metrics[] };
+}
+
 export interface HomePageProps {
   onForgotPassword?: () => void;
   onSignUp?: () => void;
@@ -102,6 +107,11 @@ export interface MultipleGraphs {
   keyspace_misses?: boolean;
   total_net_input_bytes?: boolean;
   uptime_in_seconds?: boolean;
+}
+
+export interface MetricHistoryInterface {
+  date: string;
+  data: Metrics[];
 }
 
 export interface UserContext {
@@ -136,6 +146,12 @@ export interface GraphIntervalContext {
   updateInterval: Interval;
   updateIntervalDispatch: Dispatch<ActionInterval>;
 }
+
+export interface MetricHistoryContext {
+  metricHistoryState: MetricHistoryInterface[];
+  metricHistoryDispatch: Dispatch<ActionMetricHistory>;
+}
+
 export interface Context {
   user?: UserContext;
   metricsStore?: MetricsStoreContext;
@@ -145,4 +161,5 @@ export interface Context {
   multipleGraphSelections?: MultipleGraphSelectionsContext;
   themeContext?: ThemeContext;
   graphInterval?: GraphIntervalContext;
+  metricHistory?: MetricHistoryContext;
 }
