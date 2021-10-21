@@ -14,6 +14,10 @@ export default function Summary() {
   const { endpoint, password, port } = selectedServer;
   const { metricState, metricsDispatch } = metricsStore;
 
+  // const postMetricsToSQL = () =>{
+
+  // }
+
   useEffect(() => {
     if (endpoint === '' || password === '' || port === '') return;
     async function fetchDataFromRedis() {
