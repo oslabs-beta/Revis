@@ -21,14 +21,18 @@ const validateUser = async (req: NextApiRequest, res: NextApiResponse) => {
         const sessionCookie: string = cookies.get('session');
         let SQLquery: string = `SELECT session FROM PUBLIC.USERS where username = '${username}';`;
         let { rows } = await db.query(SQLquery);
-        const { session }: string = rows[0];
+        const { session }: { session: string } = rows[0];
         if (session !== sessionCookie)
           throw Error('Invalid session token. Please log in to view servers.');
 
-        SQLquery = `SELECT password FROM "${process.env.PG_TABLE_REDIS}" where endpoint = '${endpoint}';`;
+        SQLquery = `SELECT id, "${process.env.PG_TABLE_REDIS}".password as password 
+        FROM "${process.env.PG_TABLE_CLOUD}" INNER JOIN "${process.env.PG_TABLE_REDIS}" on 
+        "${process.env.PG_TABLE_CLOUD}".endpoint = "${process.env.PG_TABLE_REDIS}".endpoint AND 
+        "${process.env.PG_TABLE_CLOUD}".endpoint = '${endpoint}' ;`;
         ({ rows } = await db.query(SQLquery));
-        const password: string = rows[0];
-        return res.status(200).json(password);
+        const { id, password }: { id: string; password: string } = rows[0];
+        cookies.set('serverID', id);
+        return res.status(200).json({ password });
       } catch (err) {
         console.log(err);
         return res.status(400).json({ error: err });

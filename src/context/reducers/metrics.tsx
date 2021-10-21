@@ -5,7 +5,7 @@ const metrics = (state: Metrics[], action: ActionMetrics) => {
 
   switch (action.type) {
     case 'updateMetrics':
-      console.log(metricsList);
+      // console.log(metricsList);
       metricsList.push(action.message);
       return metricsList;
     default:

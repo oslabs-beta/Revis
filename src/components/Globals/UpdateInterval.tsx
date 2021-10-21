@@ -10,8 +10,14 @@ function UpdateInterval() {
   const { selectedServer } = currentServer;
   const { endpoint, password, port } = selectedServer;
   const [render, reRender] = useState(false);
-  const { metricsDispatch } = metricsStore;
+  const { metricState, metricsDispatch } = metricsStore;
 
+  const storeDataInPG = () => {
+    fetch('/api/metricHistory', {
+      method: 'POST',
+      body: JSON.stringify(metricState),
+    });
+  };
   useEffect(() => {
     if (endpoint === '' || password === '' || port === '') return;
     async function fetchDataFromRedis() {
