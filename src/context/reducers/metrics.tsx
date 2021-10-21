@@ -2,10 +2,17 @@ import { Metrics, ActionMetrics } from '../interfaces';
 
 const metrics = (state: Metrics[], action: ActionMetrics) => {
   const metricsList = state.slice();
-  const today = new Date();
-  const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
 
-  const metricsWithTime = { time, ...action.message };
+  const reformatDataForDB = (metrics: Metrics[]) => {
+    const reformattedData = {};
+    metrics.forEach((metricData) => {
+      Object.entries(metricData).forEach(([metricName, value]) => {
+        if (!(metricName in reformattedData)) reformattedData[metricName] = [];
+        reformattedData[metricName].push(value);
+      });
+    });
+    return reformattedData;
+  };
 
   switch (action.type) {
     case 'updateMetrics':
@@ -26,6 +33,7 @@ const metrics = (state: Metrics[], action: ActionMetrics) => {
       ).toFixed(2);
 
       metricsList.push(action.message);
+      // console.log(reformatDataForDB(metricsList));
       return metricsList;
     default:
       return state;

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import router from 'next/router';
 import { useStore } from '../../context/Provider';
 import styles from '../../styles/UpdateInterval.module.scss';
-import { Context } from '../../context/interfaces';
+import { Context, Metrics } from '../../context/interfaces';
 
 function UpdateInterval() {
   const { metricsStore, graphInterval, currentServer }: Context = useStore();
@@ -11,8 +10,24 @@ function UpdateInterval() {
   const { selectedServer } = currentServer;
   const { endpoint, password, port } = selectedServer;
   const [render, reRender] = useState(false);
-  const { metricsDispatch } = metricsStore;
+  const { metricState, metricsDispatch } = metricsStore;
 
+  const reformatDataForDB = (metrics: Metrics[]) => {
+    const reformattedData = {};
+    metrics.forEach((metricData) => {
+      Object.entries(metricData).forEach(([metricName, value]) => {
+        if (!(metricName in reformattedData)) reformattedData[metricName] = [];
+        reformattedData[metricName].push(value);
+      });
+    });
+    return reformattedData;
+  };
+  const storeDataInPG = () => {
+    fetch('/api/metricHistory', {
+      method: 'POST',
+      body: JSON.stringify(reformatDataForDB(metricState)),
+    });
+  };
   useEffect(() => {
     if (endpoint === '' || password === '' || port === '') return;
     async function fetchDataFromRedis() {
@@ -24,7 +39,7 @@ function UpdateInterval() {
           port: `${port}`,
         }),
       });
-      const updatedMetrics: string[] = await response.json();
+      const updatedMetrics: Metrics = await response.json();
       metricsDispatch({
         type: 'updateMetrics',
         message: updatedMetrics,
@@ -57,7 +72,6 @@ function UpdateInterval() {
   };
   return (
     <div className={styles.underDashboard}>
-     
       <div className={styles.textAndSwitch}>
         <label className={styles.switch}>
           <input
