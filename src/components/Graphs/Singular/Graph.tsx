@@ -8,7 +8,6 @@ function Graph() {
   const { metricsStore, metricToGraph }: Context = useStore();
 
   const data = metricsStore.metricState;
-  console.log(data);
 
   return (
     <div>

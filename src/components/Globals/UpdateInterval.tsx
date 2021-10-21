@@ -12,10 +12,20 @@ function UpdateInterval() {
   const [render, reRender] = useState(false);
   const { metricState, metricsDispatch } = metricsStore;
 
+  const reformatDataForDB = (metrics: Metrics[]) => {
+    const reformattedData = {};
+    metrics.forEach((metricData) => {
+      Object.entries(metricData).forEach(([metricName, value]) => {
+        if (!(metricName in reformattedData)) reformattedData[metricName] = [];
+        reformattedData[metricName].push(value);
+      });
+    });
+    return reformattedData;
+  };
   const storeDataInPG = () => {
     fetch('/api/metricHistory', {
       method: 'POST',
-      body: JSON.stringify(metricState),
+      body: JSON.stringify(reformatDataForDB(metricState)),
     });
   };
   useEffect(() => {

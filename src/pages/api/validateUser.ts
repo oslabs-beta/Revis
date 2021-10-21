@@ -29,6 +29,7 @@ const validateUser = async (req: NextApiRequest, res: NextApiResponse) => {
         FROM "${process.env.PG_TABLE_CLOUD}" INNER JOIN "${process.env.PG_TABLE_REDIS}" on 
         "${process.env.PG_TABLE_CLOUD}".endpoint = "${process.env.PG_TABLE_REDIS}".endpoint AND 
         "${process.env.PG_TABLE_CLOUD}".endpoint = '${endpoint}' ;`;
+
         ({ rows } = await db.query(SQLquery));
         const { id, password }: { id: string; password: string } = rows[0];
         cookies.set('serverID', id);

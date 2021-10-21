@@ -49,7 +49,6 @@ export default function Server(props) {
           })
             .then((response) => response.json())
             .then((data) => {
-              console.log(data);
               if ('password' in data) {
                 selectedServerDispatch({
                   type: 'currentServer',
