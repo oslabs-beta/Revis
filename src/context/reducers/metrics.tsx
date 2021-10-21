@@ -9,7 +9,8 @@ const metrics = (state: Metrics[], action: ActionMetrics) => {
 
   switch (action.type) {
     case 'updateMetrics':
-      metricsList.push(metricsWithTime);
+      console.log(metricsList);
+      metricsList.push(action.message);
       return metricsList;
     default:
       return state;
