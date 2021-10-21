@@ -3,7 +3,7 @@ import router from 'next/router';
 import PropTypes from 'prop-types';
 import styles from '../../styles/Homepage.module.scss';
 import { useStore } from '../../context/Provider';
-import { User, HomePageProps } from '../interfaces';
+import { User, HomePageProps } from '../../context/interfaces';
 
 function UserLogin({ onForgotPassword, onSignUp }: HomePageProps) {
   const [userInfo, setUserInfo] = useState<User>({
