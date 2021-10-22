@@ -29,16 +29,17 @@
 }
 
 .MultipleGraphContainer {
-  margin-top: 3rem;
+ 
   h1 {
-    font-family: $fontOfSummaryTitle;
+    font-family: $fontOfMetrics;
     color: var(--grey);
+    font-size:3vh;
   }
 
   .LeftMenu {
     position: absolute;
-    top: 20%;
-    left: 15%;
+    top: 20vh;
+    left: 47vh;
     font-size: 1.2rem;
     font-family: $fontOfMetrics;
     display: flex;
@@ -58,18 +59,18 @@
     }
     .MaxGraphsMessage {
       color: rgb(205, 93, 93);
-      max-width: 12rem;
-      margin-top: 1rem;
+      max-width: 30vh;
+      margin-bottom: 1vh;
     }
   }
 
   .GraphFlex {
-    margin-left: 37%;
+    margin-left: 52vh;
     position: relative;
   }
 
   .Graph {
-    background-color: rgb(27, 27, 28);
+    background-color: rgba(84, 82, 73, 0.859);
     border-radius: 4px;
     font-family: $fontOfSummaryTitle;
   }

@@ -8,6 +8,7 @@ import SignOutButton from '../Globals/SignOutButton';
 import NavBarDashboard from './NavBarDashboard';
 import { Context } from '../../context/interfaces';
 import MultipleGraphContainer from '../Graphs/Multiple/MultipleGraphContainer';
+import UpdateInterval from '../Globals/UpdateInterval';
 
 export default function Dashboard() {
   const { user }: Context = useStore();
@@ -39,11 +40,16 @@ export default function Dashboard() {
   const viewDashboard = () => {
     setCurrentRender('dashboard');
   };
+  const viewHistory = () => {
+    setCurrentRender('history');
+  };
 
   function renderSwitch(param: string) {
     switch (param) {
       case 'latency':
         return 'latency';
+      case 'history':
+        return 'history';
       case 'multipleGraphs':
         return <MultipleGraphContainer />;
       default:
@@ -60,9 +66,11 @@ export default function Dashboard() {
               viewGraph={viewLatency}
               viewMultipleGraphs={viewMultipleGraphs}
               viewDashboard={viewDashboard}
+              history={viewHistory}
             />
             <SignOutButton />
             <Sidebar />
+            <UpdateInterval />
           </div>
           <div className={styles.summaryWrapper}>
             {renderSwitch(currentRender)}

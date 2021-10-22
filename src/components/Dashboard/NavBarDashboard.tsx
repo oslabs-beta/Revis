@@ -4,7 +4,7 @@ import { faCube } from "@fortawesome/free-solid-svg-icons";
 import styles from "../../styles/Dashboard.module.scss";
 
 function NavBarDashboard(props) {
-  const { viewLatency, viewMultipleGraphs, viewDashboard } = props;
+  const { viewLatency, viewMultipleGraphs, viewDashboard, history } = props;
   return (
     <div className={styles.navBarDashboardWrapper}>
        <div className={styles.cubeAndShadowWrapper}>
@@ -19,6 +19,9 @@ function NavBarDashboard(props) {
       </button>
       <button type="button" onClick={viewMultipleGraphs}>
         Multiple graphs
+      </button>
+      <button type="button" onClick={history}>
+        History
       </button>
       <button type="button" onClick={viewDashboard}>
         Summary

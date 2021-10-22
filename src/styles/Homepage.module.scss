@@ -38,12 +38,15 @@
       outline: none;
     }
 
+    .userInput:hover{
+      cursor:text;
+    }
+
     .logInButtonWrapper {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-
       margin-top: 1rem;
       margin-bottom: 2rem;
 
@@ -126,6 +129,11 @@
         border: solid 0.25rem transparent;
         border-radius: 0.25rem;
       }
+
+      input:hover{
+        cursor:text;
+      }
+
       input:focus {
         outline: none;
       }
@@ -183,6 +191,9 @@
         }
         input:focus {
           outline: none;
+        }
+        input:hover{
+          cursor:text;
         }
       }
     }
