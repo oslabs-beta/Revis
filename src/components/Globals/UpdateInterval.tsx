@@ -23,7 +23,6 @@ function UpdateInterval() {
     return reformattedData;
   };
   const storeDataInPG = () => {
-    console.log(metricState);
     if (metricState.length > 1) {
       fetch('/api/storeMetrics', {
         method: 'POST',
@@ -80,20 +79,18 @@ function UpdateInterval() {
   return (
     <div className={styles.underDashboard}>
       <div className={styles.textAndSwitch}>
-       
-      <div className={styles.intervalInput}>
-        Update interval in seconds:
-        <input
-          id="intervalInput"
-          type="number"
-          placeholder={placeholder}
-        ></input>
-        <button type="button" onClick={updateInterval}>
-          Update
-        </button>
-        
-      </div>
-      <label className={styles.switch}>
+        <div className={styles.intervalInput}>
+          Update interval in seconds:
+          <input
+            id="intervalInput"
+            type="number"
+            placeholder={placeholder}
+          ></input>
+          <button type="button" onClick={updateInterval}>
+            Update
+          </button>
+        </div>
+        <label className={styles.switch}>
           <input
             checked={graphInterval.updateInterval.update}
             type="checkbox"
