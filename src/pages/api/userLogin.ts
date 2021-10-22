@@ -13,7 +13,7 @@ const userLogin = async (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader('Content-Type', 'application/json');
   try {
     const cookies: Cookies = new Cookies(req, res);
-    const SQLquery: string = `SELECT * FROM PUBLIC.USERS where username = '${username}';`;
+    const SQLquery: string = `SELECT * FROM "${process.env.PG_TABLE_USERS}" where username = '${username}';`;
     const { rows } = await db.query(SQLquery);
     const userData: User = rows[0];
     const hashedPassword: string = userData.password;
@@ -24,7 +24,7 @@ const userLogin = async (req: NextApiRequest, res: NextApiResponse) => {
     const sessionID = bcrypt.hashSync(`${Date.now()}`, SALT_WORK_FACTOR);
     console.log(`User: ${username} logged in`);
     const ONE_HOUR = 1000 * 60 * 60;
-    const SQLquerySession: string = `UPDATE PUBLIC.USERS
+    const SQLquerySession: string = `UPDATE "${process.env.PG_TABLE_USERS}"
     SET session = '${sessionID}' WHERE username = '${username}';`;
     await db.query(SQLquerySession);
 

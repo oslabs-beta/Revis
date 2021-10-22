@@ -6,6 +6,8 @@ module.exports = {
     REDIS_PORT: '16424',
     REDIS_PW: 'redis',
     PG_TABLE_CLOUD: 'serverCloud',
+    PG_TABLE_METRICS: 'metrics',
+    PG_TABLE_USERS: 'users',
     PG_TABLE_REDIS: '0d94f51fdca1782b63e4fbe02794deea',
   },
   images: {

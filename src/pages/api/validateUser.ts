@@ -19,7 +19,7 @@ const validateUser = async (req: NextApiRequest, res: NextApiResponse) => {
         const parsedBody = JSON.parse(req.body);
         const { endpoint }: { endpoint: string } = parsedBody;
         const sessionCookie: string = cookies.get('session');
-        let SQLquery: string = `SELECT session FROM PUBLIC.USERS where username = '${username}';`;
+        let SQLquery: string = `SELECT session FROM "${process.env.PG_TABLE_USERS}" where username = '${username}';`;
         let { rows } = await db.query(SQLquery);
         const { session }: { session: string } = rows[0];
         if (session !== sessionCookie)
