@@ -48,6 +48,11 @@
       width: 1.2rem;
       cursor: pointer;
     }
+
+    #checkBox:hover{
+      cursor:pointer;
+    }
+    
     #squareChecked {
       color: var(--green);
     }
