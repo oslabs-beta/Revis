@@ -17,16 +17,19 @@ function UpdateInterval() {
     metrics.forEach((metricData) => {
       Object.entries(metricData).forEach(([metricName, value]) => {
         if (!(metricName in reformattedData)) reformattedData[metricName] = [];
-        reformattedData[metricName].push(value);
+        reformattedData[metricName].push(`'${value}'`);
       });
     });
     return reformattedData;
   };
   const storeDataInPG = () => {
-    fetch('/api/metricHistory', {
-      method: 'POST',
-      body: JSON.stringify(reformatDataForDB(metricState)),
-    });
+    console.log(metricState);
+    if (metricState.length > 1) {
+      fetch('/api/storeMetrics', {
+        method: 'POST',
+        body: JSON.stringify(reformatDataForDB(metricState)),
+      });
+    }
   };
   useEffect(() => {
     if (endpoint === '' || password === '' || port === '') return;
@@ -44,13 +47,17 @@ function UpdateInterval() {
         type: 'updateMetrics',
         message: updatedMetrics,
       });
+      storeDataInPG();
     }
     if (selectedServer.name !== undefined) {
       fetchDataFromRedis();
       const interval = setInterval(fetchDataFromRedis, time);
+
       if (graphInterval.updateInterval.update === false)
         clearInterval(interval);
-      return () => clearInterval(interval);
+      return () => {
+        clearInterval(interval);
+      };
     }
   }, [selectedServer, render]);
 

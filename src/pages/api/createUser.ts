@@ -17,7 +17,7 @@ const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const cookies: Cookies = new Cookies(req, res);
     hashedPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
-    const SQLquery: string = `INSERT INTO PUBLIC.USERS (username,password,email)
+    const SQLquery: string = `INSERT INTO "${process.env.PG_TABLE_USERS}" (username,password,email)
          VALUES ('${username}','${hashedPassword}','${email}')
          RETURNING user_id;`;
     const userId: number = await db.query(SQLquery);
