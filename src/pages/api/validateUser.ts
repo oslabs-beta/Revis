@@ -25,14 +25,29 @@ const validateUser = async (req: NextApiRequest, res: NextApiResponse) => {
         if (session !== sessionCookie)
           throw Error('Invalid session token. Please log in to view servers.');
 
-        SQLquery = `SELECT id, "${process.env.PG_TABLE_REDIS}".password as password 
+        SQLquery = `SELECT id,lastcalled, previouslycalled, "${process.env.PG_TABLE_REDIS}".password as password 
         FROM "${process.env.PG_TABLE_CLOUD}" INNER JOIN "${process.env.PG_TABLE_REDIS}" on 
         "${process.env.PG_TABLE_CLOUD}".endpoint = "${process.env.PG_TABLE_REDIS}".endpoint AND 
         "${process.env.PG_TABLE_CLOUD}".endpoint = '${endpoint}' ;`;
 
         ({ rows } = await db.query(SQLquery));
-        const { id, password }: { id: string; password: string } = rows[0];
-        cookies.set('serverID', id);
+        const {
+          id,
+          password,
+          lastcalled,
+          previouslycalled,
+        }: {
+          id: string;
+          password: string;
+          lastcalled: Date;
+          previouslycalled: boolean;
+        } = rows[0];
+
+        cookies.set('lastCalled', lastcalled, { httpOnly: true });
+        cookies.set('previouslyCalled', `${previouslycalled}`, {
+          httpOnly: true,
+        });
+        cookies.set('serverID', id, { httpOnly: true });
         return res.status(200).json({ password });
       } catch (err) {
         console.log(err);

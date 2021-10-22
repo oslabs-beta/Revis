@@ -23,7 +23,7 @@ function UpdateInterval() {
     return reformattedData;
   };
   const storeDataInPG = () => {
-    fetch('/api/metricHistory', {
+    fetch('/api/storeMetrics', {
       method: 'POST',
       body: JSON.stringify(reformatDataForDB(metricState)),
     });
@@ -44,13 +44,17 @@ function UpdateInterval() {
         type: 'updateMetrics',
         message: updatedMetrics,
       });
+      storeDataInPG();
     }
     if (selectedServer.name !== undefined) {
       fetchDataFromRedis();
       const interval = setInterval(fetchDataFromRedis, time);
+
       if (graphInterval.updateInterval.update === false)
         clearInterval(interval);
-      return () => clearInterval(interval);
+      return () => {
+        clearInterval(interval);
+      };
     }
   }, [selectedServer, render]);
 

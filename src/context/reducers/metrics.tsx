@@ -33,7 +33,6 @@ const metrics = (state: Metrics[], action: ActionMetrics) => {
       ).toFixed(2);
 
       metricsList.push(action.message);
-      // console.log(reformatDataForDB(metricsList));
       return metricsList;
     default:
       return state;
