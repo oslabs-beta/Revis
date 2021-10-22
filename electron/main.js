@@ -12,9 +12,5 @@ app.on("ready", () => {
     height: 1600,
     title: "Revis Dashboard",
   });
-  mainWindow.loadURL(
-    isDev
-      ? "http://localhost:3000"
-      : `file://${path.join(__dirname, "../out/index.html")}`
-  );
+  mainWindow.loadURL(isDev ? "http://localhost:3000" : `./out/index.html`);
 });
