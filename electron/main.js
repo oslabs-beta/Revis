@@ -1,27 +1,20 @@
-const electron = require('electron');
-const url = require('url');
-const path = require('path');
-const isDev = require('electron-is-dev');
-// import Electron from "electron";
-// import React from "react";
-// import url from "url";
-// import path from "path";
+const electron = require("electron");
+const path = require("path");
+const isDev = require("electron-is-dev");
 
-const {app,BrowserWindow, Menu} = electron;
+const { app, BrowserWindow } = electron;
 
 let mainWindow;
 
-app.on('ready', ()=>{
-    mainWindow = new BrowserWindow({});
-    mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../out/index.html')}`);
-
-    // const mainMenu = Menu.buildFromTemplate();
-    // Menu.setApplicationMenu(mainMenu);
+app.on("ready", () => {
+  mainWindow = new BrowserWindow({
+    width: 2500,
+    height: 1600,
+    title: "Revis Dashboard",
+  });
+  mainWindow.loadURL(
+    isDev
+      ? "http://localhost:3000"
+      : `file://${path.join(__dirname, "../out/index.html")}`
+  );
 });
-
-// const mainMenuTemplate = [
-//     {
-//         label:'File'
-//     }
-// ];
-
