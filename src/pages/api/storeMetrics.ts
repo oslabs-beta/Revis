@@ -90,30 +90,3 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 export default storeMetrics;
-
-/*
-CREATE TEMPORARY TABLE temp_table (
-              LIKE "metrics" INCLUDING DEFAULTS);
-          
-          INSERT INTO "temp_table" (id,user_id,server_id,name,value) VALUES(1,24,86,'used_memory',
-            ARRAY[',2.21,2.21,2.21,2.21,2.21,2.21,2.37']), 
-(2,24,86,'connected_clients',
-            ARRAY[',0,0,0,0,2,1,1']), 
-(3,24,86,'evicted_keys',
-            ARRAY[',0,0,0,0,0,0,0']), 
-(4,24,86,'keyspace_hits',
-            ARRAY[',21216,21216,21216,21216,21216,21216,21216']), 
-(5,24,86,'keyspace_misses',
-            ARRAY[',18665,18665,18665,18665,18665,18665,18665']), 
-(6,24,86,'total_net_input_bytes',
-            ARRAY[',157.86,157.86,157.86,157.86,157.86,157.86,157.86']), 
-(7,24,86,'uptime_in_seconds',
-            ARRAY[',580,580,580,580,580,580,580']), 
-(8,24,86,'time',
-            ARRAY['14:33:03,14:33:13,14:33:23,14:33:23,14:33:29,14:33:33,14:33:38']);
-			
-INSERT INTO "metrics" (user_id,server_id,name,value)
-SELECT user_id,server_id,name,value FROM temp_table 
-        WHERE user_id = 24 AND server_id = 86 and date = CURRENT_DATE;
-        
-        */
