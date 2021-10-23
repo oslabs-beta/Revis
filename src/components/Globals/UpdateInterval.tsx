@@ -77,23 +77,23 @@ function UpdateInterval() {
     reRender(!render);
   };
   return (
-    <div id='intervalMenu' className={styles.underDashboard}>
+    <div id="intervalMenu" className={styles.underDashboard}>
       <div className={styles.textAndSwitch}>
         <div className={styles.intervalInput}>
           Update interval in seconds:
           <input
-            id='intervalInput'
-            type='number'
+            id="intervalInput"
+            type="number"
             placeholder={placeholder}
           ></input>
-          <button type='button' onClick={updateInterval}>
+          <button type="button" onClick={updateInterval}>
             Update
           </button>
         </div>
         <label className={styles.switch}>
           <input
             checked={graphInterval.updateInterval.update}
-            type='checkbox'
+            type="checkbox"
             onChange={change}
           ></input>
           <span className={styles.slider}></span>

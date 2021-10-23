@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import styles from '../../styles/Summary.module.scss';
 
-
 export default function SummaryTable(props) {
   const { metricsForTable } = props;
 
@@ -18,12 +17,10 @@ export default function SummaryTable(props) {
           </div>
         ) : (
           <div>
-          
             <div className={styles.tableWrapper}>{metricsForTable}</div>
           </div>
         )}
       </div>
-      
     </div>
   );
 }

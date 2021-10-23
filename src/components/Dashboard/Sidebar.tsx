@@ -1,7 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCube } from '@fortawesome/free-solid-svg-icons';
-import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { faCube, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import ServerAdd from './Servers/ServerAdd';
 import ServerList from './Servers/ServerList';
 import { useStore } from '../../context/Provider';
@@ -202,7 +201,7 @@ function Sidebar() {
   };
 
   return (
-    <div className={styles.sideBarWrapper} id='sideBar'>
+    <div className={styles.sideBarWrapper} id="sideBar">
       <ServerAdd addServer={addServer} />
       <ServerList
         serverList={serverList}
@@ -215,7 +214,7 @@ function Sidebar() {
           id={styles.cube}
           icon={faCube}
           onClick={changeSidebarVisual}
-          values='close'
+          values="close"
         />
       </span>
       <span className={styles.closeSpan}>
@@ -223,7 +222,7 @@ function Sidebar() {
           id={styles.close}
           icon={faWindowClose}
           onClick={changeSidebarVisual}
-          values='close'
+          values="close"
         />
       </span>
     </div>

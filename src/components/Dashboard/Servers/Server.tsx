@@ -12,7 +12,7 @@ export default function Server(props) {
   const { servers, currentServer, metricsStore }: Context = useStore();
   const { selectedServerDispatch } = currentServer;
   const { serversDispatch } = servers;
-  const { metricState,metricsDispatch } = metricsStore;
+  const { metricState, metricsDispatch } = metricsStore;
 
   const removeServer = (e) => {
     serversDispatch({
@@ -63,7 +63,7 @@ export default function Server(props) {
                 console.log(metricState);
                 metricsDispatch({
                   type: 'cleanMetrics',
-                  message:{
+                  message: {
                     total_net_output_bytes: '0',
                     used_memory: '0',
                     connected_clients: '0',

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { Context } from '../../../context/interfaces';
 import { useStore } from '../../../context/Provider';
 import styles from '../../../styles/HistoryGraphsContainer.module.scss';
-import Dates from '../History/Dates';
+import Dates from './Dates';
 
 function DatesMenu() {
   const tempObjForTests = {
@@ -17,11 +17,13 @@ function DatesMenu() {
       'Oct 22 2021',
     ],
   };
-  const { currentServer,datesSelected  }: Context = useStore(); //this is going to have the global state with dates
+  const { currentServer, datesSelected }: Context = useStore(); // this is going to have the global state with dates
   const datesForCheckBoxes: ReactElement[] = [];
 
-  tempObjForTests['redis-10027.c238.us-central1-2.gce.cloud.redislabs.com'].forEach((el) => {
-      datesForCheckBoxes.push(<Dates date={el} />);
+  tempObjForTests[
+    'redis-10027.c238.us-central1-2.gce.cloud.redislabs.com'
+  ].forEach((el) => {
+    datesForCheckBoxes.push(<Dates date={el} />);
   });
 
   return <div className={styles.DatesMenu}>{datesForCheckBoxes}</div>;
