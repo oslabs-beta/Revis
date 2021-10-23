@@ -63,7 +63,6 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
 
       const serversAndDates = {};
       const indexTracker = {};
-      const counter = 0;
       rows.forEach(async (server: metricsSQLtoRedis) => {
         // Organize data to send to front end
         const { endpoint, date, name, value } = server;
@@ -110,7 +109,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
         // if (previouslyCalled && dateCheck) is true, then that means we have already
         // created set of columns for this server and we only have to update and not insert
         if (previouslyCalled && dateCheck) {
-          SQLQuery = ``;
+          SQLQuery = '';
           const parsedBody: Metrics = JSON.parse(req.body);
           Object.entries(parsedBody).forEach(([metricName, metricValue]) => {
             SQLQuery += `UPDATE "${process.env.PG_TABLE_METRICS}"
