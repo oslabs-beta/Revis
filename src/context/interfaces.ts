@@ -92,11 +92,20 @@ export interface ParsedBodyRedis {
   password: string;
   port: string;
 }
+
 export interface ParsedBodyServer {
   name: string;
   endpoint: string;
   password: string;
   port: string;
+}
+
+export interface metricsSQLtoRedis {
+  server_id: number;
+  endpoint: string;
+  name: string;
+  value: string[];
+  date: Date;
 }
 
 export interface MultipleGraphs {

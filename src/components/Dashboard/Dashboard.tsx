@@ -29,9 +29,7 @@ export default function Dashboard() {
         changeUsernameBool(false);
       })
       .catch((err) => console.log(err));
-  }, []);
 
-  useEffect(() => {
     fetch('/api/storeMetrics')
       .then((response: Response) => response.json())
       .then((data) => {})

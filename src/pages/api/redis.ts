@@ -4,7 +4,6 @@ import { MetricsList, ParsedBodyRedis } from '../../context/interfaces';
 const Redis = require('ioredis');
 
 const redisAPI = async (req: NextApiRequest, res: NextApiResponse) => {
-
   const metricsUpdated: MetricsList = {
     time: '',
     total_net_output_bytes: '',
