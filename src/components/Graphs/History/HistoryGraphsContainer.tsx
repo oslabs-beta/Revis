@@ -1,12 +1,13 @@
-import React, { ReactElement } from "react";
-import GridLayout from "react-grid-layout";
-import { useStore } from "../../../context/Provider";
-import MultipleGraph from "../Multiple/MultipleGraph";
-import DatesMenu from "./DatesMenu";
-import styles from "../../../styles/GraphContainer.module.scss";
-import { Context } from "../../../context/interfaces";
-import { Layouts } from "../../context/interfaces";
-import UpdateInterval from "../../Globals/UpdateInterval";
+import React, { ReactElement } from 'react';
+import GridLayout from 'react-grid-layout';
+import { useStore } from '../../../context/Provider';
+import MultipleGraph from '../Multiple/MultipleGraph';
+import DatesMenu from './DatesMenu';
+import styles from '../../../styles/HistoryGraphsContainer.module.scss';
+import { Context } from '../../../context/interfaces';
+import { Layouts } from '../../context/interfaces';
+import UpdateInterval from '../../Globals/UpdateInterval';
+import MetricsDropdown from './MetricsDropdown';
 
 function HistoryGraphsContainer() {
   const { multipleGraphSelections, metricsStore }: Context = useStore();
@@ -39,6 +40,7 @@ function HistoryGraphsContainer() {
           {arrayWithGraphs}
         </GridLayout>
       </div>
+      <MetricsDropdown />
       <UpdateInterval />
     </div>
   );
