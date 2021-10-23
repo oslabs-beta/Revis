@@ -6,6 +6,7 @@ const validateUser = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method }: { method?: string } = req;
   const cookies: Cookies = new Cookies(req, res);
   const username: string = cookies.get('username');
+  const userID: string = cookies.get('ssid');
   switch (method) {
     case 'GET':
       try {
@@ -25,10 +26,10 @@ const validateUser = async (req: NextApiRequest, res: NextApiResponse) => {
         if (session !== sessionCookie)
           throw Error('Invalid session token. Please log in to view servers.');
 
-        SQLquery = `SELECT id,lastcalled, previouslycalled, "${process.env.PG_TABLE_REDIS}".password as password 
-        FROM "${process.env.PG_TABLE_CLOUD}" INNER JOIN "${process.env.PG_TABLE_REDIS}" on 
-        "${process.env.PG_TABLE_CLOUD}".endpoint = "${process.env.PG_TABLE_REDIS}".endpoint AND 
-        "${process.env.PG_TABLE_CLOUD}".endpoint = '${endpoint}' ;`;
+        SQLquery = `SELECT id,lastcalled, ta.user_id, previouslycalled, tb.password as password 
+        FROM "${process.env.PG_TABLE_CLOUD}" AS ta INNER JOIN "${process.env.PG_TABLE_REDIS}" AS tb on 
+        ta.endpoint = tb.endpoint AND 
+        ta.endpoint = '${endpoint}' WHERE ta.user_id = ${userID};`;
 
         ({ rows } = await db.query(SQLquery));
         const {

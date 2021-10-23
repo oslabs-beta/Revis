@@ -9,7 +9,6 @@ import NavBarDashboard from './NavBarDashboard';
 import { Context } from '../../context/interfaces';
 import MultipleGraphContainer from '../Graphs/Multiple/MultipleGraphContainer';
 import HistoryGraphsContainer from '../Graphs/History/HistoryGraphsContainer';
-import UpdateInterval from '../Globals/UpdateInterval';
 
 export default function Dashboard() {
   const { user }: Context = useStore();
@@ -29,6 +28,11 @@ export default function Dashboard() {
         userDispatch({ type: 'updateUsername', message: username });
         changeUsernameBool(false);
       })
+      .catch((err) => console.log(err));
+
+    fetch('/api/storeMetrics')
+      .then((response: Response) => response.json())
+      .then((data) => {})
       .catch((err) => console.log(err));
   }, []);
 
@@ -58,11 +62,11 @@ export default function Dashboard() {
       case 'latency':
         return 'latency';
       case 'history':
-        return <HistoryGraphsContainer/>
+        return <HistoryGraphsContainer />;
       case 'multipleGraphs':
-        return <MultipleGraphContainer /> 
+        return <MultipleGraphContainer />;
       default:
-        return <Summary /> 
+        return <Summary />;
     }
   }
 

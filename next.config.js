@@ -2,9 +2,9 @@ module.exports = {
   env: {
     PG_URI:
       'postgres://jlrxiqce:5CjZQ27IV1uExmsP-t_O-ZPPFA0NDmsU@fanny.db.elephantsql.com/jlrxiqce',
-    REDIS_URL: 'redis-16424.c289.us-west-1-2.ec2.cloud.redislabs.com',
-    REDIS_PORT: '16424',
-    REDIS_PW: 'redis',
+    REDIS_URL: 'redis-10027.c238.us-central1-2.gce.cloud.redislabs.com',
+    REDIS_PORT: '10027',
+    REDIS_PW: '91Ue9aQc1mReFlL36CGd3gK3wALASFxF',
     PG_TABLE_CLOUD: 'serverCloud',
     PG_TABLE_METRICS: 'metrics',
     PG_TABLE_USERS: 'users',

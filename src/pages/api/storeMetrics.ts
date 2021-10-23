@@ -1,9 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Cookies from 'cookies';
 import db from '../../models/Revis';
-import { Metrics } from '../../context/interfaces';
+import { Metrics, metricsSQLtoRedis } from '../../context/interfaces';
 
 const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
+  const Redis = require('ioredis');
   const { method } = req;
   const cookies: Cookies = new Cookies(req, res);
   const userID = Number(cookies.get('ssid'));
@@ -26,21 +27,77 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
     Dec: '12',
   };
 
-  const [monthCookie, dayCookie, yearCookie] = lastCalled
-    .split(' ')
-    .slice(1, 4);
+  const numToMonth = {
+    1: 'Jan',
+    2: 'Feb',
+    3: 'Mar',
+    4: 'Apr',
+    5: 'May',
+    6: 'Jun',
+    7: 'Jul',
+    8: 'Aug',
+    9: 'Sep',
+    10: 'Oct',
+    11: 'Nov',
+    12: 'Dec',
+  };
+
   const today = new Date();
   const day: string = String(today.getDate());
   const month: string = String(today.getMonth() + 1);
   const year: string = String(today.getFullYear());
-  const dateCheck =
-    day === dayCookie &&
-    month === monthToNum[monthCookie] &&
-    year === yearCookie;
+
   switch (method) {
+    case 'GET': {
+      // const SQLQuery: string = `SELECT DISTINCT ta.id, ta.name, port, tb.password,ta.endpoint FROM "${process.env.PG_TABLE_CLOUD}" AS ta
+      // INNER JOIN "${process.env.PG_TABLE_REDIS}" AS tb on ta.endpoint = tb.endpoint WHERE ta.user_id = ${userID};`;
+      const SQLQuery: string = `SELECT server_id,ta.name,tb.endpoint,value,date from "${process.env.PG_TABLE_METRICS}" AS ta 
+      INNER JOIN "${process.env.PG_TABLE_CLOUD}" as tb on tb.id =server_id where ta.user_id = ${userID}`;
+      const { rows } = await db.query(SQLQuery);
+
+      // Organize data to send to front end
+      const serversAndDates = {};
+      const indexTracker = {};
+      rows.forEach((server: metricsSQLtoRedis) => {
+        const { endpoint, date } = server;
+        const currentDay: string = `${date.getDate()}`;
+        const currentMonth: string = numToMonth[`${date.getMonth() + 1}`];
+        const currentYear: string = `${today.getFullYear()}`;
+        const fullDate: string = `${currentMonth}-${currentDay}-${currentYear}`;
+
+        if (!(endpoint in serversAndDates)) {
+          serversAndDates[endpoint] = [];
+          indexTracker[endpoint] = 0;
+        }
+        const currentArr = serversAndDates[endpoint];
+        const currentIndex = indexTracker[endpoint];
+        if (currentArr[currentIndex - 1] !== fullDate) {
+          serversAndDates[endpoint].push(fullDate);
+          indexTracker[endpoint] += 1;
+        }
+      });
+
+      // Organize data to store in Redis
+      console.log(serversAndDates);
+      // sending to front-end object like
+      /*
+        {
+          serverID: [dates]
+        }
+      */
+
+      return res.status(200).json({ serversAndDates });
+    }
     case 'POST':
       try {
-        let SQLQuery = '';
+        const [monthCookie, dayCookie, yearCookie] = lastCalled
+          .split(' ')
+          .slice(1, 4);
+        const dateCheck: boolean =
+          day === dayCookie &&
+          month === monthToNum[monthCookie] &&
+          year === yearCookie;
+        let SQLQuery: string = '';
         // if (previouslyCalled && dateCheck) is true, then that means we have already
         // created set of columns for this server and we only have to update and not insert
         if (previouslyCalled && dateCheck) {
