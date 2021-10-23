@@ -26,17 +26,11 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
     Dec: '12',
   };
 
-  const [monthCookie, dayCookie, yearCookie] = lastCalled
-    .split(' ')
-    .slice(1, 4);
   const today = new Date();
   const day: string = String(today.getDate());
   const month: string = String(today.getMonth() + 1);
   const year: string = String(today.getFullYear());
-  const dateCheck =
-    day === dayCookie &&
-    month === monthToNum[monthCookie] &&
-    year === yearCookie;
+
   switch (method) {
     case 'GET': {
       console.log('test');
@@ -45,6 +39,13 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
     }
     case 'POST':
       try {
+        const [monthCookie, dayCookie, yearCookie] = lastCalled
+          .split(' ')
+          .slice(1, 4);
+        const dateCheck =
+          day === dayCookie &&
+          month === monthToNum[monthCookie] &&
+          year === yearCookie;
         let SQLQuery = '';
         // if (previouslyCalled && dateCheck) is true, then that means we have already
         // created set of columns for this server and we only have to update and not insert
