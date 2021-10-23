@@ -30,7 +30,7 @@ function MultipleGraphContainer() {
   });
 
   return (
-    <div className={styles.MultipleGraphContainer}>
+    <div  className={styles.MultipleGraphContainer}>
       <div>
         <LeftMenuOfGraph />
       </div>

@@ -1,13 +1,13 @@
 @import "./colorsAndFonts.scss";
 .underDashboard {
   margin-top: 4%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 1rem;
   font-family: $fontOfMetrics;
   color: var(--grey);
+  position: absolute;
+  bottom: 0vh;
+  left: 0vh;
+  transition: margin-left 0.5s;
 
   .textAndSwitch {
     position: absolute;
