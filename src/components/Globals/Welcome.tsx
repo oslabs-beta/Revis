@@ -3,7 +3,6 @@ import { Context } from '../../context/interfaces';
 import { useStore } from '../../context/Provider';
 import styles from '../../styles/Welcome.module.scss';
 
-
 function Welcome() {
   const { user }: Context = useStore();
 

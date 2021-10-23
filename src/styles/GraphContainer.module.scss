@@ -1,4 +1,4 @@
-@import "./colorsAndFonts.scss";
+@import './colorsAndFonts.scss';
 
 .GraphContainer {
   display: flex;
@@ -16,6 +16,7 @@
     position: absolute;
     top: 20%;
     left: 20%;
+    transition: margin-left 0.5s;
   }
   .GraphFlex {
     width: 100%;
@@ -29,11 +30,11 @@
 }
 
 .MultipleGraphContainer {
- 
+  transition: margin-left 0.5s;
   h1 {
     font-family: $fontOfMetrics;
     color: var(--grey);
-    font-size:3vh;
+    font-size: 3vh;
   }
 
   .LeftMenu {
@@ -45,6 +46,7 @@
     display: flex;
     gap: 0.7rem;
     flex-direction: column;
+    transition: left 0.5s;
     .metrics {
       display: flex;
       gap: 1rem;

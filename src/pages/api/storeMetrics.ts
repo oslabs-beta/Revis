@@ -49,17 +49,23 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
 
   switch (method) {
     case 'GET': {
-      // const SQLQuery: string = `SELECT DISTINCT ta.id, ta.name, port, tb.password,ta.endpoint FROM "${process.env.PG_TABLE_CLOUD}" AS ta
-      // INNER JOIN "${process.env.PG_TABLE_REDIS}" AS tb on ta.endpoint = tb.endpoint WHERE ta.user_id = ${userID};`;
       const SQLQuery: string = `SELECT server_id,ta.name,tb.endpoint,value,date from "${process.env.PG_TABLE_METRICS}" AS ta 
       INNER JOIN "${process.env.PG_TABLE_CLOUD}" as tb on tb.id =server_id where ta.user_id = ${userID}`;
       const { rows } = await db.query(SQLQuery);
 
-      // Organize data to send to front end
+      const redis = new Redis({
+        host: process.env.REDIS_URL,
+        port: process.env.REDIS_PORT,
+        password: process.env.REDIS_PW,
+        connectTimeout: 10000,
+        reconnectOnError: false,
+      });
+
       const serversAndDates = {};
       const indexTracker = {};
-      rows.forEach((server: metricsSQLtoRedis) => {
-        const { endpoint, date } = server;
+      rows.forEach(async (server: metricsSQLtoRedis) => {
+        // Organize data to send to front end
+        const { endpoint, date, name, value } = server;
         const currentDay: string = `${date.getDate()}`;
         const currentMonth: string = numToMonth[`${date.getMonth() + 1}`];
         const currentYear: string = `${today.getFullYear()}`;
@@ -75,16 +81,18 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
           serversAndDates[endpoint].push(fullDate);
           indexTracker[endpoint] += 1;
         }
+
+        // Store in Redis
+        const redisStorageKey = `${endpoint}|${fullDate}|${userID}|${name}`;
+        const existInRedis = await redis.lrange(redisStorageKey, 0, -1);
+        if (existInRedis.length === 0) {
+          await redis.rpush(redisStorageKey, value);
+          // Tell keys to expire after an hour (the duration of a user session)
+          await redis.expire(redisStorageKey, 60 * 60);
+        }
       });
 
-      // Organize data to store in Redis
-      console.log(serversAndDates);
-      // sending to front-end object like
-      /*
-        {
-          serverID: [dates]
-        }
-      */
+      setTimeout(() => redis.quit(), 5000);
 
       return res.status(200).json({ serversAndDates });
     }
@@ -101,7 +109,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
         // if (previouslyCalled && dateCheck) is true, then that means we have already
         // created set of columns for this server and we only have to update and not insert
         if (previouslyCalled && dateCheck) {
-          SQLQuery = ``;
+          SQLQuery = '';
           const parsedBody: Metrics = JSON.parse(req.body);
           Object.entries(parsedBody).forEach(([metricName, metricValue]) => {
             SQLQuery += `UPDATE "${process.env.PG_TABLE_METRICS}"

@@ -12,15 +12,7 @@ export interface Theme {
 }
 
 export interface Metrics {
-  time?: string | string[];
-  total_net_output_bytes?: string | string[];
-  used_memory?: string | string[];
-  connected_clients?: string | string[];
-  evicted_keys?: string | string[];
-  keyspace_hits?: string | string[];
-  keyspace_misses?: string | string[];
-  total_net_input_bytes?: string | string[];
-  uptime_in_seconds?: string | string[];
+  [metric: string]: string | string[];
 }
 
 export interface Interval {
@@ -114,14 +106,7 @@ export interface metricsSQLtoRedis {
 }
 
 export interface MultipleGraphs {
-  total_net_output_bytes?: boolean;
-  used_memory?: boolean;
-  connected_clients?: boolean;
-  evicted_keys?: boolean;
-  keyspace_hits?: boolean;
-  keyspace_misses?: boolean;
-  total_net_input_bytes?: boolean;
-  uptime_in_seconds?: boolean;
+  [metric: string]: boolean;
 }
 
 export interface DatesSelected {}

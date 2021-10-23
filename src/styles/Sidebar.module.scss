@@ -14,7 +14,7 @@
   // flex-direction: column;
   align-items: center;
   justify-content:center;
-
+  
   h1 {
     color: var(--grey);
     font-family: $fontOfMetrics;
@@ -42,11 +42,12 @@
     height: 3vh;
     cursor: pointer;
     transition: 0.75s ease;
-    color: var(--background);
+    color: var(--background);   
   }
 
   label {
     font-family: $fontOfMetrics;
     margin-left: 30px;
   }
+
 }

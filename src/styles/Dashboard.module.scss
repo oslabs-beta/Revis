@@ -2,6 +2,7 @@
 
 .dashboardWrapper {
   display: flex;
+  transition: margin-left .5s;
 
   .navBarDashboardWrapper {
     position: absolute;

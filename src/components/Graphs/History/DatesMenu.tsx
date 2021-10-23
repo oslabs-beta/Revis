@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { Context } from '../../../context/interfaces';
 import { useStore } from '../../../context/Provider';
 import styles from '../../../styles/HistoryGraphsContainer.module.scss';
-import Dates from '../History/Dates';
+import Dates from './Dates';
 
 function DatesMenu() {
   const tempObjForTests = {
@@ -17,7 +17,7 @@ function DatesMenu() {
       'Oct 22 2021',
     ],
   };
-  const { currentServer,datesSelected  }: Context = useStore(); //this is going to have the global state with dates
+  const { currentServer, datesSelected }: Context = useStore(); // this is going to have the global state with dates
   const datesForCheckBoxes: ReactElement[] = [];
 
   if(currentServer.selectedServer.endpoint){

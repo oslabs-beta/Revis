@@ -77,7 +77,7 @@ function UpdateInterval() {
     reRender(!render);
   };
   return (
-    <div className={styles.underDashboard}>
+    <div id="intervalMenu" className={styles.underDashboard}>
       <div className={styles.textAndSwitch}>
         <div className={styles.intervalInput}>
           Update interval in seconds:
