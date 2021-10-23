@@ -9,9 +9,10 @@ import { Context } from '../../../context/interfaces';
 export default function Server(props) {
   const { name, currentDivHover, changeDivHover } = props;
 
-  const { servers, currentServer }: Context = useStore();
+  const { servers, currentServer, metricsStore }: Context = useStore();
   const { selectedServerDispatch } = currentServer;
   const { serversDispatch } = servers;
+  const { metricState,metricsDispatch } = metricsStore;
 
   const removeServer = (e) => {
     serversDispatch({
@@ -57,6 +58,20 @@ export default function Server(props) {
                     endpoint: server.endpoint,
                     port: server.port,
                     password: data.password,
+                  },
+                });
+                console.log(metricState);
+                metricsDispatch({
+                  type: 'cleanMetrics',
+                  message:{
+                    total_net_output_bytes: '0',
+                    used_memory: '0',
+                    connected_clients: '0',
+                    evicted_keys: '0',
+                    keyspace_hits: '0',
+                    keyspace_misses: '0',
+                    total_net_input_bytes: '0',
+                    uptime_in_seconds: '0',
                   },
                 });
               }

@@ -1,18 +1,19 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import router from "next/router";
-import { useStore } from "../../context/Provider";
-import Sidebar from "./Sidebar";
-import Summary from "./Summary";
-import styles from "../../styles/Dashboard.module.scss";
-import SignOutButton from "../Globals/SignOutButton";
-import NavBarDashboard from "./NavBarDashboard";
-import { Context } from "../../context/interfaces";
-import MultipleGraphContainer from "../Graphs/Multiple/MultipleGraphContainer";
-import UpdateInterval from "../Globals/UpdateInterval";
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import router from 'next/router';
+import { useStore } from '../../context/Provider';
+import Sidebar from './Sidebar';
+import Summary from './Summary';
+import styles from '../../styles/Dashboard.module.scss';
+import SignOutButton from '../Globals/SignOutButton';
+import NavBarDashboard from './NavBarDashboard';
+import { Context } from '../../context/interfaces';
+import MultipleGraphContainer from '../Graphs/Multiple/MultipleGraphContainer';
+import HistoryGraphsContainer from '../Graphs/History/HistoryGraphsContainer';
+import UpdateInterval from '../Globals/UpdateInterval';
 
 export default function Dashboard() {
   const { user }: Context = useStore();
-  const [currentRender, setCurrentRender] = useState("dashboard");
+  const [currentRender, setCurrentRender] = useState('dashboard');
   const [noUsername, changeUsernameBool]: [
     boolean,
     Dispatch<SetStateAction<boolean>>
@@ -20,12 +21,12 @@ export default function Dashboard() {
   const { userDispatch } = user;
 
   useEffect(() => {
-    fetch("/api/validateUser")
+    fetch('/api/validateUser')
       .then((response: Response) => response.json())
       .then((data) => {
         const { username, ssid }: { username: string; ssid: string } = data;
-        if (!username || !ssid) return router.replace("/");
-        userDispatch({ type: "updateUsername", message: username });
+        if (!username || !ssid) return router.replace('/');
+        userDispatch({ type: 'updateUsername', message: username });
         changeUsernameBool(false);
       })
       .catch((err) => console.log(err));
@@ -40,36 +41,28 @@ export default function Dashboard() {
   // };
 
   const viewLatency = (e) => {
-    setCurrentRender("latency");
+    setCurrentRender('latency');
   };
   const viewMultipleGraphs = () => {
-    setCurrentRender("multipleGraphs");
+    setCurrentRender('multipleGraphs');
   };
   const viewDashboard = () => {
-    setCurrentRender("dashboard");
+    setCurrentRender('dashboard');
   };
   const viewHistory = () => {
-    setCurrentRender("history");
+    setCurrentRender('history');
   };
 
   function renderSwitch(param: string) {
     switch (param) {
-      case "latency":
-        return "latency";
-      case "history":
-        return "history";
-      case "multipleGraphs":
-        return (
-          <div>
-            <MultipleGraphContainer /> <UpdateInterval />
-          </div>
-        );
+      case 'latency':
+        return 'latency';
+      case 'history':
+        return <HistoryGraphsContainer/>
+      case 'multipleGraphs':
+        return <MultipleGraphContainer /> 
       default:
-        return (
-          <div>
-            <Summary /> <UpdateInterval />
-          </div>
-        );
+        return <Summary /> 
     }
   }
 

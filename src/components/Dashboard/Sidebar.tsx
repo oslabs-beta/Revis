@@ -174,7 +174,6 @@ function Sidebar() {
       document.querySelector(`#${styles.cube}`).style.left = "0%";
       document.querySelector(`#${styles.cube}`).style.top = "46%";
       document.querySelector(`#${styles.cube}`).style.color = "#e38d41e9";
-
       document.querySelector(`#${styles.close}`).style.color = "transparent";
     }
     showOrHideSideBar(!sideBarHidden);
