@@ -1,7 +1,7 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCube } from "@fortawesome/free-solid-svg-icons";
-import styles from "../../styles/Dashboard.module.scss";
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCube } from '@fortawesome/free-solid-svg-icons';
+import styles from '../../styles/Dashboard.module.scss';
 
 function NavBarDashboard(props) {
   const { viewLatency, viewMultipleGraphs, viewDashboard, history } = props;

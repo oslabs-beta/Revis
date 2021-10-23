@@ -1,10 +1,11 @@
-import React, { ReactElement, useEffect } from 'react';
-import styles from '../../styles/Summary.module.scss';
-import { useStore } from '../../context/Provider';
-import Metrics from './Metrics';
-import Welcome from '../Globals/Welcome';
-import SummaryTable from './SummaryTable';
-import { Context } from '../../context/interfaces';
+import React, { ReactElement, useEffect } from "react";
+import styles from "../../styles/Summary.module.scss";
+import { useStore } from "../../context/Provider";
+import Metrics from "./Metrics";
+import Welcome from "../Globals/Welcome";
+import SummaryTable from "./SummaryTable";
+import { Context } from "../../context/interfaces";
+import UpdateInterval from "../Globals/UpdateInterval";
 
 export default function Summary() {
   const { currentServer, servers, metricsStore }: Context = useStore();
@@ -14,20 +15,20 @@ export default function Summary() {
   const { metricState, metricsDispatch } = metricsStore;
 
   useEffect(() => {
-    if (endpoint === '' || password === '' || port === '') return;
+    if (endpoint === "" || password === "" || port === "") return;
     async function fetchDataFromRedis() {
-      const response = await fetch('/api/redis', {
-        method: 'POST',
+      const response = await fetch("/api/redis", {
+        method: "POST",
         body: JSON.stringify({
           endpoint: `${endpoint}`,
           password: `${password}`,
           port: `${port}`,
         }),
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
       });
       const updatedMetrics: string[] = await response.json();
       metricsDispatch({
-        type: 'updateMetrics',
+        type: "updateMetrics",
         message: updatedMetrics,
       });
     }
@@ -67,6 +68,7 @@ export default function Summary() {
       ) : (
         <SummaryTable metricsForTable={metricsForTable} />
       )}
+      <UpdateInterval />
     </div>
   );
 }

@@ -76,6 +76,11 @@ export interface ActionMetricHistory {
   message: { date: string; data: Metrics[] };
 }
 
+export interface ActionSelectedDates {
+  type: string;
+  message: string;
+}
+
 export interface HomePageProps {
   onForgotPassword?: () => void;
   onSignUp?: () => void;
@@ -92,11 +97,20 @@ export interface ParsedBodyRedis {
   password: string;
   port: string;
 }
+
 export interface ParsedBodyServer {
   name: string;
   endpoint: string;
   password: string;
   port: string;
+}
+
+export interface metricsSQLtoRedis {
+  server_id: number;
+  endpoint: string;
+  name: string;
+  value: string[];
+  date: Date;
 }
 
 export interface MultipleGraphs {
@@ -109,6 +123,8 @@ export interface MultipleGraphs {
   total_net_input_bytes?: boolean;
   uptime_in_seconds?: boolean;
 }
+
+export interface DatesSelected {}
 
 export interface MetricHistoryInterface {
   date: string;
@@ -153,6 +169,11 @@ export interface MetricHistoryContext {
   metricHistoryDispatch: Dispatch<ActionMetricHistory>;
 }
 
+export interface DatesSelectedContext {
+  datesSelectedState: DatesSelected;
+  datesSelectedDispatch: Dispatch<ActionSelectedDates>;
+}
+
 export interface Context {
   user?: UserContext;
   metricsStore?: MetricsStoreContext;
@@ -163,4 +184,12 @@ export interface Context {
   themeContext?: ThemeContext;
   graphInterval?: GraphIntervalContext;
   metricHistory?: MetricHistoryContext;
+  datesSelected?: DatesSelectedContext;
+}
+
+export interface Layouts {
+  0?: string;
+  1?: string;
+  2?: string;
+  3?: string;
 }

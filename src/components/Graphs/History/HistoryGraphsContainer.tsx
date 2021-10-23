@@ -1,14 +1,14 @@
 import React, { ReactElement } from "react";
 import GridLayout from "react-grid-layout";
 import { useStore } from "../../../context/Provider";
-import MultipleGraph from "./MultipleGraph";
-import LeftMenuOfGraph from "./LeftMenuOfGraph";
+import MultipleGraph from "../Multiple/MultipleGraph";
+import DatesMenu from "./DatesMenu";
 import styles from "../../../styles/GraphContainer.module.scss";
 import { Context } from "../../../context/interfaces";
 import { Layouts } from "../../context/interfaces";
 import UpdateInterval from "../../Globals/UpdateInterval";
 
-function MultipleGraphContainer() {
+function HistoryGraphsContainer() {
   const { multipleGraphSelections, metricsStore }: Context = useStore();
   const arrayWithGraphs: ReactElement[] = [];
 
@@ -32,10 +32,8 @@ function MultipleGraphContainer() {
   });
 
   return (
-    <div  className={styles.MultipleGraphContainer}>
-      <div>
-        <LeftMenuOfGraph />
-      </div>
+    <div className={styles.MultipleGraphContainer}>
+      <DatesMenu />
       <div className={styles.GraphFlex}>
         <GridLayout rowHeight={300} width={800}>
           {arrayWithGraphs}
@@ -45,4 +43,4 @@ function MultipleGraphContainer() {
     </div>
   );
 }
-export default MultipleGraphContainer;
+export default HistoryGraphsContainer;

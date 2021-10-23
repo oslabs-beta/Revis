@@ -8,6 +8,7 @@ import initialStateTheme from './initialStates/initialStateTheme';
 import initialStateUpdateInterval from './initialStates/initialStateUpdateInterval';
 import initialStateSelectedServer from './initialStates/initialStateSelectedServer';
 import initialStateMetricHistory from './initialStates/initialStateMetricHistory';
+import initialStateOfDatesForHistory from './initialStates/initialStateOfDatesForHistory';
 
 import user from './reducers/user';
 import metrics from './reducers/metrics';
@@ -18,11 +19,15 @@ import theme from './reducers/theme';
 import currentServer from './reducers/currentServer';
 import interval from './reducers/interval';
 import metricHistory from './reducers/metricHistory';
+import datesBeingCompared from './reducers/datesBeingCompared';
+
 import {
   User,
   Metrics,
   MultipleGraphs,
   Action,
+  DatesSelected,
+  DatesSelectedContext,
   Interval,
   ServerInterface,
   Theme,
@@ -34,6 +39,7 @@ import {
   ActionInterval,
   ActionMetrics,
   ActionMetricHistory,
+  ActionSelectedDates
 } from './interfaces';
 
 export const GlobalContext = createContext<Partial<Context>>({}); // the provider needs to fill the state
@@ -77,6 +83,12 @@ export const GlobalProvider = ({ children }) => {
     MetricHistory,
     Dispatch<ActionMetricHistory>
   ] = useReducer(metricHistory, initialStateMetricHistory);
+
+  const [datesSelectedState,datesSelectedDispatch]: [
+    DatesSelected,
+    Dispatch<ActionSelectedDates>
+  ] = useReducer(datesBeingCompared, initialStateOfDatesForHistory);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -89,6 +101,7 @@ export const GlobalProvider = ({ children }) => {
         themeContext: { currentTheme, themeDispatch },
         graphInterval: { updateInterval, updateIntervalDispatch },
         metricHistory: { metricHistoryState, metricHistoryDispatch },
+        datesSelected: {datesSelectedState,datesSelectedDispatch },
       }}
     >
       {children}

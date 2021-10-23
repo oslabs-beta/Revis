@@ -23,6 +23,8 @@ const metrics = (state: Metrics[], action: ActionMetrics) => {
 
       metricsList.push(action.message);
       return metricsList;
+    case 'cleanMetrics':
+      return [action.message];
     default:
       return state;
   }
