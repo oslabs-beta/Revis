@@ -11,13 +11,23 @@
     "test": "jest --verbose",
     "startel": "electron .",
     "electron-dev": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
-    "electron-pack": "electron-builder -c.extraMetadata.main=build/electron.js",
-    "preelectron-pack": "react-scripts build"
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "build": {
+    "appId": "com.electron.revis",
+    "productName": "Revis",
+    "copyright": "Copyright © 2021 Revis",
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    }
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Revis1/Revis.git"
   },
+  "publish": null,
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -31,6 +41,7 @@
     "@fortawesome/react-fontawesome": "^0.1.15",
     "bcryptjs": "^2.4.3",
     "cookies": "^0.8.0",
+    "electron": "^15.3.0",
     "electron-is-dev": "^2.0.0",
     "ioredis": "^4.27.10",
     "next": "^11.1.2",
@@ -56,7 +67,6 @@
     "babel-jest": "^27.2.4",
     "concurrently": "^6.3.0",
     "cross-env": "^7.0.3",
-    "electron": "^15.3.0",
     "electron-builder": "^22.13.1",
     "eslint": "7.32.0",
     "eslint-config-airbnb": "^18.2.1",

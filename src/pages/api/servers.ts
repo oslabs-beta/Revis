@@ -17,7 +17,7 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'GET':
       try {
-        SQLquery = `SELECT * FROM "serverCloud" WHERE user_id = ${userId};`;
+        SQLquery = `SELECT * FROM "${process.env.PG_TABLE_CLOUD}" WHERE user_id = ${userId};`;
         const cloudDataFull = await db.query(SQLquery);
         const cloud: String[] = cloudDataFull.rows;
         return res.status(200).json({ success: true, cloud });
@@ -32,7 +32,7 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
         const { name, endpoint, password, port } = parsedBody;
 
         hashedPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
-        SQLquery = `INSERT INTO "serverCloud" (name,endpoint,port,password,user_id)
+        SQLquery = `INSERT INTO "${process.env.PG_TABLE_CLOUD}" (name,endpoint,port,password,user_id)
           VALUES ('${name}','${endpoint}',${port},'${hashedPassword}',${userId});`;
         await db.query(SQLquery);
 
@@ -51,7 +51,7 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         const parsedBody: ServerInterface = JSON.parse(req.body);
         const { name } = parsedBody;
-        SQLquery = `DELETE FROM "serverCloud" WHERE name = '${name}' AND user_id = ${userId}
+        SQLquery = `DELETE FROM "${process.env.PG_TABLE_CLOUD}" WHERE name = '${name}' AND user_id = ${userId}
         RETURNING endpoint;`;
 
         const endpointRows = await db.query(SQLquery);

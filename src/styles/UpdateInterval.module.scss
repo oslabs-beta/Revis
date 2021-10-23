@@ -11,12 +11,12 @@
 
   .textAndSwitch {
     position: absolute;
-    top: 75vh;
-    right: 20vh;
+    bottom: 5vh;
+    width: 30vh;
+    left: 47vh;
     display: flex;
     gap: 1rem;
     align-items: center;
-    margin-bottom: 1.5rem;
     p {
       font-size: 0.9rem;
     }
@@ -81,12 +81,12 @@
 
   .intervalInput {
     display: flex;
-    gap: 1rem;
-    align-items: center;
-    margin-top: 3rem;
+    flex-direction: column;
+    gap: 1vh;
+    align-items: left;
     position:absolute;
-    top: 75vh;
-    right: 20vh;
+    bottom: 10vh;
+    
   }
   input {
     border: transparent;
@@ -94,6 +94,10 @@
     color: var(--grey);
     height: 1.5rem;
     border-radius: 4px;
+    text-align: center;
+  }
+  input:hover{
+    cursor:text;
   }
   button {
     background-color: var(--green);

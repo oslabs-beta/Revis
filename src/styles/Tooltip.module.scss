@@ -9,7 +9,6 @@
   padding: 5px;
   border-radius: 5px;
   top: calc(100% + 5px);
-
 }
 
 .tooltipBoxVisible {
@@ -52,8 +51,10 @@
   --translate-y: calc(-100% - var(--arrow-size));
 
   content: attr(data-tooltip);
-  color: white;
+  color: rgb(255, 255, 255);
+  font-size: 2vh;
   padding: 0.5rem;
+  white-space: nowrap;
   border-radius: 0.3rem;
   text-align: center;
   background: var(--tooltip-color);

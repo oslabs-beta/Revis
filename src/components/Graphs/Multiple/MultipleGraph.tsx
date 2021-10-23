@@ -10,10 +10,10 @@ function MultipleGraph({ metricName, metricValue }: MetricsProps) {
       <h1>{metricName}</h1>
       <div className={styles.Graph}>
         <LineChart
-          width={600}
-          height={400}
+          width={400}
+          height={300}
           data={metricValue}
-          margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
+          margin={{ top: 30, right: 50, bottom: 25, left: 0 }}
         >
           <Line type="monotone" dataKey={metricName} stroke="#d33b51" />
           <XAxis stroke="#ce6030" dataKey="time" tick={{ fill: '#d8d8d4' }} />

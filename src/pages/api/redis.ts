@@ -4,7 +4,7 @@ import { MetricsList, ParsedBodyRedis } from '../../context/interfaces';
 const Redis = require('ioredis');
 
 const redisAPI = async (req: NextApiRequest, res: NextApiResponse) => {
-  // this object is for the front end:
+
   const metricsUpdated: MetricsList = {
     time: '',
     total_net_output_bytes: '',
@@ -17,18 +17,6 @@ const redisAPI = async (req: NextApiRequest, res: NextApiResponse) => {
     uptime_in_seconds: '',
   };
 
-  // this object is for the graphs
-  // const metricsToEvaluate: MetricsList = {
-  //   time: [],
-  //   total_net_output_bytes: [],
-  //   used_memory: [],
-  //   connected_clients: [],
-  //   evicted_keys: [],
-  //   keyspace_hits: [],
-  //   keyspace_misses: [],
-  //   total_net_input_bytes: [],
-  //   uptime_in_seconds: [],
-  // };
   const { method }: { method?: string } = req;
   switch (method) {
     case 'POST':

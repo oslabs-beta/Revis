@@ -17,16 +17,18 @@ function UpdateInterval() {
     metrics.forEach((metricData) => {
       Object.entries(metricData).forEach(([metricName, value]) => {
         if (!(metricName in reformattedData)) reformattedData[metricName] = [];
-        reformattedData[metricName].push(value);
+        reformattedData[metricName].push(`'${value}'`);
       });
     });
     return reformattedData;
   };
   const storeDataInPG = () => {
-    fetch('/api/metricHistory', {
-      method: 'POST',
-      body: JSON.stringify(reformatDataForDB(metricState)),
-    });
+    if (metricState.length > 1) {
+      fetch('/api/storeMetrics', {
+        method: 'POST',
+        body: JSON.stringify(reformatDataForDB(metricState)),
+      });
+    }
   };
   useEffect(() => {
     if (endpoint === '' || password === '' || port === '') return;
@@ -44,13 +46,17 @@ function UpdateInterval() {
         type: 'updateMetrics',
         message: updatedMetrics,
       });
+      storeDataInPG();
     }
     if (selectedServer.name !== undefined) {
       fetchDataFromRedis();
       const interval = setInterval(fetchDataFromRedis, time);
+
       if (graphInterval.updateInterval.update === false)
         clearInterval(interval);
-      return () => clearInterval(interval);
+      return () => {
+        clearInterval(interval);
+      };
     }
   }, [selectedServer, render]);
 
@@ -73,6 +79,17 @@ function UpdateInterval() {
   return (
     <div className={styles.underDashboard}>
       <div className={styles.textAndSwitch}>
+        <div className={styles.intervalInput}>
+          Update interval in seconds:
+          <input
+            id="intervalInput"
+            type="number"
+            placeholder={placeholder}
+          ></input>
+          <button type="button" onClick={updateInterval}>
+            Update
+          </button>
+        </div>
         <label className={styles.switch}>
           <input
             checked={graphInterval.updateInterval.update}
@@ -81,18 +98,7 @@ function UpdateInterval() {
           ></input>
           <span className={styles.slider}></span>
         </label>
-        <p>Enable/Disable automatic Updates</p>
-      </div>
-      <div className={styles.intervalInput}>
-        Update interval in seconds:
-        <input
-          id="intervalInput"
-          type="number"
-          placeholder={placeholder}
-        ></input>
-        <button type="button" onClick={updateInterval}>
-          Update
-        </button>
+        <p>Automatic Updates</p>
       </div>
     </div>
   );

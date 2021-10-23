@@ -16,6 +16,15 @@
       color: var(--grey);
     }
 
+    button:hover {
+      cursor:pointer;
+      color: black;
+    }
+
+    #optionSelected{
+      color:blue;
+    }
+
     .cubeAndShadowWrapper {
       display: flex;
       align-items: center;

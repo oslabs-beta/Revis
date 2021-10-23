@@ -37,7 +37,6 @@ function ServerAdd(props) {
       <h1> Add Server </h1>
       <form>
         <div className={styles.inputWrapper}>
-    
           <div className={styles.indivInputs}>
             <label>Name:</label>
             <input
@@ -66,7 +65,7 @@ function ServerAdd(props) {
           </div>
 
           <div className={styles.indivInputs}>
-            <label>Password</label>
+            <label>Password:</label>
             <input
               type="password"
               id="redisPassword"
@@ -97,7 +96,6 @@ function ServerAdd(props) {
           value="Add Server"
           onClick={addServer}
         />
-
       </form>
     </div>
   );
