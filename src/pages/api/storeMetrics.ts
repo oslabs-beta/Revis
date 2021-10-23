@@ -38,6 +38,11 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
     month === monthToNum[monthCookie] &&
     year === yearCookie;
   switch (method) {
+    case 'GET': {
+      console.log('test');
+      return res.status(200).json({ success: true });
+      break;
+    }
     case 'POST':
       try {
         let SQLQuery = '';
