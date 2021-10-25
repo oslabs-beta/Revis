@@ -5,6 +5,7 @@ import { useStore } from '../../context/Provider';
 import styles from '../../styles/Summary.module.scss';
 import { Context, MetricsProps } from '../../context/interfaces';
 import Tooltip from './Tooltip';
+import CustomMetricDropdown from './CustomMetricDropdown';
 
 export default function Metrics(props: MetricsProps): ReactElement {
   const { metricName, metricValue }: MetricsProps = props;
@@ -22,7 +23,8 @@ export default function Metrics(props: MetricsProps): ReactElement {
   return (
     <div className={styles.metrics}>
       <div className={styles.metricsAndTooltip}>
-        <h5>{cleanNames(metricName).join(' ')}</h5>
+        <CustomMetricDropdown metricName={metricName}/>
+        {/* <h5>{cleanNames(metricName).join(' ')}</h5> */}
         <Tooltip metric={metricName} />
       </div>
       <button

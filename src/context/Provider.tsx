@@ -9,7 +9,7 @@ import initialStateUpdateInterval from './initialStates/initialStateUpdateInterv
 import initialStateSelectedServer from './initialStates/initialStateSelectedServer';
 import initialStateMetricHistory from './initialStates/initialStateMetricHistory';
 import initialStateOfDatesForHistory from './initialStates/initialStateOfDatesForHistory';
-
+import initialStateCustomMetrics from './initialStates/initialStateCustomMetrics';
 import user from './reducers/user';
 import metrics from './reducers/metrics';
 import servers from './reducers/servers';
@@ -20,7 +20,7 @@ import currentServer from './reducers/currentServer';
 import interval from './reducers/interval';
 import metricHistory from './reducers/metricHistory';
 import datesBeingCompared from './reducers/datesBeingCompared';
-
+import customMetrics from './reducers/customMetrics';
 import {
   User,
   Metrics,
@@ -89,6 +89,10 @@ export const GlobalProvider = ({ children }) => {
     Dispatch<ActionSelectedDates>
   ] = useReducer(datesBeingCompared, initialStateOfDatesForHistory);
 
+  const [customMetricState, customMetricDispatch]: [
+    Metrics,
+    Dispatch<ActionMetrics>
+  ] = useReducer(customMetrics, initialStateCustomMetrics);
   return (
     <GlobalContext.Provider
       value={{
@@ -102,6 +106,7 @@ export const GlobalProvider = ({ children }) => {
         graphInterval: { updateInterval, updateIntervalDispatch },
         metricHistory: { metricHistoryState, metricHistoryDispatch },
         datesSelected: {datesSelectedState,datesSelectedDispatch },
+        customMetrics: { customMetricState, customMetricDispatch },
       }}
     >
       {children}
