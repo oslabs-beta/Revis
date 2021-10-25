@@ -5,7 +5,7 @@ const datesBeingCompared = (state: {}, action: Action) => {
   const datesSelectedObject: {} = { ...state };
   switch (action.type) {
     case 'newDateSelected': {
-      datesSelectedObject[newDateSelected] = true;
+      datesSelectedObject[newDateSelected] = [];
       return datesSelectedObject;
     }
     case 'dateUnselected': {

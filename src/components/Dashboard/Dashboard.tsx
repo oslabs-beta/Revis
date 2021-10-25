@@ -8,7 +8,7 @@ import SignOutButton from '../Globals/SignOutButton';
 import NavBarDashboard from './NavBarDashboard';
 import { Context } from '../../context/interfaces';
 import MultipleGraphContainer from '../Graphs/Multiple/MultipleGraphContainer';
-import HistoryGraphsContainer from '../Graphs/History/HistoryGraphsContainer';
+import HistoryGraphsContainer from '../Graphs/History/HistoryGraphContainer';
 
 export default function Dashboard() {
   const { user }: Context = useStore();

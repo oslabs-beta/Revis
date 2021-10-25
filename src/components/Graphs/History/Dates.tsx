@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckSquare, faSquare } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
-import styles from '../../../styles/GraphContainer.module.scss';
+import styles from '../../../styles/HistoryGraphsContainer.module.scss';
 import { useStore } from '../../../context/Provider';
 import { Context, DatesSelectedContext } from '../../../context/interfaces';
 
@@ -12,15 +12,16 @@ function MetricsForGraph({ date }: { date: string }) {
     datesSelected;
 
   const updateDates = () => {
-    if (datesSelectedState[date]) {
+    console.log(datesSelectedState);
+    if (!datesSelectedState[date]) {
       datesSelectedDispatch({
         type: 'newDateSelected',
         message: date,
       });
     } else {
-      if (Object.keys(datesSelectedState).length > 2) {
-        return;
-      }
+      // if (Object.keys(datesSelectedState).length > 2) {
+      //   return;
+      // }
       datesSelectedDispatch({
         type: 'dateUnselected',
         message: date,

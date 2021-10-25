@@ -5,6 +5,7 @@ import styles from '../../../styles/HistoryGraphsContainer.module.scss';
 import Dates from './Dates';
 
 function DatesMenu() {
+  //datesbeingcompared
   const tempObjForTests = {
     'redis-16424.c289.us-west-1-2.ec2.cloud.redislabs.com': [
       'Oct 20 2021',
@@ -17,12 +18,16 @@ function DatesMenu() {
       'Oct 22 2021',
     ],
   };
-  const { currentServer, datesSelected }: Context = useStore(); // this is going to have the global state with dates
+
+  //body: DATE, METRIC, ENDPOINT
+
+  const { currentServer, datesSelected, metricHistoryState }: Context =
+    useStore(); // this is going to have the global state with dates
   const datesForCheckBoxes: ReactElement[] = [];
 
-  if(currentServer.selectedServer.endpoint){
+  if (currentServer.selectedServer.endpoint) {
     tempObjForTests[currentServer.selectedServer.endpoint].forEach((el) => {
-        datesForCheckBoxes.push(<Dates date={el} />);
+      datesForCheckBoxes.push(<Dates date={el} />);
     });
   }
 

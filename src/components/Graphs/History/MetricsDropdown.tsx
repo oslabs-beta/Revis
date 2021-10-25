@@ -5,8 +5,9 @@ import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
 import { useStore } from '../../../context/Provider';
 import { Context } from '../../../context/interfaces';
 
-function MetricsDropdown() {
+function MetricsDropdown(props) {
   const { metricsStore }: Context = useStore();
+  const {setCurrentMetricFunction} = props;
   const { metricState } = metricsStore;
   const list = [];
   function showingDropdown() {
@@ -15,7 +16,8 @@ function MetricsDropdown() {
       .classList.toggle(`${styles.show}`);
   }
   function selectMetric(e) {
-    console.log(e.target.innerHTML);
+    setCurrentMetricFunction(e.target.innerHTML);
+
     //this is going to be used to fetch the metric and date from the global state and create the array we need to have the graph
     //the graph needs to initialize with just one line using the same logic of single graph but we need to pass other lines
   }
