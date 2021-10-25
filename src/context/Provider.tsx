@@ -8,7 +8,7 @@ import initialStateTheme from './initialStates/initialStateTheme';
 import initialStateUpdateInterval from './initialStates/initialStateUpdateInterval';
 import initialStateSelectedServer from './initialStates/initialStateSelectedServer';
 import initialStateMetricHistory from './initialStates/initialStateMetricHistory';
-
+import initialStateCustomMetrics from './initialStates/initialStateCustomMetrics';
 import user from './reducers/user';
 import metrics from './reducers/metrics';
 import servers from './reducers/servers';
@@ -18,6 +18,7 @@ import theme from './reducers/theme';
 import currentServer from './reducers/currentServer';
 import interval from './reducers/interval';
 import metricHistory from './reducers/metricHistory';
+import customMetrics from './reducers/customMetrics';
 import {
   User,
   Metrics,
@@ -77,6 +78,11 @@ export const GlobalProvider = ({ children }) => {
     MetricHistory,
     Dispatch<ActionMetricHistory>
   ] = useReducer(metricHistory, initialStateMetricHistory);
+
+  const [customMetricState, customMetricDispatch]: [
+    Metrics,
+    Dispatch<ActionMetrics>
+  ] = useReducer(customMetrics, initialStateCustomMetrics);
   return (
     <GlobalContext.Provider
       value={{
@@ -89,6 +95,7 @@ export const GlobalProvider = ({ children }) => {
         themeContext: { currentTheme, themeDispatch },
         graphInterval: { updateInterval, updateIntervalDispatch },
         metricHistory: { metricHistoryState, metricHistoryDispatch },
+        customMetrics: { customMetricState, customMetricDispatch },
       }}
     >
       {children}

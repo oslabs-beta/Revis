@@ -12,15 +12,7 @@ export interface Theme {
 }
 
 export interface Metrics {
-  time?: string;
-  total_net_output_bytes?: string;
-  used_memory?: string;
-  connected_clients?: string;
-  evicted_keys?: string;
-  keyspace_hits?: string;
-  keyspace_misses?: string;
-  total_net_input_bytes?: string;
-  uptime_in_seconds?: string;
+  [metric: string] : string | number;
 }
 
 export interface Interval {
@@ -118,14 +110,17 @@ export interface UserContext {
   userState: User;
   userDispatch: Dispatch<Action>;
 }
+
 export interface MetricsStoreContext {
   metricState: Metrics[];
   metricsDispatch: Dispatch<ActionMetrics>;
 }
+
 export interface ServersContext {
   serverList: ServerInterface[];
   serversDispatch: Dispatch<ActionServerList>;
 }
+
 export interface CurrentServerContext {
   selectedServer: ServerInterface;
   selectedServerDispatch: Dispatch<ActionCurrentServer>;
@@ -134,14 +129,17 @@ export interface MetricToGraphContext {
   metricToGraph: string;
   selectedMetricDispatch: Dispatch<Action>;
 }
+
 export interface MultipleGraphSelectionsContext {
   multipleGraphState: MultipleGraphs;
   multipleGraphDispatch: Dispatch<Action>;
 }
+
 export interface ThemeContext {
   currentTheme: Theme;
   themeDispatch: Dispatch<Action>;
 }
+
 export interface GraphIntervalContext {
   updateInterval: Interval;
   updateIntervalDispatch: Dispatch<ActionInterval>;
@@ -150,6 +148,10 @@ export interface GraphIntervalContext {
 export interface MetricHistoryContext {
   metricHistoryState: MetricHistoryInterface[];
   metricHistoryDispatch: Dispatch<ActionMetricHistory>;
+}
+interface customMetricsContext {
+  customMetricState: Metrics,
+  customMetricDispatch: Dispatch<ActionMetrics>;
 }
 
 export interface Context {
@@ -162,4 +164,5 @@ export interface Context {
   themeContext?: ThemeContext;
   graphInterval?: GraphIntervalContext;
   metricHistory?: MetricHistoryContext;
+  customMetrics?: customMetricsContext;
 }

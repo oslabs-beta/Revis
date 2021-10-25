@@ -7,7 +7,8 @@ import SummaryTable from './SummaryTable';
 import { Context } from '../../context/interfaces';
 
 export default function Summary() {
-  const { currentServer, servers, metricsStore }: Context = useStore();
+  const { currentServer, servers, metricsStore, customMetrics }: Context = useStore();
+  const { customMetricState } = customMetrics;
   const { serverList } = servers;
   const { selectedServer } = currentServer;
   const { endpoint, password, port } = selectedServer;
@@ -42,22 +43,16 @@ export default function Summary() {
 
   const metricsForTable: ReactElement[] = [];
   const latestDataLength = metricState.length - 1;
-
-  Object.entries(metricState[latestDataLength]).forEach(
-    (metric: [string, string]) => {
-      if (metric[0].includes('memory')) metric[0] += ' (MB)';
-      if (metric[0].includes('in_seconds'))
-        metric[0] = metric[0].replace(/in_seconds/i, '(Hours)');
-      if (metric[0].includes('bytes'))
-        metric[0] = metric[0].replace(/bytes/i, '(MB)');
-      if (metric[0] !== 'time')
-        metricsForTable.push(
-          <Metrics
-            key={metric[0]}
-            metricName={metric[0]}
-            metricValue={metric[1]}
-          />
-        );
+  const latestMetricData = metricState[latestDataLength];
+  Object.keys(customMetricState).forEach(
+    (metric: string) => {
+      metricsForTable.push(
+        <Metrics
+          key={metric}
+          metricName={metric}
+          metricValue={latestMetricData[metric]}
+        />
+      );
     }
   );
 
