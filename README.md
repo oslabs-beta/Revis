@@ -1,10 +1,6 @@
 # Revis
 
-<<<<<<< HEAD
 Revis is a utility application that will enhance users' experience with their Redis servers. It offers an easy-to-use application that will allow users to monitor their Redis servers by accessing an ergonomic visualization of server metrics.
-=======
-Revis is a utility application that will enhance user's experience with their Redis servers. It offers an easy-to-use application that will allow users to monitor their Redis servers by accessing an ergonomic visualization of server metrics.
->>>>>>> fe5b3afdb93aaa09ba66894a7d79351f0901e2f3
 
 # Table of Contents
 
