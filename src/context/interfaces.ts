@@ -10,9 +10,15 @@ export interface User {
 export interface Theme {
   light: boolean;
 }
-
 export interface Metrics {
-  [metric: string]: string | string[];
+  total_net_output_bytes?: string | number | string[] | number[];
+  used_memory?: string | number | string[] | number[];
+  connected_clients?: string | number | string[] | number[];
+  evicted_keys?: string | number | string[] | number[];
+  keyspace_hits?: string | number | string[] | number[];
+  keyspace_misses?: string | number | string[] | number[];
+  total_net_input_bytes?: string | number | string[] | number[];
+  uptime_in_seconds?: string | number | string[] | number[];
 }
 
 export interface Interval {
