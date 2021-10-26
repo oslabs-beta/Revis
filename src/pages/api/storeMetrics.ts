@@ -122,6 +122,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
                 date = CURRENT_DATE;
                  \n`;
           });
+          await db.query(SQLQuery);
         } else {
           SQLQuery = `
         INSERT INTO "${process.env.PG_TABLE_METRICS}" (user_id,server_id,name,value) VALUES`;
@@ -140,11 +141,15 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
           SQLQuery += `UPDATE "${process.env.PG_TABLE_CLOUD}"
           SET lastcalled = CURRENT_DATE,
           previouslycalled = true
-          WHERE id = ${serverID};`;
-          cookies.set('previouslyCalled', 'true');
-        }
+          WHERE id = ${serverID}
+          RETURNING lastcalled;`;
+          const result = await db.query(SQLQuery);
+          const { rows } = result[1];
+          const { lastcalled } = rows[0];
 
-        await db.query(SQLQuery);
+          cookies.set('previouslyCalled', 'true');
+          cookies.set('lastCalled', lastcalled);
+        }
 
         return res.status(200).json({ success: true });
       } catch (err) {

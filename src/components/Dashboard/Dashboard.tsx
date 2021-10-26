@@ -9,7 +9,6 @@ import NavBarDashboard from './NavBarDashboard';
 import { Context } from '../../context/interfaces';
 import MultipleGraphContainer from '../Graphs/Multiple/MultipleGraphContainer';
 import HistoryGraphsContainer from '../Graphs/History/HistoryGraphContainer';
-import currentServer from '../../context/reducers/currentServer';
 
 export default function Dashboard() {
   const { user, metricsStore, servers, currentServer, metricHistory }: Context =
@@ -73,47 +72,43 @@ export default function Dashboard() {
                 password: data.password,
               },
             });
-            fetch('/api/redis', {
-              method: 'POST',
-              body: JSON.stringify({
-                endpoint: server.endpoint,
-                port: server.port,
-                password: data.password,
-              }),
-            })
+
+            fetch('/api/retrieveMetrics')
               .then((response) => response.json())
               .then((metricData) => {
-                const {
-                  uptime_in_seconds,
-                  used_memory,
-                  total_net_output_bytes,
-                  total_net_input_bytes,
-                  evicted_keys,
-                  connected_clients,
-                  keyspace_hits,
-                  keyspace_misses,
-                  time,
-                } = metricData;
-                metricsDispatch({
-                  type: 'cleanMetrics',
-                  message: {
-                    uptime_in_seconds,
-                    used_memory,
-                    total_net_output_bytes,
-                    total_net_input_bytes,
-                    evicted_keys,
-                    connected_clients,
-                    keyspace_hits,
-                    keyspace_misses,
-                    time,
-                  },
-                });
+                if (metricData.success) {
+                  const { metricsUpdated } = metricData;
+                  metricsDispatch({
+                    type: 'cleanMetrics',
+                    message: {
+                      metricsUpdated,
+                    },
+                  });
+                } else {
+                  fetch('/api/redis', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                      endpoint: server.endpoint,
+                      port: server.port,
+                      password: data.password,
+                    }),
+                  })
+                    .then((response) => response.json())
+                    .then((metrics) => {
+                      const { metricsUpdated } = metrics;
+                      metricsDispatch({
+                        type: 'cleanMetrics',
+                        message: {
+                          metricsUpdated,
+                        },
+                      });
+                    });
+                }
               });
           }
         });
     }
     // then ping backend to store server history in Redis
-    setInterval(storeDataInPG, 1000 * 60);
 
     fetch('/api/storeMetrics')
       .then((response: Response) => response.json())
@@ -127,6 +122,11 @@ export default function Dashboard() {
       })
       .catch((err) => console.log(err));
   }, [serverList]);
+
+  // useEffect(() => {
+  //   clearInterval();
+  //   setInterval(storeDataInPG, 10000);
+  // }, [metricState]);
 
   const changeCurrentRender = (e) => {
     setCurrentRender(e.target.innerHTML);
