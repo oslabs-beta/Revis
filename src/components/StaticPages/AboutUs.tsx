@@ -4,18 +4,18 @@ import Image from 'next/image';
 import Liam from './Fontes_Photo.png'
 import Chao from './IMG_0978 (1).PNG'
 import Mercedes from './Mercedes.png'
+import Jason from './image0.png'
+import router from 'next/router';
 
 function AboutUs() {
-  function onButtonClick() {
-    // document.querySelector(`#${styles.theTeam}`).scrollIntoView();
-    document.querySelector(`#${styles.theTeam}`).scrollIntoView();
 
- 
-    // document.getElementsByTagName('h2')[3].scrollIntoView();
-    // will scroll to 4th h3 element
+  function onButtonClick() {
+    document.querySelector(`#${styles.theTeam}`).scrollIntoView();
   }
+
   return (
     <div className={styles.aboutUsWrapper}>
+      <button id={styles.backButton} type= 'button' onClick={()=>router.replace('/')}>Back</button>
       <div className={styles.title}>
         {' '}
         <span id={styles.highlight}>By developers, for developers</span>
@@ -32,7 +32,7 @@ function AboutUs() {
         developers using Redis to be able to maximize its potential and to make
         more efficient and strategic decisions.
       </p>
-      <button type='button' onClick={onButtonClick}>
+      <button id={styles.meetTheTeam} type='button' onClick={onButtonClick}>
         Meet our team
       </button>
       <h1 id={styles.theTeam}>The team</h1>
@@ -42,7 +42,7 @@ function AboutUs() {
     <span id={styles.images}>
       <Image
         src={Chao}
-        alt='Page failed loading puppy'
+        alt='Image not available'
         height='200vh'
         width='250vh'
       />
@@ -50,8 +50,8 @@ function AboutUs() {
       </span>
       <span id={styles.images}>
       <Image
-        src={Liam}
-        alt='Page failed loading puppy'
+        src={Jason}
+        alt='Image not available'
         height='200vh'
         width='250vh'
       />
@@ -60,7 +60,7 @@ function AboutUs() {
       <span id={styles.images}>
       <Image
         src={Liam}
-        alt='Page failed loading puppy'
+        alt='Image not available'
         height='200vh'
         width='250vh'
       />
@@ -69,7 +69,7 @@ function AboutUs() {
       <span id={styles.images}>
       <Image
         src={Mercedes}
-        alt='Page failed loading puppy'
+        alt='Image not available'
         height='200vh'
         width='250vh'
       />
