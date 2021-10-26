@@ -24,18 +24,21 @@ export default function Summary() {
     total_net_input_bytes: 'total net input (MB)',
     uptime_in_seconds: 'uptime (Hours)',
   };
-  Object.entries(metricState[latestDataLength]).forEach(
-    (metric: [string, string]) => {
-      if (metric[0] !== 'time')
-        metricsForTable.push(
-          <Metrics
-            key={metric[0]}
-            metricName={displayName[metric[0]]}
-            metricValue={metric[1]}
-          />
-        );
-    }
-  );
+
+  if (metricState.length > 0) {
+    Object.entries(metricState[latestDataLength]).forEach(
+      (metric: [string, string]) => {
+        if (metric[0] !== 'time')
+          metricsForTable.push(
+            <Metrics
+              key={metric[0]}
+              metricName={displayName[metric[0]]}
+              metricValue={metric[1]}
+            />
+          );
+      }
+    );
+  }
 
   return (
     <div className={styles.SummaryWrapper}>

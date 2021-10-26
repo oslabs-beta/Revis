@@ -81,7 +81,7 @@ export default function Server(props) {
                       time,
                     } = metricData;
                     metricsDispatch({
-                      type: 'updateMetrics',
+                      type: 'cleanMetrics',
                       message: {
                         uptime_in_seconds,
                         used_memory,

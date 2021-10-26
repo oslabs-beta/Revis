@@ -20,30 +20,15 @@ const redisAPI = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'POST':
       try {
-        let redis;
-
-        if (typeof req.body !== 'string') {
-          console.log('ding');
-          const { endpoint, password, port } = req.body;
-          redis = new Redis({
-            host: endpoint,
-            port,
-            password,
-            connectTimeout: 10000,
-            reconnectOnError: false,
-          });
-        } else {
-          console.log('dong');
-          const parsedBody: ParsedBodyRedis = JSON.parse(req.body);
-          const { endpoint, password, port } = parsedBody;
-          redis = new Redis({
-            host: endpoint,
-            port,
-            password,
-            connectTimeout: 10000,
-            reconnectOnError: false,
-          });
-        }
+        const parsedBody: ParsedBodyRedis = JSON.parse(req.body);
+        const { endpoint, password, port } = parsedBody;
+        const redis = new Redis({
+          host: endpoint,
+          port,
+          password,
+          connectTimeout: 10000,
+          reconnectOnError: false,
+        });
 
         const metrics: string = await redis.info();
         const splitMetrics: string[] = metrics.split('\r\n');
