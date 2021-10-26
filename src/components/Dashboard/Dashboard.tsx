@@ -11,8 +11,11 @@ import MultipleGraphContainer from '../Graphs/Multiple/MultipleGraphContainer';
 import HistoryGraphsContainer from '../Graphs/History/HistoryGraphContainer';
 
 export default function Dashboard() {
-  const { user, metricsStore }: Context = useStore();
+  const { user, metricsStore, servers, currentServer }: Context = useStore();
   const { metricState, metricsDispatch } = metricsStore;
+  const { serverList } = servers;
+  const { selectedServerDispatch } = currentServer;
+
   const [currentRender, setCurrentRender] = useState('dashboard');
   const [noUsername, changeUsernameBool]: [
     boolean,
@@ -49,10 +52,63 @@ export default function Dashboard() {
       })
       .catch((err) => console.log(err));
 
-    // Auto selected server
-    // get metric information
-    // store that information into global state
-    // setInterval storeDataInPG (60000 ms)
+    if (serverList.length > 0) {
+      const server = serverList[0];
+      fetch('/api/validateUser', {
+        method: 'POST',
+        body: JSON.stringify({ endpoint: server.endpoint }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if ('password' in data) {
+            selectedServerDispatch({
+              type: 'currentServer',
+              message: {
+                name: server.name,
+                endpoint: server.endpoint,
+                port: server.port,
+                password: data.password,
+              },
+            });
+            fetch('/api/redis', {
+              method: 'POST',
+              body: JSON.stringify({
+                endpoint: server.endpoint,
+                port: server.port,
+                password: data.password,
+              }),
+            })
+              .then((response) => response.json())
+              .then((metricData) => {
+                const {
+                  uptime_in_seconds,
+                  used_memory,
+                  total_net_output_bytes,
+                  total_net_input_bytes,
+                  evicted_keys,
+                  connected_clients,
+                  keyspace_hits,
+                  keyspace_misses,
+                  time,
+                } = metricData;
+                metricsDispatch({
+                  type: 'cleanMetrics',
+                  message: {
+                    uptime_in_seconds,
+                    used_memory,
+                    total_net_output_bytes,
+                    total_net_input_bytes,
+                    evicted_keys,
+                    connected_clients,
+                    keyspace_hits,
+                    keyspace_misses,
+                    time,
+                  },
+                });
+              });
+          }
+        });
+    }
     // then ping backend to store server history in Redis
     setInterval(storeDataInPG, 1000 * 60);
 
@@ -60,7 +116,7 @@ export default function Dashboard() {
       .then((response: Response) => response.json())
       .then((data) => {})
       .catch((err) => console.log(err));
-  }, []);
+  }, [serverList]);
 
   // const setColorOfNav = (e) => {
   //   const currentRenderName: HTMLDivElement = e.target.attributes[1].value;
