@@ -16,6 +16,7 @@ export default function Dashboard() {
   const { metricState, metricsDispatch } = metricsStore;
   const { serverList } = servers;
   const { selectedServerDispatch } = currentServer;
+  const [cooldown, updateCoolDown] = useState(true);
 
   const [currentRender, setCurrentRender] = useState('dashboard');
   const [noUsername, changeUsernameBool]: [
@@ -45,7 +46,11 @@ export default function Dashboard() {
   };
   useEffect(() => {
     if (!metricState) return;
-    if (metricState.length % 10 === 0) storeDataInPG();
+    if (metricState.length % 10 === 0 && cooldown) {
+      storeDataInPG();
+      updateCoolDown(false);
+      setTimeout(() => updateCoolDown(true), 10000);
+    }
   }, [metricState]);
 
   useEffect(() => {
@@ -77,6 +82,8 @@ export default function Dashboard() {
                 password: data.password,
               },
             });
+            updateCoolDown(false);
+            setTimeout(() => updateCoolDown(true), 10000);
 
             fetch('/api/retrieveMetrics')
               .then((response) => response.json())

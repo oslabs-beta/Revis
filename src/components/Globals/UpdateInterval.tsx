@@ -50,11 +50,11 @@ function UpdateInterval() {
     reRender(!render);
   };
   const updateInterval = () => {
-    let newInterval = document.getElementById('intervalInput').value;
-    if (newInterval <= 0) newInterval = 1;
+    const newInterval = document.getElementById('intervalInput');
+    if (newInterval.value <= 0) newInterval.value = 1;
     graphInterval.updateIntervalDispatch({
       type: 'updateInterval',
-      message: newInterval,
+      message: newInterval.value,
     });
     newInterval.value = '';
     reRender(!render);

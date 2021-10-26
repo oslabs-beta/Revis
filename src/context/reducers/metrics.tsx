@@ -25,6 +25,9 @@ const metrics = (state: Metrics[], action: ActionMetrics) => {
       metricsList.push(action.message);
       return metricsList;
     case 'cleanMetrics':
+      if (Array.isArray(action.message.metricsUpdated)) {
+        return [...action.message.metricsUpdated];
+      }
       return [action.message.metricsUpdated];
     default:
       return state;
