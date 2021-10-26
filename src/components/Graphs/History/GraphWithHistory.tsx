@@ -15,9 +15,9 @@ function GraphWithHistory({ metricName, metricValue }: MetricsProps) {
           data={metricValue}
           margin={{ top: 30, right: 50, bottom: 25, left: 0 }}
         >
-          <Line type="monotone" dataKey={metricName} stroke="#d33b51" />
-          <XAxis stroke="#ce6030" dataKey="time" tick={{ fill: '#d8d8d4' }} />
-          <YAxis stroke="#ce6030" tick={{ fill: '#d8d8d4' }} />
+          <Line type="monotone" dataKey={metricName} stroke="#e38d41e9" />
+          <XAxis stroke="#e38d41e9" dataKey="time" tick={{ fill: '#d8d8d4' }} />
+          <YAxis stroke="#e38d41e9" tick={{ fill: '#d8d8d4' }} />
           <Tooltip />
         </LineChart>
       </div>

@@ -10,6 +10,16 @@ function MetricsDropdown(props) {
   const {setCurrentMetricFunction} = props;
   const { metricState } = metricsStore;
   const list = [];
+
+  const cleanNames = (string: string): string[] => {
+    const splitNames: string[] = string.split('_');
+    const capitilizeFirstLetter: string[] = splitNames.map((str) => {
+      const firstLetter: string = str[0].toUpperCase();
+      return firstLetter + str.slice(1) + ' ';
+    });
+    return capitilizeFirstLetter;
+  };
+
   function showingDropdown() {
     document
       .querySelector(`.${styles.dropdowncontent}`)
@@ -25,7 +35,7 @@ function MetricsDropdown(props) {
   Object.entries(metricState[metricState.length - 1]).forEach((el) => {
     list.push(
       <button type='button' onClick={selectMetric}>
-        {el[0]}
+        {cleanNames(el[0])}
       </button>
     );
   });

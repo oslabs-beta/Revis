@@ -14,8 +14,11 @@ function NavBarDashboard(props) {
 
       <h1 id={styles.logo}>Revis</h1>
       <div className={styles.navBarDashboard}>
-        <button type='button' id={styles.Latency} onClick={changeCurrentRender}>
-          Latency
+        <button type='button' id={styles.Summary} onClick={changeCurrentRender}>
+          Summary
+        </button>
+        <button type='button' id={styles.History} onClick={changeCurrentRender}>
+          History
         </button>
         <button
           type='button'
@@ -23,12 +26,6 @@ function NavBarDashboard(props) {
           onClick={changeCurrentRender}
         >
           Multiple graphs
-        </button>
-        <button type='button' id={styles.History} onClick={changeCurrentRender}>
-          History
-        </button>
-        <button type='button' id={styles.Summary} onClick={changeCurrentRender}>
-          Summary
         </button>
       </div>
     </div>

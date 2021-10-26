@@ -1,7 +1,13 @@
-import React from "react";
+import React from 'react';
+import AboutUs from '../components/StaticPages/AboutUs';
+
 
 function aboutus() {
-  return <div>About us</div>;
+  return (
+    <div>
+      <AboutUs />
+    </div>
+  );
 }
 
 export default aboutus;

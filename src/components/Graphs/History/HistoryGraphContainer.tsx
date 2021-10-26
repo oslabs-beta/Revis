@@ -42,7 +42,7 @@ function HistoryGraphContainer() {
           key={i}
           data-grid={{ x: layouts[i][0], y: layouts[i][0], w: 6, h: 1.2 }}
         >
-          <GraphWithHistory metricValue={data} metricName={currentMetric} />
+          <GraphWithHistory metricValue={datesSelectedState[date]} metricName={date} />
         </div>
     )
     i+=1;

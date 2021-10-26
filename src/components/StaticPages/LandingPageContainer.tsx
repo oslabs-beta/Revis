@@ -27,7 +27,7 @@ function LandingPage() {
             Start now
           </button>
           <button type="button" onClick={() => router.replace("/dashboard")}>
-            Demo
+            Free demo
           </button>
         </div>
       </div>
