@@ -8,35 +8,12 @@ import { Context } from '../../context/interfaces';
 import UpdateInterval from '../Globals/UpdateInterval';
 
 export default function Summary() {
-  const { currentServer, servers, metricsStore, customMetrics }: Context = useStore();
+  const { currentServer, servers, metricsStore, customMetrics }: Context =
+    useStore();
   const { customMetricState } = customMetrics;
   const { serverList } = servers;
   const { selectedServer } = currentServer;
-  const { endpoint, password, port } = selectedServer;
   const { metricState, metricsDispatch } = metricsStore;
-
-  useEffect(() => {
-    if (endpoint === '' || password === '' || port === '') return;
-    async function fetchDataFromRedis() {
-      const response = await fetch('/api/redis', {
-        method: 'POST',
-        body: JSON.stringify({
-          endpoint: `${endpoint}`,
-          password: `${password}`,
-          port: `${port}`,
-        }),
-        headers: { 'Content-Type': 'application/json' },
-      });
-      const updatedMetrics: string[] = await response.json();
-      metricsDispatch({
-        type: 'updateMetrics',
-        message: updatedMetrics,
-      });
-    }
-    if (selectedServer.name !== undefined) {
-      fetchDataFromRedis();
-    }
-  }, [selectedServer]);
 
   const metricsForTable: ReactElement[] = [];
   const latestDataLength = metricState.length - 1;
@@ -61,17 +38,15 @@ export default function Summary() {
   //         />
   //       );
   const latestMetricData = metricState[latestDataLength];
-  Object.keys(customMetricState).forEach(
-    (metric: string) => {
-      metricsForTable.push(
-        <Metrics
-          key={metric}
-          metricName={metric}
-          metricValue={latestMetricData[metric]}
-        />
-      );
-    }
-  );
+  Object.keys(customMetricState).forEach((metric: string) => {
+    metricsForTable.push(
+      <Metrics
+        key={metric}
+        metricName={metric}
+        metricValue={latestMetricData[metric]}
+      />
+    );
+  });
 
   return (
     <div className={styles.SummaryWrapper}>

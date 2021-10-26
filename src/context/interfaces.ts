@@ -11,7 +11,7 @@ export interface Theme {
   light: boolean;
 }
 export interface Metrics {
-  [metric: string] : string | number;
+  [metric: string]: string | number;
 }
 
 export interface Interval {
@@ -159,7 +159,7 @@ export interface MetricHistoryContext {
   metricHistoryDispatch: Dispatch<ActionMetricHistory>;
 }
 interface customMetricsContext {
-  customMetricState: Metrics,
+  customMetricState: Metrics;
   customMetricDispatch: Dispatch<ActionMetrics>;
 }
 

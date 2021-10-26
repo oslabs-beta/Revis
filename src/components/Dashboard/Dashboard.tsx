@@ -12,7 +12,12 @@ import HistoryGraphsContainer from '../Graphs/History/HistoryGraphContainer';
 import currentServer from '../../context/reducers/currentServer';
 
 export default function Dashboard() {
-  const { user, metricHistory }: Context = useStore();
+  const { user, metricsStore, servers, currentServer, metricHistory }: Context =
+    useStore();
+  const { metricState, metricsDispatch } = metricsStore;
+  const { serverList } = servers;
+  const { selectedServerDispatch } = currentServer;
+
   const [currentRender, setCurrentRender] = useState('dashboard');
   const [noUsername, changeUsernameBool]: [
     boolean,
@@ -21,6 +26,24 @@ export default function Dashboard() {
   const { userDispatch } = user;
   const { metricHistoryDispatch, metricHistoryState } = metricHistory;
 
+  const reformatDataForDB = (metrics: Metrics[]) => {
+    const reformattedData = {};
+    metrics.forEach((metricData) => {
+      Object.entries(metricData).forEach(([metricName, value]) => {
+        if (!(metricName in reformattedData)) reformattedData[metricName] = [];
+        reformattedData[metricName].push(`'${value}'`);
+      });
+    });
+    return reformattedData;
+  };
+  const storeDataInPG = () => {
+    if (metricState.length > 1) {
+      fetch('/api/storeMetrics', {
+        method: 'POST',
+        body: JSON.stringify(reformatDataForDB(metricState)),
+      });
+    }
+  };
   useEffect(() => {
     fetch('/api/validateUser')
       .then((response: Response) => response.json())
@@ -31,6 +54,66 @@ export default function Dashboard() {
         changeUsernameBool(false);
       })
       .catch((err) => console.log(err));
+
+    if (serverList.length > 0) {
+      const server = serverList[0];
+      fetch('/api/validateUser', {
+        method: 'POST',
+        body: JSON.stringify({ endpoint: server.endpoint }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if ('password' in data) {
+            selectedServerDispatch({
+              type: 'currentServer',
+              message: {
+                name: server.name,
+                endpoint: server.endpoint,
+                port: server.port,
+                password: data.password,
+              },
+            });
+            fetch('/api/redis', {
+              method: 'POST',
+              body: JSON.stringify({
+                endpoint: server.endpoint,
+                port: server.port,
+                password: data.password,
+              }),
+            })
+              .then((response) => response.json())
+              .then((metricData) => {
+                const {
+                  uptime_in_seconds,
+                  used_memory,
+                  total_net_output_bytes,
+                  total_net_input_bytes,
+                  evicted_keys,
+                  connected_clients,
+                  keyspace_hits,
+                  keyspace_misses,
+                  time,
+                } = metricData;
+                metricsDispatch({
+                  type: 'cleanMetrics',
+                  message: {
+                    uptime_in_seconds,
+                    used_memory,
+                    total_net_output_bytes,
+                    total_net_input_bytes,
+                    evicted_keys,
+                    connected_clients,
+                    keyspace_hits,
+                    keyspace_misses,
+                    time,
+                  },
+                });
+              });
+          }
+        });
+    }
+    // then ping backend to store server history in Redis
+    setInterval(storeDataInPG, 1000 * 60);
 
     fetch('/api/storeMetrics')
       .then((response: Response) => response.json())
@@ -43,7 +126,7 @@ export default function Dashboard() {
         // console.log(metricHistoryState);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [serverList]);
 
   const changeCurrentRender = (e) => {
     setCurrentRender(e.target.innerHTML);

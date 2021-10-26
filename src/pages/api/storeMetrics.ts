@@ -3,8 +3,9 @@ import Cookies from 'cookies';
 import db from '../../models/Revis';
 import { Metrics, metricsSQLtoRedis } from '../../context/interfaces';
 
+const Redis = require('ioredis');
+
 const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
-  const Redis = require('ioredis');
   const { method } = req;
   const cookies: Cookies = new Cookies(req, res);
   const userID = Number(cookies.get('ssid'));
@@ -50,7 +51,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'GET': {
       const SQLQuery: string = `SELECT server_id,ta.name,tb.endpoint,value,date from "${process.env.PG_TABLE_METRICS}" AS ta 
-      INNER JOIN "${process.env.PG_TABLE_CLOUD}" as tb on tb.id =server_id where ta.user_id = ${userID}`;
+      INNER JOIN "${process.env.PG_TABLE_CLOUD}" as tb on tb.id =server_id where ta.user_id = ${userID} ORDER BY date`;
       const { rows } = await db.query(SQLQuery);
 
       const redis = new Redis({
@@ -151,7 +152,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(400).json({ success: false, error: err });
       }
     default:
-      return res.status(400).json({ error: 'Error within verifyEndpoint' });
+      return res.status(400).json({ error: 'Error within storeMetrics' });
   }
 };
 export default storeMetrics;
