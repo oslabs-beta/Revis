@@ -9,11 +9,13 @@ function DatesMenu(props) {
   const { metric } = props;
 
   const { currentServer, metricHistory }: Context = useStore();
-  const { metricHistoryState } = metricHistory; 
+  const { metricHistoryState } = metricHistory;
   const datesForCheckBoxes: ReactElement[] = [];
 
-  if (currentServer.selectedServer.endpoint && Object.keys(metricHistoryState).length !== 0) {
-    
+  if (
+    currentServer.selectedServer.endpoint &&
+    Object.keys(metricHistoryState).length !== 0
+  ) {
     metricHistoryState[currentServer.selectedServer.endpoint].forEach((el) => {
       datesForCheckBoxes.push(<Dates date={el} metric={metric} />);
     });

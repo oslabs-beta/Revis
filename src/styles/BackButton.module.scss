@@ -1,4 +1,4 @@
-@import "./colorsAndFonts.scss";
+@import './colorsAndFonts.scss';
 #backButton {
   position: absolute;
   left: 6.5%;
@@ -9,4 +9,8 @@
   font-size: 20px;
   color: var(--grey);
   font-family: $fontOfSummaryTitle;
+}
+
+#backButton:hover {
+  cursor: pointer;
 }
