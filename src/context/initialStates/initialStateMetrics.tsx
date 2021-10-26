@@ -10,6 +10,7 @@ const metricsInitialState: Metrics[] = [
     keyspace_misses: '0',
     total_net_input_bytes: '0',
     uptime_in_seconds: '0',
+    time: '0',
   },
 ];
 

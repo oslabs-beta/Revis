@@ -8,34 +8,9 @@ import { Context } from '../../context/interfaces';
 import UpdateInterval from '../Globals/UpdateInterval';
 
 export default function Summary() {
-  const { currentServer, servers, metricsStore }: Context = useStore();
+  const { servers, metricsStore }: Context = useStore();
   const { serverList } = servers;
-  const { selectedServer } = currentServer;
-  const { endpoint, password, port } = selectedServer;
   const { metricState, metricsDispatch } = metricsStore;
-
-  useEffect(() => {
-    if (endpoint === '' || password === '' || port === '') return;
-    async function fetchDataFromRedis() {
-      const response = await fetch('/api/redis', {
-        method: 'POST',
-        body: JSON.stringify({
-          endpoint: `${endpoint}`,
-          password: `${password}`,
-          port: `${port}`,
-        }),
-        headers: { 'Content-Type': 'application/json' },
-      });
-      const updatedMetrics: string[] = await response.json();
-      metricsDispatch({
-        type: 'updateMetrics',
-        message: updatedMetrics,
-      });
-    }
-    if (selectedServer.name !== undefined) {
-      fetchDataFromRedis();
-    }
-  }, [selectedServer]);
 
   const metricsForTable: ReactElement[] = [];
   const latestDataLength = metricState.length - 1;

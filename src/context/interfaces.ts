@@ -19,6 +19,7 @@ export interface Metrics {
   keyspace_misses?: string | number | string[] | number[];
   total_net_input_bytes?: string | number | string[] | number[];
   uptime_in_seconds?: string | number | string[] | number[];
+  time?: string | number | string[] | number[];
 }
 
 export interface Interval {

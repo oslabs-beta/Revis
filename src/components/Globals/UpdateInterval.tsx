@@ -12,44 +12,26 @@ function UpdateInterval() {
   const [render, reRender] = useState(false);
   const { metricState, metricsDispatch } = metricsStore;
 
-  const reformatDataForDB = (metrics: Metrics[]) => {
-    const reformattedData = {};
-    metrics.forEach((metricData) => {
-      Object.entries(metricData).forEach(([metricName, value]) => {
-        if (!(metricName in reformattedData)) reformattedData[metricName] = [];
-        reformattedData[metricName].push(`'${value}'`);
-      });
+  async function fetchDataFromRedis() {
+    const response = await fetch('/api/redis', {
+      method: 'POST',
+      body: JSON.stringify({
+        endpoint: `${endpoint}`,
+        password: `${password}`,
+        port: `${port}`,
+      }),
     });
-    return reformattedData;
-  };
-  const storeDataInPG = () => {
-    if (metricState.length > 1) {
-      fetch('/api/storeMetrics', {
-        method: 'POST',
-        body: JSON.stringify(reformatDataForDB(metricState)),
-      });
-    }
-  };
+    const updatedMetrics: Metrics = await response.json();
+    metricsDispatch({
+      type: 'updateMetrics',
+      message: updatedMetrics,
+    });
+  }
+
   useEffect(() => {
     if (endpoint === '' || password === '' || port === '') return;
-    async function fetchDataFromRedis() {
-      const response = await fetch('/api/redis', {
-        method: 'POST',
-        body: JSON.stringify({
-          endpoint: `${endpoint}`,
-          password: `${password}`,
-          port: `${port}`,
-        }),
-      });
-      const updatedMetrics: Metrics = await response.json();
-      metricsDispatch({
-        type: 'updateMetrics',
-        message: updatedMetrics,
-      });
-      storeDataInPG();
-    }
+
     if (selectedServer.name !== undefined) {
-      fetchDataFromRedis();
       const interval = setInterval(fetchDataFromRedis, time);
 
       if (graphInterval.updateInterval.update === false)

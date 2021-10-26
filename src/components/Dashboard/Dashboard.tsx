@@ -11,7 +11,8 @@ import MultipleGraphContainer from '../Graphs/Multiple/MultipleGraphContainer';
 import HistoryGraphsContainer from '../Graphs/History/HistoryGraphContainer';
 
 export default function Dashboard() {
-  const { user }: Context = useStore();
+  const { user, metricsStore }: Context = useStore();
+  const { metricState, metricsDispatch } = metricsStore;
   const [currentRender, setCurrentRender] = useState('dashboard');
   const [noUsername, changeUsernameBool]: [
     boolean,
@@ -19,6 +20,24 @@ export default function Dashboard() {
   ] = useState(true);
   const { userDispatch } = user;
 
+  const reformatDataForDB = (metrics: Metrics[]) => {
+    const reformattedData = {};
+    metrics.forEach((metricData) => {
+      Object.entries(metricData).forEach(([metricName, value]) => {
+        if (!(metricName in reformattedData)) reformattedData[metricName] = [];
+        reformattedData[metricName].push(`'${value}'`);
+      });
+    });
+    return reformattedData;
+  };
+  const storeDataInPG = () => {
+    if (metricState.length > 1) {
+      fetch('/api/storeMetrics', {
+        method: 'POST',
+        body: JSON.stringify(reformatDataForDB(metricState)),
+      });
+    }
+  };
   useEffect(() => {
     fetch('/api/validateUser')
       .then((response: Response) => response.json())
@@ -29,6 +48,13 @@ export default function Dashboard() {
         changeUsernameBool(false);
       })
       .catch((err) => console.log(err));
+
+    // Auto selected server
+    // get metric information
+    // store that information into global state
+    // setInterval storeDataInPG (60000 ms)
+    // then ping backend to store server history in Redis
+    setInterval(storeDataInPG, 1000 * 60);
 
     fetch('/api/storeMetrics')
       .then((response: Response) => response.json())
