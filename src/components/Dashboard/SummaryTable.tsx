@@ -12,7 +12,10 @@ export default function SummaryTable(props) {
         {metricsForTable.length === 0 ? (
           <div>
             <h1>
-              <FontAwesomeIcon icon={faSpinner} id={styles.loading} />
+              Select a server to view its metrics! {'\n'}
+              <div>
+                <FontAwesomeIcon icon={faSpinner} id={styles.loading} />
+              </div>
             </h1>
           </div>
         ) : (

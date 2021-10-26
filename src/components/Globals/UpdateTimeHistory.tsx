@@ -12,25 +12,6 @@ function UpdateTimeHistory() {
   const [render, reRender] = useState(false);
   const { metricState, metricsDispatch } = metricsStore;
 
-  const reformatDataForDB = (metrics: Metrics[]) => {
-    const reformattedData = {};
-    metrics.forEach((metricData) => {
-      Object.entries(metricData).forEach(([metricName, value]) => {
-        if (!(metricName in reformattedData)) reformattedData[metricName] = [];
-        reformattedData[metricName].push(`'${value}'`);
-      });
-    });
-    return reformattedData;
-  };
-  const storeDataInPG = () => {
-    console.log(metricState);
-    if (metricState.length > 1) {
-      fetch('/api/storeMetrics', {
-        method: 'POST',
-        body: JSON.stringify(reformatDataForDB(metricState)),
-      });
-    }
-  };
   useEffect(() => {
     if (endpoint === '' || password === '' || port === '') return;
     async function fetchDataFromRedis() {
@@ -47,7 +28,6 @@ function UpdateTimeHistory() {
         type: 'updateMetrics',
         message: updatedMetrics,
       });
-      storeDataInPG();
     }
     if (selectedServer.name !== undefined) {
       fetchDataFromRedis();
@@ -55,9 +35,7 @@ function UpdateTimeHistory() {
 
       if (graphInterval.updateInterval.update === false)
         clearInterval(interval);
-      return () => {
-        clearInterval(interval);
-      };
+      return () => clearInterval(interval);
     }
   }, [selectedServer, render]);
 

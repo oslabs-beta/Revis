@@ -11,14 +11,7 @@ export interface Theme {
   light: boolean;
 }
 export interface Metrics {
-  total_net_output_bytes?: string | number | string[] | number[];
-  used_memory?: string | number | string[] | number[];
-  connected_clients?: string | number | string[] | number[];
-  evicted_keys?: string | number | string[] | number[];
-  keyspace_hits?: string | number | string[] | number[];
-  keyspace_misses?: string | number | string[] | number[];
-  total_net_input_bytes?: string | number | string[] | number[];
-  uptime_in_seconds?: string | number | string[] | number[];
+  [metric: string]: string | number;
 }
 
 export interface Interval {
@@ -126,14 +119,17 @@ export interface UserContext {
   userState: User;
   userDispatch: Dispatch<Action>;
 }
+
 export interface MetricsStoreContext {
   metricState: Metrics[];
   metricsDispatch: Dispatch<ActionMetrics>;
 }
+
 export interface ServersContext {
   serverList: ServerInterface[];
   serversDispatch: Dispatch<ActionServerList>;
 }
+
 export interface CurrentServerContext {
   selectedServer: ServerInterface;
   selectedServerDispatch: Dispatch<ActionCurrentServer>;
@@ -142,14 +138,17 @@ export interface MetricToGraphContext {
   metricToGraph: string;
   selectedMetricDispatch: Dispatch<Action>;
 }
+
 export interface MultipleGraphSelectionsContext {
   multipleGraphState: MultipleGraphs;
   multipleGraphDispatch: Dispatch<Action>;
 }
+
 export interface ThemeContext {
   currentTheme: Theme;
   themeDispatch: Dispatch<Action>;
 }
+
 export interface GraphIntervalContext {
   updateInterval: Interval;
   updateIntervalDispatch: Dispatch<ActionInterval>;
@@ -158,6 +157,10 @@ export interface GraphIntervalContext {
 export interface MetricHistoryContext {
   metricHistoryState: MetricHistoryInterface[];
   metricHistoryDispatch: Dispatch<ActionMetricHistory>;
+}
+interface customMetricsContext {
+  customMetricState: Metrics;
+  customMetricDispatch: Dispatch<ActionMetrics>;
 }
 
 export interface DatesSelectedContext {
@@ -183,4 +186,5 @@ export interface Layouts {
   1?: string;
   2?: string;
   3?: string;
+  customMetrics?: customMetricsContext;
 }

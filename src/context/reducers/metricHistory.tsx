@@ -27,13 +27,17 @@ const metricHistory = (
   action: ActionMetricHistory
 ) => {
   const server: MetricHistoryInterface = action.message;
+  
+
   switch (action.type) {
-    case 'addServer': {
-    }
-    case 'deleteServer': {
-    }
-    case 'populateList': {
-    }
+    case 'addServer':
+      return server;
+
+    case 'deleteServer':
+      return {};
+
+    // case 'populateList': {
+    // }
     default:
       return state;
   }
