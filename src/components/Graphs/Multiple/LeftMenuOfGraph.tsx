@@ -13,7 +13,7 @@ function LeftMenuOfGraph() {
       metricsForCheckBoxes.push(<MetricsForGraph metricName={el[0]} />);
   });
   return (
-    <div id="leftMenuGraphs" className={styles.LeftMenu}>
+    <div className= {styles.LeftMetrics}>
       {Object.keys(multipleGraphSelections.multipleGraphState).length > 3 ? (
         <div className={styles.MaxGraphsMessage}>
           Only 4 graphs can be simultaneously displayed
@@ -21,8 +21,9 @@ function LeftMenuOfGraph() {
       ) : (
         ''
       )}
-
-      {metricsForCheckBoxes}
+      <div id='leftMenuGraphs' className={styles.LeftMenu}>
+        {metricsForCheckBoxes}
+      </div>
     </div>
   );
 }

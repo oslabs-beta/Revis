@@ -19,7 +19,6 @@ function MetricsForGraph({ date, metric }: { date: string, metric: string }) {
       fetch('api/retrieveMetrics', {
         method: 'POST',
         body: JSON.stringify({ endpoint, date, metric}),
-        // headers: { 'Content-Type': 'application/json' },
       })
       .then((response: Response) => response.json())
       .then((data) => {
@@ -30,9 +29,6 @@ function MetricsForGraph({ date, metric }: { date: string, metric: string }) {
       })
 
     } else {
-      // if (Object.keys(datesSelectedState).length > 2) {
-      //   return;
-      // }
       datesSelectedDispatch({
         type: 'dateUnselected',
         message: date,

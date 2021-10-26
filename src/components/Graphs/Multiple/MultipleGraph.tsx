@@ -13,15 +13,19 @@ function MultipleGraph({ metricName, metricValue }: MetricsProps) {
     });
     return capitilizeFirstLetter;
   };
+
+  const graphWidth = () => window.innerWidth / 5;
+  
+
   return (
     <div>
       <h1>{cleanNames(metricName)}</h1>
       <div className={styles.Graph}>
         <LineChart
-          width={400}
+          width={graphWidth()}
           height={300}
           data={metricValue}
-          margin={{ top: 30, right: 50, bottom: 25, left: 0 }}
+          margin={{ top: 30, right: 20, bottom: 25, left: 20 }}
         >
           <Line type="monotone" dataKey={metricName} stroke="#e38d41e9" />
           <XAxis stroke="#e38d41e9" dataKey="time" tick={{ fill: '#d8d8d4' }} />
