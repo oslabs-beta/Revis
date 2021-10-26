@@ -8,9 +8,9 @@ function LeftMenuOfGraph() {
   const { metricsStore, multipleGraphSelections }: Context = useStore();
   const metricsForCheckBoxes: ReactElement[] = [];
 
-  Object.entries(metricsStore.metricState[0]).forEach((el) => {
-    if (el[0] !== 'time')
-      metricsForCheckBoxes.push(<MetricsForGraph metricName={el[0]} />);
+  Object.keys(metricsStore.metricState[0]).forEach((metricName) => {
+    if (metricName !== 'time')
+      metricsForCheckBoxes.push(<MetricsForGraph metricName={metricName} />);
   });
   return (
     <div id="leftMenuGraphs" className={styles.LeftMenu}>
