@@ -3,7 +3,6 @@ import { Metrics, ActionMetrics } from '../interfaces';
 const metrics = (state: Metrics[], action: ActionMetrics) => {
   let metricsList;
   if (!metricsList) metricsList = state.slice();
-  console.log(action);
 
   // action.message.uptime_in_seconds = Number(
   //   action.message.uptime_in_seconds / 3600
