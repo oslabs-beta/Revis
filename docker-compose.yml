@@ -1,0 +1,7 @@
+version: '3'
+services:
+  blog_deepak: "revis"
+    build: "revis/prod"
+      context: .
+    ports:
+      - '3000:3000'

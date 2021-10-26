@@ -1,0 +1,4 @@
+version: '3'
+services:
+  blog_deepak: "revis"
+  command: "npm run dev"
