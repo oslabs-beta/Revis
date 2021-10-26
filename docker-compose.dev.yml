@@ -6,9 +6,10 @@ services:
       - 3000:3000
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-dev
+      environment: 
+      - NODE_ENV=development
     volumes:
       - .:/app
       - /app/node_modules
-      - /app/.next
-    depeonds_on: 
+      - /app/.next 
