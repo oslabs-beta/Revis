@@ -7,7 +7,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-dev
-      environment: 
+    environment: 
       - NODE_ENV=development
     volumes:
       - .:/app
