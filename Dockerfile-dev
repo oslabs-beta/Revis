@@ -4,6 +4,14 @@ WORKDIR /app
 
 COPY package*.json /app/
 
+COPY tsconfig*.json /app/
+
 RUN npm install
 
-EXPOSE 3000 
+COPY . /app
+
+RUN npm run build
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev"]

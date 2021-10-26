@@ -1,4 +1,14 @@
-version: '3'
+version: '3.3'
+
 services:
-  blog_deepak: "revis"
-  command: "npm run dev"
+  nextjs:
+    ports:
+      - 3000:3000
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    depeonds_on: 
