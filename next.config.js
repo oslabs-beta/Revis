@@ -10,11 +10,7 @@ module.exports = {
     PG_TABLE_USERS: 'users',
     PG_TABLE_REDIS: '0d94f51fdca1782b63e4fbe02794deea',
   },
-  images: {
-    domains: ['tonygentilcore.com'],
-    loader: 'imgix',
-    path: '/',
-  },
+
   excludeFile: (str) => /\*.{spec,tests}.js/.test(str),
   typescript: {
     ignoreBuildErrors: true,

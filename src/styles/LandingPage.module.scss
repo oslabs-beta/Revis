@@ -108,9 +108,9 @@
         border-radius: 10%;
         color: var(--background);
         border-color: transparent;
-        width: 10vh;
+        width: 12vh;
         height: 5vh;
-        font-size: 1.8vh;
+        font-size: 2vh;
         font-family: $fontOfButtons;
         font-weight: bold;
       }
@@ -127,4 +127,8 @@
       }
     }
   }
+}
+
+.invalidPage {
+  text-align: center;
 }

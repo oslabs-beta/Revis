@@ -11,7 +11,7 @@ function DatesMenu(props) {
   const { currentServer, metricHistory }: Context = useStore();
   const { metricHistoryState } = metricHistory; 
   const datesForCheckBoxes: ReactElement[] = [];
-  console.log(metricHistoryState);
+
   if (currentServer.selectedServer.endpoint && Object.keys(metricHistoryState).length !== 0) {
     
     metricHistoryState[currentServer.selectedServer.endpoint].forEach((el) => {

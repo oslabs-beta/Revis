@@ -16,10 +16,10 @@ function Graph() {
     });
     return capitilizeFirstLetter;
   };
-
+  
   return (
     <div>
-      <h1>{cleanNames(metricToGraph.metricToGraph)}</h1>
+      {metricToGraph.metricToGraph?<h1>{cleanNames(metricToGraph.metricToGraph)}</h1>:''}
       <div className={styles.Graph}>
         <LineChart
           width={600}
