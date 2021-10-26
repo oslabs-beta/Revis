@@ -44,6 +44,11 @@ export default function Dashboard() {
     }
   };
   useEffect(() => {
+    if (!metricState) return;
+    if (metricState.length % 10 === 0) storeDataInPG();
+  }, [metricState]);
+
+  useEffect(() => {
     fetch('/api/validateUser')
       .then((response: Response) => response.json())
       .then((data) => {
@@ -108,25 +113,17 @@ export default function Dashboard() {
           }
         });
     }
-    // then ping backend to store server history in Redis
 
     fetch('/api/storeMetrics')
       .then((response: Response) => response.json())
       .then((data) => {
-        // console.log(metricHistoryState);
         metricHistoryDispatch({
           type: 'addServer',
           message: data.serversAndDates,
         });
-        // console.log(metricHistoryState);
       })
       .catch((err) => console.log(err));
   }, [serverList]);
-
-  // useEffect(() => {
-  //   clearInterval();
-  //   setInterval(storeDataInPG, 10000);
-  // }, [metricState]);
 
   const changeCurrentRender = (e) => {
     setCurrentRender(e.target.innerHTML);
