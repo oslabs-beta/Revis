@@ -2,20 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import Cookies from 'cookies';
 import db from '../../models/Revis';
 
-import { Metrics, metricsSQLtoRedis } from '../../context/interfaces';
-
 const Redis = require('ioredis');
-
-const metricList = [
-  'total_net_output_bytes',
-  'used_memory',
-  'connected_clients',
-  'evicted_keys',
-  'keyspace_hits',
-  'keyspace_misses',
-  'total_net_input_bytes',
-  'uptime_in_seconds',
-];
 
 const monthToNum = {
   Jan: '1',
@@ -32,27 +19,6 @@ const monthToNum = {
   Dec: '12',
 };
 
-const retrieveFromRedis = async (
-  redis,
-  endpoint: string,
-  date: string,
-  userID: number,
-  name: string,
-  metrics: string[]
-) => {
-  const redisMetrics = [];
-  if (!name) {
-    metrics.forEach(async (metric) => {
-      const redisStorageKey = `${endpoint}|${date}|${userID}|${metric}`;
-      redisMetrics.push(await redis.lrange(redisStorageKey, 0, -1));
-    });
-  }
-  const redisMetricsObj = {};
-  Promise.all(redisMetrics).then((values) => {
-    console.log(values);
-  });
-};
-
 const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
   const cookies: Cookies = new Cookies(req, res);
@@ -61,7 +27,6 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
   const day: string = String(today.getDate());
   const month: string = String(today.getMonth() + 1);
   const year: string = String(today.getFullYear());
-  const fullDate: string = `${month}-${day}-${year}`;
 
   switch (method) {
     case 'GET': {
@@ -97,10 +62,15 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(200).json({ success: false });
     }
     case 'POST': {
-      //   const parsedBody: { endpoint: string; name: string } = JSON.parse(
-      //     req.body
-      //   );
-      const { endpoint, name } = req.body;
+      const parsedBody: { endpoint: string; date: string; metric: string } =
+        JSON.parse(req.body);
+      const { endpoint, date, metric } = parsedBody;
+
+      const reformattedMetricName = metric
+        .trim()
+        .replace(/[' ']/g, '_')
+        .toLowerCase();
+      const redisStorageKey = `${endpoint}|${date}|${userID}|${reformattedMetricName}`;
 
       const redis = new Redis({
         host: process.env.REDIS_URL,
@@ -110,9 +80,10 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
         reconnectOnError: false,
       });
 
-      retrieveFromRedis(redis, endpoint, fullDate, userID, name, metricList);
+      const cachedMetrics = await redis.lrange(redisStorageKey, 0, -1);
+      redis.quit();
 
-      return res.status(200).json({ test: 'test' });
+      return res.status(200).json({ cachedMetrics });
     }
 
     default:

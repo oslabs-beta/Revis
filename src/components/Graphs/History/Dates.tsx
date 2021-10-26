@@ -6,7 +6,7 @@ import styles from '../../../styles/HistoryGraphsContainer.module.scss';
 import { useStore } from '../../../context/Provider';
 import { Context, DatesSelectedContext } from '../../../context/interfaces';
 
-function MetricsForGraph({ date, metric }: { date: string, metric: string }) {
+function MetricsForGraph({ date, metric }: { date: string; metric: string }) {
   const { datesSelected, currentServer }: Context = useStore();
   const { selectedServer } = currentServer;
   const { endpoint } = selectedServer;
@@ -14,20 +14,18 @@ function MetricsForGraph({ date, metric }: { date: string, metric: string }) {
     datesSelected;
 
   const updateDates = () => {
-    
-    if (!datesSelectedState[date]) {
+    if (!datesSelectedState[date] && metric) {
       fetch('api/retrieveMetrics', {
         method: 'POST',
-        body: JSON.stringify({ endpoint, date, metric}),
+        body: JSON.stringify({ endpoint, date, metric }),
       })
-      .then((response: Response) => response.json())
-      .then((data) => {
-        datesSelectedDispatch({
-          type: 'newDateSelected',
-          message: [date,data],
+        .then((response: Response) => response.json())
+        .then((data) => {
+          datesSelectedDispatch({
+            type: 'newDateSelected',
+            message: [date, data.cachedMetrics],
+          });
         });
-      })
-
     } else {
       datesSelectedDispatch({
         type: 'dateUnselected',
