@@ -16,6 +16,7 @@ export default function Dashboard() {
   const { metricState, metricsDispatch } = metricsStore;
   const { serverList } = servers;
   const { selectedServerDispatch } = currentServer;
+  const [cooldown, updateCoolDown] = useState(true);
 
   const [currentRender, setCurrentRender] = useState('dashboard');
   const [noUsername, changeUsernameBool]: [
@@ -43,6 +44,15 @@ export default function Dashboard() {
       });
     }
   };
+  useEffect(() => {
+    if (!metricState) return;
+    if (metricState.length % 10 === 0 && cooldown) {
+      storeDataInPG();
+      updateCoolDown(false);
+      setTimeout(() => updateCoolDown(true), 10000);
+    }
+  }, [metricState]);
+
   useEffect(() => {
     fetch('/api/validateUser')
       .then((response: Response) => response.json())
@@ -72,6 +82,8 @@ export default function Dashboard() {
                 password: data.password,
               },
             });
+            updateCoolDown(false);
+            setTimeout(() => updateCoolDown(true), 10000);
 
             fetch('/api/retrieveMetrics')
               .then((response) => response.json())
@@ -108,25 +120,17 @@ export default function Dashboard() {
           }
         });
     }
-    // then ping backend to store server history in Redis
 
     fetch('/api/storeMetrics')
       .then((response: Response) => response.json())
       .then((data) => {
-        // console.log(metricHistoryState);
         metricHistoryDispatch({
           type: 'addServer',
           message: data.serversAndDates,
         });
-        // console.log(metricHistoryState);
       })
       .catch((err) => console.log(err));
   }, [serverList]);
-
-  // useEffect(() => {
-  //   clearInterval();
-  //   setInterval(storeDataInPG, 10000);
-  // }, [metricState]);
 
   const changeCurrentRender = (e) => {
     setCurrentRender(e.target.innerHTML);

@@ -21,10 +21,10 @@ function UpdateInterval() {
         port: `${port}`,
       }),
     });
-    const updatedMetrics: Metrics = await response.json();
+    const { metricsUpdated }: Metrics = await response.json();
     metricsDispatch({
       type: 'updateMetrics',
-      message: updatedMetrics,
+      message: metricsUpdated,
     });
   }
 
@@ -51,6 +51,7 @@ function UpdateInterval() {
   };
   const updateInterval = () => {
     const newInterval = document.getElementById('intervalInput');
+    if (newInterval.value <= 0) newInterval.value = 1;
     graphInterval.updateIntervalDispatch({
       type: 'updateInterval',
       message: newInterval.value,

@@ -71,7 +71,6 @@ export default function Server(props) {
                           metricsUpdated,
                         },
                       });
-                      console.log(metricsUpdated);
                     } else {
                       fetch('/api/redis', {
                         method: 'POST',
