@@ -2,6 +2,7 @@ const { Pool } = require('pg');
 
 const pool = new Pool({
   connectionString: process.env.PG_URI,
+  max: 100,
 });
 
 module.exports = {
