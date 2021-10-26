@@ -21,10 +21,10 @@ function UpdateInterval() {
         port: `${port}`,
       }),
     });
-    const updatedMetrics: Metrics = await response.json();
+    const { metricsUpdated }: Metrics = await response.json();
     metricsDispatch({
       type: 'updateMetrics',
-      message: updatedMetrics,
+      message: metricsUpdated,
     });
   }
 
@@ -50,10 +50,11 @@ function UpdateInterval() {
     reRender(!render);
   };
   const updateInterval = () => {
-    const newInterval = document.getElementById('intervalInput');
+    let newInterval = document.getElementById('intervalInput').value;
+    if (newInterval <= 0) newInterval = 1;
     graphInterval.updateIntervalDispatch({
       type: 'updateInterval',
-      message: newInterval.value,
+      message: newInterval,
     });
     newInterval.value = '';
     reRender(!render);
