@@ -9,15 +9,17 @@ import NavBarDashboard from './NavBarDashboard';
 import { Context } from '../../context/interfaces';
 import MultipleGraphContainer from '../Graphs/Multiple/MultipleGraphContainer';
 import HistoryGraphsContainer from '../Graphs/History/HistoryGraphContainer';
+import currentServer from '../../context/reducers/currentServer';
 
 export default function Dashboard() {
-  const { user }: Context = useStore();
+  const { user, metricHistory }: Context = useStore();
   const [currentRender, setCurrentRender] = useState('dashboard');
   const [noUsername, changeUsernameBool]: [
     boolean,
     Dispatch<SetStateAction<boolean>>
   ] = useState(true);
   const { userDispatch } = user;
+  const { metricHistoryDispatch, metricHistoryState } = metricHistory;
 
   useEffect(() => {
     fetch('/api/validateUser')
@@ -32,38 +34,28 @@ export default function Dashboard() {
 
     fetch('/api/storeMetrics')
       .then((response: Response) => response.json())
-      .then((data) => {})
+      .then((data) => {
+        // console.log(metricHistoryState);
+        metricHistoryDispatch({
+          type: 'addServer',
+          message: data.serversAndDates,
+        });
+        // console.log(metricHistoryState);
+      })
       .catch((err) => console.log(err));
   }, []);
 
-  // const setColorOfNav = (e) => {
-  //   const currentRenderName: HTMLDivElement = e.target.attributes[1].value;
-  //   const currentRenderDiv: HTMLDivElement = document.querySelector(
-  //     `#${currentRenderName}`
-  //   );
-  //   currentRenderDiv.style.color = "red";
-  // };
-
-  const viewLatency = (e) => {
-    setCurrentRender('latency');
-  };
-  const viewMultipleGraphs = () => {
-    setCurrentRender('multipleGraphs');
-  };
-  const viewDashboard = () => {
-    setCurrentRender('dashboard');
-  };
-  const viewHistory = () => {
-    setCurrentRender('history');
+  const changeCurrentRender = (e) => {
+    setCurrentRender(e.target.innerHTML);
   };
 
   function renderSwitch(param: string) {
     switch (param) {
-      case 'latency':
+      case 'Latency':
         return 'latency';
-      case 'history':
+      case 'History':
         return <HistoryGraphsContainer />;
-      case 'multipleGraphs':
+      case 'Multiple graphs':
         return <MultipleGraphContainer />;
       default:
         return <Summary />;
@@ -75,12 +67,7 @@ export default function Dashboard() {
       {!noUsername && (
         <>
           <div className={styles.sidebarWrapper}>
-            <NavBarDashboard
-              viewLatency={viewLatency}
-              viewMultipleGraphs={viewMultipleGraphs}
-              viewDashboard={viewDashboard}
-              history={viewHistory}
-            />
+            <NavBarDashboard changeCurrentRender={changeCurrentRender} />
             <SignOutButton />
             <Sidebar />
           </div>

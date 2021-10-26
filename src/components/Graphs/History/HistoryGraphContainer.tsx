@@ -51,7 +51,7 @@ function HistoryGraphContainer() {
   else message = true;;
   return (
     <div className={styles.HistoryGraphContainer}>
-      <DatesMenu />
+      <DatesMenu metric= {currentMetric}/>
       <div className={styles.GraphFlex}>
         <GridLayout rowHeight={300} width={800}>
           {arrayWithGraphs}
