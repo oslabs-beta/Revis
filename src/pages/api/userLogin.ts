@@ -24,9 +24,9 @@ const userLogin = async (req: NextApiRequest, res: NextApiResponse) => {
     const sessionID = bcrypt.hashSync(`${Date.now()}`, SALT_WORK_FACTOR);
     console.log(`User: ${username} logged in`);
     const ONE_HOUR = 1000 * 60 * 60;
-    const SQLquerySession: string = `UPDATE "${process.env.PG_TABLE_USERS}"
-    SET session = '${sessionID}' WHERE username = '${username}';`;
-    await db.query(SQLquerySession);
+    // const SQLquerySession: string = `UPDATE "${process.env.PG_TABLE_USERS}"
+    // SET session = '${sessionID}' WHERE username = '${username}';`;
+    // await db.query(SQLquerySession);
 
     cookies.set('session', sessionID, { httpOnly: true, maxAge: ONE_HOUR });
     cookies.set('ssid', `${userData.user_id}`, { httpOnly: true });

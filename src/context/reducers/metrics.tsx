@@ -1,7 +1,8 @@
 import { Metrics, ActionMetrics } from '../interfaces';
 
 const metrics = (state: Metrics[], action: ActionMetrics) => {
-  const metricsList = state.slice();
+  let metricsList;
+  if (!metricsList) metricsList = state.slice();
 
   action.message.uptime_in_seconds = Number(
     action.message.uptime_in_seconds / 3600
@@ -24,7 +25,7 @@ const metrics = (state: Metrics[], action: ActionMetrics) => {
       metricsList.push(action.message);
       return metricsList;
     case 'cleanMetrics':
-      return [action.message];
+      return action.message.metricsUpdated;
     default:
       return state;
   }
