@@ -23,7 +23,7 @@
   box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
   width: 100%;
   border-radius: 4px;
-  z-index: 1;
+  z-index: 5;
 }
 .dropdown .dropdownContent .dropdownItem {
   padding: 1vh;
@@ -31,7 +31,7 @@
   transition: all 0.2s;
   font-size: 2vh;
   background: #fff;
-  z-index: 2;
+  z-index: 6;
 }
 
 .dropdown .dropdownContent .dropdownItem:hover {

@@ -8,7 +8,14 @@ import { Context } from '../../../context/interfaces';
 
 function MetricsForGraph({ metricName }: { metricName: string }) {
   const { multipleGraphSelections }: Context = useStore();
-
+  const cleanNames = (string: string): string[] => {
+    const splitNames: string[] = string.split('_');
+    const capitilizeFirstLetter: string[] = splitNames.map((str) => {
+      const firstLetter: string = str[0].toUpperCase();
+      return firstLetter + str.slice(1) + ' ';
+    });
+    return capitilizeFirstLetter;
+  };
   const changeMetric = () => {
     if (multipleGraphSelections.multipleGraphState[metricName]) {
       multipleGraphSelections.multipleGraphDispatch({
@@ -50,7 +57,7 @@ function MetricsForGraph({ metricName }: { metricName: string }) {
       {multipleGraphSelections.multipleGraphState[metricName]
         ? squareChecked
         : squareUnChecked}
-      {metricName}
+      {cleanNames(metricName)}
     </div>
   );
 }

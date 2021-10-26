@@ -15,7 +15,7 @@ export default function Metrics(props: MetricsProps): ReactElement {
     const splitNames: string[] = string.split('_');
     const capitilizeFirstLetter: string[] = splitNames.map((str) => {
       const firstLetter: string = str[0].toUpperCase();
-      return firstLetter + str.slice(1);
+      return firstLetter + str.slice(1) + ' ';
     });
     return capitilizeFirstLetter;
   };
@@ -23,14 +23,12 @@ export default function Metrics(props: MetricsProps): ReactElement {
   return (
     <div className={styles.metrics}>
       <div className={styles.metricsAndTooltip}>
-     
-        <CustomMetricDropdown metricName={metricName}/>
+        <CustomMetricDropdown metricName={cleanNames(metricName)} />
         {/* <h5>{cleanNames(metricName).join(' ')}</h5> */}
-        
       </div>
       <Tooltip metric={metricName} />
       <button
-        type="button"
+        type='button'
         onClick={(): void => {
           metricToGraph.selectedMetricDispatch({
             type: 'updateSelectedMetric',
@@ -40,9 +38,7 @@ export default function Metrics(props: MetricsProps): ReactElement {
         }}
       >
         {metricValue}
-       
       </button>
-      
     </div>
   );
 }
