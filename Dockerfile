@@ -6,13 +6,15 @@ COPY package.json /app/package.json
 
 COPY package-lock.json /app/package-lock.json
 
-COPY tsconfig*.json /app/
+COPY tsconfig.json /app/tsconfig.json
 
 RUN npm install
 
 COPY . /app
 
 RUN npm run build
+
+COPY .next /app/.next
 
 EXPOSE 3000
 

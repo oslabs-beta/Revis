@@ -4,9 +4,9 @@
   "description": "",
   "main": "/src/pages/index.tsx",
   "scripts": {
-    "dev": "NODE_ENV=development next dev",
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -- --port 3000",
     "lint": "next lint",
     "test": "jest --verbose"
   },
