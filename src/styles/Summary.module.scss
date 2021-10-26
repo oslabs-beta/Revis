@@ -6,7 +6,7 @@
   align-items: center;
   text-align: center;
   overflow: visible;
-
+  height: 100vh;
   #loading {
     animation: slidein 1s linear infinite;
   }
@@ -32,7 +32,7 @@
     display: grid;
     border-color: transparent;
     grid-template-columns: repeat(4, 1fr);
-    row-gap: 2%;
+    row-gap: 20%;
     column-gap: 5%;
     align-items: flex-end;
     background-color: var(--background);
@@ -40,11 +40,14 @@
     font-size: 3vh;
     width: fit-content;
     font-family: $fontOfMetrics;
+    z-index:0;
+    
     .metricsAndTooltip{
       display: flex;
       justify-content: center;
       align-items: center;
       gap:1vh;
+     
     }
     .metrics {
       display: flex;
@@ -53,7 +56,7 @@
       word-wrap: break-word;
       max-width: 100%;
       color: var(--grey);
-     
+ 
     }
     button {
       margin-top: 0px;
@@ -66,7 +69,10 @@
       font-family: $fontOfMetrics;
       word-wrap: break-word;
       max-width: 100%;
-    
+  
+    }
+    button:hover{
+      cursor:pointer;
     }
   }
 }

@@ -26,10 +26,8 @@ function DatesMenu(props) {
   const { currentServer, datesSelected, metricHistory }: Context = useStore();
   const { metricHistoryState } = metricHistory; // this is going to have the global state with dates
   const datesForCheckBoxes: ReactElement[] = [];
-  console.log(currentServer);
 
   if (currentServer.selectedServer.endpoint) {
-    // console.log(metricHistoryState)
     // metricHistoryState is what we will add here instead of the tempObj once it's working
     metricHistoryState[currentServer.selectedServer.endpoint].forEach((el) => {
       datesForCheckBoxes.push(<Dates date={el} metric={metric} />);

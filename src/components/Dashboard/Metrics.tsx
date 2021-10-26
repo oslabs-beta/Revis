@@ -23,10 +23,12 @@ export default function Metrics(props: MetricsProps): ReactElement {
   return (
     <div className={styles.metrics}>
       <div className={styles.metricsAndTooltip}>
+     
         <CustomMetricDropdown metricName={metricName}/>
         {/* <h5>{cleanNames(metricName).join(' ')}</h5> */}
-        <Tooltip metric={metricName} />
+        
       </div>
+      <Tooltip metric={metricName} />
       <button
         type="button"
         onClick={(): void => {
@@ -38,7 +40,9 @@ export default function Metrics(props: MetricsProps): ReactElement {
         }}
       >
         {metricValue}
+       
       </button>
+      
     </div>
   );
 }
