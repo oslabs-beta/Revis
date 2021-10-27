@@ -29,7 +29,7 @@ function MetricsForGraph({ date, metric }: { date: string; metric: string }) {
     } else {
       datesSelectedDispatch({
         type: 'dateUnselected',
-        message: date,
+        message: [date,[], ''],
       });
     }
   };

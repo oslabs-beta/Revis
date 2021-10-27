@@ -11,6 +11,7 @@ const datesBeingCompared = (state: {}, action: ActionCurrentDate) => {
       return datesSelectedObject;
     }
     case 'dateUnselected': {
+      console.log('hello')
       delete datesSelectedObject[newDateSelected];
       return datesSelectedObject;
     }
