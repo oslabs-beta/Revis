@@ -23,7 +23,7 @@ function MetricsForGraph({ date, metric }: { date: string; metric: string }) {
         .then((data) => {
           datesSelectedDispatch({
             type: 'newDateSelected',
-            message: [date, data.cachedMetrics],
+            message: [date, data.arrayOfMetricObjects, metric],
           });
         });
     } else {

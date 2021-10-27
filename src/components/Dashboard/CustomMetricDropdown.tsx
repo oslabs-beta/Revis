@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { useStore } from '../../context/Provider';
@@ -63,7 +63,10 @@ function CustomMetricDropdown(props) {
 }
 
 CustomMetricDropdown.propTypes = {
-  metricName: PropTypes.string.isRequired,
+  metricName: propTypes.oneOfType([
+    propTypes.string,
+    propTypes.arrayOf(propTypes.string),
+  ]).isRequired,
 };
 
 export default CustomMetricDropdown;

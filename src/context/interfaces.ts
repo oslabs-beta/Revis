@@ -42,6 +42,11 @@ export interface Action {
   message: string;
 }
 
+export interface ActionCurrentDate {
+  type: string;
+  message: [string, string, string];
+}
+
 export interface ActionServerList {
   type: string;
   message: ServerInterface | string[];
