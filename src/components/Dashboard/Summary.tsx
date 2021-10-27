@@ -8,10 +8,9 @@ import React, {
 import styles from '../../styles/Summary.module.scss';
 import { useStore } from '../../context/Provider';
 import Metrics from './Metrics';
-import Welcome from '../Globals/Welcome';
+
 import SummaryTable from './SummaryTable';
 import { Context } from '../../context/interfaces';
-import UpdateInterval from '../Globals/UpdateInterval';
 
 export default function Summary() {
   const { servers, metricsStore, customMetrics }: Context = useStore();
@@ -42,16 +41,14 @@ export default function Summary() {
   }, [metricState, customMetricState]);
 
   return (
-    <div className={styles.SummaryWrapper}>
-      <div className={styles.Welcome}>
-        <Welcome />
+    <div>
+      <div className={styles.SummaryWrapper}>
+        {serverList.length === 0 ? (
+          <h1>Add a server to view its metrics!</h1>
+        ) : (
+          <SummaryTable metricsForTable={metricsForTable} />
+        )}
       </div>
-      {serverList.length === 0 ? (
-        <h1>Add a server to view its metrics!</h1>
-      ) : (
-        <SummaryTable metricsForTable={metricsForTable} />
-      )}
-      <UpdateInterval />
     </div>
   );
 }

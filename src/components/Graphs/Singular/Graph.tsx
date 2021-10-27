@@ -26,6 +26,7 @@ function Graph() {
           height={400}
           data={data}
           margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
+          domain={['dataMin', 'dataMax']}
         >
           <Line
             type="monotone"

@@ -42,9 +42,11 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
         month === monthToNum[monthCookie] &&
         year === yearCookie;
       if (previouslyCalled && dateCheck) {
-        const SQLQuery = `SELECT name,value FROM ${process.env.PG_TABLE_METRICS} WHERE
+        const SQLQuery = `SELECT name,value FROM "${process.env.PG_TABLE_METRICS}" WHERE
         user_id = ${userID} AND server_id = ${serverID} AND date = CURRENT_DATE;`;
         const { rows } = await db.query(SQLQuery);
+
+        if (rows.length === 0) return res.status(200).json({ success: false });
         const numOfValues = rows[0].value.length;
 
         const metricsUpdated = [];

@@ -24,7 +24,6 @@ export default function Metrics(props: MetricsProps): ReactElement {
     <div className={styles.metrics}>
       <div className={styles.metricsAndTooltip}>
         <CustomMetricDropdown metricName={cleanNames(metricName)} />
-        {/* <h5>{cleanNames(metricName).join(' ')}</h5> */}
       </div>
       <Tooltip metric={metricName} />
       <button

@@ -7,6 +7,8 @@ import styles from '../../../styles/GraphContainer.module.scss';
 import { Context } from '../../../context/interfaces';
 import { Layouts } from '../../context/interfaces';
 import UpdateInterval from '../../Globals/UpdateInterval';
+import Welcome from '../../Globals/Welcome';
+import SignOutButton from '../../Globals/SignOutButton';
 
 function MultipleGraphContainer() {
   const { multipleGraphSelections, metricsStore }: Context = useStore();
@@ -28,12 +30,14 @@ function MultipleGraphContainer() {
   });
 
   return (
-    <div className={styles.MultipleGraphContainer}>
-      <div>
-        <LeftMenuOfGraph />
+    <div>
+      <div className={styles.MultipleGraphContainer}>
+        <div>
+          <LeftMenuOfGraph />
+        </div>
+        <div className={styles.GraphFlex}>{arrayWithGraphs}</div>
+        <UpdateInterval />
       </div>
-      <div className={styles.GraphFlex}>{arrayWithGraphs}</div>
-      <UpdateInterval />
     </div>
   );
 }

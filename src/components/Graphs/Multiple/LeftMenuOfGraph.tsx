@@ -8,12 +8,14 @@ function LeftMenuOfGraph() {
   const { metricsStore, multipleGraphSelections }: Context = useStore();
   const metricsForCheckBoxes: ReactElement[] = [];
 
-  Object.keys(metricsStore.metricState[0]).forEach((metricName) => {
-    if (metricName !== 'time')
-      metricsForCheckBoxes.push(<MetricsForGraph metricName={metricName} />);
-  });
+  if (metricsStore.metricState[0]) {
+    Object.keys(metricsStore.metricState[0]).forEach((metricName) => {
+      if (metricName !== 'time')
+        metricsForCheckBoxes.push(<MetricsForGraph metricName={metricName} />);
+    });
+  }
   return (
-    <div className= {styles.LeftMetrics}>
+    <div className={styles.LeftMetrics}>
       {Object.keys(multipleGraphSelections.multipleGraphState).length > 3 ? (
         <div className={styles.MaxGraphsMessage}>
           Only 4 graphs can be simultaneously displayed
@@ -21,7 +23,7 @@ function LeftMenuOfGraph() {
       ) : (
         ''
       )}
-      <div id='leftMenuGraphs' className={styles.LeftMenu}>
+      <div id="leftMenuGraphs" className={styles.LeftMenu}>
         {metricsForCheckBoxes}
       </div>
     </div>

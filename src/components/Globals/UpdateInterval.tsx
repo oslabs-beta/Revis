@@ -63,7 +63,7 @@ function UpdateInterval() {
     <div id="intervalMenu" className={styles.underDashboard}>
       <div className={styles.textAndSwitch}>
         <div className={styles.intervalInput}>
-          Update interval in seconds:
+          Update frequency:
           <input
             id="intervalInput"
             type="number"
@@ -74,6 +74,7 @@ function UpdateInterval() {
           </button>
         </div>
         <label className={styles.switch}>
+       
           <input
             checked={graphInterval.updateInterval.update}
             type="checkbox"
@@ -81,7 +82,7 @@ function UpdateInterval() {
           ></input>
           <span className={styles.slider}></span>
         </label>
-        <p>Automatic Updates</p>
+     
       </div>
     </div>
   );

@@ -4,11 +4,13 @@ import { useStore } from '../../context/Provider';
 import Sidebar from './Sidebar';
 import Summary from './Summary';
 import styles from '../../styles/Dashboard.module.scss';
-import SignOutButton from '../Globals/SignOutButton';
+
 import NavBarDashboard from './NavBarDashboard';
 import { Context } from '../../context/interfaces';
 import MultipleGraphContainer from '../Graphs/Multiple/MultipleGraphContainer';
 import HistoryGraphsContainer from '../Graphs/History/HistoryGraphContainer';
+import Welcome from '../Globals/Welcome';
+import UpdateInterval from '../Globals/UpdateInterval';
 
 export default function Dashboard() {
   const { user, metricsStore, servers, currentServer, metricHistory }: Context =
@@ -47,9 +49,9 @@ export default function Dashboard() {
   useEffect(() => {
     if (!metricState) return;
     if (metricState.length % 10 === 0 && cooldown) {
-      storeDataInPG();
       updateCoolDown(false);
-      setTimeout(() => updateCoolDown(true), 30000);
+      storeDataInPG();
+      setTimeout(() => updateCoolDown(true), 1000 * 60);
     }
   }, [metricState]);
 
@@ -155,9 +157,13 @@ export default function Dashboard() {
       {!noUsername && (
         <>
           <div className={styles.sidebarWrapper}>
+            <div className={styles.Welcome}>
+              <Welcome />
+            </div>
             <NavBarDashboard changeCurrentRender={changeCurrentRender} />
-            <SignOutButton />
+     
             <Sidebar />
+            <UpdateInterval />
           </div>
           <div className={styles.summaryWrapper}>
             {renderSwitch(currentRender)}

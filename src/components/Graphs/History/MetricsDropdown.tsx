@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
 import styles from '../../../styles/HistoryGraphsContainer.module.scss';
 import { useStore } from '../../../context/Provider';
 import { Context } from '../../../context/interfaces';
+import { on } from 'process';
 
 function MetricsDropdown(props) {
   const { metricsStore }: Context = useStore();
   const { setCurrentMetricFunction } = props;
   const { metricState } = metricsStore;
-  const list = [];
+  const listOfMetrics: [] = [];
+  const [buttonMetric, setButtonMetric] = useState('Select Metric');
+  useEffect(() => {
+    document
+      .querySelector(`.${styles.dropdowncontent}`)
+      .classList.remove(`${styles.show}`);
+  }, [buttonMetric]);
 
   const cleanNames = (string: string): string[] => {
     const splitNames: string[] = string.split('_');
@@ -27,19 +34,23 @@ function MetricsDropdown(props) {
   }
   function selectMetric(e) {
     setCurrentMetricFunction(e.target.innerHTML);
+    setButtonMetric(e.target.innerHTML);
   }
-
-  Object.entries(metricState[metricState.length - 1]).forEach((el, index) => {
-    list.push(
-      <button type="button" key={index} onClick={selectMetric}>
-        {cleanNames(el[0])}
-      </button>
-    );
-  });
+  if (metricState.length !== 0) {
+    Object.entries(metricState[metricState.length - 1]).forEach((el, index) => {
+      if (el[0] !== 'time') {
+        listOfMetrics.push(
+          <button type='button' key={index} onClick={selectMetric}>
+            {cleanNames(el[0])}
+          </button>
+        );
+      }
+    });
+  }
   return (
     <div className={styles.dropdown}>
-      <button type="button" id={styles.dropbtn} onClick={showingDropdown}>
-        Select metric
+      <button type='button' id={styles.dropbtn} onClick={showingDropdown}>
+        {buttonMetric}
         <FontAwesomeIcon
           icon={faArrowCircleDown}
           className={styles.arrowDown}
@@ -47,7 +58,7 @@ function MetricsDropdown(props) {
       </button>
 
       <div id={styles.myDropdown} className={styles.dropdowncontent}>
-        {list}
+        {listOfMetrics}
       </div>
     </div>
   );

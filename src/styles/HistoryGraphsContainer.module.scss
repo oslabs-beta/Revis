@@ -5,9 +5,8 @@
     color: var(--grey);
     font-size: 2vh;
     position: absolute;
-    top:14vh;
-    left:66vh;
-   
+    top: 14vh;
+    left: 75vh;
   }
   .DatesMenu {
     position: absolute;
@@ -54,8 +53,10 @@
       border-radius: 4px;
       cursor: pointer;
       display: flex;
-      gap: 1vh;
+      justify-content: space-between;
       font-family: $fontOfMetrics;
+      width:25vh;
+    
     }
     .arrowDown {
       color: var(--background);
@@ -69,9 +70,13 @@
       display: none;
       position: absolute;
       background-color: var(--background);
-
+      text-align: center;
       box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       z-index: 1;
+      height:50vh;
+      overflow-x: none;
+      overflow-y: scroll;
+
       button {
         color: var(--grey);
         font-weight: bold;
@@ -79,7 +84,7 @@
         border: none;
         margin-top: 1vh;
         cursor: pointer;
-        width: 15.5vh;
+        width: 25vh;
         word-wrap: break-word;
       }
     }
@@ -109,21 +114,21 @@
     font-size: 3vh;
   }
 
-
   .GraphFlex {
-    margin-left: 70vh;
+    margin-top: -7vh;
+    margin-left: 20vh;
     display:grid;
     grid-template-columns: repeat(2,1fr);
-    gap:3vh;
-    width: 70vh; 
-    height: 90vh;  
+    row-gap:3vh;
+    column-gap: 3vh;
+    width: 100vh; 
+    height: 60vh;  
   }
 
   .Graph {
     background-color: rgba(27, 27, 28, 0.914);
     border-radius: 4px;
     font-family: $fontOfSummaryTitle;
-    width: 40vh;
-    
+    width: 50vh;
   }
 }
