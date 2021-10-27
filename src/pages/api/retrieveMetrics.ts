@@ -42,9 +42,11 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
         month === monthToNum[monthCookie] &&
         year === yearCookie;
       if (previouslyCalled && dateCheck) {
-        const SQLQuery = `SELECT name,value FROM ${process.env.PG_TABLE_METRICS} WHERE
+        const SQLQuery = `SELECT name,value FROM "${process.env.PG_TABLE_METRICS}" WHERE
         user_id = ${userID} AND server_id = ${serverID} AND date = CURRENT_DATE;`;
         const { rows } = await db.query(SQLQuery);
+
+        if (rows.length === 0) return res.status(200).json({ success: false });
         const numOfValues = rows[0].value.length;
 
         const metricsUpdated = [];
@@ -71,6 +73,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
         .replace(/[' ']/g, '_')
         .toLowerCase();
       const redisStorageKey = `${endpoint}|${date}|${userID}|${reformattedMetricName}`;
+      const redisStorageKeyTime = `${endpoint}|${date}|${userID}|time`;
 
       const redis = new Redis({
         host: process.env.REDIS_URL,
@@ -81,9 +84,22 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
       });
 
       const cachedMetrics = await redis.lrange(redisStorageKey, 0, -1);
+      const cachedMetricsTime = await redis.lrange(redisStorageKeyTime, 0, -1);
       redis.quit();
 
-      return res.status(200).json({ cachedMetrics });
+      // Format data for front-end
+      // iterate through the metric data and construct object
+      // required for graphing must be in the shape of
+      // [{metricName: value, time: value}]
+      const arrayOfMetricObjects = [];
+      for (let i = 0; i < cachedMetrics.length; i++) {
+        const currentObj = {};
+        currentObj.time = cachedMetricsTime[i];
+        currentObj[reformattedMetricName] = cachedMetrics[i];
+        arrayOfMetricObjects.push(currentObj);
+      }
+
+      return res.status(200).json({ arrayOfMetricObjects });
     }
 
     default:

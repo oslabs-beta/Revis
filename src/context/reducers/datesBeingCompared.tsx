@@ -1,14 +1,17 @@
-import { Action } from '../Types';
+import { ActionCurrentDate } from '../interfaces';
 
-const datesBeingCompared = (state: {}, action: Action) => {
-  const newDateSelected: string = action.message;
+const datesBeingCompared = (state: {}, action: ActionCurrentDate) => {
+  const newDateSelected: string = action.message[0];
+  const graphingData: string = action.message[1];
+
   const datesSelectedObject: {} = { ...state };
   switch (action.type) {
     case 'newDateSelected': {
-      datesSelectedObject[newDateSelected] = [];
+      datesSelectedObject[newDateSelected] = graphingData;
       return datesSelectedObject;
     }
     case 'dateUnselected': {
+      console.log('hello')
       delete datesSelectedObject[newDateSelected];
       return datesSelectedObject;
     }

@@ -47,6 +47,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
   const day: string = String(today.getDate());
   const month: string = String(today.getMonth() + 1);
   const year: string = String(today.getFullYear());
+  const dateKey: string = `${month}-${day}-${year}`;
 
   switch (method) {
     case 'GET': {
@@ -114,26 +115,27 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
           const parsedBody: Metrics = JSON.parse(req.body);
           Object.entries(parsedBody).forEach(([metricName, metricValue]) => {
             SQLQuery += `UPDATE "${process.env.PG_TABLE_METRICS}"
-                SET value = ARRAY[${metricValue}] 
+                SET value =  (CASE
+                  WHEN array_length(value,1) < array_length(ARRAY[${metricValue}],1) THEN
+                   value || ARRAY[${metricValue}] 
+                  ELSE ARRAY[${metricValue}]
+                  END)
                 WHERE 
-                user_id = ${userID} AND
-                server_id = ${serverID} AND 
-                name = '${metricName}' AND
-                date = CURRENT_DATE;
+                id = '${dateKey}-${userID}-${serverID}-${metricName}';
                  \n`;
           });
           await db.query(SQLQuery);
         } else {
           SQLQuery = `
-        INSERT INTO "${process.env.PG_TABLE_METRICS}" (user_id,server_id,name,value) VALUES`;
+        INSERT INTO "${process.env.PG_TABLE_METRICS}" (id,user_id,server_id,name,value) VALUES`;
           const parsedBody: Metrics = JSON.parse(req.body);
           Object.entries(parsedBody).forEach(
             ([metricName, metricValue], index) => {
               if (index < Object.keys(parsedBody).length - 1) {
-                SQLQuery += `(${userID},${serverID},'${metricName}',
+                SQLQuery += `('${dateKey}-${userID}-${serverID}-${metricName}', ${userID},${serverID},'${metricName}',
             ARRAY[${metricValue}]), \n`;
               } else {
-                SQLQuery += `(${userID},${serverID},'${metricName}',
+                SQLQuery += `('${dateKey}-${userID}-${serverID}-${metricName}',${userID},${serverID},'${metricName}',
             ARRAY[${metricValue}]); \n`;
               }
             }

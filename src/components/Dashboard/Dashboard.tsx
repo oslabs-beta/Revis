@@ -47,9 +47,9 @@ export default function Dashboard() {
   useEffect(() => {
     if (!metricState) return;
     if (metricState.length % 10 === 0 && cooldown) {
-      storeDataInPG();
       updateCoolDown(false);
-      setTimeout(() => updateCoolDown(true), 30000);
+      storeDataInPG();
+      setTimeout(() => updateCoolDown(true), 1000 * 60);
     }
   }, [metricState]);
 
@@ -65,6 +65,7 @@ export default function Dashboard() {
       .catch((err) => console.log(err));
 
     if (serverList.length > 0) {
+      // Auto select the first server in the server list
       const server = serverList[0];
       fetch('/api/validateUser', {
         method: 'POST',
@@ -124,7 +125,6 @@ export default function Dashboard() {
     fetch('/api/storeMetrics')
       .then((response: Response) => response.json())
       .then((data) => {
-        console.log(data);
         metricHistoryDispatch({
           type: 'addServer',
           message: data.serversAndDates,
