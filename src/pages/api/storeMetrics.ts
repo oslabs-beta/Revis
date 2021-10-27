@@ -114,7 +114,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
           const parsedBody: Metrics = JSON.parse(req.body);
           Object.entries(parsedBody).forEach(([metricName, metricValue]) => {
             SQLQuery += `UPDATE "${process.env.PG_TABLE_METRICS}"
-                SET value = ARRAY[${metricValue}] 
+                SET value =  ARRAY[${metricValue}] 
                 WHERE 
                 user_id = ${userID} AND
                 server_id = ${serverID} AND 
