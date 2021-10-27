@@ -41,7 +41,7 @@ SET default_with_oids = false;
 
 CREATE TABLE IF NOT EXISTS public.users
 (
-    user_id integer NOT NULL DEFAULT nextval('users_user_id_seq'::regclass),
+    user_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     username text COLLATE pg_catalog."default" NOT NULL,
     password text COLLATE pg_catalog."default" NOT NULL,
     email text COLLATE pg_catalog."default",
@@ -53,7 +53,8 @@ CREATE TABLE IF NOT EXISTS public.users
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.users OWNER to jlrxiqce;
+ALTER TABLE IF EXISTS public.users
+    OWNER to jlrxiqce;
 
 
 -- Table: public.serverCloud
