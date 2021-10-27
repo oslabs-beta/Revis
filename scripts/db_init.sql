@@ -15,10 +15,10 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: mmdb; Type: DATABASE; Schema: -; Owner: mmadmin
+-- Name: revisdb; Type: DATABASE; Schema: -; Owner: jlrxiqce
 --
 
-\connect mmdb
+\connect revisdb
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
