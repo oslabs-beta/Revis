@@ -49,7 +49,7 @@ export default function Dashboard() {
     if (metricState.length % 10 === 0 && cooldown) {
       storeDataInPG();
       updateCoolDown(false);
-      setTimeout(() => updateCoolDown(true), 30000);
+      setTimeout(() => updateCoolDown(true), 1000 * 60);
     }
   }, [metricState]);
 
