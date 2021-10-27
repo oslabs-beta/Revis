@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip} from 'recharts';
 import PropTypes from 'prop-types';
 import styles from '../../../styles/HistoryGraphsContainer.module.scss';
@@ -6,7 +6,9 @@ import { MetricsProps } from '../../../context/interfaces';
 
 function GraphWithHistory({ metricName, metricValue,date }: MetricsProps) {
   const graphWidth = () => window.innerWidth / 5;
-  
+  useEffect(() => {
+    graphWidth();
+  }, [])
   const reformattedMetricName = metricName
     .trim()
     .replace(/[' ']/g, '_')

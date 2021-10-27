@@ -61,23 +61,25 @@ function UpdateTimeHistory() {
         <div className={styles.intervalInput}>
           Update interval in seconds:
           <input
-            id="intervalInput"
-            type="number"
+            id='intervalInput'
+            type='number'
             placeholder={placeholder}
           ></input>
-          <button type="button" onClick={updateInterval}>
+          <button type='button' onClick={updateInterval}>
             Update
           </button>
         </div>
+        <p>Automatic Updates</p>
         <label className={styles.switch}>
+         
           <input
             checked={graphInterval.updateInterval.update}
-            type="checkbox"
+            type='checkbox'
             onChange={change}
           ></input>
+
           <span className={styles.slider}></span>
         </label>
-        <p>Automatic Updates</p>
       </div>
     </div>
   );

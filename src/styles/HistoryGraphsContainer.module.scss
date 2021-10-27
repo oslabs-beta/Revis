@@ -115,18 +115,20 @@
   }
 
   .GraphFlex {
-    margin-left: 70vh;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 3vh;
-    width: 70vh;
-    height: 90vh;
+    margin-top: -7vh;
+    margin-left: 20vh;
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    row-gap:3vh;
+    column-gap: 3vh;
+    width: 100vh; 
+    height: 60vh;  
   }
 
   .Graph {
     background-color: rgba(27, 27, 28, 0.914);
     border-radius: 4px;
     font-family: $fontOfSummaryTitle;
-    width: 40vh;
+    width: 50vh;
   }
 }
