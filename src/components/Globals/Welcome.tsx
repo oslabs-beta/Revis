@@ -8,7 +8,8 @@ function Welcome() {
 
   return (
     <div className={styles.Welcome}>
-      <h4>Welcome {user.userState.username}!</h4>
+      <h4>Signed in as </h4>
+      <h5>{user.userState.username}</h5>
     </div>
   );
 }

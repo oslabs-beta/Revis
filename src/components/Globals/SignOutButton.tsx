@@ -1,6 +1,6 @@
 import React from 'react';
 import router from 'next/router';
-import styles from '../../styles/Dashboard.module.scss';
+import styles from '../../styles/SignOut.module.scss';
 
 function SignOutButton() {
   const signOut = () => {

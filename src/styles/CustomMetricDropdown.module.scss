@@ -1,7 +1,7 @@
 .dropdown {
   height: 5vh;
   user-select: none;
-  position: relative;
+
   margin-bottom: 3vh;
 }
 .dropdown .dropdownBtn {
@@ -17,23 +17,43 @@
 }
 
 .dropdown .dropdownContent {
-  overflow: scroll;
+  overflow-y: scroll;
   left: 0;
-  background: #fff;
+  background: var(--background);
   box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
   width: 100%;
   border-radius: 4px;
   z-index: 5;
+  height: 30vh;
+  z-index:1;
 }
 .dropdown .dropdownContent .dropdownItem {
   padding: 1vh;
   cursor: pointer;
   transition: all 0.2s;
   font-size: 2vh;
-  background: #fff;
+  background:var(--background);
   z-index: 6;
+  color:var(--grey)
 }
 
 .dropdown .dropdownContent .dropdownItem:hover {
   background: #f4f4f4;
 }
+
+.dropdown ::-webkit-scrollbar {
+  width: 12px;
+  background-color: var(--grey);
+ 
+}
+.dropdown ::-webkit-scrollbar-track {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: var(--lightgrey);
+}
+.dropdown ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: var(--grey);
+}
+

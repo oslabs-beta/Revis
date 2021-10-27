@@ -1,16 +1,22 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
 import styles from '../../../styles/HistoryGraphsContainer.module.scss';
 import { useStore } from '../../../context/Provider';
 import { Context } from '../../../context/interfaces';
+import { on } from 'process';
 
 function MetricsDropdown(props) {
   const { metricsStore }: Context = useStore();
   const { setCurrentMetricFunction } = props;
   const { metricState } = metricsStore;
   const list = [];
-  const [buttonMetric, setButtonMetric] = useState('Select Metric')
+  const [buttonMetric, setButtonMetric] = useState('Select Metric');
+  useEffect(() => {
+    document
+      .querySelector(`.${styles.dropdowncontent}`)
+      .classList.remove(`${styles.show}`);
+  }, [buttonMetric]);
 
   const cleanNames = (string: string): string[] => {
     const splitNames: string[] = string.split('_');
@@ -21,6 +27,7 @@ function MetricsDropdown(props) {
     return capitilizeFirstLetter;
   };
 
+  
   function showingDropdown() {
     document
       .querySelector(`.${styles.dropdowncontent}`)
@@ -28,12 +35,12 @@ function MetricsDropdown(props) {
   }
   function selectMetric(e) {
     setCurrentMetricFunction(e.target.innerHTML);
+    setButtonMetric(e.target.innerHTML);
   }
-  if(metricState.length!==0){
-
+  if (metricState.length !== 0) {
     Object.entries(metricState[metricState.length - 1]).forEach((el, index) => {
       list.push(
-        <button type="button" key={index} onClick={selectMetric}>
+        <button type='button' key={index} onClick={selectMetric}>
           {cleanNames(el[0])}
         </button>
       );
@@ -41,8 +48,8 @@ function MetricsDropdown(props) {
   }
   return (
     <div className={styles.dropdown}>
-      <button type="button" id={styles.dropbtn} onClick={showingDropdown}>
-        Select metric
+      <button type='button' id={styles.dropbtn} onClick={showingDropdown}>
+        {buttonMetric}
         <FontAwesomeIcon
           icon={faArrowCircleDown}
           className={styles.arrowDown}

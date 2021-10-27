@@ -7,6 +7,8 @@ import styles from '../../../styles/HistoryGraphsContainer.module.scss';
 import { Context } from '../../../context/interfaces';
 import UpdateInterval from '../../Globals/UpdateInterval';
 import MetricsDropdown from './MetricsDropdown';
+import { object } from 'prop-types';
+import Welcome from '../../Globals/Welcome';
 
 function HistoryGraphContainer() {
   const { datesSelected, metricsStore }: Context = useStore();
@@ -21,12 +23,17 @@ function HistoryGraphContainer() {
   function setCurrentMetricFunction(metric) {
     setCurrentMetric(metric);
   }
+  const today = new Date();
 
   let i = 0;
   if (currentMetric) {
     arrayWithGraphs.push(
       <div key={i}>
-        <GraphWithHistory metricValue={data} metricName={currentMetric} />
+        <GraphWithHistory
+          metricValue={data}
+          metricName={currentMetric}
+          date={'Now'}
+        />
       </div>
     );
     i += 1;
@@ -36,6 +43,7 @@ function HistoryGraphContainer() {
           <GraphWithHistory
             metricValue={datesSelectedState[date]}
             metricName={currentMetric}
+            date={date}
           />
         </div>
       );

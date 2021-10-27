@@ -1,21 +1,11 @@
-@import "./colorsAndFonts.scss";
+@import './colorsAndFonts.scss';
 .SummaryWrapper {
-  margin: 2%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  overflow: visible;
-  height: 100vh;
+
   #loading {
     animation: slidein 1s linear infinite;
   }
 
   @keyframes slidein {
-    // from {
-    //   transform: rotate(0deg);
-    // }
-
     100% {
       transform: rotate(360deg);
     }
@@ -31,23 +21,23 @@
     border-radius: 20px;
     display: grid;
     border-color: transparent;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;  
+    grid-template-columns: repeat(4,20vh);
     row-gap: 20%;
     column-gap: 5%;
     align-items: flex-end;
-    background-color: var(--background);
     font-family: $fontOfButtons;
     font-size: 2.6vh;
-    width: fit-content;
+    width: 100vh;
     font-family: $fontOfMetrics;
-    z-index:0;
-    
-    .metricsAndTooltip{
+    z-index: 0;
+
+
+    .metricsAndTooltip {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap:1vh;
-     
+      gap: 1vh;
     }
     .metrics {
       display: flex;
@@ -56,7 +46,6 @@
       word-wrap: break-word;
       max-width: 100%;
       color: var(--grey);
- 
     }
     button {
       margin-top: 0px;
@@ -65,14 +54,13 @@
       background-color: var(--logoColor);
       color: var(--grey);
       width: 25vh;
-      border-radius: 4px;;
+      border-radius: 4px;
       font-family: $fontOfMetrics;
       word-wrap: break-word;
       max-width: 100%;
-  
     }
-    button:hover{
-      cursor:pointer;
+    button:hover {
+      cursor: pointer;
     }
   }
 }
