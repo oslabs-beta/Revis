@@ -1,6 +1,5 @@
 node_modules
 package-lock.json
-.next
 .env.local
 next.config.js
 out

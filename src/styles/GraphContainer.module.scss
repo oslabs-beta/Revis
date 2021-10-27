@@ -34,22 +34,35 @@
   h1 {
     font-family: $fontOfMetrics;
     color: var(--grey);
-    font-size: 3vh;
+    font-size: 2vh;
   }
-
+.LeftMetrics{
+  .MaxGraphsMessage {
+    color: rgb(205, 93, 93);
+    max-width: 30vh;
+    position: absolute;
+    top: 12vh;
+    left: 47vh;
+    font-size: 2vh;
+    font-family: $fontOfMetrics;
+  }
   .LeftMenu {
     position: absolute;
     top: 20vh;
     left: 47vh;
-    font-size: 1.2rem;
+    font-size: 2vh;
     font-family: $fontOfMetrics;
     display: flex;
     gap: 0.7rem;
     flex-direction: column;
     transition: left 0.5s;
+    height: 40vh;
+    width:30vh;
+    overflow: scroll;
+    scroll-behavior: smooth;
+  
     .metrics {
       display: flex;
-      gap: 1rem;
       .emptySquare {
         color: var(--logoColor);
         border-radius: 4px;
@@ -57,24 +70,28 @@
       }
       .fullSquare {
         color: var(--green);
+        border-radius: 4px;
+        margin-right: 10px;
       }
     }
-    .MaxGraphsMessage {
-      color: rgb(205, 93, 93);
-      max-width: 30vh;
-      margin-bottom: 1vh;
-    }
+  
   }
+}
 
   .GraphFlex {
-    margin-left: 52vh;
-    position: relative;
+    margin-left: 70vh;
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    gap:3vh;
+    width: 70vh; 
+    height: 90vh;  
   }
 
   .Graph {
     background-color: rgba(27, 27, 28, 0.914);
     border-radius: 4px;
     font-family: $fontOfSummaryTitle;
+    width: 40vh;
     
   }
 }

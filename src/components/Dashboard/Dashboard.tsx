@@ -124,6 +124,7 @@ export default function Dashboard() {
     fetch('/api/storeMetrics')
       .then((response: Response) => response.json())
       .then((data) => {
+        console.log(data);
         metricHistoryDispatch({
           type: 'addServer',
           message: data.serversAndDates,

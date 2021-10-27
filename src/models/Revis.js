@@ -3,7 +3,7 @@ const { Pool } = require('pg');
 const config = {};
 
 if (process.env.NODE_ENV === 'development') {
-  config.connectionString = proccess.env.PG_URI;
+  config.connectionString = process.env.PG_URI;
 } else if (process.env.NODE_ENV === 'production') {
   config.user = process.env.RDS_USERNAME;
   config.database = process.env.RDS_DB_NAME;

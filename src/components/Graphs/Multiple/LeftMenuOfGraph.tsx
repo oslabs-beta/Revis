@@ -22,8 +22,9 @@ function LeftMenuOfGraph() {
       ) : (
         ''
       )}
-
-      {metricsForCheckBoxes}
+      <div id='leftMenuGraphs' className={styles.LeftMenu}>
+        {metricsForCheckBoxes}
+      </div>
     </div>
   );
 }

@@ -27,9 +27,6 @@ function MetricsDropdown(props) {
   }
   function selectMetric(e) {
     setCurrentMetricFunction(e.target.innerHTML);
-
-    //this is going to be used to fetch the metric and date from the global state and create the array we need to have the graph
-    //the graph needs to initialize with just one line using the same logic of single graph but we need to pass other lines
   }
 
   Object.entries(metricState[metricState.length - 1]).forEach((el) => {

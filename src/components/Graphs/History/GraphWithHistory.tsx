@@ -5,12 +5,13 @@ import styles from '../../../styles/HistoryGraphsContainer.module.scss';
 import { MetricsProps } from '../../../context/interfaces';
 
 function GraphWithHistory({ metricName, metricValue }: MetricsProps) {
+  const graphWidth = () => window.innerWidth / 5;
   return (
     <div>
       <h1>{metricName}</h1>
       <div className={styles.Graph}>
         <LineChart
-          width={400}
+          width={graphWidth()}
           height={300}
           data={metricValue}
           margin={{ top: 30, right: 50, bottom: 25, left: 0 }}

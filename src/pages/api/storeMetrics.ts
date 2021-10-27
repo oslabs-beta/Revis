@@ -88,8 +88,8 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
         const existInRedis = await redis.lrange(redisStorageKey, 0, -1);
         if (existInRedis.length === 0) {
           await redis.rpush(redisStorageKey, value);
-          // Tell keys to expire after an hour (the duration of a user session)
-          await redis.expire(redisStorageKey, 60 * 60);
+          // Tell keys to expire after five hours
+          await redis.expire(redisStorageKey, 60 * 60 * 5);
         }
       });
 
