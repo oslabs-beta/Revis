@@ -1,13 +1,13 @@
 import React from 'react';
-import styles from '../../../styles/HistoryGraphsContainer.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
+import styles from '../../../styles/HistoryGraphsContainer.module.scss';
 import { useStore } from '../../../context/Provider';
 import { Context } from '../../../context/interfaces';
 
 function MetricsDropdown(props) {
   const { metricsStore }: Context = useStore();
-  const {setCurrentMetricFunction} = props;
+  const { setCurrentMetricFunction } = props;
   const { metricState } = metricsStore;
   const list = [];
 
@@ -15,7 +15,7 @@ function MetricsDropdown(props) {
     const splitNames: string[] = string.split('_');
     const capitilizeFirstLetter: string[] = splitNames.map((str) => {
       const firstLetter: string = str[0].toUpperCase();
-      return firstLetter + str.slice(1) + ' ';
+      return `${firstLetter + str.slice(1)} `;
     });
     return capitilizeFirstLetter;
   };
@@ -29,16 +29,16 @@ function MetricsDropdown(props) {
     setCurrentMetricFunction(e.target.innerHTML);
   }
 
-  Object.entries(metricState[metricState.length - 1]).forEach((el) => {
+  Object.entries(metricState[metricState.length - 1]).forEach((el, index) => {
     list.push(
-      <button type='button' onClick={selectMetric}>
+      <button type="button" key={index} onClick={selectMetric}>
         {cleanNames(el[0])}
       </button>
     );
   });
   return (
     <div className={styles.dropdown}>
-      <button type='button' id={styles.dropbtn} onClick={showingDropdown}>
+      <button type="button" id={styles.dropbtn} onClick={showingDropdown}>
         Select metric
         <FontAwesomeIcon
           icon={faArrowCircleDown}

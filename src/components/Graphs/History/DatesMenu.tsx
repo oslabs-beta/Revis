@@ -13,12 +13,17 @@ function DatesMenu(props) {
   const datesForCheckBoxes: ReactElement[] = [];
 
   if (
+    metricHistoryState[currentServer.selectedServer.endpoint] &&
     currentServer.selectedServer.endpoint &&
     Object.keys(metricHistoryState).length !== 0
   ) {
-    metricHistoryState[currentServer.selectedServer.endpoint].forEach((el) => {
-      datesForCheckBoxes.push(<Dates date={el} metric={metric} />);
-    });
+    metricHistoryState[currentServer.selectedServer.endpoint].forEach(
+      (el, index) => {
+        datesForCheckBoxes.push(
+          <Dates key={index} date={el} metric={metric} />
+        );
+      }
+    );
   }
 
   return <div className={styles.DatesMenu}>{datesForCheckBoxes}</div>;

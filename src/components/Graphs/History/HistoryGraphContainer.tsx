@@ -30,14 +30,12 @@ function HistoryGraphContainer() {
       </div>
     );
     i += 1;
-    console.log(datesSelectedState)
-    Object.entries(datesSelectedState).forEach((date) => {
-      console.log(datesSelectedState);
+    Object.keys(datesSelectedState).forEach((date) => {
       arrayWithGraphs.push(
         <div key={i}>
           <GraphWithHistory
             metricValue={datesSelectedState[date]}
-            metricName={date}
+            metricName={currentMetric}
           />
         </div>
       );
