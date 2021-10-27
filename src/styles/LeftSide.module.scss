@@ -22,7 +22,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    // justify-content: center;
+
 
     #cube {
       width: 16vh;
@@ -40,7 +40,6 @@
         rgba(150, 150, 150, 0.05)
       );
       width: 50%;
-      // color: transparent;
       animation: shadowGrow 0.6s;
       animation-direction: alternate;
       animation-iteration-count: infinite;
