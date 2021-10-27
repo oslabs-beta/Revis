@@ -81,19 +81,19 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public."serverCloud" OWNER to jlrxiqce;
 
--- Table: public.metrics
+-- Table: public.redisMetrics
 
--- DROP TABLE IF EXISTS public.metrics;
+-- DROP TABLE IF EXISTS public."redisMetrics";
 
-CREATE TABLE IF NOT EXISTS public.metrics
+CREATE TABLE IF NOT EXISTS public."redisMetrics"
 (
-    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    id text COLLATE pg_catalog."default" NOT NULL,
     user_id integer NOT NULL,
     server_id integer NOT NULL,
     name text COLLATE pg_catalog."default" NOT NULL,
     value text[] COLLATE pg_catalog."default" NOT NULL,
     date date NOT NULL DEFAULT CURRENT_DATE,
-    CONSTRAINT metrics_pkey PRIMARY KEY (id),
+    CONSTRAINT "redisMetrics_pkey" PRIMARY KEY (id),
     CONSTRAINT "server_id-f_key" FOREIGN KEY (server_id)
         REFERENCES public."serverCloud" (id) MATCH SIMPLE
         ON UPDATE NO ACTION
@@ -106,8 +106,9 @@ CREATE TABLE IF NOT EXISTS public.metrics
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.metrics OWNER to jlrxiqce;
-
+ALTER TABLE IF EXISTS public."redisMetrics"
+    OWNER to jlrxiqce;
+    
 -- Table: public.0d94f51fdca1782b63e4fbe02794deea
 
 -- DROP TABLE IF EXISTS public."0d94f51fdca1782b63e4fbe02794deea";
