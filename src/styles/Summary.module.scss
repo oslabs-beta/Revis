@@ -1,13 +1,6 @@
 @import './colorsAndFonts.scss';
 .SummaryWrapper {
-  margin: 2%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  position:relative;
-  margin-left: 10vh;
-  height: 100vh;
+
   #loading {
     animation: slidein 1s linear infinite;
   }
@@ -29,11 +22,10 @@
     display: grid;
     border-color: transparent;
     grid-template-rows: 1fr;  
-    grid-template-columns: repeat(auto-fill,minmax(20vh,1fr));
+    grid-template-columns: repeat(4,20vh);
     row-gap: 20%;
     column-gap: 5%;
     align-items: flex-end;
-    background-color: var(--background);
     font-family: $fontOfButtons;
     font-size: 2.6vh;
     width: 100vh;

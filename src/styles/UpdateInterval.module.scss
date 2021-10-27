@@ -8,6 +8,8 @@
   bottom: 0vh;
   left: 0vh;
   transition: margin-left 0.5s;
+  background-color: var(--background);
+  z-index:1;
 
   .textAndSwitch {
     position: absolute;
