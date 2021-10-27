@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styles from '../../../styles/HistoryGraphsContainer.module.scss';
 import { MetricsProps } from '../../../context/interfaces';
 
-function GraphWithHistory({ metricName, metricValue }: MetricsProps) {
+function GraphWithHistory({ metricName, metricValue,date }: MetricsProps) {
   const graphWidth = () => window.innerWidth / 5;
   
   const reformattedMetricName = metricName
@@ -14,13 +14,13 @@ function GraphWithHistory({ metricName, metricValue }: MetricsProps) {
 
   return (
     <div>
-      <h1>{metricName}</h1>
+      <h1>{date}</h1>
       <div className={styles.Graph}>
         <LineChart
           width={graphWidth()}
           height={300}
           data={metricValue}
-          margin={{ top: 30, right: 50, bottom: 25, left: 0 }}
+          margin={{ top: 30, right: 50, bottom: 25, left: 30}}
         >
           <Line
             type='monotone'

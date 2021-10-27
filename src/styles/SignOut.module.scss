@@ -1,0 +1,15 @@
+@import './colorsAndFonts.scss';
+#signOutButton {
+  border-color: transparent;
+  position: absolute;
+  right: 1vh;
+  top: 7vh;
+  text-align: right;
+  color: var(--grey);
+  background-color: transparent;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-family: $fontOfSummaryTitle;
+  z-index: 1;
+}
