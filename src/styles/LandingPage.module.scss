@@ -1,4 +1,4 @@
-@import "./colorsAndFonts.scss";
+@import './colorsAndFonts.scss';
 .LandingPageWrapper {
   display: flex;
   align-items: center;
@@ -20,6 +20,20 @@
       border-color: transparent;
       border-bottom-color: var(--lightgrey);
       font-family: $fontOfMetrics;
+      color:var(--grey)
+    }
+    button:hover {
+      cursor: pointer;
+    }
+
+    #download {
+      background-color: var(--logoColor);
+      border-radius: 5px;
+      color: var(--background);
+      padding: 0.7vh;
+    }
+    #download:hover {
+      cursor: pointer;
     }
   }
 
@@ -96,6 +110,7 @@
       text-align: center;
       font-family: $fontOfMetrics;
       font-size: 2rem;
+      
     }
 
     .buttonDiv {
@@ -108,11 +123,14 @@
         border-radius: 10%;
         color: var(--background);
         border-color: transparent;
-        width: 10vh;
+        width: 12vh;
         height: 5vh;
-        font-size: 1.8vh;
+        font-size: 2vh;
         font-family: $fontOfButtons;
         font-weight: bold;
+      }
+      button:hover {
+        cursor: pointer;
       }
     }
 
@@ -127,4 +145,8 @@
       }
     }
   }
+}
+
+.invalidPage {
+  text-align: center;
 }

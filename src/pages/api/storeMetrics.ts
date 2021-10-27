@@ -3,8 +3,9 @@ import Cookies from 'cookies';
 import db from '../../models/Revis';
 import { Metrics, metricsSQLtoRedis } from '../../context/interfaces';
 
+const Redis = require('ioredis');
+
 const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
-  const Redis = require('ioredis');
   const { method } = req;
   const cookies: Cookies = new Cookies(req, res);
   const userID = Number(cookies.get('ssid'));
@@ -50,7 +51,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'GET': {
       const SQLQuery: string = `SELECT server_id,ta.name,tb.endpoint,value,date from "${process.env.PG_TABLE_METRICS}" AS ta 
-      INNER JOIN "${process.env.PG_TABLE_CLOUD}" as tb on tb.id =server_id where ta.user_id = ${userID}`;
+      INNER JOIN "${process.env.PG_TABLE_CLOUD}" as tb on tb.id =server_id where ta.user_id = ${userID} ORDER BY date`;
       const { rows } = await db.query(SQLQuery);
 
       const redis = new Redis({
@@ -87,8 +88,8 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
         const existInRedis = await redis.lrange(redisStorageKey, 0, -1);
         if (existInRedis.length === 0) {
           await redis.rpush(redisStorageKey, value);
-          // Tell keys to expire after an hour (the duration of a user session)
-          await redis.expire(redisStorageKey, 60 * 60);
+          // Tell keys to expire after five hours
+          await redis.expire(redisStorageKey, 60 * 60 * 5);
         }
       });
 
@@ -121,6 +122,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
                 date = CURRENT_DATE;
                  \n`;
           });
+          await db.query(SQLQuery);
         } else {
           SQLQuery = `
         INSERT INTO "${process.env.PG_TABLE_METRICS}" (user_id,server_id,name,value) VALUES`;
@@ -139,11 +141,15 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
           SQLQuery += `UPDATE "${process.env.PG_TABLE_CLOUD}"
           SET lastcalled = CURRENT_DATE,
           previouslycalled = true
-          WHERE id = ${serverID};`;
-          cookies.set('previouslyCalled', 'true');
-        }
+          WHERE id = ${serverID}
+          RETURNING lastcalled;`;
+          const result = await db.query(SQLQuery);
+          const { rows } = result[1];
+          const { lastcalled } = rows[0];
 
-        await db.query(SQLQuery);
+          cookies.set('previouslyCalled', 'true');
+          cookies.set('lastCalled', lastcalled);
+        }
 
         return res.status(200).json({ success: true });
       } catch (err) {
@@ -151,7 +157,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(400).json({ success: false, error: err });
       }
     default:
-      return res.status(400).json({ error: 'Error within verifyEndpoint' });
+      return res.status(400).json({ error: 'Error within storeMetrics' });
   }
 };
 export default storeMetrics;

@@ -5,7 +5,7 @@
   "main": "electron/main.js",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest --verbose",
@@ -24,7 +24,6 @@
     }
   },
   "repository": {
-    "type": "git",
     "url": "git+https://github.com/Revis1/Revis.git"
   },
   "publish": null,

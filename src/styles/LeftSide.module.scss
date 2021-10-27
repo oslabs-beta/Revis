@@ -1,10 +1,23 @@
-@import "./colorsAndFonts.scss";
+@import './colorsAndFonts.scss';
 
 .leftSideWrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-
+  #backButton {
+    position: absolute;
+    left: 6.5%;
+    top: 2%;
+    background-color: transparent;
+    border-color: transparent;
+    text-decoration: underline;
+    font-size: 20px;
+    color: var(--grey);
+    font-family: $fontOfSummaryTitle;
+  }
+  #backButton:hover {
+    cursor: pointer;
+  }
   .cubeAndShadowWrapper {
     display: flex;
     align-items: center;

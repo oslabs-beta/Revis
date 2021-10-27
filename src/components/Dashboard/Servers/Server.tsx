@@ -46,7 +46,6 @@ export default function Server(props) {
           fetch('/api/validateUser', {
             method: 'POST',
             body: JSON.stringify({ endpoint: server.endpoint }),
-            // headers: { 'Content-Type': 'application/json' },
           })
             .then((response) => response.json())
             .then((data) => {
@@ -60,20 +59,39 @@ export default function Server(props) {
                     password: data.password,
                   },
                 });
-                console.log(metricState);
-                metricsDispatch({
-                  type: 'cleanMetrics',
-                  message: {
-                    total_net_output_bytes: '0',
-                    used_memory: '0',
-                    connected_clients: '0',
-                    evicted_keys: '0',
-                    keyspace_hits: '0',
-                    keyspace_misses: '0',
-                    total_net_input_bytes: '0',
-                    uptime_in_seconds: '0',
-                  },
-                });
+
+                fetch('/api/retrieveMetrics')
+                  .then((response) => response.json())
+                  .then((metricData) => {
+                    if (metricData.success) {
+                      const { metricsUpdated } = metricData;
+                      metricsDispatch({
+                        type: 'cleanMetrics',
+                        message: {
+                          metricsUpdated,
+                        },
+                      });
+                    } else {
+                      fetch('/api/redis', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                          endpoint: server.endpoint,
+                          port: server.port,
+                          password: data.password,
+                        }),
+                      })
+                        .then((response) => response.json())
+                        .then((metrics) => {
+                          const { metricsUpdated } = metrics;
+                          metricsDispatch({
+                            type: 'cleanMetrics',
+                            message: {
+                              metricsUpdated,
+                            },
+                          });
+                        });
+                    }
+                  });
               }
             });
         }

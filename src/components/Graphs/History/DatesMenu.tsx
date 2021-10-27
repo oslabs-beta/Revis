@@ -1,32 +1,35 @@
 import React, { ReactElement } from 'react';
+import PropTypes from 'prop-types';
 import { Context } from '../../../context/interfaces';
 import { useStore } from '../../../context/Provider';
 import styles from '../../../styles/HistoryGraphsContainer.module.scss';
 import Dates from './Dates';
 
-function DatesMenu() {
-  const tempObjForTests = {
-    'redis-16424.c289.us-west-1-2.ec2.cloud.redislabs.com': [
-      'Oct 20 2021',
-      'Oct 21 2021',
-      'Oct 22 2021',
-    ],
-    'redis-18891.c9.us-east-1-4.ec2.cloud.redislabs.com': [
-      'Oct 19 2021',
-      'Oct 21 2021',
-      'Oct 22 2021',
-    ],
-  };
-  const { currentServer, datesSelected }: Context = useStore(); // this is going to have the global state with dates
+function DatesMenu(props) {
+  const { metric } = props;
+
+  const { currentServer, metricHistory }: Context = useStore();
+  const { metricHistoryState } = metricHistory;
   const datesForCheckBoxes: ReactElement[] = [];
 
-  if(currentServer.selectedServer.endpoint){
-    tempObjForTests[currentServer.selectedServer.endpoint].forEach((el) => {
-        datesForCheckBoxes.push(<Dates date={el} />);
-    });
+  if (
+    metricHistoryState[currentServer.selectedServer.endpoint] &&
+    currentServer.selectedServer.endpoint &&
+    Object.keys(metricHistoryState).length !== 0
+  ) {
+    metricHistoryState[currentServer.selectedServer.endpoint].forEach(
+      (el, index) => {
+        datesForCheckBoxes.push(
+          <Dates key={index} date={el} metric={metric} />
+        );
+      }
+    );
   }
 
   return <div className={styles.DatesMenu}>{datesForCheckBoxes}</div>;
 }
 
 export default DatesMenu;
+DatesMenu.propTypes = {
+  metric: PropTypes.string.isRequired,
+};

@@ -12,7 +12,7 @@ function ForgotPassword({ previousPage }: HomePageProps) {
   };
   return (
     <div className={styles.forgotPasswordWrapper}>
-      <h1>Password Reset Page</h1>
+      <h1>Password Reset</h1>
       <form>
         <div>
           <label>email:</label>
