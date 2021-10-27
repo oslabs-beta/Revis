@@ -17,10 +17,15 @@ FROM node:14-alpine
 
 ENV NODE_ENV production
 
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+
 WORKDIR /app
 COPY --from=1 --chown=nextjs:nodejs /app/package.json ./
 COPY --from=1 --chown=nextjs:nodejs /app/node_modules ./node_modules
 COPY --from=1 --chown=nextjs:nodejs /app/.next ./.next
+
+USER nextjs
 
 EXPOSE 3000
 
