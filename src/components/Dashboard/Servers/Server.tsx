@@ -50,21 +50,23 @@ export default function Server(props) {
             .then((response) => response.json())
             .then((data) => {
               if ('password' in data) {
-                selectedServerDispatch({
-                  type: 'currentServer',
-                  message: {
-                    name: server.name,
-                    endpoint: server.endpoint,
-                    port: server.port,
-                    password: data.password,
-                  },
-                });
-
                 fetch('/api/retrieveMetrics')
                   .then((response) => response.json())
                   .then((metricData) => {
                     if (metricData.success) {
                       const { metricsUpdated } = metricData;
+
+                      if (metricsUpdated.length === 0) return;
+                      selectedServerDispatch({
+                        type: 'currentServer',
+                        message: {
+                          name: server.name,
+                          endpoint: server.endpoint,
+                          port: server.port,
+                          password: data.password,
+                        },
+                      });
+
                       metricsDispatch({
                         type: 'cleanMetrics',
                         message: {
@@ -83,6 +85,17 @@ export default function Server(props) {
                         .then((response) => response.json())
                         .then((metrics) => {
                           const { metricsUpdated } = metrics;
+                          if (metricsUpdated.length === 0) return;
+                          selectedServerDispatch({
+                            type: 'currentServer',
+                            message: {
+                              name: server.name,
+                              endpoint: server.endpoint,
+                              port: server.port,
+                              password: data.password,
+                            },
+                          });
+
                           metricsDispatch({
                             type: 'cleanMetrics',
                             message: {
