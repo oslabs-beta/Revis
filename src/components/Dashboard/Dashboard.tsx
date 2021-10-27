@@ -49,9 +49,9 @@ export default function Dashboard() {
   useEffect(() => {
     if (!metricState) return;
     if (metricState.length % 10 === 0 && cooldown) {
-      storeDataInPG();
       updateCoolDown(false);
-      setTimeout(() => updateCoolDown(true), 30000);
+      storeDataInPG();
+      setTimeout(() => updateCoolDown(true), 1000 * 60);
     }
   }, [metricState]);
 
