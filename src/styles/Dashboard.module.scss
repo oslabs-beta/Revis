@@ -1,8 +1,8 @@
-@import "./colorsAndFonts.scss";
+@import './colorsAndFonts.scss';
 
 .dashboardWrapper {
   display: flex;
-  transition: margin-left .5s;
+  transition: margin-left 0.5s;
 
   .navBarDashboardWrapper {
     position: absolute;
@@ -18,16 +18,13 @@
     }
 
     button:hover {
-      cursor:pointer;
+      cursor: pointer;
       color: black;
     }
 
-    
-    #selected{
-      color:blue;
+    #selected {
+      color: blue;
     }
-
-    
 
     .cubeAndShadowWrapper {
       display: flex;
@@ -64,6 +61,7 @@
           transform: scale(1, 0.1);
         }
       }
+
       @keyframes cubeAnimation {
         0% {
           transform: translate3d(0, -100%, 0);
@@ -98,5 +96,4 @@
   .sidebarWrapper {
     overflow: hidden;
   }
-
 }

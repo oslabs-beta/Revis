@@ -12,14 +12,18 @@ function Graph() {
     const splitNames: string[] = string.split('_');
     const capitilizeFirstLetter: string[] = splitNames.map((str) => {
       const firstLetter: string = str[0].toUpperCase();
-      return firstLetter + str.slice(1) + ' ';
+      return `${firstLetter + str.slice(1)} `;
     });
     return capitilizeFirstLetter;
   };
-  
+
   return (
     <div>
-      {metricToGraph.metricToGraph?<h1>{cleanNames(metricToGraph.metricToGraph)}</h1>:''}
+      {metricToGraph.metricToGraph ? (
+        <h1>{cleanNames(metricToGraph.metricToGraph)}</h1>
+      ) : (
+        ''
+      )}
       <div className={styles.Graph}>
         <LineChart
           width={600}
@@ -35,7 +39,17 @@ function Graph() {
           />
 
           <XAxis stroke="#e38d41e9" dataKey="time" tick={{ fill: '#d8d8d4' }} />
-          <YAxis stroke="#e38d41e9" tick={{ fill: '#d8d8d4' }} />
+          <YAxis
+            stroke="#e38d41e9"
+            tick={{ fill: '#d8d8d4' }}
+            domain={[
+              (dataMin) => {
+                if (dataMin === 0) return dataMin;
+                return Math.floor(0.9 * dataMin);
+              },
+              (dataMax) => Math.floor(1.05 * dataMax),
+            ]}
+          />
 
           <Tooltip />
         </LineChart>
