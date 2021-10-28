@@ -1,6 +1,12 @@
-import React from "react";
-import LandingPage from "../components/StaticPages/LandingPageContainer";
+import React from 'react';
+import LandingPage from '../components/StaticPages/LandingPageContainer';
+import HTMLHeader from '../components/Globals/HTMLHeader';
 
 export default function landingPage() {
-  return <LandingPage />;
+  return (
+    <div>
+      <HTMLHeader />
+      <LandingPage />
+    </div>
+  );
 }

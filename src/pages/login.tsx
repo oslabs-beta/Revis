@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import LogoHomeScreen from '../components/Homepage/LeftSideHomeScreen';
 import UserLogin from '../components/Homepage/UserLogin';
 import ForgotPassword from '../components/Homepage/ForgotPassword';
+import HTMLHeader from '../components/Globals/HTMLHeader';
 import SignUp from '../components/Homepage/SignUp';
 import styles from '../styles/Homepage.module.scss';
 
@@ -33,6 +34,7 @@ function HomePage() {
 
   return (
     <div className={styles.homePageWrapper}>
+      <HTMLHeader />
       <LogoHomeScreen />
       {renderSwitch(pages)}
     </div>
