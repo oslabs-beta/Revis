@@ -1,12 +1,28 @@
 module.exports = {
-  env: {
-    PG_URI:
-      'postgres://jlrxiqce:5CjZQ27IV1uExmsP-t_O-ZPPFA0NDmsU@fanny.db.elephantsql.com/jlrxiqce',
-    REDIS_URL: 'redis-16424.c289.us-west-1-2.ec2.cloud.redislabs.com',
-    REDIS_PORT: '16424',
-    REDIS_PW: 'redis',
+  excludeFile: (str) => /\*.{spec,tests}.js/.test(str),
+  typescript: {
+    ignoreBuildErrors: true,
   },
-  images: {
-    domains: ['tonygentilcore.com'],
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  assetPrefix: '.',
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: { and: [/\.(js|ts|md)x?$/] },
+      use: [
+        {
+          loader: '@svgr/webpack',
+          options: {
+            prettier: false,
+            svgo: true,
+            svgoConfig: { plugins: [{ removeViewBox: false }] },
+            titleProp: true,
+          },
+        },
+      ],
+    });
+    return config;
   },
 };

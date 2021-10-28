@@ -1,11 +1,4 @@
-import { Server } from '../Types';
-
-type State = Server[];
-
-type Action = {
-  type: string;
-  message: Server;
-};
+import { Server, ActionServerList } from '../interfaces';
 
 const deleteServerFromDataBase = (name: string) => {
   fetch('/api/servers', {
@@ -18,18 +11,18 @@ const deleteServerFromDataBase = (name: string) => {
 const postServerToDataBase = (
   name: string,
   endpoint: string,
-  PORT: string,
+  port: string,
   username: string,
   password: string
 ) => {
   fetch('/api/servers', {
     method: 'POST',
-    body: JSON.stringify({ name, endpoint, PORT, username, password }),
+    body: JSON.stringify({ name, endpoint, port, username, password }),
     'Content-Type': 'application/json',
   });
 };
 
-const servers = (state: State, action: Action) => {
+const servers = (state: Server[], action: ActionServerList) => {
   const server: Server = action.message;
   const newServerList = state.slice();
   switch (action.type) {

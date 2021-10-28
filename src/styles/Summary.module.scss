@@ -1,69 +1,77 @@
 @import './colorsAndFonts.scss';
 .SummaryWrapper {
-  margin: 2%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-
   #loading {
     animation: slidein 1s linear infinite;
+    -webkit-animation: slidein 1s linear infinite;
+    -moz-animation: slidein 1s linear infinite;
+    -o-animation: slidein 1s linear infinite;
+    -ms-animation: slidein 1s linear infinite;
   }
 
   @keyframes slidein {
-    // from {
-    //   transform: rotate(0deg);
-    // }
-
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes slidein {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @-moz-keyframes slidein {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @-o-keyframes slidein {
     100% {
       transform: rotate(360deg);
     }
   }
 
-  h1 {
-    font-family: $fontOfMetrics;
-    text-align: center;
-    color: var(--grey);
-  }
-
   .tableWrapper {
-    margin-top: 7%;
     border-radius: 20px;
     display: grid;
     border-color: transparent;
-    grid-template-columns: repeat(4, 1fr);
-    row-gap: 2%;
-    column-gap: 2%;
-    justify-items: center;
-    padding-top: 3%;
-    padding-right: 10%;
-    padding-left: 10%;
-    padding-bottom: 7%;
-    background-color: var(--logoColor);
-    color: white;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(4, 20vh);
+    row-gap: 20%;
+    column-gap: 5%;
+    align-items: flex-end;
     font-family: $fontOfButtons;
-    font-size: 3vh;
-    width: fit-content;
+    font-size: 2.6vh;
+    width: 100vh;
     font-family: $fontOfMetrics;
+    z-index: 0;
 
+    .metricsAndTooltip {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1vh;
+    }
     .metrics {
       display: flex;
       flex-direction: column;
       align-items: center;
       word-wrap: break-word;
-      max-width: 100%;
-      color: var(--background);
-      // justify-content: center;
+
+      color: var(--grey);
     }
     button {
       margin-top: 0px;
       font-size: 3vh;
       border-color: transparent;
-      background-color: transparent;
-      color: var(--background);
+      background-color: var(--logoColor);
+      color: var(--grey);
+      width: 20vh;
+      border-radius: 4px;
       font-family: $fontOfMetrics;
       word-wrap: break-word;
       max-width: 100%;
+    }
+    button:hover {
+      cursor: pointer;
     }
   }
 }

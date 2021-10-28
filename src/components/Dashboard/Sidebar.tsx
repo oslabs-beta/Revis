@@ -1,25 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCube } from '@fortawesome/free-solid-svg-icons';
+import { faCube, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import ServerAdd from './Servers/ServerAdd';
 import ServerList from './Servers/ServerList';
 import { useStore } from '../../context/Provider';
 import styles from '../../styles/Sidebar.module.scss';
+import { Context } from '../../context/interfaces';
+import dashStyle from '../../styles/Dashboard.module.scss';
+import graphStyle from '../../styles/GraphContainer.module.scss';
 
-function Sidebar(props) {
+function Sidebar() {
   const [sideBarHidden, showOrHideSideBar] = useState(false);
-  const { user, servers, currentServer }: any = useStore();
-  const { username }: { username: string } = user.userState;
-  const {
-    serverList,
-    serversDispatch,
-  }: { serverList: string[]; serversDispatch: Function } = servers;
-  const { selectedServerDispatch }: { selectedServerDispatch: Function } =
-    currentServer;
+  const { user, servers }: Context = useStore();
+  const { username } = user.userState;
+  const { serverList, serversDispatch } = servers;
 
   const [currentDivHover, changeDivHover] = useState(null);
-
-  useEffect(() => populateServerList(), []);
 
   const populateServerList = () => {
     if (serverList.length > 0) return;
@@ -27,20 +23,16 @@ function Sidebar(props) {
       .then((response) => response.json())
       .then((data) => {
         const cloudData: string[] = data.cloud;
-        if (!cloudData) {
-          serversDispatch({});
-          return;
+
+        if (cloudData && cloudData.length > 0) {
+          serversDispatch({
+            type: 'populateList',
+            message: [...cloudData],
+          });
         }
-        if (cloudData.length === 0) {
-          serversDispatch({});
-          return;
-        }
-        serversDispatch({
-          type: 'populateList',
-          message: [...cloudData],
-        });
       });
   };
+  useEffect(() => populateServerList(), []);
 
   const checkEndpoint = async (
     endpoint: string,
@@ -141,13 +133,13 @@ function Sidebar(props) {
     const name: HTMLInputElement = document.querySelector('#name');
     const endpoint: HTMLInputElement = document.querySelector('#endpoint');
     const password: HTMLInputElement = document.querySelector('#redisPassword');
-    const PORT: HTMLInputElement = document.querySelector('#PORT');
+    const port: HTMLInputElement = document.querySelector('#PORT');
 
-    if (validityCheckOnSubmit(name, endpoint, PORT)) {
+    if (validityCheckOnSubmit(name, endpoint, port)) {
       const correctServerEndpoint = await checkEndpoint(
         endpoint.value,
         password.value,
-        PORT.value
+        port.value
       );
       if (!correctServerEndpoint) {
         endpoint.setCustomValidity('Invalid endpoint or password.');
@@ -162,7 +154,7 @@ function Sidebar(props) {
           name: name.value,
           endpoint: endpoint.value,
           password: password.value,
-          port: PORT.value,
+          port: port.value,
           username,
         },
       });
@@ -171,23 +163,45 @@ function Sidebar(props) {
 
   const changeSidebarVisual = () => {
     if (sideBarHidden) {
-      document.querySelector('#sideBar').style.width = '100%';
-      document.querySelector(`#${styles.cube}`).style.left = '20rem';
-      document.querySelector(`#${styles.cube}`).style.top = '3.2rem';
-      document.querySelector(`#${styles.cube}`).style.color =
+      document.querySelector('#sideBar').style.width = '40vh';
+      document.querySelector(`#${styles.cube}`).style.left = '15rem';
+      document.querySelector(`#${styles.cube}`).style.top = '1rem';
+      document.querySelector(`#${styles.cube}`).style.color = 'transparent';
+      document.querySelector(`#${styles.close}`).style.color =
         'rgba(205, 200, 200, 0.845)';
+      document.querySelector(
+        `.${dashStyle.dashboardWrapper}`
+      ).style.marginLeft = '0px';
+      document.querySelector('#intervalMenu').style.marginLeft = '0px';
+      if (document.querySelector(`.${graphStyle.MultipleGraphContainer}`)) {
+        document.querySelector(
+          `.${graphStyle.MultipleGraphContainer}`
+        ).style.marginLeft = '0px';
+        document.querySelector('#leftMenuGraphs').style.left = '47vh';
+      }
     } else {
       document.querySelector('#sideBar').style.width = '0px';
       document.querySelector('#sideBar').style.overflow = 'hidden';
       document.querySelector(`#${styles.cube}`).style.left = '0%';
       document.querySelector(`#${styles.cube}`).style.top = '46%';
       document.querySelector(`#${styles.cube}`).style.color = '#e38d41e9';
+      document.querySelector(`#${styles.close}`).style.color = 'transparent';
+      document.querySelector(
+        `.${dashStyle.dashboardWrapper}`
+      ).style.marginLeft = '-302.8px';
+      document.querySelector('#intervalMenu').style.marginLeft = '-302.8px';
+      if (document.querySelector(`.${graphStyle.MultipleGraphContainer}`)) {
+        document.querySelector(
+          `.${graphStyle.MultipleGraphContainer}`
+        ).style.marginLeft = '05vh';
+        document.querySelector('#leftMenuGraphs').style.left = '10vh';
+      }
     }
     showOrHideSideBar(!sideBarHidden);
   };
 
   return (
-    <div className={styles.sideBarWrapper} id="sideBar">
+    <div className={styles.sideBarWrapper} id='sideBar'>
       <ServerAdd addServer={addServer} />
       <ServerList
         serverList={serverList}
@@ -200,7 +214,15 @@ function Sidebar(props) {
           id={styles.cube}
           icon={faCube}
           onClick={changeSidebarVisual}
-          values="close"
+          values='close'
+        />
+      </span>
+      <span className={styles.closeSpan}>
+        <FontAwesomeIcon
+          id={styles.close}
+          icon={faWindowClose}
+          onClick={changeSidebarVisual}
+          values='close'
         />
       </span>
     </div>

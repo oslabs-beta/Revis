@@ -1,0 +1,134 @@
+@import './colorsAndFonts.scss';
+.HistoryGraphContainer {
+  h2 {
+    font-family: $fontOfMetrics;
+    color: var(--grey);
+    font-size: 2vh;
+    position: absolute;
+    top: 14vh;
+    left: 75vh;
+  }
+  .DatesMenu {
+    position: absolute;
+    top: 25vh;
+    left: 47vh;
+    font-size: 1.2rem;
+    font-family: $fontOfMetrics;
+    display: flex;
+    gap: 0.7rem;
+    flex-direction: column;
+    transition: left 0.5s;
+    .dates {
+      display: flex;
+      gap: 1rem;
+      .emptySquare {
+        color: var(--logoColor);
+        border-radius: 4px;
+        margin-right: 10px;
+      }
+      .fullSquare {
+        color: var(--green);
+      }
+    }
+    .MaxGraphsMessage {
+      color: rgb(205, 93, 93);
+      max-width: 30vh;
+      margin-bottom: 1vh;
+    }
+  }
+
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: absolute;
+    left: 47vh;
+    top: 15vh;
+
+    #dropbtn {
+      background-color: var(--logoColor);
+      color: var(--grey);
+      font-size: 2vh;
+      border: none;
+      padding: 1vh;
+      color: var(--background);
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      font-family: $fontOfMetrics;
+      width:25vh;
+    
+    }
+    .arrowDown {
+      color: var(--background);
+    }
+    .arrowDown:hover {
+      cursor: pointer;
+    }
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdowncontent {
+      display: none;
+      position: absolute;
+      background-color: var(--background);
+      text-align: center;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      height:50vh;
+      overflow-x: none;
+      overflow-y: scroll;
+
+      button {
+        color: var(--grey);
+        font-weight: bold;
+        background-color: transparent;
+        border: none;
+        margin-top: 1vh;
+        cursor: pointer;
+        width: 25vh;
+        word-wrap: break-word;
+      }
+    }
+
+    /* Links inside the dropdown */
+    .dropdowncontent a {
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    /* Change color of dropdown links on hover */
+    .dropdowncontent a:hover {
+      background-color: #ddd;
+    }
+
+    /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+    .show {
+      display: block;
+    }
+  }
+
+  transition: margin-left 0.5s;
+  h1 {
+    font-family: $fontOfMetrics;
+    color: var(--grey);
+    font-size: 3vh;
+  }
+
+  .GraphFlex {
+    margin-top: -7vh;
+    margin-left: 20vh;
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    row-gap:3vh;
+    column-gap: 3vh;
+    width: 100vh; 
+    height: 60vh;  
+  }
+
+  .Graph {
+    background-color: rgba(27, 27, 28, 0.914);
+    border-radius: 4px;
+    font-family: $fontOfSummaryTitle;
+    width: 50vh;
+  }
+}

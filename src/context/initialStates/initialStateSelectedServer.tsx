@@ -1,6 +1,10 @@
-import { CurrentServer } from '../Types';
+import { CurrentServer } from '../interfaces';
 
-const selectedServer: CurrentServer[] = {};
-;
-
+const selectedServer: CurrentServer = {
+  name: '',
+  endpoint: '',
+  password: '',
+  port: '',
+  sessionToken: '',
+};
 export default selectedServer;

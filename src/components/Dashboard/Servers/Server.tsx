@@ -1,29 +1,20 @@
 import PropTypes from 'prop-types';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
 import { useStore } from '../../../context/Provider';
 import styles from '../../../styles/Server.module.scss';
+import { Context } from '../../../context/interfaces';
 
 export default function Server(props) {
-  const [serverBlockBackground, setServerBlockBackground] = useState(
-    styles.serverSelected
-  );
-  const {
-    name,
-    endpoint,
-    port,
-    currentDivHover,
-    changeDivHover,
-    // changeCurrentServer,
-  } = props;
+  const { name, currentDivHover, changeDivHover } = props;
 
-  const { servers, currentServer }: any = useStore();
-  const { selectedServerDispatch }: { selectedServerDispatch: Function } =
-    currentServer;
-  const { serversDispatch }: { serversDispatch: Function } = servers;
+  const { servers, currentServer, metricsStore }: Context = useStore();
+  const { selectedServerDispatch } = currentServer;
+  const { serversDispatch } = servers;
+  const { metricState, metricsDispatch } = metricsStore;
 
-  const removeServer = (e: Event) => {
+  const removeServer = (e) => {
     serversDispatch({
       type: 'deleteServer',
       message: { name: e.target.id },
@@ -36,10 +27,10 @@ export default function Server(props) {
     );
     changeDivHover(removeServerDiv);
     removeServerDiv.style.width = '100%';
-    removeServerDiv.style.backgroundColor = 'var(--logoColor)';
+    removeServerDiv.style.backgroundColor = 'var(--red)';
     removeServerDiv.innerHTML = 'X';
   };
-  const keepServerAnimation = (e) => {
+  const keepServerAnimation = () => {
     if (currentDivHover) {
       currentDivHover.style.width = '0%';
       currentDivHover.style.backgroundColor = 'white';
@@ -50,23 +41,79 @@ export default function Server(props) {
   const updateSelectedServer = () => {
     if (!currentServer.selectedServer[name]) {
       // look for the information at the serverlist global state
-      servers.serverList.forEach((el) => {
-        if (el.name === name)
-          selectedServerDispatch({
-            type: 'currentServer',
-            payload: {
-              name: el.name,
-              endpoint: el.endpoint,
-              password: el.password,
-              port: el.port,
-            },
-          });
+      servers.serverList.forEach((server) => {
+        if (server.name === name) {
+          fetch('/api/validateUser', {
+            method: 'POST',
+            body: JSON.stringify({ endpoint: server.endpoint }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if ('password' in data) {
+                fetch('/api/retrieveMetrics')
+                  .then((response) => response.json())
+                  .then((metricData) => {
+                    if (metricData.success) {
+                      const { metricsUpdated } = metricData;
+
+                      if (metricsUpdated.length === 0) return;
+                      selectedServerDispatch({
+                        type: 'currentServer',
+                        message: {
+                          name: server.name,
+                          endpoint: server.endpoint,
+                          port: server.port,
+                          password: data.password,
+                        },
+                      });
+
+                      metricsDispatch({
+                        type: 'cleanMetrics',
+                        message: {
+                          metricsUpdated,
+                        },
+                      });
+                    } else {
+                      fetch('/api/redis', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                          endpoint: server.endpoint,
+                          port: server.port,
+                          password: data.password,
+                        }),
+                      })
+                        .then((response) => response.json())
+                        .then((metrics) => {
+                          const { metricsUpdated } = metrics;
+                          if (metricsUpdated.length === 0) return;
+                          selectedServerDispatch({
+                            type: 'currentServer',
+                            message: {
+                              name: server.name,
+                              endpoint: server.endpoint,
+                              port: server.port,
+                              password: data.password,
+                            },
+                          });
+
+                          metricsDispatch({
+                            type: 'cleanMetrics',
+                            message: {
+                              metricsUpdated,
+                            },
+                          });
+                        });
+                    }
+                  });
+              }
+            });
+        }
       });
     }
   };
 
   const squareUnChecked = (
-    <span onClick={updateSelectedServer} key={name}>
+    <span onClick={updateSelectedServer} id={styles.squareUnChecked} key={name}>
       <FontAwesomeIcon
         id={name}
         icon={faSquare}
@@ -75,7 +122,7 @@ export default function Server(props) {
     </span>
   );
   const squareChecked = (
-    <span onClick={updateSelectedServer} key={name}>
+    <span onClick={updateSelectedServer} id={styles.squareChecked} key={name}>
       <FontAwesomeIcon id={name} icon={faCheckSquare} />
     </span>
   );
@@ -91,33 +138,19 @@ export default function Server(props) {
       >
         <div className={styles.removeServerDiv} id={name}></div>
       </div>
-      <div className={serverBlockBackground}>
+      <div className={styles.server}>
         {currentServer.selectedServer.name === name
           ? squareChecked
           : squareUnChecked}
-        {/* <FontAwesomeIcon
-          onClick={changeCurrentServer}
-          id={styles.checkBox}
-          icon={faCheckSquare}
-        /> */}
+
         <p>Name: {name}</p>
       </div>
-      {/* <input
-        id={endpoint}
-        type="radio"
-        name="currentServer"
-        value={port}
-        onChange={changeCurrentServer}
-      /> */}
     </div>
   );
 }
 
 Server.propTypes = {
   name: PropTypes.string.isRequired,
-  endpoint: PropTypes.string.isRequired,
-  port: PropTypes.string,
-  currentDivHover: PropTypes.any,
-  changeDivHover: PropTypes.func,
-  changeCurrentServer: PropTypes.func,
+  // currentDivHover: PropTypes.instanceOf(Element).isRequired,
+  changeDivHover: PropTypes.func.isRequired,
 };

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from '../../../styles/ServerAdd.module.scss';
 
 function ServerAdd(props) {
-  const { addServer } = props;
+  const { addServer }: { addServer: Function } = props;
   const PORT_REG_EX: string = '[0-9]{4,5}';
   const NAME_REG_EX: string = '[a-zA-Z]{4,25}';
 
@@ -65,7 +65,7 @@ function ServerAdd(props) {
           </div>
 
           <div className={styles.indivInputs}>
-            <label>Password</label>
+            <label>Password:</label>
             <input
               type="password"
               id="redisPassword"
@@ -90,7 +90,6 @@ function ServerAdd(props) {
             <div className={styles.errorDiv}></div>
           </div>
         </div>
-
         <input
           id={styles.addServerBtn}
           type="submit"

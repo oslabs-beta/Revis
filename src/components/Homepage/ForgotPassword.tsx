@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import propTypes from 'prop-types';
 import styles from '../../styles/Homepage.module.scss';
+import { HomePageProps } from '../../context/interfaces';
 
-function ForgotPassword(props) {
-  const [userEmail, setUserEmail] = useState<any>('');
-  const { previousPage } = props;
+function ForgotPassword({ previousPage }: HomePageProps) {
+  const [userEmail, setUserEmail] = useState<string>('');
   const onSubmitHandler = (e) => {
     e.preventDefault();
     /* fetch here */
@@ -11,7 +12,7 @@ function ForgotPassword(props) {
   };
   return (
     <div className={styles.forgotPasswordWrapper}>
-      <h1>Password Reset Page</h1>
+      <h1>Password Reset</h1>
       <form>
         <div>
           <label>email:</label>
@@ -33,3 +34,7 @@ function ForgotPassword(props) {
 }
 
 export default ForgotPassword;
+
+ForgotPassword.propTypes = {
+  previousPage: propTypes.func.isRequired,
+};

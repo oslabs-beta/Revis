@@ -1,18 +1,18 @@
-import { Metrics, Action } from "../Types";
+import { Metrics, ActionMetrics } from '../interfaces';
 
-const metrics = (state: Metrics, action: Action) => {
-  const metricsUpdated: any = action.message;
-  const metricsList: any = state.slice();
-  const today = new Date();
-  const time =
-    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
-  const metricsWithTime = {time, ...action.message};  
+const metrics = (state: Metrics[], action: ActionMetrics) => {
+  let metricsList;
+  if (!metricsList) metricsList = state.slice();
 
   switch (action.type) {
-    case "updateMetrics":
-      metricsList.push(metricsWithTime);
+    case 'updateMetrics':
+      metricsList.push(action.message);
       return metricsList;
+    case 'cleanMetrics':
+      if (Array.isArray(action.message.metricsUpdated)) {
+        return [...action.message.metricsUpdated];
+      }
+      return [action.message.metricsUpdated];
     default:
       return state;
   }

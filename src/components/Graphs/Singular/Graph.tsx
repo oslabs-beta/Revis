@@ -1,32 +1,56 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
 import { useStore } from '../../../context/Provider';
 import styles from '../../../styles/GraphContainer.module.scss';
+import { Context } from '../../../context/interfaces';
 
 function Graph() {
-  const { metricsStore, metricToGraph }: any = useStore();
+  const { metricsStore, metricToGraph }: Context = useStore();
 
   const data = metricsStore.metricState;
+  const cleanNames = (string: string): string[] => {
+    const splitNames: string[] = string.split('_');
+    const capitilizeFirstLetter: string[] = splitNames.map((str) => {
+      const firstLetter: string = str[0].toUpperCase();
+      return `${firstLetter + str.slice(1)} `;
+    });
+    return capitilizeFirstLetter;
+  };
 
   return (
     <div>
-      <h1>{metricToGraph.metricToGraph}</h1>
+      {metricToGraph.metricToGraph ? (
+        <h1>{cleanNames(metricToGraph.metricToGraph)}</h1>
+      ) : (
+        ''
+      )}
       <div className={styles.Graph}>
         <LineChart
           width={600}
           height={400}
           data={data}
           margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
+          domain={['dataMin', 'dataMax']}
         >
           <Line
             type="monotone"
             dataKey={metricToGraph.metricToGraph}
-            stroke="#d33b51"
+            stroke="#e38d41e9"
           />
-          {/* <Line type="monotone" dataKey="evicted_keys" stroke="#77EC7F" /> */}
 
-          <XAxis stroke="#ce6030" dataKey="time" tick={{ fill: '#d8d8d4' }} />
-          <YAxis stroke="#ce6030" tick={{ fill: '#d8d8d4' }} />
+          <XAxis stroke="#e38d41e9" dataKey="time" tick={{ fill: '#d8d8d4' }} />
+          <YAxis
+            stroke="#e38d41e9"
+            tick={{ fill: '#d8d8d4' }}
+            domain={[
+              (dataMin) => {
+                if (dataMin === 0) return dataMin;
+                return Math.floor(0.9 * dataMin);
+              },
+              (dataMax) => Math.floor(1.05 * dataMax),
+            ]}
+          />
+
           <Tooltip />
         </LineChart>
       </div>
@@ -34,12 +58,3 @@ function Graph() {
   );
 }
 export default Graph;
-
-// console.log(metricsStore.metricState.metricsUpdated);
-// const data = [
-//   { name: "metric 1", metric1: 400, metric2: 10, metric3: 2400 },
-//   { name: "metric 1", metric1: 300, metric2: 15, metric3: 2600 },
-//   { name: "metric 1", metric1: 200, metric2: 20, metric3: 2600 },
-//   { name: "metric 1", metric1: 100, metric2: 50, metric3: 2600 },
-// ];
-// <img src="https://i.pinimg.com/originals/2e/e6/99/2ee6998e34c3e2eff7b894c66cfc5267.jpg"></img>

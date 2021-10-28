@@ -1,9 +1,6 @@
-import { Action } from '../Types';
+import { Action } from '../interfaces';
 
-type selectedMetric = {
-  selectedMetric: string;
-};
-const selectedMetric = (state: selectedMetric, action: Action) => {
+const selectedMetric = (state: string, action: Action) => {
   switch (action.type) {
     case 'updateSelectedMetric': {
       const newSelectedMetric: string = action.message;

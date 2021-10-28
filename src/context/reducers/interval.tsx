@@ -1,21 +1,19 @@
+import { Interval, Action, ActionInterval } from '../interfaces';
 
-   
-import { Interval, Action } from '../Types'
-
-const interval = (state: Interval, action: Action) => {
-  const updatedInterval = {...state};
+const interval = (state: Interval, action: ActionInterval) => {
+  const updatedInterval = { ...state };
   switch (action.type) {
-    case ('updateInterval'): {
+    case 'updateInterval': {
       updatedInterval.interval = Number(action.message) * 1000;
       return updatedInterval;
     }
-    case ('toggleInterval'): {
+    case 'toggleInterval': {
       updatedInterval.update = action.message;
       return updatedInterval;
     }
-    default: 
+    default:
       return state;
   }
-}
+};
 
 export default interval;

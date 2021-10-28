@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
+import router from 'next/router';
 import PropTypes from 'prop-types';
 import styles from '../../styles/Homepage.module.scss';
-import { User } from '../../context/interfaces';
+import { User, HomePageProps } from '../../context/interfaces';
 
-interface SignUpProps {
-  previousPage: () => () => void;
-}
-
-function SignUp({ previousPage }: SignUpProps) {
+function SignUp({ previousPage }: HomePageProps) {
   const [userInfo, setUserInfo] = useState<User>({
     username: '',
     email: '',
@@ -26,7 +23,20 @@ function SignUp({ previousPage }: SignUpProps) {
         email,
       }),
       'Content-Type': 'application/json',
-    }).then((data) => console.log(data));
+    })
+      .then((response: Response) => {
+        if (response.status === 200) {
+          document.querySelector(
+            '#messageDiv'
+          ).innerHTML = `Welcome ${username}, you will be redirected to the login screen shortly.`;
+          setTimeout(() => router.replace('/dashboard'), 3000);
+        } else throw response.json();
+      })
+      .catch((error) => {
+        error.then((err) => {
+          document.querySelector('#messageDiv').innerHTML = err.error;
+        });
+      });
   };
 
   return (
@@ -81,6 +91,8 @@ function SignUp({ previousPage }: SignUpProps) {
           </label>
         </div>
 
+        <div id="messageDiv" name="Log-in Errors"></div>
+
         <div className={styles.buttonWrapper}>
           <button
             className={styles.backButton}
@@ -90,11 +102,7 @@ function SignUp({ previousPage }: SignUpProps) {
             Back
           </button>
 
-          <button
-            // onClick={() => router.replace('/dashboard')}
-            className={styles.submitButton}
-            type="submit"
-          >
+          <button className={styles.submitButton} type="submit">
             Submit
           </button>
         </div>

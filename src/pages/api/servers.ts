@@ -1,19 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Cookies from 'cookies';
 import db from '../../models/Revis';
+import { ParsedBodyServer, ServerInterface } from '../../context/interfaces';
 
 const bcrypt = require('bcryptjs');
 
 const servers = async (req: NextApiRequest, res: NextApiResponse) => {
   let hashedPassword: string;
-  let SQLquery: string;
-  let SQLqueryCloud: string;
-  type Server = {
-    name: string;
-    PORT: string;
-    endpoint: string;
-    password: string;
-  };
+  let SQLquery: string = '';
 
   const cookies: Cookies = new Cookies(req, res);
   const userId: String = cookies.get('ssid');
@@ -23,7 +17,7 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'GET':
       try {
-        SQLquery = `SELECT * FROM "serverCloud" WHERE user_id = ${userId};`;
+        SQLquery = `SELECT * FROM "${process.env.PG_TABLE_CLOUD}" WHERE user_id = ${userId};`;
         const cloudDataFull = await db.query(SQLquery);
         const cloud: String[] = cloudDataFull.rows;
         return res.status(200).json({ success: true, cloud });
@@ -34,14 +28,18 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'POST':
       try {
-        const parsedBody: Server = JSON.parse(req.body);
-        const { name, endpoint, password, PORT } = parsedBody;
+        const parsedBody: ParsedBodyServer = JSON.parse(req.body);
+        const { name, endpoint, password, port } = parsedBody;
 
         hashedPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
-        SQLquery = `INSERT INTO "serverCloud" (name,endpoint,port,password,user_id)
-          VALUES ('${name}','${endpoint}','${PORT}','${hashedPassword}',${userId});`;
+        SQLquery += `INSERT INTO "${process.env.PG_TABLE_CLOUD}" (name,endpoint,port,password,user_id)
+          VALUES ('${name}','${endpoint}',${port},'${hashedPassword}',${userId}); \n`;
+
+        SQLquery += `INSERT INTO "${process.env.PG_TABLE_REDIS}" (user_id,endpoint,password)
+          VALUES (${userId},'${endpoint}','${password}');`;
 
         await db.query(SQLquery);
+
         return res.status(200).json({ success: true });
       } catch (err) {
         console.log(`FAILED QUERY ${SQLquery}`);
@@ -50,9 +48,15 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'DELETE':
       try {
-        const parsedBody: Server = JSON.parse(req.body);
+        const parsedBody: ServerInterface = JSON.parse(req.body);
         const { name } = parsedBody;
-        SQLquery = `DELETE FROM "serverCloud" WHERE name = '${name}' AND user_id = ${userId};`;
+        SQLquery = `DELETE FROM "${process.env.PG_TABLE_CLOUD}" WHERE name = '${name}' AND user_id = ${userId}
+        RETURNING endpoint;`;
+
+        const endpointRows = await db.query(SQLquery);
+        const { endpoint } = endpointRows.rows[0];
+
+        SQLquery = `DELETE FROM "${process.env.PG_TABLE_REDIS}" WHERE endpoint = '${endpoint}' AND user_id = ${userId};`;
         await db.query(SQLquery);
         return res.status(200).json({ success: true });
       } catch (err) {

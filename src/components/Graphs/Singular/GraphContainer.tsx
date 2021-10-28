@@ -3,9 +3,11 @@ import Graph from './Graph';
 import BackButton from '../../Globals/BackButton';
 import styles from '../../../styles/GraphContainer.module.scss';
 
+
 function GraphContainer() {
   return (
     <div className={styles.GraphContainer}>
+  
       <div>
         <BackButton />
       </div>

@@ -1,4 +1,4 @@
-@import "./colorsAndFonts.scss";
+@import './colorsAndFonts.scss';
 
 .GraphContainer {
   display: flex;
@@ -16,37 +16,53 @@
     position: absolute;
     top: 20%;
     left: 20%;
+    transition: margin-left 0.5s;
   }
   .GraphFlex {
     width: 100%;
   }
 
   .Graph {
-    background-color: rgb(27, 27, 28);
+    background-color: rgba(27, 27, 28, 0.914);
     border-radius: 4px;
     font-family: $fontOfMetrics;
   }
 }
 
 .MultipleGraphContainer {
-  margin-top: 3rem;
+  transition: margin-left 0.5s;
   h1 {
-    font-family: $fontOfSummaryTitle;
+    font-family: $fontOfMetrics;
     color: var(--grey);
+    font-size: 2vh;
   }
-
+.LeftMetrics{
+  .MaxGraphsMessage {
+    color: rgb(205, 93, 93);
+    max-width: 30vh;
+    position: absolute;
+    top: 12vh;
+    left: 47vh;
+    font-size: 2vh;
+    font-family: $fontOfMetrics;
+  }
   .LeftMenu {
     position: absolute;
-    top: 20%;
-    left: 15%;
-    font-size: 1.2rem;
+    top: 20vh;
+    left: 47vh;
+    font-size: 2vh;
     font-family: $fontOfMetrics;
     display: flex;
     gap: 0.7rem;
     flex-direction: column;
+    transition: left 0.5s;
+    height: 40vh;
+    width:30vh;
+    overflow: scroll;
+    scroll-behavior: smooth;
+  
     .metrics {
       display: flex;
-      gap: 1rem;
       .emptySquare {
         color: var(--logoColor);
         border-radius: 4px;
@@ -54,18 +70,30 @@
       }
       .fullSquare {
         color: var(--green);
+        border-radius: 4px;
+        margin-right: 10px;
       }
     }
+  
   }
+}
 
   .GraphFlex {
-    margin-left: 37%;
-    position: relative;
+    margin-top: -7vh;
+    margin-left: 20vh;
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    row-gap:3vh;
+    column-gap: 3vh;
+    width: 100vh; 
+    height: 60vh;  
   }
 
   .Graph {
-    background-color: rgb(27, 27, 28);
+    background-color: rgba(27, 27, 28, 0.914);
     border-radius: 4px;
     font-family: $fontOfSummaryTitle;
+    width: 50vh;
+    
   }
 }
