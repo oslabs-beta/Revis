@@ -1,26 +1,27 @@
-@import "./colorsAndFonts.scss";
+@import './colorsAndFonts.scss';
 .underDashboard {
-
   font-family: $fontOfMetrics;
   color: var(--grey);
   position: absolute;
-  bottom:3vh;
-  left:45vh;
-  z-index:1;
+  bottom: 3vh;
+  left: 45vh;
+  z-index: 1;
+  -webkit-transition: 0.75s ease;
+  -moz-transition: 0.75s ease;
+  -o-transition: 0.75s ease;
+  -ms-transition: 0.75s ease;
+  transition: 0.75s ease;
 
   .textAndSwitch {
-
     display: flex;
     flex-direction: column;
     gap: 1vh;
     align-items: center;
-  
+
     .switch {
       position: relative;
       width: 4vh;
-      height:2vh;
-      
-
+      height: 2vh;
     }
 
     /* Hide default HTML checkbox */
@@ -41,18 +42,25 @@
       bottom: 0;
       background-color: var(--grey);
       -webkit-transition: 0.4s;
+      -moz-transition: 0.4s;
+      -o-transition: 0.4s;
+      -ms-transition: 0.4s;
       transition: 0.4s;
       margin-bottom: 0.1vh;
     }
 
     .slider:before {
       position: absolute;
-      content: "";
+      content: '';
       height: 1.5vh;
       width: 1.5vh;
       left: 0.1vh;
       bottom: 0.2vh;
       background-color: var(--lightgrey);
+      -webkit-transition: 0.4s;
+      -moz-transition: 0.4s;
+      -o-transition: 0.4s;
+      -ms-transition: 0.4s;
       -webkit-transition: 0.4s;
       transition: 0.4s;
       border-radius: 50%;
@@ -68,8 +76,9 @@
   }
 
   input:checked + .slider:before {
-
     transform: translateX(2vh);
+    -webkit-transform: translateX(2vh);
+    -ms-transform: translateX(2vh);
   }
 
   .intervalInput {
@@ -91,12 +100,12 @@
     text-align: center;
     padding-left: 1.5vh;
   }
-  input:hover{
-    cursor:text;
+  input:hover {
+    cursor: text;
   }
   button {
     background-color: var(--green);
-    color:var(--background);
+    color: var(--background);
     padding: 5px;
     cursor: pointer;
     font-size: 1.5vh;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import router from 'next/router';
 import PropTypes from 'prop-types';
 import styles from '../../styles/Homepage.module.scss';
 import { User, HomePageProps } from '../../context/interfaces';
@@ -22,7 +23,20 @@ function SignUp({ previousPage }: HomePageProps) {
         email,
       }),
       'Content-Type': 'application/json',
-    }).then((data) => console.log(data));
+    })
+      .then((response: Response) => {
+        if (response.status === 200) {
+          document.querySelector(
+            '#messageDiv'
+          ).innerHTML = `Welcome ${username}, you will be redirected to the login screen shortly.`;
+          setTimeout(() => router.replace('/dashboard'), 3000);
+        } else throw response.json();
+      })
+      .catch((error) => {
+        error.then((err) => {
+          document.querySelector('#messageDiv').innerHTML = err.error;
+        });
+      });
   };
 
   return (
@@ -31,65 +45,64 @@ function SignUp({ previousPage }: HomePageProps) {
 
       <form onSubmit={submitHandler}>
         <div className={styles.formEntry}>
-          <label htmlFor='username' className={styles.labels}>
+          <label htmlFor="username" className={styles.labels}>
             username:
             <input
               className={styles.userInput}
-              type='text'
+              type="text"
               onChange={(e) =>
                 setUserInfo({ ...userInfo, username: e.target.value })
               }
               value={userInfo.username}
               required
-              autoComplete='none'
+              autoComplete="none"
             ></input>
           </label>
         </div>
 
         <div className={styles.formEntry}>
-          <label htmlFor='email' className={styles.labels}>
+          <label htmlFor="email" className={styles.labels}>
             email:
             <input
               className={styles.userInput}
-              type='email'
+              type="email"
               onChange={(e) =>
                 setUserInfo({ ...userInfo, email: e.target.value })
               }
               value={userInfo.email}
               required
-              autoComplete='none'
+              autoComplete="none"
             ></input>
           </label>
         </div>
 
         <div className={styles.formEntry}>
-          <label htmlFor='password' className={styles.labels}>
+          <label htmlFor="password" className={styles.labels}>
             password:
             <input
               className={styles.userInput}
-              type='password'
+              type="password"
               onChange={(e) =>
                 setUserInfo({ ...userInfo, password: e.target.value })
               }
               required
-              autoComplete='none'
+              autoComplete="none"
             ></input>
           </label>
         </div>
+
+        <div id="messageDiv" name="Log-in Errors"></div>
 
         <div className={styles.buttonWrapper}>
           <button
             className={styles.backButton}
             onClick={previousPage}
-            type='button'
+            type="button"
           >
             Back
           </button>
 
-          <button
-            className={styles.submitButton}
-            type='submit'
-          >
+          <button className={styles.submitButton} type="submit">
             Submit
           </button>
         </div>
