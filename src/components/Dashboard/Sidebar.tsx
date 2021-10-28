@@ -201,8 +201,9 @@ function Sidebar() {
   };
 
   return (
-    <div className={styles.sideBarWrapper} id='sideBar'>
+    <div className={styles.sideBarWrapper} id="sideBar">
       <ServerAdd addServer={addServer} />
+      <div className={styles.guestMessage} id="guestMessage"></div>
       <ServerList
         serverList={serverList}
         currentDivHover={currentDivHover}
@@ -214,7 +215,7 @@ function Sidebar() {
           id={styles.cube}
           icon={faCube}
           onClick={changeSidebarVisual}
-          values='close'
+          values="close"
         />
       </span>
       <span className={styles.closeSpan}>
@@ -222,7 +223,7 @@ function Sidebar() {
           id={styles.close}
           icon={faWindowClose}
           onClick={changeSidebarVisual}
-          values='close'
+          values="close"
         />
       </span>
     </div>

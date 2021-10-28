@@ -54,7 +54,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
       const SQLQuery: string = `SELECT server_id,ta.name,tb.endpoint,value,date from "${process.env.PG_TABLE_METRICS}" AS ta 
       INNER JOIN "${process.env.PG_TABLE_CLOUD}" as tb on tb.id =server_id where ta.user_id = ${userID} ORDER BY date`;
       const { rows } = await db.query(SQLQuery);
-      
+
       const redis = new Redis({
         host: process.env.REDIS_URL,
         port: process.env.REDIS_PORT,
@@ -156,7 +156,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(200).json({ success: true });
       } catch (err) {
         console.log(err);
-        return res.status(400).json({ success: false, error: err });
+        return res.status(400).json({ success: false });
       }
     default:
       return res.status(400).json({ error: 'Error within storeMetrics' });

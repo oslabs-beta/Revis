@@ -23,6 +23,11 @@ const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
     const { rows } = await db.query(SQLquery);
     const userID: number = rows[0].user_id;
 
+    const sessionID = bcrypt.hashSync(`${Date.now()}`, SALT_WORK_FACTOR);
+    console.log(`User: ${username} logged in`);
+    const ONE_HOUR = 1000 * 60 * 60;
+
+    cookies.set('session', sessionID, { httpOnly: true, maxAge: ONE_HOUR });
     cookies.set('ssid', `${userID}`, { httpOnly: true });
     cookies.set('username', `${username}`, { httpOnly: true });
     return res.status(200).json({ success: true });

@@ -6,6 +6,16 @@ import styles from '../../styles/LandingPage.module.scss';
 import NavBarLandingPage from './NavBarLandingPage';
 
 function LandingPage() {
+  function guestLogin() {
+    fetch('/api/userLogin', {
+      method: 'POST',
+      body: JSON.stringify({ username: 'guest', password: 'password' }),
+    }).then((response) => {
+      if (response.status === 200) {
+        router.replace('/dashboard');
+      }
+    });
+  }
   return (
     <div className={styles.LandingPageWrapper}>
       <NavBarLandingPage />
@@ -27,9 +37,9 @@ function LandingPage() {
           <button type="button" onClick={() => router.replace('/login')}>
             Start now
           </button>
-          {/* <button type="button" onClick={() => router.replace('/dashboard')}>
+          <button type="button" onClick={guestLogin}>
             Free demo
-          </button> */}
+          </button>
         </div>
       </div>
     </div>

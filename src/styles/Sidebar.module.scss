@@ -52,4 +52,17 @@
     font-family: $fontOfMetrics;
     margin-left: 30px;
   }
+  .guestMessage {
+    position: absolute;
+    width: 15vw;
+    height: fit-content;
+    text-align: center;
+    font-size: 2vh;
+    color: var(--grey);
+    -webkit-transition: 0.75s ease;
+    -moz-transition: 0.75s ease;
+    -o-transition: 0.75s ease;
+    -ms-transition: 0.75s ease;
+    transition: 0.75s ease;
+  }
 }
