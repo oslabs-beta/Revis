@@ -15,8 +15,8 @@
   height: 110vh;
   @media screen and (max-device-width: 800px) and (orientation: portrait) {
    margin-top:-1vh;
-    width: 50vh;
-    margin-left:-1vh;
+    width: 120%;
+    margin-left:-3vh;
   }
   #UserLogin {
     display: flex;

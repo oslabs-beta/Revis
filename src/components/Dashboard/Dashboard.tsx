@@ -14,6 +14,7 @@ import UpdateInterval from '../Globals/UpdateInterval';
 import GraphContainer from '../Graphs/Singular/GraphContainer';
 import MediaQuery from './MediaQuery';
 
+
 export default function Dashboard() {
   const { user, metricsStore, servers, currentServer, metricHistory }: Context =
     useStore();
@@ -58,6 +59,8 @@ export default function Dashboard() {
   }, [metricState]);
 
   useEffect(() => {
+    if(window.innerWidth < 800) return <h1>Not Compatible</h1>;
+    
     fetch('/api/validateUser')
       .then((response: Response) => response.json())
       .then((data) => {

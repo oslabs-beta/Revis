@@ -13,10 +13,13 @@
 
   .NavBar {
     position: absolute;
-    right:2vh;
+    right: 2vh;
     top: 4%;
     display: flex;
     gap: 5%;
+    @media screen and (max-device-width: 800px) and (orientation: portrait) {
+      right: 15%;
+    }
 
     button {
       width: 14vh;
@@ -28,8 +31,8 @@
       color: var(--grey);
 
       @media screen and (max-device-width: 800px) and (orientation: portrait) {
-        width: 7vh;
-      font-size: 1.2vh;
+        width: 10vh;
+        font-size: 1vh;
       }
     }
     button:hover {

@@ -6,7 +6,7 @@ import { useStore } from '../../context/Provider';
 import styles from '../../styles/CustomMetricDropdown.module.scss';
 
 function CustomMetricDropdown(props) {
-  const { metricName } = props;
+  const { metricName, setDropdownState } = props;
   const [update, setUpdate] = useState(false);
   const [metricOptions, updateOptions] = useState([]);
   const { metricsStore, customMetrics } = useStore();
@@ -35,14 +35,20 @@ function CustomMetricDropdown(props) {
   };
   useEffect(() => {
     if (!metricState) return;
+    setDropdownState(false);
     const removingTime = {...metricState[0]}
     delete removingTime.time;
     updateOptions(Object.keys(removingTime));
   }, [metricState]);
 
+  function settingUpdate() {
+    setDropdownState(update);
+    setUpdate(!update)
+  }
+
   return (
     <div className={styles.dropdown}>
-      <div className={styles.dropdownBtn} onClick={() => setUpdate(!update)}>
+      <div className={styles.dropdownBtn} onClick={settingUpdate}>
         {metricName}
         <FontAwesomeIcon icon={faCaretDown} />
       </div>
@@ -69,6 +75,7 @@ CustomMetricDropdown.propTypes = {
     propTypes.string,
     propTypes.arrayOf(propTypes.string),
   ]).isRequired,
+  setDropdownState: propTypes.bool.isRequired,
 };
 
 export default CustomMetricDropdown;

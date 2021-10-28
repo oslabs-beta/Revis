@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import propTypes from 'prop-types';
 import router from 'next/router';
 import { useStore } from '../../context/Provider';
@@ -10,6 +10,7 @@ import CustomMetricDropdown from './CustomMetricDropdown';
 export default function Metrics(props: MetricsProps): ReactElement {
   const { metricName, metricValue, changeCurrentRender }: MetricsProps = props;
   const { metricToGraph }: Context = useStore();
+  const [dropdownState, setDropdownState] = useState(false)
 
   const cleanNames = (string: string): string[] => {
     const splitNames: string[] = string.split('_');
@@ -23,9 +24,9 @@ export default function Metrics(props: MetricsProps): ReactElement {
   return (
     <div className={styles.metrics}>
       <div className={styles.metricsAndTooltip}>
-        <CustomMetricDropdown metricName={cleanNames(metricName)} />
+        <CustomMetricDropdown metricName={cleanNames(metricName)} setDropdownState={setDropdownState}/>
       </div>
-      <Tooltip metric={metricName} />
+      <Tooltip metric={metricName} dropdownState={dropdownState} />
       <button
         type="button"
         onClick={(): void => {

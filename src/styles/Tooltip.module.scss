@@ -1,8 +1,7 @@
-
 .tooltip {
   width: 26vh;
   height: 2vh;
-  background-color:transparent;
+  background-color: transparent;
   background-size: cover;
   background-position: center;
   position: absolute;
@@ -35,7 +34,7 @@
   border-radius: 0.3rem;
   text-align: center;
   background: var(--tooltip-color);
-  z-index: 1;
+  // z-index: 1;
 }
 
 .tooltip:hover::before,
@@ -46,7 +45,7 @@
 .tooltip::after {
   --translate-y: calc(-1 * var(--arrow-size));
 
-  content: "";
+  content: '';
   border: var(--arrow-size) solid transparent;
   border-top-color: var(--tooltip-color);
   transform-origin: top center;

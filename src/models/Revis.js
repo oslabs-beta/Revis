@@ -1,7 +1,7 @@
 const { Pool } = require('pg');
 
 const config = {};
-
+console.log(process.env);
 if (process.env.NODE_ENV === 'development') {
   config.connectionString = process.env.PG_URI;
 } else if (process.env.NODE_ENV === 'production') {
