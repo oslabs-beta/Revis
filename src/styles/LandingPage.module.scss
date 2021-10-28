@@ -1,6 +1,6 @@
 @import './colorsAndFonts.scss';
 .LandingPageWrapper {
-  @media screen and (max-device-width: 480px) and (orientation: portrait) {
+  @media screen and (max-device-width: 800px) and (orientation: portrait) {
     flex-direction: column;
     margin-left: 50%;
     margin-top: 0;
@@ -55,7 +55,7 @@
         animation: cubeAnimation 0.6s cubic-bezier(0.5, 0.05, 1, 0.5);
         animation-direction: alternate;
         animation-iteration-count: infinite;
-        @media screen and (max-device-width: 480px) and (orientation: portrait) {
+        @media screen and (max-device-width: 800px) and (orientation: portrait) {
           height: 5vh;
           width: 7vh;
         }
@@ -96,7 +96,7 @@
       font-family: $fontOfLogo;
       font-size: 12vh;
       color: var(--logoColor);
-      @media screen and (max-device-width: 480px) and (orientation: portrait) {
+      @media screen and (max-device-width: 800px) and (orientation: portrait) {
         font-size: 6vh;
       }
     }
@@ -123,7 +123,7 @@
       text-align: center;
       font-family: $fontOfMetrics;
       font-size: 3vh;
-      @media screen and (max-device-width: 480px) and (orientation: portrait) {
+      @media screen and (max-device-width: 800px) and (orientation: portrait) {
         width: 30vh;
         margin-bottom: 5vh;
       }

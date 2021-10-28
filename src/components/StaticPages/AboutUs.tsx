@@ -43,7 +43,7 @@ function AboutUs() {
           <div className={styles.contactIcons}>
             <button
               onClick={() => {
-                window.open('https://github.com/mkalaizic');
+                window.open('linkedin.com/in/chao-yu-409581204');
               }}
               id={styles.linkedin}
             >
@@ -66,7 +66,7 @@ function AboutUs() {
             <button
               type="button"
               onClick={() => {
-                window.open('https://github.com/mkalaizic');
+                window.open('https://www.linkedin.com/in/jasonzeng151/');
               }}
               id={styles.linkedin}
             >
@@ -91,7 +91,7 @@ function AboutUs() {
             <button
               type="button"
               onClick={() => {
-                window.open('https://github.com/mkalaizic');
+                window.open('linkedin.com/in/liam-fontes');
               }}
               id={styles.linkedin}
             >

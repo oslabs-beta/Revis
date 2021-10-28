@@ -28,7 +28,7 @@ function SignUp({ previousPage }: HomePageProps) {
         if (response.status === 200) {
           document.querySelector(
             '#messageDiv'
-          ).innerHTML = `Welcome ${username}, you will be redirected to the login screen shortly.`;
+          ).innerHTML = `Welcome ${username}, you will be redirected to the dashboard shortly.`;
           setTimeout(() => router.replace('/dashboard'), 3000);
         } else throw response.json();
       })

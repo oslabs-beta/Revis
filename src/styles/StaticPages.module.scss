@@ -57,91 +57,86 @@
     font-size: 2vh;
     margin-top: 5vh;
     cursor: pointer;
-
-    
   }
   #theTeam {
     margin-top: 50vh;
     font-family: $fontOfMetrics;
-    font-size:4vh;
+    font-size: 4vh;
   }
   .team {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    position:absolute;
-    top:80vh;
+    position: absolute;
+    top: 80vh;
 
-  .imageDiv{
-  
+    .imageDiv {
+      margin-top: 20vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 20vh;
 
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    width: 20vh;
+      #chao {
+        background-image: url('../components/StaticPages/IMG_0978\ \(1\).PNG');
+        background-size: 16vh;
+        height: 15vh;
+        width: 15vh;
+        border-radius: 50%;
+        background-repeat: no-repeat;
+      }
 
-    #chao{
-      background-image: url('../components/StaticPages/IMG_0978\ \(1\).PNG');
-      background-size: 16vh;
-      height: 15vh;
-      width: 15vh;
-      border-radius: 50%;
-      background-repeat: no-repeat;
+      #jason {
+        background-image: url(../components/StaticPages/image0.png);
+        background-size: 16vh;
+        height: 15vh;
+        width: 15vh;
+        border-radius: 50%;
+        background-repeat: no-repeat;
+      }
+
+      #liam {
+        background-image: url(../components/StaticPages/IMG_1914.jpg);
+        background-size: 16vh;
+        height: 15vh;
+        width: 15vh;
+        border-radius: 50%;
+        background-repeat: no-repeat;
+      }
+
+      #mercedes {
+        background-image: url(../components/StaticPages/Mercedes.png);
+        background-size: 16vh;
+        height: 15vh;
+        width: 15vh;
+        border-radius: 50%;
+        background-repeat: no-repeat;
+      }
     }
-
-    #jason{
-      background-image: url(../components/StaticPages/image0.png);
-      background-size: 16vh;
-      height: 15vh;
-      width: 15vh;
-      border-radius: 50%;
-      background-repeat: no-repeat;
+    .contactIcons {
+      display: flex;
+      gap: 1vh;
+      #linkedin {
+        background-image: url(../components/StaticPages/61109.png);
+        background-size: 3vh;
+        width: 3vh;
+        height: 3vh;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+      }
+      #github {
+        background-image: url(../components/StaticPages/25231.png);
+        background-size: 3vh;
+        width: 3vh;
+        height: 3vh;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+      }
     }
-
-    #liam{
-      background-image: url(../components/StaticPages/Fontes_Photo.jpeg);
-      background-size: 16vh;
-      height: 15vh;
-      width: 15vh;
-      border-radius: 50%;
-      background-repeat: no-repeat;
-    }
-
-    #mercedes{
-      background-image: url(../components/StaticPages/Mercedes.png);
-      background-size: 16vh;
-      height: 15vh;
-      width: 15vh;
-      border-radius: 50%;
-      background-repeat: no-repeat;
-   
-  
-}
   }
-  .contactIcons{
-    display: flex;
-    gap:1vh;
-    #linkedin{
-      background-image: url(../components/StaticPages/61109.png);
-      background-size: 3vh;
-      width: 3vh;
-      height: 3vh;
-      border:none;
-      background-color:transparent;
-    }
-    #github{
-      background-image: url(../components/StaticPages/25231.png);
-      background-size: 3vh;
-      width: 3vh;
-      height: 3vh;
-      border:none;
-      background-color:transparent;
-    }
-  }
-  }
-
-
 }
 
 .downloadWrapper {

@@ -12,16 +12,16 @@ function NavBarDashboard(props) {
         <div id={styles.shadow}>..</div>
       </div>
 
-      <h1 id={styles.logo}>Revis</h1>
+      <h1 id={styles.logo}>REVIS</h1>
       <div className={styles.navBarDashboard}>
-        <button type='button' id={styles.Summary} onClick={changeCurrentRender}>
+        <button type="button" id={styles.Summary} onClick={changeCurrentRender}>
           Summary
         </button>
-        <button type='button' id={styles.History} onClick={changeCurrentRender}>
+        <button type="button" id={styles.History} onClick={changeCurrentRender}>
           History
         </button>
         <button
-          type='button'
+          type="button"
           id={styles.multiplegraphs}
           onClick={changeCurrentRender}
         >

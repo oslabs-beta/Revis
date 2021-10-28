@@ -1,15 +1,15 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCube } from '@fortawesome/free-solid-svg-icons';
-import styles from '../../styles/LeftSide.module.scss';
 import router from 'next/router';
+import styles from '../../styles/LeftSide.module.scss';
 
 function LogoHomeScreen() {
   return (
     <div className={styles.leftSideWrapper}>
       <button
         id={styles.backButton}
-        type='button'
+        type="button"
         onClick={() => router.replace('/')}
       >
         Back
@@ -19,7 +19,7 @@ function LogoHomeScreen() {
         <div id={styles.shadow}>..</div>
       </div>
 
-      <h1 id={styles.logo}>Revis</h1>
+      <h1 id={styles.logo}>REVIS</h1>
     </div>
   );
 }

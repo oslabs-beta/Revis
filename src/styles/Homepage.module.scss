@@ -13,17 +13,17 @@
     var(--logoColor) 50%
   );
   height: 110vh;
- 
+
   #UserLogin {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     width: 20vh;
-   
 
     h1 {
       color: var(--background);
       font-family: $fontOfHomePage;
+      margin-left: 3.7vh;
     }
 
     .userInput {
@@ -184,7 +184,7 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        margin-bottom: 2vh;
+        margin-bottom: 1vh;
 
         .labels {
           display: flex;
@@ -209,27 +209,28 @@
     .buttonWrapper {
       display: flex;
       flex-direction: row;
+      gap: 2vh;
       width: 100%;
       justify-content: space-evenly;
-      margin-top: 7vh;
+      margin-top: 4vh;
 
       button {
         font-family: $fontOfButtons;
         font-size: 2vh;
         background-color: var(--green);
-        border-radius: 0.75rem;
+        border-radius: 1vh;
         border-color: transparent;
         color: var(--background);
         width: 15vh;
-        height: 2rem;
-        padding: 0.5rem;
+        height: 4vh;
+        padding: 1vh;
         cursor: pointer;
       }
     }
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 800px) {
   .homePageWrapper {
     display: flex;
     flex-wrap: wrap;
