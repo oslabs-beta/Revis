@@ -4,7 +4,7 @@ import { useStore } from '../../context/Provider';
 import Sidebar from './Sidebar';
 import Summary from './Summary';
 import styles from '../../styles/Dashboard.module.scss';
-import SignOutButton from '../Globals/SignOutButton';
+
 import NavBarDashboard from './NavBarDashboard';
 import { Context } from '../../context/interfaces';
 import MultipleGraphContainer from '../Graphs/Multiple/MultipleGraphContainer';
@@ -161,7 +161,7 @@ export default function Dashboard() {
               <Welcome />
             </div>
             <NavBarDashboard changeCurrentRender={changeCurrentRender} />
-            <SignOutButton />
+     
             <Sidebar />
             <UpdateInterval />
           </div>

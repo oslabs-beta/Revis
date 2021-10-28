@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
 import PropTypes from 'prop-types';
 import styles from '../../../styles/GraphContainer.module.scss';
@@ -13,8 +13,11 @@ function MultipleGraph({ metricName, metricValue }: MetricsProps) {
     });
     return capitilizeFirstLetter;
   };
+  const graphWidth = () => window.innerWidth / 4;
 
-  const graphWidth = () => window.innerWidth / 5;
+  useEffect(() => {
+    graphWidth();
+  }, [])
 
   return (
     <div>

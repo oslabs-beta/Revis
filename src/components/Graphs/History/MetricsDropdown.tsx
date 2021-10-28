@@ -10,7 +10,7 @@ function MetricsDropdown(props) {
   const { metricsStore }: Context = useStore();
   const { setCurrentMetricFunction } = props;
   const { metricState } = metricsStore;
-  const list = [];
+  const listOfMetrics: [] = [];
   const [buttonMetric, setButtonMetric] = useState('Select Metric');
   useEffect(() => {
     document
@@ -27,7 +27,6 @@ function MetricsDropdown(props) {
     return capitilizeFirstLetter;
   };
 
-  
   function showingDropdown() {
     document
       .querySelector(`.${styles.dropdowncontent}`)
@@ -39,11 +38,13 @@ function MetricsDropdown(props) {
   }
   if (metricState.length !== 0) {
     Object.entries(metricState[metricState.length - 1]).forEach((el, index) => {
-      list.push(
-        <button type='button' key={index} onClick={selectMetric}>
-          {cleanNames(el[0])}
-        </button>
-      );
+      if (el[0] !== 'time') {
+        listOfMetrics.push(
+          <button type='button' key={index} onClick={selectMetric}>
+            {cleanNames(el[0])}
+          </button>
+        );
+      }
     });
   }
   return (
@@ -57,7 +58,7 @@ function MetricsDropdown(props) {
       </button>
 
       <div id={styles.myDropdown} className={styles.dropdowncontent}>
-        {list}
+        {listOfMetrics}
       </div>
     </div>
   );

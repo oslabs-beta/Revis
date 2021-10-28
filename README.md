@@ -1,6 +1,10 @@
+<p align='center'>
+  <img src='https://i.imgur.com/RXrossi.png' alt='Revis logo' width="341" height="256"/>
+</p>
+
 # Revis
 
-Revis is a utility application that will enhance user's experience with their Redis servers. It offers an easy-to-use application that will allow users to monitor their Redis servers by accessing an ergonomic visualization of server metrics.
+Revis is a utility application that will enhance users' experience with their Redis servers. It offers an easy-to-use application that will allow users to monitor their Redis servers by accessing an ergonomic visualization of server metrics.
 
 # Table of Contents
 
@@ -21,9 +25,15 @@ Revis collects a robust set of data from your Redis server. Such metrics include
 
 Add Redis server to monitor:
 
+![add-server-change-server](https://media.giphy.com/media/DvzEdD5g0BDAe3BzVA/giphy.gif)
+
 Select metrics that you want to monitor and visualize:
 
+![select-single-metric-graph](https://media.giphy.com/media/tv0x77LYCKiIpvtgga/giphy.gif)
+
 View graph(s):
+
+![select-multiple-metric-graph](https://media.giphy.com/media/rMClvNsLCwpZrtoXO5/giphy.gif)
 
 ## Installation
 

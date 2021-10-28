@@ -5,7 +5,7 @@
   margin-bottom: 3vh;
 }
 .dropdown .dropdownBtn {
-  width: 25vh;
+  width: 24vh;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -14,6 +14,7 @@
   word-wrap: break-word;
   gap: 1vh;
   z-index:0;
+  text-align: center;
 }
 
 .dropdown .dropdownContent {
@@ -38,7 +39,7 @@
 }
 
 .dropdown .dropdownContent .dropdownItem:hover {
-  background: #f4f4f4;
+  background: #f19408cb;
 }
 
 .dropdown ::-webkit-scrollbar {

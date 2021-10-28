@@ -35,7 +35,9 @@ function CustomMetricDropdown(props) {
   };
   useEffect(() => {
     if (!metricState) return;
-    updateOptions(Object.keys(metricState[0]));
+    const removingTime = {...metricState[0]}
+    delete removingTime.time;
+    updateOptions(Object.keys(removingTime));
   }, [metricState]);
 
   return (
