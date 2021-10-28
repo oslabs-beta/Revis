@@ -1,5 +1,5 @@
 <p align='center'>
-  <img src='https://imgur.com/RXrossi' width="341" height="256"/>
+  <img src='https://i.imgur.com/RXrossi.png' alt='Revis logo' width="341" height="256"/>
 </p>
 
 # Revis
@@ -24,11 +24,17 @@ Revis collects a robust set of data from your Redis server. Such metrics include
 ## Preview
 
 Add Redis server to monitor:
+
 ![add-server-change-server](https://media.giphy.com/media/DvzEdD5g0BDAe3BzVA/giphy.gif)
+
 Select metrics that you want to monitor and visualize:
+
 ![select-single-metric-graph](https://media.giphy.com/media/tv0x77LYCKiIpvtgga/giphy.gif)
+
 View graph(s):
+
 ![select-multiple-metric-graph](https://media.giphy.com/media/rMClvNsLCwpZrtoXO5/giphy.gif)
+
 ## Installation
 
 Revis can be accessed through the web or it can downloaded and deployed within your local machine.
