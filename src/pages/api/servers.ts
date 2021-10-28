@@ -50,13 +50,16 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         const parsedBody: ServerInterface = JSON.parse(req.body);
         const { name } = parsedBody;
-        SQLquery = `DELETE FROM "${process.env.PG_TABLE_CLOUD}" WHERE name = '${name}' AND user_id = ${userId}
+
+        SQLquery = `DELETE FROM "${process.env.PG_TABLE_REDIS}" WHERE endpoint = (SELECT endpoint FROM "${process.env.PG_TABLE_CLOUD}" WHERE name = '${name}' AND user_id = ${userId}) AND user_id = ${userId} \n;`;
+
+        SQLquery += `DELETE FROM "${process.env.PG_TABLE_CLOUD}" WHERE name = '${name}' AND user_id = ${userId}
         RETURNING endpoint;`;
 
-        const endpointRows = await db.query(SQLquery);
-        const { endpoint } = endpointRows.rows[0];
+        // const endpointRows = await db.query(SQLquery);
+        // const { endpoint } = endpointRows.rows[0];
 
-        SQLquery = `DELETE FROM "${process.env.PG_TABLE_REDIS}" WHERE endpoint = '${endpoint}' AND user_id = ${userId};`;
+        // SQLquery = `DELETE FROM "${process.env.PG_TABLE_REDIS}" WHERE endpoint = '${endpoint}' AND user_id = ${userId};`;
         await db.query(SQLquery);
         return res.status(200).json({ success: true });
       } catch (err) {
