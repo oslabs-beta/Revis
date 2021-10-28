@@ -14,10 +14,10 @@ docker push 517297673043.dkr.ecr.us-east-1.amazonaws.com/revis:$TRAVIS_COMMIT
 # Use the linux sed command to replace the text '<VERSION>' in our Dockerrun file with the Travis-CI SHA key
 sed -i='' "s/<VERSION>/$TRAVIS_COMMIT/" Dockerrun.aws.json
 # Zip up our codebase, along with modified Dockerrun and our .ebextensions directory
-zip -r mm-prod-deploy.zip Dockerrun.aws.json .ebextensions
+zip -r revis.zip Dockerrun.aws.json .ebextensions
 # Upload zip file to s3 bucket
-aws s3 cp mm-prod-deploy.zip s3://$EB_BUCKET/mm-prod-deploy.zip
+aws s3 cp revis.zip s3://$EB_BUCKET/revis.zip
 # Create a new application version with new Dockerrun
-aws elasticbeanstalk create-application-version --application-name Revis --version-label $TRAVIS_COMMIT --source-bundle S3Bucket=$EB_BUCKET,S3Key=mm-prod-deploy.zip
+aws elasticbeanstalk create-application-version --application-name Revis --version-label $TRAVIS_COMMIT --source-bundle S3Bucket=$EB_BUCKET,S3Key=revis.zip
 # Update environment to use new version number
 aws elasticbeanstalk update-environment --environment-name Revis-env --version-label $TRAVIS_COMMIT
