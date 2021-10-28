@@ -13,7 +13,7 @@
   text-align: center;
   align-content: center;
   justify-content: center;
-  z-index:1;
+  z-index: 1;
 
   input {
     opacity: 0;
@@ -48,7 +48,7 @@
     -webkit-transition: $transitionTime;
     transition: $transitionTime;
     border-radius: 1rem;
-    background-image: url(./sun-solid.svg);
+    background-image: url(../images/sun-solid.svg);
   }
 
   input:checked + .slider {
@@ -63,7 +63,7 @@
 
     transform: translateX($distanceFromEdge) rotate(360deg);
 
-    background-image: url(./moon-solid.svg);
+    background-image: url(../images/moon-solid.svg);
     background-color: var(--logoColor);
   }
 }
