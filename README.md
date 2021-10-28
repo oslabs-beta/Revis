@@ -1,5 +1,5 @@
 <p align='center'>
-  <img src='https://i.imgur.com/RXrossi.png' alt='Revis logo' width="341" height="256"/>
+  ![logo-animation](https://media.giphy.com/media/9AsFMJWZLpwgSLj8pb/giphy.gif)
 </p>
 
 # Revis

@@ -86,6 +86,7 @@ export interface HomePageProps {
 export interface MetricsProps {
   metricName: string;
   metricValue: string;
+  changeCurrentRender: () => void;
 }
 
 export interface ParsedBodyRedis {

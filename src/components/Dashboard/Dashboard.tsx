@@ -11,6 +11,7 @@ import MultipleGraphContainer from '../Graphs/Multiple/MultipleGraphContainer';
 import HistoryGraphsContainer from '../Graphs/History/HistoryGraphContainer';
 import Welcome from '../Globals/Welcome';
 import UpdateInterval from '../Globals/UpdateInterval';
+import GraphContainer from '../Graphs/Singular/GraphContainer';
 
 export default function Dashboard() {
   const { user, metricsStore, servers, currentServer, metricHistory }: Context =
@@ -147,8 +148,10 @@ export default function Dashboard() {
         return <HistoryGraphsContainer />;
       case 'Multiple graphs':
         return <MultipleGraphContainer />;
+      case 'Single graph':
+        return <GraphContainer />;
       default:
-        return <Summary />;
+        return <Summary changeCurrentRender={setCurrentRender} />;
     }
   }
 
@@ -161,7 +164,7 @@ export default function Dashboard() {
               <Welcome />
             </div>
             <NavBarDashboard changeCurrentRender={changeCurrentRender} />
-     
+
             <Sidebar />
             <UpdateInterval />
           </div>

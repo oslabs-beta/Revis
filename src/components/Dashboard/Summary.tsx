@@ -12,9 +12,10 @@ import Metrics from './Metrics';
 import SummaryTable from './SummaryTable';
 import { Context } from '../../context/interfaces';
 
-export default function Summary() {
+export default function Summary(props) {
   const { servers, metricsStore, customMetrics }: Context = useStore();
   const { customMetricState } = customMetrics;
+  const { changeCurrentRender } = props;
   const { serverList } = servers;
   const { metricState } = metricsStore;
   const [metricsForTable, updateTable]: [
@@ -34,6 +35,7 @@ export default function Summary() {
           key={metric}
           metricName={metric}
           metricValue={latestMetricData[metric]}
+          changeCurrentRender={changeCurrentRender}
         />
       );
     });
