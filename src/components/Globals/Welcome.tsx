@@ -4,6 +4,7 @@ import { useStore } from '../../context/Provider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
 import styles from '../../styles/Welcome.module.scss';
+import router from 'next/router';
 
 function Welcome() {
   const { user }: Context = useStore();
@@ -19,16 +20,17 @@ function Welcome() {
     <div className={styles.Welcome}>
       <h4>Signed in as </h4>
       <button type='button' id={styles.dropbtn} onClick={showingDropdown}>
-      {user.userState.username}
-      <FontAwesomeIcon
+        {user.userState.username}
+        <FontAwesomeIcon
           icon={faArrowCircleDown}
           className={styles.arrowDown}
         />
-         </button>
+      </button>
       <div id={styles.myDropdown} className={styles.dropdowncontent}>
-      <button type='button' onClick={signOut}>Sign Out</button>
+        <button type='button' onClick={signOut}>
+          Sign Out
+        </button>
       </div>
-      
     </div>
   );
 }

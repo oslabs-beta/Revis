@@ -1,5 +1,10 @@
 @import './colorsAndFonts.scss';
 .LandingPageWrapper {
+  @media screen and (max-device-width: 480px) and (orientation: portrait){
+   flex-direction: column;
+   margin-left:50%;
+   margin-top:10vh;
+  }
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,6 +92,7 @@
       font-family: $fontOfLogo;
       font-size: 12vh;
       color: var(--logoColor);
+  
     }
 
     @keyframes cubeAnimation {
@@ -110,7 +116,11 @@
       width: 50%;
       text-align: center;
       font-family: $fontOfMetrics;
-      font-size: 2rem;
+      font-size: 3vh;
+      @media screen and (max-device-width: 480px) and (orientation: portrait){
+        width:30vh;
+        margin-bottom: 5vh;
+       }
       
     }
 
