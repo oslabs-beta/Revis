@@ -1,5 +1,6 @@
-![logo-animation](https://media.giphy.com/media/9AsFMJWZLpwgSLj8pb/giphy.gif)
-
+<p align = "center">
+  <img src = "https://media.giphy.com/media/9AsFMJWZLpwgSLj8pb/giphy.gif" alt = "Animated Revis logo" />
+</p>
 
 # Revis
 
