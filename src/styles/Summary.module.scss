@@ -1,11 +1,29 @@
 @import './colorsAndFonts.scss';
 .SummaryWrapper {
-
   #loading {
     animation: slidein 1s linear infinite;
+    -webkit-animation: slidein 1s linear infinite;
+    -moz-animation: slidein 1s linear infinite;
+    -o-animation: slidein 1s linear infinite;
+    -ms-animation: slidein 1s linear infinite;
   }
 
   @keyframes slidein {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes slidein {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @-moz-keyframes slidein {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @-o-keyframes slidein {
     100% {
       transform: rotate(360deg);
     }
@@ -15,8 +33,8 @@
     border-radius: 20px;
     display: grid;
     border-color: transparent;
-    grid-template-rows: 1fr;  
-    grid-template-columns: repeat(4,20vh);
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(4, 20vh);
     row-gap: 20%;
     column-gap: 5%;
     align-items: flex-end;
@@ -26,22 +44,19 @@
     font-family: $fontOfMetrics;
     z-index: 0;
 
-
     .metricsAndTooltip {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 1vh;
-      
     }
     .metrics {
       display: flex;
       flex-direction: column;
       align-items: center;
       word-wrap: break-word;
-    
+
       color: var(--grey);
-      
     }
     button {
       margin-top: 0px;

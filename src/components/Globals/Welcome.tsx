@@ -1,8 +1,8 @@
 import React from 'react';
-import { Context } from '../../context/interfaces';
-import { useStore } from '../../context/Provider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
+import { useStore } from '../../context/Provider';
+import { Context } from '../../context/interfaces';
 import styles from '../../styles/Welcome.module.scss';
 import router from 'next/router';
 
@@ -27,7 +27,11 @@ function Welcome() {
         />
       </button>
       <div id={styles.myDropdown} className={styles.dropdowncontent}>
+<<<<<<< HEAD
         <button type='button' onClick={signOut}>
+=======
+        <button type="button" onClick={signOut}>
+>>>>>>> liam/launch
           Sign Out
         </button>
       </div>
