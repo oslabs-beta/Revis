@@ -1,6 +1,5 @@
-<p align='center'>
-  ![logo-animation](https://media.giphy.com/media/9AsFMJWZLpwgSLj8pb/giphy.gif)
-</p>
+![logo-animation](https://media.giphy.com/media/9AsFMJWZLpwgSLj8pb/giphy.gif)
+
 
 # Revis
 
