@@ -1,7 +1,7 @@
 {
   "name": "revis",
   "version": "2.0.0",
-  "description": "",
+  "description": "Redis monitoring tool",
   "main": "/src/pages/index.tsx",
   "scripts": {
     "dev": "next dev",
@@ -22,9 +22,23 @@
     "url": "git+https://github.com/Revis1/Revis.git"
   },
   "publish": null,
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "Redis",
+    "monitoring",
+    "graph",
+    "visualization",
+    "metric",
+    "performance",
+    "cache"
+  ],
+  "author": "OS Labs",
+  "contributors": [
+    "Chao Yu",
+    "Jason Zeng",
+    "Liam Fontes",
+    "Mercedes Kalaizic"
+  ],
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Revis1/Revis/issues"
   },
