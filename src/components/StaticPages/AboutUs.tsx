@@ -1,21 +1,21 @@
 import React from 'react';
 import styles from '../../styles/StaticPages.module.scss';
-import Image from 'next/image';
-import Liam from './Fontes_Photo.png'
-import Chao from './IMG_0978 (1).PNG'
-import Mercedes from './Mercedes.png'
-import Jason from './image0.png'
 import router from 'next/router';
 
 function AboutUs() {
-
   function onButtonClick() {
     document.querySelector(`#${styles.theTeam}`).scrollIntoView();
   }
 
   return (
     <div className={styles.aboutUsWrapper}>
-      <button id={styles.backButton} type= 'button' onClick={()=>router.replace('/')}>Back</button>
+      <button
+        id={styles.backButton}
+        type='button'
+        onClick={() => router.replace('/')}
+      >
+        Back
+      </button>
       <div className={styles.title}>
         {' '}
         <span id={styles.highlight}>By developers, for developers</span>
@@ -35,47 +35,104 @@ function AboutUs() {
       <button id={styles.meetTheTeam} type='button' onClick={onButtonClick}>
         Meet our team
       </button>
-      <h1 id={styles.theTeam}>The team</h1>
-    <div className={styles.team}>
+      <h1 id={styles.theTeam}>Team of contributors</h1>
+      <div className={styles.team}>
+        <div className={styles.imageDiv}>
+          <span id={styles.chao}></span>
+          <p>Chao Yu</p>
+          <div className={styles.contactIcons}>
+            <button
+              onClick={() => {
+                window.open('https://github.com/mkalaizic');
+              }}
+              id={styles.linkedin}
+            >
+              {' '}
+            </button>
+            <button
+              onClick={() => {
+                window.open('https://github.com/czyu1');
+              }}
+              id={styles.github}
+            >
+              {' '}
+            </button>
+          </div>
+        </div>
+        <div className={styles.imageDiv}>
+          <span id={styles.jason}></span>
+          <p>Jason Zeng</p>
+          <div className={styles.contactIcons}>
+            <button
+              type='button'
+              onClick={() => {
+                window.open('https://github.com/mkalaizic');
+              }}
+              id={styles.linkedin}
+            >
+              {' '}
+            </button>
+            <button
+              type='button'
+              onClick={() => {
+                window.open('https://github.com/jzeng151');
+              }}
+              id={styles.github}
+            >
+              {' '}
+            </button>
+          </div>
+        </div>
+        <div className={styles.imageDiv}>
+          <span id={styles.liam}></span>
 
-  
-    <span id={styles.images}>
-      <Image
-        src={Chao}
-        alt='Image not available'
-        height='200vh'
-        width='250vh'
-      />
-      <p>Chao Yu</p>
-      </span>
-      <span id={styles.images}>
-      <Image
-        src={Jason}
-        alt='Image not available'
-        height='200vh'
-        width='250vh'
-      />
-      <p>Jason Zeng</p>
-      </span>
-      <span id={styles.images}>
-      <Image
-        src={Liam}
-        alt='Image not available'
-        height='200vh'
-        width='250vh'
-      />
-      <p >Liam Fontes</p>
-      </span>
-      <span id={styles.images}>
-      <Image
-        src={Mercedes}
-        alt='Image not available'
-        height='200vh'
-        width='250vh'
-      />
-      <p>Mercedes Kalaizic</p>
-      </span>
-    </div>
+          <p>Liam Fontes</p>
+          <div className={styles.contactIcons}>
+            <button
+              type='button'
+              onClick={() => {
+                window.open('https://github.com/mkalaizic');
+              }}
+              id={styles.linkedin}
+            >
+              {' '}
+            </button>
+            <button
+              type='button'
+              onClick={() => {
+                window.open('https://github.com/LiamFontes');
+              }}
+              id={styles.github}
+            >
+              {' '}
+            </button>
+          </div>
+        </div>
+        <div className={styles.imageDiv}>
+          <span id={styles.mercedes}></span>
+          <p>Mercedes Kalaizic</p>
+          <div className={styles.contactIcons}>
+            <button
+              type='button'
+              onClick={() => {
+                window.open('https://https://www.linkedin.com/in/mkalaizic/');
+              }}
+              id={styles.linkedin}
+            >
+              {' '}
+            </button>
+            <button
+              type='button'
+              onClick={() => {
+                window.open('https://github.com/mkalaizic');
+              }}
+              id={styles.github}
+            >
+              {' '}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
