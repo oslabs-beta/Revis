@@ -43,16 +43,18 @@
   .slider:before {
     position: absolute;
     content: '';
-    height: 1.5rem;
-    width: 1.5rem;
+    height: 1.75rem;
+    width: 2rem;
     left: 0.5rem;
-    bottom: 0.25rem;
+    bottom: 0.75rem;
     background-color: var(--background);
     opacity: 100%;
     -webkit-transition: $transitionTime;
     transition: $transitionTime;
     border-radius: 1rem;
-    background-image: url(./sun-solid.svg);
+    border: solid var(--grey);
+    background-color: var(--logoColor);
+    // background-image: url(./sun-solid.svg);
     @media screen and (max-device-width: 800px) and (orientation: portrait) {
       width: 2vh;
       height: 2vh;
@@ -67,16 +69,16 @@
 
   input:checked + .slider:before {
     //
-    -ms-transform: translateX(4vh) rotate(360deg);
+    -ms-transform: translateX(8vh) rotate(360deg);
     @media screen and (max-device-width: 800px) and (orientation: portrait) {
       -ms-transform: translateX(2vh) rotate(360deg);
     }
     @media screen and (max-device-width: 800px) and (orientation: portrait) {
       transform: translateX(2vh) rotate(360deg);
     }
-    transform: translateX(4vh) rotate(360deg);
+    transform: translateX(6vh) rotate(360deg);
 
-    background-image: url(./moon-solid.svg);
+    // background-image: url(./moon-solid.svg);
     background-color: var(--logoColor);
   }
 }
