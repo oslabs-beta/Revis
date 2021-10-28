@@ -36,7 +36,6 @@ function MultipleGraphContainer() {
           <LeftMenuOfGraph />
         </div>
         <div className={styles.GraphFlex}>{arrayWithGraphs}</div>
-        <UpdateInterval />
       </div>
     </div>
   );
