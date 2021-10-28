@@ -3,7 +3,7 @@
   @media screen and (max-device-width: 480px) and (orientation: portrait){
    flex-direction: column;
    margin-left:50%;
-   margin-top:10vh;
+   margin-top:0;
   }
   display: flex;
   align-items: center;
@@ -55,6 +55,10 @@
         animation: cubeAnimation 0.6s cubic-bezier(0.5, 0.05, 1, 0.5);
         animation-direction: alternate;
         animation-iteration-count: infinite;
+        @media screen and (max-device-width: 480px) and (orientation: portrait){
+          height: 5vh;
+          width: 7vh;
+        }
       }
     }
     #shadow {
@@ -82,7 +86,7 @@
   }
   .leftLandingPageWrapper {
     display: flex;
-    flex-direction: column;
+    gap:1vh;
     align-items: center;
     justify-content: center;
     margin-top: 5%;
@@ -92,7 +96,9 @@
       font-family: $fontOfLogo;
       font-size: 12vh;
       color: var(--logoColor);
-  
+      @media screen and (max-device-width: 480px) and (orientation: portrait){
+        font-size: 6vh;
+      }
     }
 
     @keyframes cubeAnimation {
