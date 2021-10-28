@@ -27,9 +27,9 @@ function LandingPage() {
           <button type="button" onClick={() => router.replace('/login')}>
             Start now
           </button>
-          <button type="button" onClick={() => router.replace('/dashboard')}>
+          {/* <button type="button" onClick={() => router.replace('/dashboard')}>
             Free demo
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
