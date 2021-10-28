@@ -4,8 +4,8 @@
   position: fixed;
   display: inline-block;
   cursor: pointer;
-  width: 4.5rem;
-  height: 2rem;
+  width: 10vh;
+  height: 4.6vh;
   border-radius: 1rem;
   left: 1rem;
   right: auto;
@@ -14,6 +14,10 @@
   align-content: center;
   justify-content: center;
   z-index:1;
+  @media screen and (max-device-width: 800px) and (orientation: portrait) {
+    width: 5vh;
+    height: 2.5vh;
+  }
 
   input {
     opacity: 0;
@@ -49,19 +53,30 @@
     transition: $transitionTime;
     border-radius: 1rem;
     background-image: url(./sun-solid.svg);
+    @media screen and (max-device-width: 800px) and (orientation: portrait) {
+      width: 2vh;
+      height: 2vh;
+      bottom: 0.2vh;
+      left: 0.2vh;
+    }
+  
   }
 
   input:checked + .slider {
     background-color: rgb(51, 51, 51);
   }
 
-  $distanceFromEdge: 2rem;
-
+ 
   input:checked + .slider:before {
     //
-    -ms-transform: translateX($distanceFromEdge) rotate(360deg);
-
-    transform: translateX($distanceFromEdge) rotate(360deg);
+    -ms-transform: translateX(4vh) rotate(360deg);
+    @media screen and (max-device-width: 800px) and (orientation: portrait) {
+      -ms-transform: translateX(2vh) rotate(360deg);
+    }
+    @media screen and (max-device-width: 800px) and (orientation: portrait) {
+      transform: translateX(2vh) rotate(360deg);
+    }
+    transform: translateX(4vh) rotate(360deg);
 
     background-image: url(./moon-solid.svg);
     background-color: var(--logoColor);

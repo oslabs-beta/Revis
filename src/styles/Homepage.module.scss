@@ -13,7 +13,11 @@
     var(--logoColor) 50%
   );
   height: 110vh;
-
+  @media screen and (max-device-width: 800px) and (orientation: portrait) {
+   margin-top:-1vh;
+    width: 50vh;
+    margin-left:-1vh;
+  }
   #UserLogin {
     display: flex;
     flex-direction: column;

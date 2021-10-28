@@ -12,9 +12,14 @@
     background-color: transparent;
     border-color: transparent;
     text-decoration: underline;
-    font-size: 20px;
+    font-size: 3vh;
     color: var(--grey);
     font-family: $fontOfSummaryTitle;
+    @media (max-width: 800px) {
+      left:14%;
+      top: 1.6%;
+      font-size: 2vh;
+    }
   }
   #backButton:hover {
     cursor: pointer;

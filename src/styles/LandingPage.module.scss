@@ -2,8 +2,8 @@
 .LandingPageWrapper {
   @media screen and (max-device-width: 800px) and (orientation: portrait) {
     flex-direction: column;
-    margin-left: 50%;
-    margin-top: 0;
+    margin-top: -12vh;
+    margin-left: 0;
   }
   display: flex;
   align-items: center;
@@ -13,19 +13,24 @@
 
   .NavBar {
     position: absolute;
-    left: 73%;
+    right:2vh;
     top: 4%;
     display: flex;
     gap: 5%;
 
     button {
-      width: 7rem;
-      font-size: 1em;
+      width: 14vh;
+      font-size: 2vh;
       background-color: transparent;
       border-color: transparent;
       border-bottom-color: var(--lightgrey);
       font-family: $fontOfMetrics;
       color: var(--grey);
+
+      @media screen and (max-device-width: 800px) and (orientation: portrait) {
+        width: 7vh;
+      font-size: 1.2vh;
+      }
     }
     button:hover {
       cursor: pointer;
