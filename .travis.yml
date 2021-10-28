@@ -12,12 +12,11 @@ before_deploy:
   - python3 -m pip install --user awsebcli
   # Append exe location to our PATH
   - export PATH=$PATH:$HOME/.local/bin
-  access_key_id
 env:
   - PATH=/opt/python/3.7.1/bin:$PATH
 deploy:
   provider: script
   skip_ cleanup: true
   on:
-    branch: master
+    branch: main
   script: sh $TRAVIS_BUILD_DIR/scripts/deploy.sh
