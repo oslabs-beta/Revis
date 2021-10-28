@@ -1,4 +1,4 @@
-@import "./colorsAndFonts.scss";
+@import './colorsAndFonts.scss';
 
 .sideBarWrapper {
   background-color: var(--logoColor);
@@ -12,8 +12,8 @@
   right: 0;
   display: flex;
   align-items: center;
-  justify-content:center;
-  
+  justify-content: center;
+
   h1 {
     color: var(--grey);
     font-family: $fontOfMetrics;
@@ -40,13 +40,16 @@
     color: rgba(184, 180, 180, 0.845);
     height: 3vh;
     cursor: pointer;
+    -webkit-transition: 0.75s ease;
+    -moz-transition: 0.75s ease;
+    -o-transition: 0.75s ease;
+    -ms-transition: 0.75s ease;
     transition: 0.75s ease;
-    color: var(--background);   
+    color: var(--background);
   }
 
   label {
     font-family: $fontOfMetrics;
     margin-left: 30px;
   }
-
 }

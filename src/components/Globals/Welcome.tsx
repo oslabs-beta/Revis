@@ -1,10 +1,10 @@
 import React from 'react';
-import { Context } from '../../context/interfaces';
-import { useStore } from '../../context/Provider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
-import styles from '../../styles/Welcome.module.scss';
 import router from 'next/router';
+import { useStore } from '../../context/Provider';
+import { Context } from '../../context/interfaces';
+import styles from '../../styles/Welcome.module.scss';
 
 function Welcome() {
   const { user }: Context = useStore();
@@ -19,7 +19,7 @@ function Welcome() {
   return (
     <div className={styles.Welcome}>
       <h4>Signed in as </h4>
-      <button type='button' id={styles.dropbtn} onClick={showingDropdown}>
+      <button type="button" id={styles.dropbtn} onClick={showingDropdown}>
         {user.userState.username}
         <FontAwesomeIcon
           icon={faArrowCircleDown}
@@ -27,7 +27,7 @@ function Welcome() {
         />
       </button>
       <div id={styles.myDropdown} className={styles.dropdowncontent}>
-        <button type='button' onClick={signOut}>
+        <button type="button" onClick={signOut}>
           Sign Out
         </button>
       </div>

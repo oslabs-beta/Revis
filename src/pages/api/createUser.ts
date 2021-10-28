@@ -20,9 +20,10 @@ const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
     const SQLquery: string = `INSERT INTO "${process.env.PG_TABLE_USERS}" (username,password,email)
          VALUES ('${username}','${hashedPassword}','${email}')
          RETURNING user_id;`;
-    const userId: number = await db.query(SQLquery);
+    const { rows } = await db.query(SQLquery);
+    const userID: number = rows[0].user_id;
 
-    cookies.set('ssid', `${userId}`, { httpOnly: true });
+    cookies.set('ssid', `${userID}`, { httpOnly: true });
     cookies.set('username', `${username}`, { httpOnly: true });
     return res.status(200).json({ success: true });
   } catch (err: any) {
