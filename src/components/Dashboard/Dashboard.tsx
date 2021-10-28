@@ -172,7 +172,7 @@ export default function Dashboard() {
           <div className={styles.summaryWrapper}>
             {renderSwitch(currentRender)}
           </div>
-          <MediaQuery />
+          {/* <MediaQuery /> */}
         </>
       )}
     </div>
