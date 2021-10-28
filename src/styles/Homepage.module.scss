@@ -13,12 +13,13 @@
     var(--logoColor) 50%
   );
   height: 110vh;
-
+ 
   #UserLogin {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    width: 11rem;
+    width: 20vh;
+   
 
     h1 {
       color: var(--background);
@@ -228,15 +229,16 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 480px) {
   .homePageWrapper {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+
     background: linear-gradient(
       180deg,
-      var(--background) 30%,
-      var(--logoColor) 30%
+      var(--background) 0%,
+      var(--logoColor) 0%
     );
   }
 }

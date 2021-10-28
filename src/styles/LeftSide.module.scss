@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
   #backButton {
     position: absolute;
     left: 6.5%;
@@ -31,6 +32,10 @@
       animation: cubeAnimation 0.6s cubic-bezier(0.5, 0.05, 1, 0.5);
       animation-direction: alternate;
       animation-iteration-count: infinite;
+      @media screen and (max-device-width: 480px) and (orientation: portrait){
+        width: 0vh;
+        height: 0vh;
+       }
     }
 
     #shadow {
@@ -57,6 +62,7 @@
     @keyframes cubeAnimation {
       0% {
         transform: translate3d(0, -100%, 0);
+        
       }
 
       100% {
@@ -64,11 +70,15 @@
       }
     }
   }
-
   #logo {
     font-family: $fontOfLogo;
     font-size: 10vh;
     color: var(--logoColor);
     margin-top: 4vh;
+    @media screen and (max-device-width: 480px) and (orientation: portrait){
+      font-size: 0vh;
+      margin-top:0vh;
+      margin-top:10vh;
+     }
   }
 }
