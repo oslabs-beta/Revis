@@ -8,14 +8,14 @@ import Tooltip from './Tooltip';
 import CustomMetricDropdown from './CustomMetricDropdown';
 
 export default function Metrics(props: MetricsProps): ReactElement {
-  const { metricName, metricValue }: MetricsProps = props;
+  const { metricName, metricValue, changeCurrentRender }: MetricsProps = props;
   const { metricToGraph }: Context = useStore();
 
   const cleanNames = (string: string): string[] => {
     const splitNames: string[] = string.split('_');
     const capitilizeFirstLetter: string[] = splitNames.map((str) => {
       const firstLetter: string = str[0].toUpperCase();
-      return firstLetter + str.slice(1) + ' ';
+      return `${firstLetter + str.slice(1)} `;
     });
     return capitilizeFirstLetter;
   };
@@ -27,13 +27,13 @@ export default function Metrics(props: MetricsProps): ReactElement {
       </div>
       <Tooltip metric={metricName} />
       <button
-        type='button'
+        type="button"
         onClick={(): void => {
           metricToGraph.selectedMetricDispatch({
             type: 'updateSelectedMetric',
             message: metricName,
           });
-          router.replace('/graphs');
+          changeCurrentRender('Single graph');
         }}
       >
         {metricValue}
