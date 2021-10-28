@@ -9,13 +9,15 @@ function LandingPage() {
   return (
     <div className={styles.LandingPageWrapper}>
       <NavBarLandingPage />
+      <div className={styles.leftLandingPageWrapper}>
       <div className={styles.cubeAndShadow}>
         <span id={styles.cubeSpan}>
+          
           <FontAwesomeIcon id={styles.cube} icon={faCube} />
         </span>
         <div id={styles.shadow}>..</div>
       </div>
-      <div className={styles.leftLandingPageWrapper}>
+    
         <h1 id={styles.logo}>Revis</h1>
       </div>
       <div className={styles.rightLandingPageWrapper}>
