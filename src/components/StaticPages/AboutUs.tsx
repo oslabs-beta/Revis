@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from '../../styles/StaticPages.module.scss';
 import router from 'next/router';
+import styles from '../../styles/StaticPages.module.scss';
 
 function AboutUs() {
   function onButtonClick() {
@@ -11,7 +11,7 @@ function AboutUs() {
     <div className={styles.aboutUsWrapper}>
       <button
         id={styles.backButton}
-        type='button'
+        type="button"
         onClick={() => router.replace('/')}
       >
         Back
@@ -32,7 +32,7 @@ function AboutUs() {
         developers using Redis to be able to maximize its potential and to make
         more efficient and strategic decisions.
       </p>
-      <button id={styles.meetTheTeam} type='button' onClick={onButtonClick}>
+      <button id={styles.meetTheTeam} type="button" onClick={onButtonClick}>
         Meet our team
       </button>
       <h1 id={styles.theTeam}>Team of contributors</h1>
@@ -64,7 +64,7 @@ function AboutUs() {
           <p>Jason Zeng</p>
           <div className={styles.contactIcons}>
             <button
-              type='button'
+              type="button"
               onClick={() => {
                 window.open('https://github.com/mkalaizic');
               }}
@@ -73,7 +73,7 @@ function AboutUs() {
               {' '}
             </button>
             <button
-              type='button'
+              type="button"
               onClick={() => {
                 window.open('https://github.com/jzeng151');
               }}
@@ -86,10 +86,10 @@ function AboutUs() {
         <div className={styles.imageDiv}>
           <span id={styles.liam}></span>
 
-          <p>Liam Fontes</p>
+          <p>Karl Fontes</p>
           <div className={styles.contactIcons}>
             <button
-              type='button'
+              type="button"
               onClick={() => {
                 window.open('https://github.com/mkalaizic');
               }}
@@ -98,7 +98,7 @@ function AboutUs() {
               {' '}
             </button>
             <button
-              type='button'
+              type="button"
               onClick={() => {
                 window.open('https://github.com/LiamFontes');
               }}
@@ -113,7 +113,7 @@ function AboutUs() {
           <p>Mercedes Kalaizic</p>
           <div className={styles.contactIcons}>
             <button
-              type='button'
+              type="button"
               onClick={() => {
                 window.open('https://https://www.linkedin.com/in/mkalaizic/');
               }}
@@ -122,7 +122,7 @@ function AboutUs() {
               {' '}
             </button>
             <button
-              type='button'
+              type="button"
               onClick={() => {
                 window.open('https://github.com/mkalaizic');
               }}
