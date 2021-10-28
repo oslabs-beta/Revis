@@ -28,7 +28,7 @@ Add Redis server to monitor:
 Select metrics that you want to monitor and visualize:
 ![select-single-metric-graph](https://media.giphy.com/media/tv0x77LYCKiIpvtgga/giphy.gif)
 View graph(s):
-
+![select-multiple-metric-graph](https://media.giphy.com/media/rMClvNsLCwpZrtoXO5/giphy.gif)
 ## Installation
 
 Revis can be accessed through the web or it can downloaded and deployed within your local machine.
