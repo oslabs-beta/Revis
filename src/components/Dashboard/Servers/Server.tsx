@@ -16,12 +16,10 @@ export default function Server(props) {
   const { userState } = user;
 
   const removeServer = (e) => {
-    if (userState.username !== 'GuestUser' && e.target.name === 'Test') {
-      serversDispatch({
-        type: 'deleteServer',
-        message: { name: e.target.id },
-      });
-    } else {
+    if (
+      userState.username === 'GuestUser' &&
+      (e.target.name === 'Test' || e.target.id === 'Test')
+    ) {
       const messageDiv = document.querySelector('#guestMessage');
       messageDiv.style.border = 'solid var(--grey)';
       messageDiv.innerHTML =
@@ -30,6 +28,11 @@ export default function Server(props) {
         messageDiv.innerHTML = '';
         messageDiv.style.border = '';
       }, 3000);
+    } else {
+      serversDispatch({
+        type: 'deleteServer',
+        message: { name: e.target.id },
+      });
     }
   };
   const removeServerAnimation = (e) => {
