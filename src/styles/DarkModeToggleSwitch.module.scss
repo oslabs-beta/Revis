@@ -13,7 +13,7 @@
   text-align: center;
   align-content: center;
   justify-content: center;
-  z-index:1;
+  z-index: 1;
   @media screen and (max-device-width: 800px) and (orientation: portrait) {
     width: 5vh;
     height: 2.5vh;
@@ -59,14 +59,12 @@
       bottom: 0.2vh;
       left: 0.2vh;
     }
-  
   }
 
   input:checked + .slider {
     background-color: rgb(51, 51, 51);
   }
 
- 
   input:checked + .slider:before {
     //
     -ms-transform: translateX(4vh) rotate(360deg);
@@ -78,7 +76,7 @@
     }
     transform: translateX(4vh) rotate(360deg);
 
-    background-image: url(../images/moon-solid.svg);
+    background-image: url(./moon-solid.svg);
     background-color: var(--logoColor);
   }
 }
