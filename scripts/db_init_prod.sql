@@ -53,10 +53,6 @@ CREATE TABLE IF NOT EXISTS public.users
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.users
-    OWNER to jlrxiqce;
-
-
 -- Table: public.serverCloud
 
 -- DROP TABLE IF EXISTS public."serverCloud";
@@ -79,8 +75,6 @@ CREATE TABLE IF NOT EXISTS public."serverCloud"
 )
 
 TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public."serverCloud" OWNER to jlrxiqce;
 
 -- Table: public.redisMetrics
 
@@ -107,9 +101,6 @@ CREATE TABLE IF NOT EXISTS public."redisMetrics"
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public."redisMetrics"
-    OWNER to jlrxiqce;
-
 -- Table: public.0d94f51fdca1782b63e4fbe02794deea
 
 -- DROP TABLE IF EXISTS public."0d94f51fdca1782b63e4fbe02794deea";
@@ -126,5 +117,3 @@ CREATE TABLE IF NOT EXISTS public."0d94f51fdca1782b63e4fbe02794deea"
 )
 
 TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public."0d94f51fdca1782b63e4fbe02794deea" OWNER to jlrxiqce;
