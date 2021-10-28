@@ -12,6 +12,7 @@ import HistoryGraphsContainer from '../Graphs/History/HistoryGraphContainer';
 import Welcome from '../Globals/Welcome';
 import UpdateInterval from '../Globals/UpdateInterval';
 import GraphContainer from '../Graphs/Singular/GraphContainer';
+import MediaQuery from './MediaQuery';
 
 export default function Dashboard() {
   const { user, metricsStore, servers, currentServer, metricHistory }: Context =
@@ -171,6 +172,7 @@ export default function Dashboard() {
           <div className={styles.summaryWrapper}>
             {renderSwitch(currentRender)}
           </div>
+          <MediaQuery />
         </>
       )}
     </div>
