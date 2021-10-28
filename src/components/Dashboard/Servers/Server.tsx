@@ -9,16 +9,28 @@ import { Context } from '../../../context/interfaces';
 export default function Server(props) {
   const { name, currentDivHover, changeDivHover } = props;
 
-  const { servers, currentServer, metricsStore }: Context = useStore();
+  const { user, servers, currentServer, metricsStore }: Context = useStore();
   const { selectedServerDispatch } = currentServer;
   const { serversDispatch } = servers;
   const { metricState, metricsDispatch } = metricsStore;
+  const { userState } = user;
 
   const removeServer = (e) => {
-    serversDispatch({
-      type: 'deleteServer',
-      message: { name: e.target.id },
-    });
+    if (userState.username !== 'GuestUser' && e.target.name === 'Test') {
+      serversDispatch({
+        type: 'deleteServer',
+        message: { name: e.target.id },
+      });
+    } else {
+      const messageDiv = document.querySelector('#guestMessage');
+      messageDiv.style.border = 'solid var(--grey)';
+      messageDiv.innerHTML =
+        'Test server cannot be deleted under the guest account.';
+      setTimeout(() => {
+        messageDiv.innerHTML = '';
+        messageDiv.style.border = '';
+      }, 3000);
+    }
   };
   const removeServerAnimation = (e) => {
     const wrapperName: HTMLDivElement = e.target.attributes[1].value;
