@@ -2,18 +2,13 @@
   "name": "revis",
   "version": "2.0.0",
   "description": "",
-  "main": "electron/main.js",
+  "main": "/src/pages/index.tsx",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --verbose",
-    "startel": "electron .",
-    "electron-dev": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder",
-    "postinstall": "electron-builder install-app-deps"
+    "test": "jest --verbose"
   },
   "build": {
     "appId": "com.electron.revis",
@@ -38,10 +33,9 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.15",
+    "@types/react": "^17.0.32",
     "bcryptjs": "^2.4.3",
     "cookies": "^0.8.0",
-    "electron": "^15.3.0",
-    "electron-is-dev": "^2.0.0",
     "ioredis": "^4.27.10",
     "next": "^11.1.2",
     "next-themes": "^0.0.15",
@@ -53,6 +47,7 @@
     "react-responsive": "^9.0.0-beta.4",
     "recharts": "^2.1.4",
     "sass": "^1.42.1",
+    "typescript": "^4.4.4",
     "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
@@ -63,12 +58,11 @@
     "@testing-library/user-event": "^13.2.1",
     "@types/ioredis": "^4.27.6",
     "@types/node": "^16.10.2",
-    "@types/react": "^17.0.26",
+    "@types/react": "^17.0.32",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "babel-jest": "^27.2.4",
     "concurrently": "^6.3.0",
     "cross-env": "^7.0.3",
-    "electron-builder": "^22.13.1",
     "eslint": "7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-next": "^11.1.2",
@@ -79,7 +73,7 @@
     "jest": "^27.2.4",
     "msw": "^0.35.0",
     "react-test-renderer": "^17.0.2",
-    "typescript": "^4.4.3",
+    "typescript": "^4.4.4",
     "wait-on": "^6.0.0"
   }
 }
