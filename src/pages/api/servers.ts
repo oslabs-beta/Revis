@@ -51,7 +51,9 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
         const parsedBody: ServerInterface = JSON.parse(req.body);
         const { name } = parsedBody;
 
-        SQLquery = `DELETE FROM "${process.env.PG_TABLE_REDIS}" WHERE endpoint = (SELECT endpoint FROM "${process.env.PG_TABLE_CLOUD}" WHERE name = '${name}' AND user_id = ${userId}) AND user_id = ${userId};  \n`;
+        SQLquery = `DELETE FROM "${process.env.PG_TABLE_REDIS}" WHERE endpoint = (SELECT endpoint FROM "${process.env.PG_TABLE_CLOUD}" WHERE name = '${name}' AND user_id = ${userId}); \n`;
+
+        SQLquery += `DELETE FROM "${process.env.PG_TABLE_METRICS}" WHERE user_id = '${userId}' AND server_id = (SELECT id FROM "${process.env.PG_TABLE_CLOUD}" WHERE name = '${name}' AND user_id = ${userId}); \n`;
 
         SQLquery += `DELETE FROM "${process.env.PG_TABLE_CLOUD}" WHERE name = '${name}' AND user_id = ${userId};`;
 
