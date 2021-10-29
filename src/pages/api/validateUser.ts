@@ -56,7 +56,7 @@ const validateUser = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(200).json({ password });
       } catch (err) {
         console.log(err);
-        return res.status(400).json({ success: false });
+        return res.status(400).json({ success: false, error: err });
       }
     default:
       return res.status(500).json('Server Error in validateUser');
