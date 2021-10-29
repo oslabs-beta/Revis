@@ -4,12 +4,12 @@
   position: fixed;
   display: inline-block;
   cursor: pointer;
-  width: 10vh;
+  width: 6vw;
   height: 4.6vh;
-  border-radius: 1rem;
-  left: 1rem;
+  border-radius: 1vw;
+  left: 1vw;
   right: auto;
-  top: 1rem;
+  top: 1vh;
   text-align: center;
   align-content: center;
   justify-content: center;
@@ -36,22 +36,22 @@
     background-color: white;
     -webkit-transition: $transitionTime;
     transition: $transitionTime;
-    border-radius: 1rem;
+    border-radius: 1vw;
     border: solid var(--logoColor) 0.2px;
   }
 
   .slider:before {
     position: absolute;
     content: '';
-    height: 1.75rem;
-    width: 2rem;
-    left: 0.5rem;
-    bottom: 0.75rem;
+    height: 1.75vh;
+    width: 2vw;
+    left: 0.5vw;
+    bottom: 1vh;
     background-color: var(--background);
     opacity: 100%;
     -webkit-transition: $transitionTime;
     transition: $transitionTime;
-    border-radius: 1rem;
+    border-radius: 1vw;
     border: solid var(--grey);
     background-color: var(--logoColor);
     // background-image: url(./sun-solid.svg);
@@ -69,14 +69,15 @@
 
   input:checked + .slider:before {
     //
-    -ms-transform: translateX(8vh) rotate(360deg);
+    $translateDistance: 2vw;
+    -ms-transform: translateX($translateDistance) rotate(360deg);
     @media screen and (max-device-width: 800px) and (orientation: portrait) {
-      -ms-transform: translateX(2vh) rotate(360deg);
+      -ms-transform: translateX($translateDistance) rotate(360deg);
     }
     @media screen and (max-device-width: 800px) and (orientation: portrait) {
-      transform: translateX(2vh) rotate(360deg);
+      transform: translateX($translateDistance) rotate(360deg);
     }
-    transform: translateX(6vh) rotate(360deg);
+    transform: translateX($translateDistance) rotate(360deg);
 
     // background-image: url(./moon-solid.svg);
     background-color: var(--logoColor);
