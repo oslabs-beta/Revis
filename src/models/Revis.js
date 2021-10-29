@@ -1,7 +1,6 @@
 const { Pool } = require('pg');
 
 const config = {};
-console.log(process.env);
 if (process.env.NODE_ENV === 'development') {
   config.connectionString = process.env.PG_URI;
 } else if (process.env.NODE_ENV === 'production') {
@@ -16,9 +15,9 @@ const pool = new Pool(config);
 
 module.exports = {
   query: (text, params, callback) => {
-    if (process.env.NODE_ENV === 'development')
+    if (process.env.NODE_ENV === 'development') {
       console.log('executed query', text);
-
+    }
     return pool.query(text, params, callback);
   },
 };
