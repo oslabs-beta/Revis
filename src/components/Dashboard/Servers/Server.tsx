@@ -29,11 +29,10 @@ export default function Server(props) {
     //     messageDiv.style.border = '';
     //   }, 3000);
     // } else {
-      serversDispatch({
-        type: 'deleteServer',
-        message: { name: e.target.id },
-      });
-    }
+    serversDispatch({
+      type: 'deleteServer',
+      message: { name: e.target.id },
+    });
   };
   const removeServerAnimation = (e) => {
     const wrapperName: HTMLDivElement = e.target.attributes[1].value;
