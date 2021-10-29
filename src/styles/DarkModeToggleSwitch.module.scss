@@ -43,16 +43,16 @@
   .slider:before {
     position: absolute;
     content: '';
-    height: 1.75vh;
-    width: 2vh;
-    left: 0.5vh;
-    bottom: 1vh;
+    height: 3vh;
+    width: 3vh;
+    left: 0.3vh;
+    bottom: 0.7vh;
     background-color: var(--background);
     opacity: 100%;
     -webkit-transition: $transitionTime;
     transition: $transitionTime;
-    border-radius: 1vh;
-    
+    border-radius: 5vh;
+
     background-color: var(--logoColor);
     // background-image: url(./sun-solid.svg);
     @media screen and (max-device-width: 800px) and (orientation: portrait) {
@@ -69,10 +69,10 @@
 
   input:checked + .slider:before {
     //
-    $translateDistance: 6vh;
+    $translateDistance: 7vh;
     -ms-transform: translateX($translateDistance) rotate(360deg);
     @media screen and (max-device-width: 800px) and (orientation: portrait) {
-      -ms-transform: translateX(4vh) rotate(360deg);
+      -ms-transform: translateX(2vh) rotate(360deg);
     }
     @media screen and (max-device-width: 800px) and (orientation: portrait) {
       transform: translateX(2vh) rotate(360deg);
