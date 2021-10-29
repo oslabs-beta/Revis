@@ -16,23 +16,24 @@ export default function Server(props) {
   const { userState } = user;
 
   const removeServer = (e) => {
-    // if (
-    //   userState.username === 'GuestUser' &&
-    //   (e.target.name === 'Test' || e.target.id === 'Test')
-    // ) {
-    //   const messageDiv = document.querySelector('#guestMessage');
-    //   messageDiv.style.border = 'solid var(--grey)';
-    //   messageDiv.innerHTML =
-    //     'Test server cannot be deleted under the guest account.';
-    //   setTimeout(() => {
-    //     messageDiv.innerHTML = '';
-    //     messageDiv.style.border = '';
-    //   }, 3000);
-    // } else {
-    serversDispatch({
-      type: 'deleteServer',
-      message: { name: e.target.id },
-    });
+    if (
+      userState.username === 'GuestUser' &&
+      (e.target.name === 'Test' || e.target.id === 'Test')
+    ) {
+      const messageDiv = document.querySelector('#guestMessage');
+      messageDiv.style.border = 'solid var(--grey)';
+      messageDiv.innerHTML =
+        'Test server cannot be deleted under the guest account.';
+      setTimeout(() => {
+        messageDiv.innerHTML = '';
+        messageDiv.style.border = '';
+      }, 3000);
+    } else {
+      serversDispatch({
+        type: 'deleteServer',
+        message: { name: e.target.id },
+      });
+    }
   };
   const removeServerAnimation = (e) => {
     const wrapperName: HTMLDivElement = e.target.attributes[1].value;
