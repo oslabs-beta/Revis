@@ -36,7 +36,7 @@
     background-color: white;
     -webkit-transition: $transitionTime;
     transition: $transitionTime;
-    border-radius: 1vw;
+    border-radius: 1vh;
     border: solid var(--logoColor) 0.2px;
   }
 
@@ -44,15 +44,15 @@
     position: absolute;
     content: '';
     height: 1.75vh;
-    width: 2vw;
-    left: 0.5vw;
+    width: 2vh;
+    left: 0.5vh;
     bottom: 1vh;
     background-color: var(--background);
     opacity: 100%;
     -webkit-transition: $transitionTime;
     transition: $transitionTime;
-    border-radius: 1vw;
-    border: solid var(--grey);
+    border-radius: 1vh;
+    
     background-color: var(--logoColor);
     // background-image: url(./sun-solid.svg);
     @media screen and (max-device-width: 800px) and (orientation: portrait) {
@@ -69,13 +69,13 @@
 
   input:checked + .slider:before {
     //
-    $translateDistance: 2vw;
+    $translateDistance: 6vh;
     -ms-transform: translateX($translateDistance) rotate(360deg);
     @media screen and (max-device-width: 800px) and (orientation: portrait) {
-      -ms-transform: translateX($translateDistance) rotate(360deg);
+      -ms-transform: translateX(4vh) rotate(360deg);
     }
     @media screen and (max-device-width: 800px) and (orientation: portrait) {
-      transform: translateX($translateDistance) rotate(360deg);
+      transform: translateX(2vh) rotate(360deg);
     }
     transform: translateX($translateDistance) rotate(360deg);
 
