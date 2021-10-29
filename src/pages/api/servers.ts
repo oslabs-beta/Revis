@@ -61,7 +61,7 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(200).json({ success: true });
       } catch (err) {
         console.log(`FAILED QUERY ${SQLquery}`);
-        return res.status(400).json({ success: false, error: err });
+        return res.status(400).json({ success: false });
       }
     default:
       return res.status(400).json({ success: false, error: 'Invalid request' });

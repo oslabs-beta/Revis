@@ -4,7 +4,7 @@
   position: fixed;
   display: inline-block;
   cursor: pointer;
-  width: 6vw;
+  width: 7vw;
   height: 4.6vh;
   border-radius: 1vw;
   left: 1vw;
@@ -14,8 +14,22 @@
   align-content: center;
   justify-content: center;
   z-index: 1;
+
+  @media screen and (max-device-width: 1100px) and (orientation: portrait) {
+    width: 8vw;
+    height: 4vh;
+  }
+
+  @media screen and (max-device-width: 900px) and (orientation: portrait) {
+    width: 5vw;
+    height: 2.5vh;
+  }
   @media screen and (max-device-width: 800px) and (orientation: portrait) {
-    width: 5vh;
+    width: 7vw;
+    height: 2.5vh;
+  }
+  @media screen and (max-device-width: 600px) and (orientation: portrait) {
+    width: 10vw;
     height: 2.5vh;
   }
 
@@ -45,7 +59,7 @@
     content: '';
     height: 3vh;
     width: 3vh;
-    left: 0.3vh;
+    left: 0.3vw;
     bottom: 0.7vh;
     background-color: var(--background);
     opacity: 100%;
@@ -55,11 +69,30 @@
 
     background-color: var(--logoColor);
     // background-image: url(./sun-solid.svg);
-    @media screen and (max-device-width: 800px) and (orientation: portrait) {
-      width: 2vh;
+    @media screen and (max-device-width: 1100px) and (orientation: portrait) {
+      width: 3vw;
+      height: 2vh;
+      bottom: 0.75vh;
+      left: 0.2vw;
+    }
+
+    @media screen and (max-device-width: 900px) and (orientation: portrait) {
+      width: 2vw;
       height: 2vh;
       bottom: 0.2vh;
-      left: 0.2vh;
+      left: 0.2vw;
+    }
+    @media screen and (max-device-width: 800px) and (orientation: portrait) {
+      width: 2vw;
+      height: 2vh;
+      bottom: 0.2vh;
+      left: 1vw;
+    }
+    @media screen and (max-device-width: 600px) and (orientation: portrait) {
+      width: 2vw;
+      height: 2vh;
+      bottom: 0.2vh;
+      left: 2vw;
     }
   }
 
@@ -69,15 +102,28 @@
 
   input:checked + .slider:before {
     //
-    $translateDistance: 7vh;
-    -ms-transform: translateX($translateDistance) rotate(360deg);
-    @media screen and (max-device-width: 800px) and (orientation: portrait) {
-      -ms-transform: translateX(2vh) rotate(360deg);
+    $translateDistance: 2.75vw;
+
+    @media screen and (max-device-width: 2600px) {
+      -ms-transform: translateX(4vw) rotate(360deg);
     }
-    @media screen and (max-device-width: 800px) and (orientation: portrait) {
-      transform: translateX(2vh) rotate(360deg);
+    @media screen and (max-device-width: 2600px) {
+      transform: translateX(4vw) rotate(360deg);
     }
-    transform: translateX($translateDistance) rotate(360deg);
+
+    @media screen and (max-device-width: 1445px) {
+      -ms-transform: translateX(3vw) rotate(360deg);
+    }
+    @media screen and (max-device-width: 1445px) {
+      transform: translateX(3vw) rotate(360deg);
+    }
+
+    @media screen and (max-device-width: 850px) and (orientation: portrait) {
+      -ms-transform: translateX($translateDistance) rotate(360deg);
+    }
+    @media screen and (max-device-width: 850px) and (orientation: portrait) {
+      transform: translateX($translateDistance) rotate(360deg);
+    }
 
     // background-image: url(./moon-solid.svg);
     background-color: var(--logoColor);
