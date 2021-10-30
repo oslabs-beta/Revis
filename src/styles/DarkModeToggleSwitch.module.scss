@@ -15,12 +15,12 @@
   justify-content: center;
   z-index: 1;
 
-  @media screen and (max-device-width: 1100px) and (orientation: portrait) {
+  @media screen and (max-device-width: 1100px) {
     width: 8vw;
     height: 4vh;
   }
 
-  @media screen and (max-device-width: 900px) and (orientation: portrait) {
+  @media screen and (max-device-width: 900px) {
     width: 5vw;
     height: 2.5vh;
   }
