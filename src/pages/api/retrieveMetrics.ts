@@ -42,6 +42,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
           day === dayCookie &&
           month === monthToNum[monthCookie] &&
           year === yearCookie;
+        const metricsUpdated = [];
         if (previouslyCalled && dateCheck) {
           const SQLQuery = `SELECT name,value FROM "${process.env.PG_TABLE_METRICS}" WHERE
         user_id = ${userID} AND server_id = ${serverID} AND date = CURRENT_DATE;`;
@@ -51,7 +52,6 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
             return res.status(200).json({ success: false });
           const numOfValues = rows[0].value.length;
 
-          const metricsUpdated = [];
           for (let i = 0; i < numOfValues; i++) {
             const currentObj = {};
             rows.forEach((metric) => {
@@ -60,14 +60,12 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
             });
             metricsUpdated.push(currentObj);
           }
-
-          return res.status(200).json({ success: true, metricsUpdated });
         }
+        return res.status(200).json({ success: true, metricsUpdated });
       } catch (err) {
         console.log('Error in retrieveMetrics GET ', err);
         return res.status(200).json({ success: false });
       }
-      break;
     }
     case 'POST': {
       try {

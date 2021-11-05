@@ -90,8 +90,8 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
           const existInRedis = await redis.lrange(redisStorageKey, 0, -1);
           if (existInRedis.length === 0) {
             await redis.rpush(redisStorageKey, value);
-            // Tell keys to expire after five hours
-            await redis.expire(redisStorageKey, 60 * 60 * 5);
+            // Tell keys to expire after five days
+            await redis.expire(redisStorageKey, 60 * 60 * 24 * 5);
           }
         });
 
@@ -116,6 +116,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
         let SQLQuery: string = '';
         // if (previouslyCalled && dateCheck) is true, then that means we have already
         // created set of columns for this server and we only have to update and not insert
+        console.log(previouslyCalled, dateCheck);
         if (previouslyCalled && dateCheck) {
           SQLQuery = '';
           const parsedBody: Metrics = JSON.parse(req.body);
@@ -132,18 +133,17 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
           });
           await db.query(SQLQuery);
         } else {
-          SQLQuery = `
-        INSERT INTO "${process.env.PG_TABLE_METRICS}" (id,user_id,server_id,name,value) VALUES`;
           const parsedBody: Metrics = JSON.parse(req.body);
           Object.entries(parsedBody).forEach(
             ([metricName, metricValue], index) => {
-              if (index < Object.keys(parsedBody).length - 1) {
-                SQLQuery += `('${dateKey}-${userID}-${serverID}-${metricName}', ${userID},${serverID},'${metricName}',
-            ARRAY[${metricValue}]), \n`;
-              } else {
-                SQLQuery += `('${dateKey}-${userID}-${serverID}-${metricName}',${userID},${serverID},'${metricName}',
-            ARRAY[${metricValue}]); \n`;
-              }
+              SQLQuery += `INSERT INTO "${process.env.PG_TABLE_METRICS}" as ta (id,user_id,server_id,name,value) VALUES ('${dateKey}-${userID}-${serverID}-${metricName}', ${userID},${serverID},'${metricName}',
+            ARRAY[${metricValue}]) ON CONFLICT (id) DO UPDATE SET value = (CASE
+              WHEN array_length(ta.value,1) < array_length(ARRAY[${metricValue}],1) THEN
+               ta.value || ARRAY[${metricValue}] 
+              ELSE ARRAY[${metricValue}]
+              END)
+            WHERE 
+            ta.id = '${dateKey}-${userID}-${serverID}-${metricName}'; \n`;
             }
           );
           SQLQuery += `UPDATE "${process.env.PG_TABLE_CLOUD}"
@@ -152,7 +152,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
           WHERE id = ${serverID}
           RETURNING lastcalled;`;
           const result = await db.query(SQLQuery);
-          const { rows } = result[1];
+          const { rows } = result[result.length - 1];
           const { lastcalled } = rows[0];
 
           cookies.set('previouslyCalled', 'true');

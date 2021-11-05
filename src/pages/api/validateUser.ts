@@ -34,7 +34,6 @@ const validateUser = async (req: NextApiRequest, res: NextApiResponse) => {
         ta.endpoint = '${endpoint}' WHERE ta.user_id = ${userID};`;
 
         const { rows } = await db.query(SQLquery);
-        console.log('ROWS FROM VALIDATE USER: ', rows);
         const {
           id,
           password,
