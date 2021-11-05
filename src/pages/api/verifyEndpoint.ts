@@ -29,7 +29,7 @@ const verifyEndpoint = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(200).json({ success: true });
       } catch (err) {
         await redis.disconnect();
-        console.log(err);
+        console.log('Error in validateEndpoint POST ', err);
         return res.status(400).json({ success: false });
       }
     default:

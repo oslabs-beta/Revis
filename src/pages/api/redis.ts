@@ -83,6 +83,7 @@ const redisAPI = async (req: NextApiRequest, res: NextApiResponse) => {
         redis.quit();
         return res.status(200).json({ metricsUpdated });
       } catch (err) {
+        console.log('Error in redis', err);
         return res.status(400).send('Unable to get metrics from Redis server');
       }
     default:

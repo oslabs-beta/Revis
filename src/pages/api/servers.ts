@@ -23,6 +23,7 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(200).json({ success: true, cloud });
       } catch (err) {
         console.log(`FAILED QUERY ${SQLquery}`);
+        console.log('Error in servers GET', err);
         return res.status(400).json({ success: false });
       }
 
@@ -43,6 +44,8 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(200).json({ success: true });
       } catch (err) {
         console.log(`FAILED QUERY ${SQLquery}`);
+        console.log('Error in servers POST', err);
+
         return res.status(400).json({ success: false });
       }
 
@@ -61,6 +64,8 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(200).json({ success: true });
       } catch (err) {
         console.log(`FAILED QUERY ${SQLquery}`);
+        console.log('Error in servers DELETE', err);
+
         return res.status(400).json({ success: false });
       }
     default:

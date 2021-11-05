@@ -38,7 +38,8 @@ const userLogin = async (req: NextApiRequest, res: NextApiResponse) => {
     cookies.set('username', `${username}`, { httpOnly: true });
     return res.status(200).json(username);
   } catch (err) {
-    console.log(err);
+    console.log('Error in userLogin ', err);
+
     return res.status(401).json({
       success: false,
       error: 'Incorrect username or password. Please try again.',

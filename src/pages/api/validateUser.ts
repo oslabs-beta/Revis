@@ -17,6 +17,7 @@ const validateUser = async (req: NextApiRequest, res: NextApiResponse) => {
         const ssid: string = cookies.get('ssid');
         return res.status(200).json({ username, ssid });
       } catch (err) {
+        console.log('Error in validateUser GET ', err);
         return res.status(400).send('Error in validateUser');
       }
     case 'POST':
@@ -56,7 +57,7 @@ const validateUser = async (req: NextApiRequest, res: NextApiResponse) => {
         cookies.set('serverID', id, { httpOnly: true });
         return res.status(200).json({ password });
       } catch (err) {
-        console.log(err);
+        console.log('Error in validateUser POST ', err);
         return res.status(400).json({ success: false, error: err });
       }
     default:

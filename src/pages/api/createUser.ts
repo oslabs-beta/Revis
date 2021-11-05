@@ -33,6 +33,7 @@ const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(200).json({ success: true });
   } catch (err: any) {
     const { constraint }: { constraint: string } = err;
+    console.log('Error in createUser', err);
     switch (constraint) {
       case 'users_username_key':
         return res.status(400).json({

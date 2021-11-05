@@ -51,53 +51,59 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
 
   switch (method) {
     case 'GET': {
-      const SQLQuery: string = `SELECT server_id,ta.name,tb.endpoint,value,date from "${process.env.PG_TABLE_METRICS}" AS ta 
+      try {
+        const SQLQuery: string = `SELECT server_id,ta.name,tb.endpoint,value,date from "${process.env.PG_TABLE_METRICS}" AS ta 
       INNER JOIN "${process.env.PG_TABLE_CLOUD}" as tb on tb.id =server_id where ta.user_id = ${userID} ORDER BY date`;
-      const { rows } = await db.query(SQLQuery);
+        const { rows } = await db.query(SQLQuery);
 
-      const redis = new Redis({
-        host: process.env.REDIS_URL,
-        port: process.env.REDIS_PORT,
-        password: process.env.REDIS_PASSWORD,
-        connectTimeout: 10000,
-        reconnectOnError: false,
-      });
+        const redis = new Redis({
+          host: process.env.REDIS_URL,
+          port: process.env.REDIS_PORT,
+          password: process.env.REDIS_PASSWORD,
+          connectTimeout: 10000,
+          reconnectOnError: false,
+        });
 
-      const serversAndDates = {};
-      const indexTracker = {};
-      rows.forEach(async (server: metricsSQLtoRedis) => {
-        // Organize data to send to front end
-        const { endpoint, date, name, value } = server;
-        const currentDay: string = `${date.getDate()}`;
-        const currentMonth: string = numToMonth[`${date.getMonth() + 1}`];
-        const currentYear: string = `${today.getFullYear()}`;
-        const fullDate: string = `${currentMonth}-${currentDay}-${currentYear}`;
+        const serversAndDates = {};
+        const indexTracker = {};
+        rows.forEach(async (server: metricsSQLtoRedis) => {
+          // Organize data to send to front end
+          const { endpoint, date, name, value } = server;
+          const currentDay: string = `${date.getDate()}`;
+          const currentMonth: string = numToMonth[`${date.getMonth() + 1}`];
+          const currentYear: string = `${today.getFullYear()}`;
+          const fullDate: string = `${currentMonth}-${currentDay}-${currentYear}`;
 
-        if (!(endpoint in serversAndDates)) {
-          serversAndDates[endpoint] = [];
-          indexTracker[endpoint] = 0;
-        }
-        const currentArr = serversAndDates[endpoint];
-        const currentIndex = indexTracker[endpoint];
-        if (currentArr[currentIndex - 1] !== fullDate) {
-          serversAndDates[endpoint].push(fullDate);
-          indexTracker[endpoint] += 1;
-        }
+          if (!(endpoint in serversAndDates)) {
+            serversAndDates[endpoint] = [];
+            indexTracker[endpoint] = 0;
+          }
+          const currentArr = serversAndDates[endpoint];
+          const currentIndex = indexTracker[endpoint];
+          if (currentArr[currentIndex - 1] !== fullDate) {
+            serversAndDates[endpoint].push(fullDate);
+            indexTracker[endpoint] += 1;
+          }
 
-        // Store in Redis
-        const redisStorageKey = `${endpoint}|${fullDate}|${userID}|${name}`;
-        const existInRedis = await redis.lrange(redisStorageKey, 0, -1);
-        if (existInRedis.length === 0) {
-          await redis.rpush(redisStorageKey, value);
-          // Tell keys to expire after five hours
-          await redis.expire(redisStorageKey, 60 * 60 * 5);
-        }
-      });
+          // Store in Redis
+          const redisStorageKey = `${endpoint}|${fullDate}|${userID}|${name}`;
+          const existInRedis = await redis.lrange(redisStorageKey, 0, -1);
+          if (existInRedis.length === 0) {
+            await redis.rpush(redisStorageKey, value);
+            // Tell keys to expire after five hours
+            await redis.expire(redisStorageKey, 60 * 60 * 5);
+          }
+        });
 
-      setTimeout(() => redis.quit(), 5000);
+        setTimeout(() => redis.quit(), 5000);
 
-      return res.status(200).json({ serversAndDates });
+        return res.status(200).json({ serversAndDates });
+      } catch (err) {
+        console.log('Error in storeMetrics GET ', err);
+        return res.status(400).json({ success: false });
+      }
     }
+
     case 'POST':
       try {
         const [monthCookie, dayCookie, yearCookie] = lastCalled
@@ -155,7 +161,8 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
 
         return res.status(200).json({ success: true });
       } catch (err) {
-        console.log(err);
+        console.log('Error in storeMetrics POST ', err);
+
         return res.status(400).json({ success: false });
       }
     default:
