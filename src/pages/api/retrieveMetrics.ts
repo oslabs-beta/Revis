@@ -23,44 +23,48 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
   const cookies: Cookies = new Cookies(req, res);
   const userID = Number(cookies.get('ssid'));
-  const today = new Date();
-  const day: string = String(today.getDate());
-  const month: string = String(today.getMonth() + 1);
-  const year: string = String(today.getFullYear());
+  // const today = new Date();
+  // const day: string = String(today.getDate());
+  // const month: string = String(today.getMonth() + 1);
+  // const year: string = String(today.getFullYear());
 
   switch (method) {
     case 'GET': {
       try {
         const serverID = Number(cookies.get('serverID'));
-        const lastCalled: string = cookies.get('lastCalled');
-        const previouslyCalled: boolean =
-          cookies.get('previouslyCalled') === 'true';
-        const [monthCookie, dayCookie, yearCookie] = lastCalled
-          .split(' ')
-          .slice(1, 4);
-        const dateCheck: boolean =
-          day === dayCookie &&
-          month === monthToNum[monthCookie] &&
-          year === yearCookie;
+        // const lastCalled: string = cookies.get('lastCalled');
+        // const previouslyCalled: boolean =
+        //   cookies.get('previouslyCalled') === 'true';
+        // const [monthCookie, dayCookie, yearCookie] = lastCalled
+        //   .split(' ')
+        //   .slice(1, 4);
+        // const dateCheck: boolean =
+        //   day === dayCookie &&
+        //   month === monthToNum[monthCookie] &&
+        //   year === yearCookie;
         const metricsUpdated = [];
-        if (previouslyCalled && dateCheck) {
-          const SQLQuery = `SELECT name,value FROM "${process.env.PG_TABLE_METRICS}" WHERE
+
+        const SQLQuery = `SELECT name,value FROM "${process.env.PG_TABLE_METRICS}" WHERE
         user_id = ${userID} AND server_id = ${serverID} AND date = CURRENT_DATE;`;
-          const { rows } = await db.query(SQLQuery);
+        const { rows } = await db.query(SQLQuery);
 
-          if (rows.length === 0)
-            return res.status(200).json({ success: false });
-          const numOfValues = rows[0].value.length;
-
-          for (let i = 0; i < numOfValues; i++) {
-            const currentObj = {};
-            rows.forEach((metric) => {
-              if (metric.value[i] === undefined) metric.value[i] = '';
-              currentObj[metric.name] = metric.value[i];
-            });
-            metricsUpdated.push(currentObj);
-          }
+        if (rows.length === 0) {
+          console.log(
+            'Error in retrieveMetrics GET. Nothing returned from SQL'
+          );
+          return res.status(200).json({ success: false });
         }
+        const numOfValues = rows[0].value.length;
+
+        for (let i = 0; i < numOfValues; i++) {
+          const currentObj = {};
+          rows.forEach((metric) => {
+            if (metric.value[i] === undefined) metric.value[i] = '';
+            currentObj[metric.name] = metric.value[i];
+          });
+          metricsUpdated.push(currentObj);
+        }
+
         return res.status(200).json({ success: true, metricsUpdated });
       } catch (err) {
         console.log('Error in retrieveMetrics GET ', err);

@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 
+import { object } from 'prop-types';
 import { useStore } from '../../../context/Provider';
 import GraphWithHistory from './GraphWithHistory';
 import DatesMenu from './DatesMenu';
@@ -7,7 +8,6 @@ import styles from '../../../styles/HistoryGraphsContainer.module.scss';
 import { Context } from '../../../context/interfaces';
 import UpdateInterval from '../../Globals/UpdateInterval';
 import MetricsDropdown from './MetricsDropdown';
-import { object } from 'prop-types';
 import Welcome from '../../Globals/Welcome';
 
 function HistoryGraphContainer() {
@@ -32,7 +32,7 @@ function HistoryGraphContainer() {
         <GraphWithHistory
           metricValue={data}
           metricName={currentMetric}
-          date={'Now'}
+          date="Now"
         />
       </div>
     );
@@ -56,7 +56,6 @@ function HistoryGraphContainer() {
       <div className={styles.GraphFlex}>{arrayWithGraphs}</div>
       {message ? <h2> Please select a metric to continue. </h2> : ''}
       <MetricsDropdown setCurrentMetricFunction={setCurrentMetricFunction} />
-      <UpdateInterval />
     </div>
   );
 }

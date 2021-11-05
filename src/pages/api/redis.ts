@@ -41,47 +41,53 @@ const redisAPI = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         const parsedBody: ParsedBodyRedis = JSON.parse(req.body);
         const { endpoint, password, port } = parsedBody;
-        const redis = new Redis({
-          host: endpoint,
-          port,
-          password,
-          connectTimeout: 10000,
-          reconnectOnError: false,
-        });
 
-        const metrics: string = await redis.info();
-        const splitMetrics: string[] = metrics.split('\r\n');
-        const today = new Date();
-        const updatedSeconds =
-          today.getSeconds().toString().length === 1
-            ? `0${today.getSeconds()}`
-            : today.getSeconds();
-        const updatedMinutes =
-          today.getMinutes().toString().length === 1
-            ? `0${today.getMinutes()}`
-            : today.getMinutes();
-        const updatedHours =
-          today.getHours().toString().length === 1
-            ? `0${today.getHours()}`
-            : today.getHours();
-        const time = `${updatedHours}-${updatedMinutes}-${updatedSeconds}`;
-        splitMetrics[splitMetrics.length] = `time: ${time}`;
-        splitMetrics.forEach((currentMetric: string) => {
-          // we split it again to find the keys and values of each line
-          // currentMetric format example:
-          // 'used_memory:572856'
-          let [metricName, metricValue] = currentMetric.split(':');
-          if (metricValue !== undefined) {
-            if (metricName in metricsUpdated) {
-              if (metricName === 'time') {
-                metricValue = metricValue.replace(/-/g, ':').trim();
+        if (endpoint !== '' && password !== '' && port !== '') {
+          const redis = new Redis({
+            host: endpoint,
+            port,
+            password,
+            connectTimeout: 10000,
+            reconnectOnError: false,
+          });
+
+          const metrics: string = await redis.info();
+          const splitMetrics: string[] = metrics.split('\r\n');
+          const today = new Date();
+          const updatedSeconds =
+            today.getSeconds().toString().length === 1
+              ? `0${today.getSeconds()}`
+              : today.getSeconds();
+          const updatedMinutes =
+            today.getMinutes().toString().length === 1
+              ? `0${today.getMinutes()}`
+              : today.getMinutes();
+          const updatedHours =
+            today.getHours().toString().length === 1
+              ? `0${today.getHours()}`
+              : today.getHours();
+          const time = `${updatedHours}-${updatedMinutes}-${updatedSeconds}`;
+          splitMetrics[splitMetrics.length] = `time: ${time}`;
+          splitMetrics.forEach((currentMetric: string) => {
+            // we split it again to find the keys and values of each line
+            // currentMetric format example:
+            // 'used_memory:572856'
+            let [metricName, metricValue] = currentMetric.split(':');
+            if (metricValue !== undefined) {
+              if (metricName in metricsUpdated) {
+                if (metricName === 'time') {
+                  metricValue = metricValue.replace(/-/g, ':').trim();
+                }
+                metricsUpdated[metricName] = metricValue;
               }
-              metricsUpdated[metricName] = metricValue;
             }
-          }
-        });
-        redis.quit();
-        return res.status(200).json({ metricsUpdated });
+          });
+          redis.quit();
+          return res.status(200).json({ metricsUpdated });
+        }
+        throw Error(
+          'Error in redis. No password, username, and/or endpoint provided.'
+        );
       } catch (err) {
         console.log('Error in redis', err);
         return res.status(400).send('Unable to get metrics from Redis server');
