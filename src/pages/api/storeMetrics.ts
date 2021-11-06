@@ -10,24 +10,6 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
   const cookies: Cookies = new Cookies(req, res);
   const userID = Number(cookies.get('ssid'));
   const serverID = Number(cookies.get('serverID'));
-  const lastCalled: string = cookies.get('lastCalled');
-  const previouslyCalled: boolean = cookies.get('previouslyCalled') === 'true';
-
-  const monthToNum = {
-    Jan: '1',
-    Feb: '2',
-    Mar: '3',
-    Apr: '4',
-    May: '5',
-    Jun: '6',
-    Jul: '7',
-    Aug: '8',
-    Sep: '9',
-    Oct: '10',
-    Nov: '11',
-    Dec: '12',
-  };
-
   const numToMonth = {
     1: 'Jan',
     2: 'Feb',
@@ -56,6 +38,12 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
       INNER JOIN "${process.env.PG_TABLE_CLOUD}" as tb on tb.id =server_id where ta.user_id = ${userID} ORDER BY date`;
         const { rows } = await db.query(SQLQuery);
 
+        console.log(
+          process.env.REDIS_URL,
+          process.env.REDIS_PASSWORD,
+          process.env.REDIS_PORT
+        );
+        // if ()
         const redis = new Redis({
           host: process.env.REDIS_URL,
           port: process.env.REDIS_PORT,
@@ -66,6 +54,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
 
         const serversAndDates = {};
         const indexTracker = {};
+        // console.log(rows);
         rows.forEach(async (server: metricsSQLtoRedis) => {
           // Organize data to send to front end
           const { endpoint, date, name, value } = server;
@@ -106,37 +95,11 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'POST':
       try {
-        const [monthCookie, dayCookie, yearCookie] = lastCalled
-          .split(' ')
-          .slice(1, 4);
-        const dateCheck: boolean =
-          day === dayCookie &&
-          month === monthToNum[monthCookie] &&
-          year === yearCookie;
         let SQLQuery: string = '';
-        // if (previouslyCalled && dateCheck) is true, then that means we have already
-        // created set of columns for this server and we only have to update and not insert
-        console.log(previouslyCalled, dateCheck);
-        if (previouslyCalled && dateCheck) {
-          SQLQuery = '';
-          const parsedBody: Metrics = JSON.parse(req.body);
-          Object.entries(parsedBody).forEach(([metricName, metricValue]) => {
-            SQLQuery += `UPDATE "${process.env.PG_TABLE_METRICS}"
-                SET value =  (CASE
-                  WHEN array_length(value,1) < array_length(ARRAY[${metricValue}],1) THEN
-                   value || ARRAY[${metricValue}] 
-                  ELSE ARRAY[${metricValue}]
-                  END)
-                WHERE 
-                id = '${dateKey}-${userID}-${serverID}-${metricName}';
-                 \n`;
-          });
-          await db.query(SQLQuery);
-        } else {
-          const parsedBody: Metrics = JSON.parse(req.body);
-          Object.entries(parsedBody).forEach(
-            ([metricName, metricValue], index) => {
-              SQLQuery += `INSERT INTO "${process.env.PG_TABLE_METRICS}" as ta (id,user_id,server_id,name,value) VALUES ('${dateKey}-${userID}-${serverID}-${metricName}', ${userID},${serverID},'${metricName}',
+
+        const parsedBody: Metrics = JSON.parse(req.body);
+        Object.entries(parsedBody).forEach(([metricName, metricValue]) => {
+          SQLQuery += `INSERT INTO "${process.env.PG_TABLE_METRICS}" as ta (id,user_id,server_id,name,value) VALUES ('${dateKey}-${userID}-${serverID}-${metricName}', ${userID},${serverID},'${metricName}',
             ARRAY[${metricValue}]) ON CONFLICT (id) DO UPDATE SET value = (CASE
               WHEN array_length(ta.value,1) < array_length(ARRAY[${metricValue}],1) THEN
                ta.value || ARRAY[${metricValue}] 
@@ -144,20 +107,18 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
               END)
             WHERE 
             ta.id = '${dateKey}-${userID}-${serverID}-${metricName}'; \n`;
-            }
-          );
-          SQLQuery += `UPDATE "${process.env.PG_TABLE_CLOUD}"
+        });
+        SQLQuery += `UPDATE "${process.env.PG_TABLE_CLOUD}"
           SET lastcalled = CURRENT_DATE,
           previouslycalled = true
           WHERE id = ${serverID}
           RETURNING lastcalled;`;
-          const result = await db.query(SQLQuery);
-          const { rows } = result[result.length - 1];
-          const { lastcalled } = rows[0];
+        const result = await db.query(SQLQuery);
+        const { rows } = result[result.length - 1];
+        const { lastcalled } = rows[0];
 
-          cookies.set('previouslyCalled', 'true');
-          cookies.set('lastCalled', lastcalled);
-        }
+        cookies.set('previouslyCalled', 'true');
+        cookies.set('lastCalled', lastcalled);
 
         return res.status(200).json({ success: true });
       } catch (err) {

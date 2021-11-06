@@ -12,8 +12,6 @@ import HistoryGraphsContainer from '../Graphs/History/HistoryGraphContainer';
 import Welcome from '../Globals/Welcome';
 import UpdateInterval from '../Globals/UpdateInterval';
 import GraphContainer from '../Graphs/Singular/GraphContainer';
-import MediaQuery from './MediaQuery';
-
 
 export default function Dashboard() {
   const { user, metricsStore, servers, currentServer, metricHistory }: Context =
@@ -59,8 +57,8 @@ export default function Dashboard() {
   }, [metricState]);
 
   useEffect(() => {
-    if(window.innerWidth < 800) return <h1>Not Compatible</h1>;
-    
+    if (window.innerWidth < 800) return <h1>Not Compatible</h1>;
+
     fetch('/api/validateUser')
       .then((response: Response) => response.json())
       .then((data) => {
@@ -175,7 +173,6 @@ export default function Dashboard() {
           <div className={styles.summaryWrapper}>
             {renderSwitch(currentRender)}
           </div>
-          {/* <MediaQuery /> */}
         </>
       )}
     </div>

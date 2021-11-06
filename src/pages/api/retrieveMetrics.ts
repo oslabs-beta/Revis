@@ -87,7 +87,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
         const redis = new Redis({
           host: process.env.REDIS_URL,
           port: process.env.REDIS_PORT,
-          password: process.env.REDIS_PW,
+          password: process.env.REDIS_PASSWORD,
           connectTimeout: 10000,
           reconnectOnError: false,
         });
@@ -98,12 +98,17 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
           0,
           -1
         );
+        console.log(
+          'retrieveMetricsEmpty',
+          await redis.lrange(redisStorageKeyTime, 0, -1)
+        );
         redis.quit();
 
         // Format data for front-end
         // iterate through the metric data and construct object
         // required for graphing must be in the shape of
         // [{metricName: value, time: value}]
+
         const arrayOfMetricObjects = [];
         for (let i = 0; i < cachedMetrics.length; i++) {
           const currentObj = {};
