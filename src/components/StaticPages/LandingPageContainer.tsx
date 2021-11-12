@@ -17,7 +17,6 @@ function LandingPage() {
     });
   }
   function stopCubeBounce() {
-    // console.log(document.querySelector(`.${styles.cube}`));
     document
     .querySelector(`.${styles.cube}`)
     .classList.toggle(`${styles.stop}`);

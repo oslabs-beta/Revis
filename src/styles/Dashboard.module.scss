@@ -30,8 +30,10 @@
       display: flex;
       align-items: center;
       flex-direction: column;
-
-      #cube {
+      #cubeBox {
+        background-color: transparent;
+        border: none;
+      .cube {
         width: 2vh;
         color: var(--logoColor);
         height: 2vh;
@@ -39,8 +41,12 @@
         animation-direction: alternate;
         animation-iteration-count: infinite;
       }
-
-      #shadow {
+      .stop {
+        animation: none;
+        margin-bottom: 5vh;
+      }
+    }
+      .shadow {
         background-image: radial-gradient(
           rgb(80, 80, 80) 0%,
           rgb(228, 227, 227),
@@ -50,6 +56,11 @@
         animation: shadowGrow 0.6s;
         animation-direction: alternate;
         animation-iteration-count: infinite;
+      }
+      .stop {
+        animation: none;
+        background-image: none;
+        color:transparent;
       }
 
       @keyframes shadowGrow {
