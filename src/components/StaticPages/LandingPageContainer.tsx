@@ -16,15 +16,25 @@ function LandingPage() {
       }
     });
   }
+  function stopCubeBounce() {
+    // console.log(document.querySelector(`.${styles.cube}`));
+    document
+    .querySelector(`.${styles.cube}`)
+    .classList.toggle(`${styles.stop}`);
+    document
+    .querySelector(`.${styles.shadow}`)
+    .classList.toggle(`${styles.stop}`);
+  }
+
   return (
     <div className={styles.LandingPageWrapper}>
       <NavBarLandingPage />
       <div className={styles.leftLandingPageWrapper}>
         <div className={styles.cubeAndShadow}>
-          <span id={styles.cubeSpan}>
-            <FontAwesomeIcon id={styles.cube} icon={faCube} />
-          </span>
-          <div id={styles.shadow}>..</div>
+          <button id={styles.cubeBox} onClick={stopCubeBounce} type='button'>
+            <FontAwesomeIcon className={styles.cube} icon={faCube} />
+          </button>
+          <div className={styles.shadow}>..</div>
         </div>
 
         <h1 id={styles.logo}>REVIS</h1>
@@ -34,10 +44,10 @@ function LandingPage() {
           A dashboard to visualize your Redis metrics the way you deserve.
         </h2>
         <div className={styles.buttonDiv}>
-          <button type="button" onClick={() => router.replace('/login')}>
+          <button type='button' onClick={() => router.replace('/login')}>
             Start now
           </button>
-          <button type="button" onClick={guestLogin}>
+          <button type='button' onClick={guestLogin}>
             Free demo
           </button>
         </div>

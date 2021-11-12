@@ -5,18 +5,29 @@ import router from 'next/router';
 import styles from '../../styles/LeftSide.module.scss';
 
 function LogoHomeScreen() {
+  function stopCubeBounce() {
+    // console.log(document.querySelector(`.${styles.cube}`));
+    document
+      .querySelector(`.${styles.cube}`)
+      .classList.toggle(`${styles.stop}`);
+    document
+      .querySelector(`.${styles.shadow}`)
+      .classList.toggle(`${styles.stop}`);
+  }
   return (
     <div className={styles.leftSideWrapper}>
       <button
         id={styles.backButton}
-        type="button"
+        type='button'
         onClick={() => router.replace('/')}
       >
         Back
       </button>
       <div className={styles.cubeAndShadowWrapper}>
-        <FontAwesomeIcon id={styles.cube} icon={faCube} />
-        <div id={styles.shadow}>..</div>
+        <button id={styles.cubeBox} onClick={stopCubeBounce} type='button'>
+          <FontAwesomeIcon className={styles.cube} icon={faCube} />
+        </button>
+        <div className={styles.shadow}>..</div>
       </div>
 
       <h1 id={styles.logo}>REVIS</h1>
