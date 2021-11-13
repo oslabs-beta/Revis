@@ -14,9 +14,9 @@
   );
   height: 110vh;
   @media screen and (max-device-width: 800px) and (orientation: portrait) {
-   margin-top:-1vh;
+    margin-top: -1vh;
     width: 120%;
-    margin-left:-3vh;
+    margin-left: -3vh;
   }
   #UserLogin {
     display: flex;
@@ -208,40 +208,38 @@
         input:hover {
           cursor: text;
         }
-      
       }
-        .disclaimer{
-          background-color: var(--background);
-          position:absolute;
-          top:20vh;
-          left:86vh;
-          width: 50vh;
-          height: 40vh;
-          color:var(--grey);
+      .disclaimer {
+        background-color: var(--background);
+        position: absolute;
+        top: 25%;
+        left: 60%;
+        width: 50vh;
+        height: 40vh;
+        color: var(--grey);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 3vh;
+        padding: 5vh;
+        text-align: center;
+
+        .disclaimerBtns {
+          margin-top: 4vh;
           display: flex;
-          flex-direction: column;
           justify-content: center;
           align-items: center;
-          border-radius: 3vh;
-          padding:5vh;
-          text-align: center;
-
-          .disclaimerBtns{
-            margin-top: 4vh;
-            display:flex;
-            justify-content: center;
-            align-items: center;
-            #disclaimerBtnNo{
-              background-color:transparent;
-              color:var(--grey);
-            }
-            #disclaimerBtnYes{
-              background-color:var(--green);
-              color:var(--grey);
-            }
+          #disclaimerBtnNo {
+            background-color: transparent;
+            color: var(--grey);
           }
-         
+          #disclaimerBtnYes {
+            background-color: var(--green);
+            color: var(--grey);
+          }
         }
+      }
     }
     .buttonWrapper {
       display: flex;

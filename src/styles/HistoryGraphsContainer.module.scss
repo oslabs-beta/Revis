@@ -18,6 +18,7 @@
     gap: 0.7rem;
     flex-direction: column;
     transition: left 0.5s;
+    max-height: 40vh;
     .dates {
       display: flex;
       gap: 1rem;
