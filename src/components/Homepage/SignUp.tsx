@@ -38,7 +38,9 @@ function SignUp({ previousPage }: HomePageProps) {
         });
       });
   };
+  if(!disclaimer){
 
+  
   return (
     <div className={styles.signUpComponentWrapper}>
       <h1>Sign Up</h1>
@@ -109,15 +111,21 @@ function SignUp({ previousPage }: HomePageProps) {
           >
             Submit
           </button>
-          {disclaimer ? (
-            <span className={styles.disclaimer}>
+        </div>
+      </form>
+    </div>
+  );
+}
+return(
+  <div className={styles.signUpComponentWrapper}>
+    <span className={styles.disclaimer}>
               Ensuring your privacy is important to us. We are serious about
               protecting our users and addressing privacy concerns. When you
               sign up or use Revis, you agree to the collection of information
               to enhance, personalize, and support your experience on the site.
               We do not share your information with third parties.
               <div className={styles.disclaimerBtns}>
-              <button id={styles.disclaimerBtnNo} type='button' onClick={()=>router.replace('/login')}>
+              <button id={styles.disclaimerBtnNo} type='button' onClick={()=>setDisclaimer(false)}>
                 No, thanks
               </button>
               <button id={styles.disclaimerBtnYes} type='button' onClick={submitHandler}>
@@ -125,13 +133,8 @@ function SignUp({ previousPage }: HomePageProps) {
               </button>
               </div>
             </span>
-          ) : (
-            ''
-          )}
-        </div>
-      </form>
-    </div>
-  );
+  </div>
+)
 }
 
 SignUp.propTypes = {

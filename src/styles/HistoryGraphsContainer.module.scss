@@ -18,7 +18,9 @@
     gap: 0.7rem;
     flex-direction: column;
     transition: left 0.5s;
-    max-height: 40vh;
+    max-height: 20vh;
+    overflow-y: scroll;
+    overflow-x: none;
     .dates {
       display: flex;
       gap: 1rem;
@@ -56,8 +58,7 @@
       display: flex;
       justify-content: space-between;
       font-family: $fontOfMetrics;
-      width:25vh;
-    
+      width: 25vh;
     }
     .arrowDown {
       color: var(--background);
@@ -74,7 +75,7 @@
       text-align: center;
       box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       z-index: 1;
-      height:50vh;
+      height: 50vh;
       overflow-x: none;
       overflow-y: scroll;
 
@@ -118,12 +119,12 @@
   .GraphFlex {
     margin-top: -7vh;
     margin-left: 20vh;
-    display:grid;
-    grid-template-columns: repeat(2,1fr);
-    row-gap:3vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 3vh;
     column-gap: 3vh;
-    width: 100vh; 
-    height: 60vh;  
+    width: 100vh;
+    height: 60vh;
   }
 
   .Graph {
