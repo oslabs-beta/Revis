@@ -1,14 +1,10 @@
 import React, { ReactElement, useState } from 'react';
-
-import { object } from 'prop-types';
 import { useStore } from '../../../context/Provider';
-import GraphWithHistory from './GraphWithHistory';
+import GraphWithHistory from '../Graph';
 import DatesMenu from './DatesMenu';
-import styles from '../../../styles/HistoryGraphsContainer.module.scss';
+import styles from '../../../styles/GraphContainer.module.scss';
 import { Context } from '../../../context/interfaces';
-import UpdateInterval from '../../Globals/UpdateInterval';
 import MetricsDropdown from './MetricsDropdown';
-import Welcome from '../../Globals/Welcome';
 
 function HistoryGraphContainer() {
   const { datesSelected, metricsStore }: Context = useStore();
@@ -23,7 +19,6 @@ function HistoryGraphContainer() {
   function setCurrentMetricFunction(metric) {
     setCurrentMetric(metric);
   }
-  const today = new Date();
 
   let i = 0;
   if (currentMetric) {
@@ -32,7 +27,7 @@ function HistoryGraphContainer() {
         <GraphWithHistory
           metricValue={data}
           metricName={currentMetric}
-          date="Now"
+          title="Now"
         />
       </div>
     );
@@ -43,7 +38,7 @@ function HistoryGraphContainer() {
           <GraphWithHistory
             metricValue={datesSelectedState[date]}
             metricName={currentMetric}
-            date={date}
+            title={date}
           />
         </div>
       );
@@ -51,7 +46,7 @@ function HistoryGraphContainer() {
     });
   } else message = true;
   return (
-    <div className={styles.HistoryGraphContainer}>
+    <div className={styles.MultipleGraphContainer}>
       <DatesMenu metric={currentMetric} />
       <div className={styles.GraphFlex}>{arrayWithGraphs}</div>
       {message ? <h2> Please select a metric to continue. </h2> : ''}

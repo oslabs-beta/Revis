@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
-import styles from '../../../styles/HistoryGraphsContainer.module.scss';
+import styles from '../../../styles/GraphContainer.module.scss';
 import { useStore } from '../../../context/Provider';
 import { Context } from '../../../context/interfaces';
 import { on } from 'process';
