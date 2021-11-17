@@ -1,15 +1,17 @@
 import * as React from 'react';
-import {render, fireEvent, screen, cleanup } from '@testing-library/react';
+import { render, fireEvent, screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { GlobalProvider } from '../../src/context/Provider';
 import HomePage from '../../src/pages/index';
 
-describe('testing functionality of homepage',() => {
-  
-  beforeEach(() => render(
-    <GlobalProvider>
-      <HomePage />
-    </GlobalProvider>));
+describe('testing functionality of homepage', () => {
+  beforeEach(() =>
+    render(
+      <GlobalProvider>
+        <HomePage />
+      </GlobalProvider>
+    )
+  );
   afterEach(cleanup);
 
   describe('testing functionality of login component', () => {
@@ -22,14 +24,14 @@ describe('testing functionality of homepage',() => {
     it('should have an username input field', () => {
       const inputElement = screen.getByPlaceholderText(/username/i);
       expect(inputElement).toBeInTheDocument();
-      fireEvent.change(inputElement, { target: { value: 'testing' }});
+      fireEvent.change(inputElement, { target: { value: 'testing' } });
       expect(inputElement.value).toBe('testing');
     });
-  
+
     it('should have an password input field', () => {
       const inputElement = screen.getByPlaceholderText(/password/i);
       expect(inputElement).toBeInTheDocument();
-      fireEvent.change(inputElement, { target: { value: 'testing' }});
+      fireEvent.change(inputElement, { target: { value: 'testing' } });
       expect(inputElement.value).toBe('testing');
     });
   });
@@ -46,7 +48,7 @@ describe('testing functionality of homepage',() => {
       const logoElement = screen.getByText(/revis/i);
       expect(logoElement).toBeInTheDocument();
       fireEvent.click(buttonElement);
-      // should re-render the page to have the sign up page 
+      // should re-render the page to have the sign up page
       const headingElement = screen.getByText('Sign Up');
       expect(headingElement).toBeInTheDocument();
       // revis heading should still be rendered
@@ -55,7 +57,7 @@ describe('testing functionality of homepage',() => {
       expect(buttonElement).not.toBeInTheDocument();
     });
   });
-  
+
   describe('testing functionality of forgot password component', () => {
     it('should have a forgot password button', () => {
       const buttonElement = screen.getByText(/forgot password\?/i);
@@ -69,7 +71,7 @@ describe('testing functionality of homepage',() => {
       expect(logoElement).toBeInTheDocument();
       expect(buttonElement).toContainHTML('button');
       fireEvent.click(buttonElement);
-      // should re-render the page to have the password reset page 
+      // should re-render the page to have the password reset page
       const headingElement = screen.getByText('Password Reset Page');
       expect(headingElement).toBeInTheDocument();
       // revis heading should still be rendered

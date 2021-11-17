@@ -162,39 +162,43 @@ function Sidebar() {
   };
 
   const changeSidebarVisual = () => {
+    const sideBar: HTMLElement = document.querySelector('#sideBar');
+    const cube: HTMLElement = document.querySelector(`#${styles.cube}`);
+    const close: HTMLElement = document.querySelector(`#${styles.close}`);
+    const dashboardWrapper: HTMLElement = document.querySelector(
+      `.${dashStyle.dashboardWrapper}`
+    );
+    const intervalMenu: HTMLElement = document.querySelector('#intervalMenu');
+    const MultipleGraphContainer: HTMLElement = document.querySelector(
+      `.${graphStyle.MultipleGraphContainer}`
+    );
+    const leftMenuGraphs: HTMLElement =
+      document.querySelector('#leftMenuGraphs');
+
     if (sideBarHidden) {
-      document.querySelector('#sideBar').style.width = '40vh';
-      document.querySelector(`#${styles.cube}`).style.left = '15rem';
-      document.querySelector(`#${styles.cube}`).style.top = '1rem';
-      document.querySelector(`#${styles.cube}`).style.color = 'transparent';
-      document.querySelector(`#${styles.close}`).style.color =
-        'rgba(205, 200, 200, 0.845)';
-      document.querySelector(
-        `.${dashStyle.dashboardWrapper}`
-      ).style.marginLeft = '0px';
-      document.querySelector('#intervalMenu').style.marginLeft = '0px';
-      if (document.querySelector(`.${graphStyle.MultipleGraphContainer}`)) {
-        document.querySelector(
-          `.${graphStyle.MultipleGraphContainer}`
-        ).style.marginLeft = '0px';
-        document.querySelector('#leftMenuGraphs').style.left = '47vh';
+      sideBar.style.width = '40vh';
+      cube.style.left = '15rem';
+      cube.style.top = '1rem';
+      cube.style.color = 'transparent';
+      close.style.color = 'rgba(205, 200, 200, 0.845)';
+      dashboardWrapper.style.marginLeft = '0px';
+      intervalMenu.style.marginLeft = '0px';
+      if (MultipleGraphContainer) {
+        MultipleGraphContainer.style.marginLeft = '0px';
+        leftMenuGraphs.style.left = '47vh';
       }
     } else {
-      document.querySelector('#sideBar').style.width = '0px';
-      document.querySelector('#sideBar').style.overflow = 'hidden';
-      document.querySelector(`#${styles.cube}`).style.left = '0%';
-      document.querySelector(`#${styles.cube}`).style.top = '46%';
-      document.querySelector(`#${styles.cube}`).style.color = '#e38d41e9';
-      document.querySelector(`#${styles.close}`).style.color = 'transparent';
-      document.querySelector(
-        `.${dashStyle.dashboardWrapper}`
-      ).style.marginLeft = '-302.8px';
-      document.querySelector('#intervalMenu').style.marginLeft = '-302.8px';
-      if (document.querySelector(`.${graphStyle.MultipleGraphContainer}`)) {
-        document.querySelector(
-          `.${graphStyle.MultipleGraphContainer}`
-        ).style.marginLeft = '05vh';
-        document.querySelector('#leftMenuGraphs').style.left = '10vh';
+      sideBar.style.width = '0px';
+      sideBar.style.overflow = 'hidden';
+      cube.style.left = '0%';
+      cube.style.top = '46%';
+      cube.style.color = '#e38d41e9';
+      close.style.color = 'transparent';
+      dashboardWrapper.style.marginLeft = '-302.8px';
+      intervalMenu.style.marginLeft = '-302.8px';
+      if (MultipleGraphContainer) {
+        MultipleGraphContainer.style.marginLeft = '05vh';
+        leftMenuGraphs.style.left = '10vh';
       }
     }
     showOrHideSideBar(!sideBarHidden);

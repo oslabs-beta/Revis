@@ -38,12 +38,6 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
       INNER JOIN "${process.env.PG_TABLE_CLOUD}" as tb on tb.id =server_id where ta.user_id = ${userID} ORDER BY date`;
         const { rows } = await db.query(SQLQuery);
 
-        console.log(
-          process.env.REDIS_URL,
-          process.env.REDIS_PASSWORD,
-          process.env.REDIS_PORT
-        );
-        // if ()
         const redis = new Redis({
           host: process.env.REDIS_URL,
           port: process.env.REDIS_PORT,
@@ -54,7 +48,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
 
         const serversAndDates = {};
         const indexTracker = {};
-        // console.log(rows);
+
         rows.forEach(async (server: metricsSQLtoRedis) => {
           // Organize data to send to front end
           const { endpoint, date, name, value } = server;

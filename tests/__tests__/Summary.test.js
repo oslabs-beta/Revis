@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
+import { render } from '@testing-library/react'; // virtual dom
 import Summary from '../../src/components/Dashboard/Summary';
-import { render } from '@testing-library/react'; //virtual dom
 
 import '@testing-library/jest-dom/extend-expect';
 // beforeEach(() =>
@@ -17,5 +17,4 @@ test('render the Summary page', () => {
       <HomePage />
     </GlobalProvider>
   );
-
 });

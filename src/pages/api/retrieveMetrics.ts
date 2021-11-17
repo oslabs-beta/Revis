@@ -98,10 +98,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
           0,
           -1
         );
-        console.log(
-          'retrieveMetricsEmpty',
-          await redis.lrange(redisStorageKeyTime, 0, -1)
-        );
+
         redis.quit();
 
         // Format data for front-end
