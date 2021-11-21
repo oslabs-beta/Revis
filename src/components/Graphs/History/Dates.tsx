@@ -5,6 +5,10 @@ import PropTypes from 'prop-types';
 import styles from '../../../styles/GraphContainer.module.scss';
 import { useStore } from '../../../context/Provider';
 import { Context, DatesSelectedContext } from '../../../context/interfaces';
+import {
+  NEW_DATE_SELECTED,
+  DATE_UNSELECTED,
+} from '../../context/constants/actionTypes';
 
 function MetricsForGraph({ date, metric }: { date: string; metric: string }) {
   const { datesSelected, currentServer }: Context = useStore();
@@ -22,14 +26,14 @@ function MetricsForGraph({ date, metric }: { date: string; metric: string }) {
         .then((response: Response) => response.json())
         .then((data) => {
           datesSelectedDispatch({
-            type: 'newDateSelected',
+            type: NEW_DATE_SELECTED,
             message: [date, data.arrayOfMetricObjects, metric],
           });
         });
     } else {
       datesSelectedDispatch({
-        type: 'dateUnselected',
-        message: [date,[], ''],
+        type: DATE_UNSELECTED,
+        message: [date, [], ''],
       });
     }
   };

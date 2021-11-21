@@ -8,16 +8,16 @@ function NavBarDashboard(props) {
   function stopCubeBounce() {
     document
       .querySelector(`.${styles.cube}`)
-      .classList.toggle(`${styles.stop}`);
+      .classList.toggle(`.${styles.stop}`);
     document
       .querySelector(`.${styles.shadow}`)
-      .classList.toggle(`${styles.stop}`);
+      .classList.toggle(`.${styles.stop}`);
   }
   return (
     <div className={styles.navBarDashboardWrapper}>
       <div className={styles.cubeAndShadowWrapper}>
-      <button id={styles.cubeBox} onClick={stopCubeBounce} type='button'>
-        <FontAwesomeIcon className={styles.cube} icon={faCube} />
+        <button id={styles.cubeBox} onClick={stopCubeBounce} type="button">
+          <FontAwesomeIcon className={styles.cube} icon={faCube} />
         </button>
         <div className={styles.shadow}>..</div>
       </div>

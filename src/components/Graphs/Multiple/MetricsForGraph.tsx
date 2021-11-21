@@ -5,6 +5,10 @@ import PropTypes from 'prop-types';
 import styles from '../../../styles/GraphContainer.module.scss';
 import { useStore } from '../../../context/Provider';
 import { Context } from '../../../context/interfaces';
+import {
+  METRIC_UNSELECTED,
+  NEW_METRIC_SELECTED,
+} from '../../../context/constants/actionTypes';
 
 function MetricsForGraph({ metricName }: { metricName: string }) {
   const { multipleGraphSelections }: Context = useStore();
@@ -12,14 +16,14 @@ function MetricsForGraph({ metricName }: { metricName: string }) {
     const splitNames: string[] = string.split('_');
     const capitilizeFirstLetter: string[] = splitNames.map((str) => {
       const firstLetter: string = str[0].toUpperCase();
-      return firstLetter + str.slice(1) + ' ';
+      return `${firstLetter + str.slice(1)} `;
     });
     return capitilizeFirstLetter;
   };
   const changeMetric = () => {
     if (multipleGraphSelections.multipleGraphState[metricName]) {
       multipleGraphSelections.multipleGraphDispatch({
-        type: 'metricUnselected',
+        type: METRIC_UNSELECTED,
         message: metricName,
       });
     } else {
@@ -27,7 +31,7 @@ function MetricsForGraph({ metricName }: { metricName: string }) {
         return;
       }
       multipleGraphSelections.multipleGraphDispatch({
-        type: 'newMetricSelected',
+        type: NEW_METRIC_SELECTED,
         message: metricName,
       });
     }

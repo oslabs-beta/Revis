@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useStore } from '../../context/Provider';
 import styles from '../../styles/UpdateInterval.module.scss';
 import { Context, Metrics } from '../../context/interfaces';
+import {
+  UPDATE_METRICS,
+  TOGGLE_INTERVAL,
+  UPDATE_INTERVAL,
+} from '../../context/constants/actionTypes';
 
 function UpdateInterval() {
   const { metricsStore, graphInterval, currentServer }: Context = useStore();
@@ -10,7 +15,7 @@ function UpdateInterval() {
   const { selectedServer } = currentServer;
   const { endpoint, password, port } = selectedServer;
   const [render, reRender] = useState(false);
-  const { metricState, metricsDispatch } = metricsStore;
+  const { metricsDispatch } = metricsStore;
 
   async function fetchDataFromRedis() {
     const response = await fetch('/api/redis', {
@@ -23,7 +28,7 @@ function UpdateInterval() {
     });
     const { metricsUpdated }: Metrics = await response.json();
     metricsDispatch({
-      type: 'updateMetrics',
+      type: UPDATE_METRICS,
       message: metricsUpdated,
     });
   }
@@ -44,7 +49,7 @@ function UpdateInterval() {
 
   const change = () => {
     graphInterval.updateIntervalDispatch({
-      type: 'toggleInterval',
+      type: TOGGLE_INTERVAL,
       message: !graphInterval.updateInterval.update,
     });
     reRender(!render);
@@ -53,7 +58,7 @@ function UpdateInterval() {
     const newInterval = document.getElementById('intervalInput');
     if (newInterval.value <= 0) newInterval.value = 1;
     graphInterval.updateIntervalDispatch({
-      type: 'updateInterval',
+      type: UPDATE_INTERVAL,
       message: newInterval.value,
     });
     newInterval.value = '';
@@ -74,7 +79,6 @@ function UpdateInterval() {
           </button>
         </div>
         <label className={styles.switch}>
-       
           <input
             checked={graphInterval.updateInterval.update}
             type="checkbox"
@@ -82,7 +86,6 @@ function UpdateInterval() {
           ></input>
           <span className={styles.slider}></span>
         </label>
-     
       </div>
     </div>
   );

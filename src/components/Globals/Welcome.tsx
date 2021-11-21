@@ -14,7 +14,7 @@ function Welcome() {
   function showingDropdown() {
     document
       .querySelector(`.${styles.dropdowncontent}`)
-      .classList.toggle(`${styles.show}`);
+      .classList.toggle(`.${styles.show}`);
   }
   return (
     <div className={styles.Welcome}>

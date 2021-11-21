@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import { GlobalProvider } from '../../src/context/Provider';
 import HomePage from '../../src/pages/index';
 
-describe('testing functionality of homepage', () => {
+xdescribe('testing functionality of homepage', () => {
   beforeEach(() =>
     render(
       <GlobalProvider>

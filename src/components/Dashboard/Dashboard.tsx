@@ -4,7 +4,6 @@ import { useStore } from '../../context/Provider';
 import Sidebar from './Sidebar';
 import Summary from './Summary';
 import styles from '../../styles/Dashboard.module.scss';
-
 import NavBarDashboard from './NavBarDashboard';
 import { Context } from '../../context/interfaces';
 import MultipleGraphContainer from '../Graphs/Multiple/MultipleGraphContainer';
@@ -12,6 +11,12 @@ import HistoryGraphsContainer from '../Graphs/History/HistoryGraphContainer';
 import Welcome from '../Globals/Welcome';
 import UpdateInterval from '../Globals/UpdateInterval';
 import GraphContainer from '../Graphs/Singular/GraphContainer';
+import {
+  CURRENT_SERVER,
+  CLEAN_METRICS,
+  ADD_SERVER,
+  UPDATE_USERNAME,
+} from '../../context/constants/actionTypes';
 
 export default function Dashboard() {
   const { user, metricsStore, servers, currentServer, metricHistory }: Context =
@@ -27,7 +32,7 @@ export default function Dashboard() {
     Dispatch<SetStateAction<boolean>>
   ] = useState(true);
   const { userDispatch } = user;
-  const { metricHistoryDispatch, metricHistoryState } = metricHistory;
+  const { metricHistoryDispatch } = metricHistory;
 
   const reformatDataForDB = (metrics: Metrics[]) => {
     const reformattedData = {};
@@ -64,7 +69,7 @@ export default function Dashboard() {
       .then((data) => {
         const { username, ssid }: { username: string; ssid: string } = data;
         if (!username || !ssid) return router.replace('/');
-        userDispatch({ type: 'updateUsername', message: username });
+        userDispatch({ type: UPDATE_USERNAME, message: username });
         changeUsernameBool(false);
       })
       .catch((err) => console.log(err));
@@ -80,7 +85,7 @@ export default function Dashboard() {
         .then((data) => {
           if ('password' in data) {
             selectedServerDispatch({
-              type: 'currentServer',
+              type: CURRENT_SERVER,
               message: {
                 name: server.name,
                 endpoint: server.endpoint,
@@ -97,7 +102,7 @@ export default function Dashboard() {
                 if (metricData.success) {
                   const { metricsUpdated } = metricData;
                   metricsDispatch({
-                    type: 'cleanMetrics',
+                    type: CLEAN_METRICS,
                     message: {
                       metricsUpdated,
                     },
@@ -115,7 +120,7 @@ export default function Dashboard() {
                     .then((metrics) => {
                       const { metricsUpdated } = metrics;
                       metricsDispatch({
-                        type: 'cleanMetrics',
+                        type: CLEAN_METRICS,
                         message: {
                           metricsUpdated,
                         },
@@ -131,7 +136,7 @@ export default function Dashboard() {
       .then((response: Response) => response.json())
       .then((data) => {
         metricHistoryDispatch({
-          type: 'addServer',
+          type: ADD_SERVER,
           message: data.serversAndDates,
         });
       })

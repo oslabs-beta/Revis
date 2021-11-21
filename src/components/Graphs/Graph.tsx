@@ -25,16 +25,16 @@ function GraphWithHistory({ metricName, metricValue, title }: MetricsProps) {
           margin={{ top: 30, right: 50, bottom: 25, left: 30 }}
         >
           <Line
-            type='monotone'
+            type="monotone"
             dataKey={reformattedMetricName}
-            stroke='#e38d41e9'
+            stroke="#e38d41e9"
           />
-          <XAxis stroke='#e38d41e9' dataKey='time' tick={{ fill: '#d8d8d4' }} />
+          <XAxis stroke="#e38d41e9" dataKey="time" tick={{ fill: '#d8d8d4' }} />
 
           <YAxis
-            stroke='#e38d41e9'
+            stroke="#e38d41e9"
             tick={{ fill: '#d8d8d4' }}
-            type='number'
+            type="number"
             domain={[
               (dataMin) => {
                 if (dataMin === 0) return dataMin;

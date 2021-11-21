@@ -1,11 +1,13 @@
 import React, { useStore } from 'react';
 import { render, fireEvent, screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Graph from '../../src/components/Graphs/Singular/Graph';
+import Graph from '../../src/components/Graphs/Graph';
 import { GlobalProvider } from '../../src/context/Provider';
 
 describe('testing functionality of Graph component', () => {
-  const dispatchMock = jest.spyOn(GlobalProvider, 'useDispatch');
+  const { metricsStore } = useStore();
+  const dispatchMock = jest.spyOn(metricsStore.metricsDispatch, 'useDispatch');
+
   beforeEach(() => {
     dispatchMock.mockClear();
     return render(
@@ -27,7 +29,6 @@ describe('testing functionality of Graph component', () => {
   });
 
   it('it should display data given by state', () => {
-    const { metricsStore } = useStore();
     metricsStore.metricsDispatch({
       type: 'updateMetrics',
       message: { metric1: '1', metric2: '2', metric3: '3' },

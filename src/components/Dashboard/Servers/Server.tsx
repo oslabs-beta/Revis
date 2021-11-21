@@ -5,14 +5,18 @@ import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
 import { useStore } from '../../../context/Provider';
 import styles from '../../../styles/Server.module.scss';
 import { Context } from '../../../context/interfaces';
+import {
+  DELETE_SERVER,
+  CURRENT_SERVER,
+  CLEAN_METRICS,
+} from '../../../context/constants/actionTypes';
 
 export default function Server(props) {
   const { name, currentDivHover, changeDivHover } = props;
-
   const { user, servers, currentServer, metricsStore }: Context = useStore();
   const { selectedServerDispatch } = currentServer;
   const { serversDispatch } = servers;
-  const { metricState, metricsDispatch } = metricsStore;
+  const { metricsDispatch } = metricsStore;
   const { userState } = user;
 
   const removeServer = (e) => {
@@ -30,7 +34,7 @@ export default function Server(props) {
       }, 3000);
     } else {
       serversDispatch({
-        type: 'deleteServer',
+        type: DELETE_SERVER,
         message: { name: e.target.id },
       });
     }
@@ -73,7 +77,7 @@ export default function Server(props) {
 
                       if (metricsUpdated.length === 0) return;
                       selectedServerDispatch({
-                        type: 'currentServer',
+                        type: CURRENT_SERVER,
                         message: {
                           name: server.name,
                           endpoint: server.endpoint,
@@ -83,7 +87,7 @@ export default function Server(props) {
                       });
 
                       metricsDispatch({
-                        type: 'cleanMetrics',
+                        type: CLEAN_METRICS,
                         message: {
                           metricsUpdated,
                         },
@@ -102,7 +106,7 @@ export default function Server(props) {
                           const { metricsUpdated } = metrics;
                           if (metricsUpdated.length === 0) return;
                           selectedServerDispatch({
-                            type: 'currentServer',
+                            type: CURRENT_SERVER,
                             message: {
                               name: server.name,
                               endpoint: server.endpoint,
@@ -112,7 +116,7 @@ export default function Server(props) {
                           });
 
                           metricsDispatch({
-                            type: 'cleanMetrics',
+                            type: CLEAN_METRICS,
                             message: {
                               metricsUpdated,
                             },

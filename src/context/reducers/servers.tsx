@@ -1,4 +1,9 @@
 import { Server, ActionServerList } from '../interfaces';
+import {
+  DELETE_SERVER,
+  ADD_SERVER,
+  POPULATE_LIST,
+} from '../constants/actionTypes';
 
 const deleteServerFromDataBase = (name: string) => {
   fetch('/api/servers', {
@@ -26,7 +31,7 @@ const servers = (state: Server[], action: ActionServerList) => {
   const server: Server = action.message;
   const newServerList = state.slice();
   switch (action.type) {
-    case 'addServer': {
+    case ADD_SERVER: {
       newServerList.push(server);
       postServerToDataBase(
         server.name,
@@ -37,12 +42,12 @@ const servers = (state: Server[], action: ActionServerList) => {
       );
       return newServerList;
     }
-    case 'deleteServer': {
+    case DELETE_SERVER: {
       if (!server) return state;
       deleteServerFromDataBase(server.name);
       return newServerList.filter((elem) => elem.name !== server.name);
     }
-    case 'populateList': {
+    case POPULATE_LIST: {
       if (!newServerList.includes(server)) return newServerList.concat(server);
       return newServerList;
     }

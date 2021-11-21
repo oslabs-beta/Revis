@@ -3,14 +3,14 @@ import { render, screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import user from '@testing-library/user-event';
 import { server, rest } from '../__mocks__/testServer';
-import UserLogin from '../../src/Homepage/UserLogin';
+import UserLogin from '../../src/components/Homepage/UserLogin';
 import { GlobalProvider } from '../../src/context/Provider';
 
 beforeEach(() =>
   render(
     <GlobalProvider>
       <UserLogin
-        onSignUp={() => console.log('hi')}
+        onSignUp={() => console.log('sign up')}
         onForgotPassword={() => console.log('forgot password')}
       />
     </GlobalProvider>

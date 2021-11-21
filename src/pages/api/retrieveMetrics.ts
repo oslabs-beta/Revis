@@ -4,44 +4,15 @@ import db from '../../models/Revis';
 
 const Redis = require('ioredis');
 
-const monthToNum = {
-  Jan: '1',
-  Feb: '2',
-  Mar: '3',
-  Apr: '4',
-  May: '5',
-  Jun: '6',
-  Jul: '7',
-  Aug: '8',
-  Sep: '9',
-  Oct: '10',
-  Nov: '11',
-  Dec: '12',
-};
-
 const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
   const cookies: Cookies = new Cookies(req, res);
   const userID = Number(cookies.get('ssid'));
-  // const today = new Date();
-  // const day: string = String(today.getDate());
-  // const month: string = String(today.getMonth() + 1);
-  // const year: string = String(today.getFullYear());
 
   switch (method) {
     case 'GET': {
       try {
         const serverID = Number(cookies.get('serverID'));
-        // const lastCalled: string = cookies.get('lastCalled');
-        // const previouslyCalled: boolean =
-        //   cookies.get('previouslyCalled') === 'true';
-        // const [monthCookie, dayCookie, yearCookie] = lastCalled
-        //   .split(' ')
-        //   .slice(1, 4);
-        // const dateCheck: boolean =
-        //   day === dayCookie &&
-        //   month === monthToNum[monthCookie] &&
-        //   year === yearCookie;
         const metricsUpdated = [];
 
         const SQLQuery = `SELECT name,value FROM "${process.env.PG_TABLE_METRICS}" WHERE
@@ -52,7 +23,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
           console.log(
             'Error in retrieveMetrics GET. Nothing returned from SQL'
           );
-          return res.status(200).json({ success: false });
+          return res.status(417).json({ success: false });
         }
         const numOfValues = rows[0].value.length;
 
@@ -68,7 +39,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(200).json({ success: true, metricsUpdated });
       } catch (err) {
         console.log('Error in retrieveMetrics GET ', err);
-        return res.status(200).json({ success: false });
+        return res.status(400).json({ success: false });
       }
     }
     case 'POST': {

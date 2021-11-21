@@ -8,6 +8,7 @@ import styles from '../../styles/Sidebar.module.scss';
 import { Context } from '../../context/interfaces';
 import dashStyle from '../../styles/Dashboard.module.scss';
 import graphStyle from '../../styles/GraphContainer.module.scss';
+import { POPULATE_LIST, ADD_SERVER } from '../../context/constants/actionTypes';
 
 function Sidebar() {
   const [sideBarHidden, showOrHideSideBar] = useState(false);
@@ -26,7 +27,7 @@ function Sidebar() {
 
         if (cloudData && cloudData.length > 0) {
           serversDispatch({
-            type: 'populateList',
+            type: POPULATE_LIST,
             message: [...cloudData],
           });
         }
@@ -149,7 +150,7 @@ function Sidebar() {
       endpoint.setCustomValidity('');
 
       serversDispatch({
-        type: 'addServer',
+        type: ADD_SERVER,
         message: {
           name: name.value,
           endpoint: endpoint.value,

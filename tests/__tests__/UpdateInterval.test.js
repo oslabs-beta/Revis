@@ -15,15 +15,14 @@ describe('testing functionality of Upload Interval component', () => {
   afterEach(cleanup);
 
   it('should have an input field for updating interval', () => {
-    const inputElement = screen.getByDisplayValue('');
+    const inputElement = document.querySelector('#intervalInput');
     expect(inputElement).toBeInTheDocument();
-    expect(inputElement).toContainHTML('input');
-    fireEvent.change(inputElement, { target: { value: 'testing' } });
-    expect(inputElement.value).toBe('testing');
+    fireEvent.change(inputElement, { target: { value: 10 } });
+    expect(inputElement.value).toBe('10');
   });
 
-  it('should have a upload button', () => {
-    const buttonElement = screen.getByText(/upload/i);
+  it('should have a update button', () => {
+    const buttonElement = screen.getByText(/Update frequency/i);
     expect(buttonElement).toBeInTheDocument();
     expect(buttonElement).toContainHTML('input');
   });

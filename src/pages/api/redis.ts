@@ -90,7 +90,7 @@ const redisAPI = async (req: NextApiRequest, res: NextApiResponse) => {
         );
       } catch (err) {
         console.log('Error in redis', err);
-        return res.status(400).send('Unable to get metrics from Redis server');
+        return res.status(401).send('Unable to get metrics from Redis server');
       }
     default:
       return res.status(400).send('Error in api/redis');

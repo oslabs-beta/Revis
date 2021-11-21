@@ -1,4 +1,5 @@
 import { CurrentServer, ActionCurrentServer } from '../interfaces';
+import { CURRENT_SERVER } from '../constants/actionTypes';
 
 const currentServer = (state: CurrentServer, action: ActionCurrentServer) => {
   const currentInfo: CurrentServer = action.message;
@@ -6,7 +7,7 @@ const currentServer = (state: CurrentServer, action: ActionCurrentServer) => {
   const { name, endpoint, port, password } = currentInfo;
 
   switch (action.type) {
-    case 'currentServer':
+    case CURRENT_SERVER:
       return { ...newServer, name, endpoint, port, password };
 
     default:
