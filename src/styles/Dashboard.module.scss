@@ -1,115 +1,123 @@
 @import './colorsAndFonts.scss';
 
 .dashboardWrapper {
-  display: flex;
-  transition: margin-left 0.5s;
+	display: flex;
+	transition: margin-left 0.5s;
 
-  .navBarDashboardWrapper {
-    position: absolute;
-    top: 3%;
-    left: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2vh;
+	.navBarDashboardWrapper {
+		position: absolute;
+		top: 3%;
+		left: 50%;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		gap: 2vw;
+		height: fit-content;
 
-    button {
-      color: var(--grey);
-    }
+		button {
+			color: var(--grey);
+		}
 
-    button:hover {
-      cursor: pointer;
-      color: black;
-    }
+		button:hover {
+			cursor: pointer;
+			color: black;
+		}
 
-    #selected {
-      color: blue;
-    }
+		#selected {
+			color: blue;
+		}
 
-    .cubeAndShadowWrapper {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      #cubeBox {
-        background-color: transparent;
-        border: none;
-      .cube {
-        width: 2vh;
-        color: var(--logoColor);
-        height: 2vh;
-        animation: cubeAnimation 0.6s cubic-bezier(0.5, 0.05, 1, 0.5);
-        animation-direction: alternate;
-        animation-iteration-count: infinite;
-      }
-      .stop {
-        animation: none;
-        margin-bottom: 5vh;
-      }
-    }
-      .shadow {
-        background-image: radial-gradient(
-          rgb(80, 80, 80) 0%,
-          rgb(228, 227, 227),
-          rgba(150, 150, 150, 0.05)
-        );
-        width: 10%;
-        animation: shadowGrow 0.6s;
-        animation-direction: alternate;
-        animation-iteration-count: infinite;
-      }
-      .stop {
-        animation: none;
-        background-image: none;
-        color:transparent;
-      }
+		.cubeAndShadowWrapper {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			align-self: center;
+			justify-content: center;
+			height: 100%;
+			#cubeBox {
+				display: flex;
+				background-color: transparent;
+				border: none;
+				align-self: center;
 
-      @keyframes shadowGrow {
-        from {
-          transform: scale(0.2, 0.5);
-        }
+				.cube {
+					width: 2vh;
+					color: var(--logoColor);
+					height: 2vh;
+					animation: cubeAnimation 0.6s cubic-bezier(0.5, 0.05, 1, 0.5);
+					animation-direction: alternate;
+					animation-iteration-count: infinite;
+				}
+				.stop {
+					animation: cubeAnimation 0.6s cubic-bezier(0.5, 0.05, 1, 0.5);
+					animation-direction: alternate;
+					animation-iteration-count: 3;
+				}
+			}
+			.shadow {
+				background-image: radial-gradient(
+					rgb(80, 80, 80) 0%,
+					rgb(228, 227, 227),
+					rgba(150, 150, 150, 0.05)
+				);
+				width: 10%;
+				animation: shadowGrow 0.6s;
+				animation-direction: alternate;
+				animation-iteration-count: infinite;
+			}
+			.stop {
+				animation: none;
+				background-image: none;
+				color: transparent;
+			}
 
-        to {
-          transform: scale(1, 0.1);
-        }
-      }
+			@keyframes shadowGrow {
+				from {
+					transform: scale(0.2, 0.5);
+				}
 
-      @keyframes cubeAnimation {
-        0% {
-          transform: translate3d(0, -100%, 0);
-        }
+				to {
+					transform: scale(1, 0.1);
+				}
+			}
 
-        100% {
-          transform: translate(0, 0, 0);
-        }
-      }
-    }
+			@keyframes cubeAnimation {
+				0% {
+					transform: translate3d(0, -100%, 0);
+				}
 
-    #logo {
-      font-family: $fontOfLogo;
-      font-size: 2vh;
-      color: var(--logoColor);
-    }
-    button {
-      background-color: transparent;
-      border-color: transparent;
-      font-family: $fontOfMetrics;
-      font-size: 2vh;
-      color: var(--grey);
-    }
-  }
+				100% {
+					transform: translate(0, 0, 0);
+				}
+			}
+		}
 
-  .summaryWrapper {
-    width: 100vh;
-    margin-top: 20vh;
-    margin-left: 60vh;
-  }
+		#logo {
+			font-family: $fontOfLogo;
+			font-size: 2vh;
+			color: var(--logoColor);
+		}
+		button {
+			background-color: transparent;
+			border-color: transparent;
+			font-family: $fontOfMetrics;
+			font-size: 2vh;
+			color: var(--grey);
+		}
+	}
 
-  .sidebarWrapper {
-    overflow: hidden;
-  }
+	.summaryWrapper {
+		width: 100vh;
+		margin-top: 20vh;
+		margin-left: 60vh;
+	}
 
-  .screenSize {
-    display: flex;
-  }
+	.sidebarWrapper {
+		overflow: hidden;
+	}
+
+	.screenSize {
+		display: flex;
+	}
 }
-
