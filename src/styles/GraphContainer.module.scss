@@ -5,7 +5,7 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin-top: 3rem;
+	margin-top: -10vh;
 
 	h1 {
 		font-family: $fontOfMetrics;
@@ -93,7 +93,7 @@
 		grid-template-columns: repeat(2, 1fr);
 		row-gap: 3vh;
 		column-gap: 3vh;
-		width: 100vh;
+		width: 100vw;
 		height: 60vh;
 	}
 

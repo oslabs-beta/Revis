@@ -5,7 +5,7 @@
 	display: inline-block;
 	cursor: pointer;
 	width: 7vw;
-	height: 4.6vh;
+	height: 5vh;
 	border-radius: 1vw;
 	left: 1vw;
 	right: auto;
@@ -60,7 +60,7 @@
 		height: 3vh;
 		width: 3vh;
 		left: 0.3vw;
-		bottom: 0.7vh;
+		bottom: 1vh;
 		background-color: var(--background);
 		opacity: 100%;
 		-webkit-transition: $transitionTime;
@@ -102,7 +102,10 @@
 
 	input:checked + .slider:before {
 		// $translateDistance: 2.75vw;
-		$translateDistance: 4vw;
+		$translateDistance: 3vw;
+
+		-ms-transform: translateX($translateDistance) rotate(360deg);
+		transform: translateX($translateDistance) rotate(360deg);
 
 		@media screen and (max-device-width: 2600px) {
 			-ms-transform: translateX(4vw) rotate(360deg);
