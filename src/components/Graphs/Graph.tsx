@@ -47,11 +47,11 @@ function GraphWithHistory({
 						tick={{ fill: '#d8d8d4' }}
 						type="number"
 						domain={[
-							(dataMin) => {
+							(dataMin: number) => {
 								if (dataMin === 0) return dataMin;
 								return Math.floor(0.98 * dataMin);
 							},
-							(dataMax) => Math.floor(1.01 * dataMax),
+							(dataMax: number) => Math.floor(1.01 * dataMax),
 						]}
 					/>
 					<Tooltip />
