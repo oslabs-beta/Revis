@@ -17,7 +17,12 @@ function MultipleGraphContainer() {
 		if (multipleGraphSelections.multipleGraphState[key]) {
 			arrayWithGraphs.push(
 				<div key={i}>
-					<GraphWithHistory metricValue={data} metricName={key} title={key} />
+					<GraphWithHistory
+						metricValue={data}
+						metricName={key}
+						title={key}
+						graphType="multiple"
+					/>
 				</div>
 			);
 		}

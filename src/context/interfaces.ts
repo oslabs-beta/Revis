@@ -74,7 +74,7 @@ export interface ActionMetricHistory {
 
 export interface ActionSelectedDates {
 	type: string;
-	message: string;
+	message: [string, string[], string];
 }
 
 export interface HomePageProps {
