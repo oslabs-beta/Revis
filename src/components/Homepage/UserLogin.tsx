@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styles from '../../styles/Homepage.module.scss';
 import { useStore } from '../../context/Provider';
 import { User, HomePageProps } from '../../context/interfaces';
+import { UPDATE_USERNAME } from '../../context/constants/actionTypes';
 
 function UserLogin({ onForgotPassword, onSignUp }: HomePageProps) {
   const [userInfo, setUserInfo] = useState<User>({
@@ -25,7 +26,7 @@ function UserLogin({ onForgotPassword, onSignUp }: HomePageProps) {
     })
       .then((response: Response) => {
         if (response.status === 200) {
-          user.userDispatch({ type: 'updateUsername', message: username });
+          user.userDispatch({ type: UPDATE_USERNAME, message: username });
           router.replace('/dashboard');
         } else throw response.json();
       })

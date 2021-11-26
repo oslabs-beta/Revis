@@ -36,14 +36,14 @@ const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
     console.log('Error in createUser', err);
     switch (constraint) {
       case 'users_username_key':
-        return res.status(400).json({
+        return res.status(406).json({
           success: false,
           error:
             'This username is already taken. Please provide a unique username.',
         });
 
       case 'users_email_key':
-        return res.status(400).json({
+        return res.status(406).json({
           success: false,
           error: 'This email is already taken. Please provide a unique email.',
         });

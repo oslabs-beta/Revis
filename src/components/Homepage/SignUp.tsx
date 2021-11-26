@@ -45,66 +45,66 @@ function SignUp({ previousPage }: HomePageProps) {
 
         <form onSubmit={submitHandler}>
           <div className={styles.formEntry}>
-            <label htmlFor='username' className={styles.labels}>
+            <label htmlFor="username" className={styles.labels}>
               username:
               <input
                 className={styles.userInput}
-                type='text'
+                type="text"
                 onChange={(e) =>
                   setUserInfo({ ...userInfo, username: e.target.value })
                 }
                 value={userInfo.username}
                 required
-                autoComplete='none'
+                autoComplete="none"
               ></input>
             </label>
           </div>
 
           <div className={styles.formEntry}>
-            <label htmlFor='email' className={styles.labels}>
+            <label htmlFor="email" className={styles.labels}>
               email:
               <input
                 className={styles.userInput}
-                type='email'
+                type="email"
                 onChange={(e) =>
                   setUserInfo({ ...userInfo, email: e.target.value })
                 }
                 value={userInfo.email}
                 required
-                autoComplete='none'
+                autoComplete="none"
               ></input>
             </label>
           </div>
 
           <div className={styles.formEntry}>
-            <label htmlFor='password' className={styles.labels}>
+            <label htmlFor="password" className={styles.labels}>
               password:
               <input
                 className={styles.userInput}
-                type='password'
+                type="password"
                 onChange={(e) =>
                   setUserInfo({ ...userInfo, password: e.target.value })
                 }
                 required
-                autoComplete='none'
+                autoComplete="none"
               ></input>
             </label>
           </div>
 
-          <div id='messageDiv' name='Log-in Errors'></div>
+          <div id="messageDiv" name="Log-in Errors"></div>
 
           <div className={styles.buttonWrapper}>
             <button
               className={styles.backButton}
               onClick={previousPage}
-              type='button'
+              type="button"
             >
               Back
             </button>
 
             <button
               className={styles.submitButton}
-              type='button'
+              type="button"
               onClick={() => setDisclaimer(true)}
             >
               Submit
@@ -125,14 +125,14 @@ function SignUp({ previousPage }: HomePageProps) {
         <div className={styles.disclaimerBtns}>
           <button
             id={styles.disclaimerBtnNo}
-            type='button'
+            type="button"
             onClick={() => setDisclaimer(false)}
           >
             No, thanks
           </button>
           <button
             id={styles.disclaimerBtnYes}
-            type='button'
+            type="button"
             onClick={submitHandler}
           >
             I accept

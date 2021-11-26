@@ -1,4 +1,5 @@
 import { ActionCurrentDate } from '../interfaces';
+import { NEW_DATE_SELECTED, DATE_UNSELECTED } from '../constants/actionTypes';
 
 const datesBeingCompared = (state: {}, action: ActionCurrentDate) => {
   const newDateSelected: string = action.message[0];
@@ -6,11 +7,11 @@ const datesBeingCompared = (state: {}, action: ActionCurrentDate) => {
 
   const datesSelectedObject: {} = { ...state };
   switch (action.type) {
-    case 'newDateSelected': {
+    case NEW_DATE_SELECTED: {
       datesSelectedObject[newDateSelected] = graphingData;
       return datesSelectedObject;
     }
-    case 'dateUnselected': {
+    case DATE_UNSELECTED: {
       delete datesSelectedObject[newDateSelected];
       return datesSelectedObject;
     }
