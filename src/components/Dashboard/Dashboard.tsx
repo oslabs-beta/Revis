@@ -11,6 +11,7 @@ import HistoryGraphsContainer from '../Graphs/History/HistoryGraphContainer';
 import Welcome from '../Globals/Welcome';
 import UpdateInterval from '../Globals/UpdateInterval';
 import GraphContainer from '../Graphs/Singular/GraphContainer';
+import { Metrics } from '../../context/interfaces';
 import {
 	CURRENT_SERVER,
 	CLEAN_METRICS,
@@ -52,6 +53,13 @@ export default function Dashboard() {
 			});
 		}
 	};
+
+	const parseJwt = (token) => {
+		const base64Payload = token.split('.')[1];
+		const payload = Buffer.from(base64Payload, 'base64');
+		return JSON.parse(payload.toString());
+	};
+
 	useEffect(() => {
 		if (!metricState) return;
 		if (metricState.length % 10 === 0 && cooldown) {
@@ -83,14 +91,15 @@ export default function Dashboard() {
 			})
 				.then((response) => response.json())
 				.then((data) => {
-					if ('password' in data) {
+					const { password } = parseJwt(data.token);
+					if (password) {
 						selectedServerDispatch({
 							type: CURRENT_SERVER,
 							message: {
 								name: server.name,
 								endpoint: server.endpoint,
 								port: server.port,
-								password: data.password,
+								password,
 							},
 						});
 						updateCoolDown(false);
@@ -113,7 +122,7 @@ export default function Dashboard() {
 										body: JSON.stringify({
 											endpoint: server.endpoint,
 											port: server.port,
-											password: data.password,
+											password,
 										}),
 									})
 										.then((response) => response.json())

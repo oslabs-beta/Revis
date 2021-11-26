@@ -51,6 +51,7 @@
     "bcryptjs": "^2.4.3",
     "cookies": "^0.8.0",
     "ioredis": "^4.27.10",
+    "jsonwebtoken": "^8.5.1",
     "next": "^11.1.2",
     "next-themes": "^0.0.15",
     "pg": "^8.7.1",

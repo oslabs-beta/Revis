@@ -49,7 +49,7 @@ function GraphWithHistory({
 						domain={[
 							(dataMin) => {
 								if (dataMin === 0) return dataMin;
-								return Math.floor(0.99 * dataMin);
+								return Math.floor(0.98 * dataMin);
 							},
 							(dataMax) => Math.floor(1.01 * dataMax),
 						]}

@@ -41,6 +41,13 @@ export default function Server(props: ServerComponentProps) {
 			});
 		}
 	};
+
+	const parseJwt = (token) => {
+		const base64Payload = token.split('.')[1];
+		const payload = Buffer.from(base64Payload, 'base64');
+		return JSON.parse(payload.toString());
+	};
+
 	const removeServerAnimation = (e: { target: HTMLDivElement }) => {
 		const wrapperName: string = e.target.attributes[1].value;
 		const removeServerDiv: HTMLDivElement = document.querySelector(
@@ -70,7 +77,8 @@ export default function Server(props: ServerComponentProps) {
 					})
 						.then((response) => response.json())
 						.then((data) => {
-							if ('password' in data) {
+							const { password } = parseJwt(data.token);
+							if (password) {
 								fetch('/api/retrieveMetrics')
 									.then((response) => response.json())
 									.then((metricData) => {
@@ -84,7 +92,7 @@ export default function Server(props: ServerComponentProps) {
 													name: server.name,
 													endpoint: server.endpoint,
 													port: server.port,
-													password: data.password,
+													password,
 												},
 											});
 
@@ -100,7 +108,7 @@ export default function Server(props: ServerComponentProps) {
 												body: JSON.stringify({
 													endpoint: server.endpoint,
 													port: server.port,
-													password: data.password,
+													password,
 												}),
 											})
 												.then((response) => response.json())
@@ -113,7 +121,7 @@ export default function Server(props: ServerComponentProps) {
 															name: server.name,
 															endpoint: server.endpoint,
 															port: server.port,
-															password: data.password,
+															password,
 														},
 													});
 
