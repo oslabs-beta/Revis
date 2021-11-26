@@ -129,7 +129,7 @@ function Sidebar() {
 		return nameValidity && endpointValidity && portValidity;
 	};
 
-	const addServer = async (e) => {
+	const addServer = async (e: React.SyntheticEvent) => {
 		e.preventDefault();
 		const name: HTMLInputElement = document.querySelector('#name');
 		const endpoint: HTMLInputElement = document.querySelector('#endpoint');

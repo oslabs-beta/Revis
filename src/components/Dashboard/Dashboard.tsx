@@ -168,9 +168,7 @@ export default function Dashboard() {
 				<>
 					<div className={styles.sidebarWrapper}>
 						<Welcome />
-
 						<NavBarDashboard changeCurrentRender={changeCurrentRender} />
-
 						<Sidebar />
 						<UpdateInterval />
 					</div>

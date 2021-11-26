@@ -22,96 +22,96 @@ import metricHistory from './reducers/metricHistory';
 import datesBeingCompared from './reducers/datesBeingCompared';
 import customMetrics from './reducers/customMetrics';
 import {
-  User,
-  Metrics,
-  MultipleGraphs,
-  Action,
-  DatesSelected,
-  DatesSelectedContext,
-  Interval,
-  ServerInterface,
-  Theme,
-  MetricHistory,
-  Context,
-  CurrentServer,
-  ActionServerList,
-  ActionCurrentServer,
-  ActionInterval,
-  ActionMetrics,
-  ActionMetricHistory,
-  ActionSelectedDates
+	User,
+	Metrics,
+	MultipleGraphs,
+	Action,
+	DatesSelected,
+	DatesSelectedContext,
+	Interval,
+	ServerInterface,
+	Theme,
+	MetricHistory,
+	Context,
+	CurrentServer,
+	ActionServerList,
+	ActionCurrentServer,
+	ActionInterval,
+	ActionMetrics,
+	ActionMetricHistory,
+	ActionSelectedDates,
 } from './interfaces';
 
-export const GlobalContext = createContext<Partial<Context>>({}); // the provider needs to fill the state
+export const GlobalContext = createContext<Partial<Context>>({});
 export const GlobalProvider = ({ children }) => {
-  const [userState, userDispatch]: [User, Dispatch<Action>] = useReducer(
-    user,
-    initialStateUser
-  );
-  const [metricState, metricsDispatch]: [Metrics[], Dispatch<ActionMetrics>] =
-    useReducer(metrics, initialStateMetrics);
+	const [userState, userDispatch]: [User, Dispatch<Action>] = useReducer(
+		user,
+		initialStateUser
+	);
+	const [metricState, metricsDispatch]: [Metrics[], Dispatch<ActionMetrics>] =
+		useReducer(metrics, initialStateMetrics);
 
-  const [serverList, serversDispatch]: [
-    ServerInterface[],
-    Dispatch<ActionServerList>
-  ] = useReducer(servers, initialStateServers);
+	const [serverList, serversDispatch]: [
+		ServerInterface[],
+		Dispatch<ActionServerList>
+	] = useReducer(servers, initialStateServers);
 
-  const [metricToGraph, selectedMetricDispatch]: [string, Dispatch<Action>] =
-    useReducer(selectedMetric, initialStateSelectedMetric);
+	const [metricToGraph, selectedMetricDispatch]: [string, Dispatch<Action>] =
+		useReducer(selectedMetric, initialStateSelectedMetric);
 
-  const [multipleGraphState, multipleGraphDispatch]: [
-    MultipleGraphs,
-    Dispatch<Action>
-  ] = useReducer(metricsBeingCompared, initialStateOfMultipleGraphs);
+	const [multipleGraphState, multipleGraphDispatch]: [
+		MultipleGraphs,
+		Dispatch<Action>
+	] = useReducer(metricsBeingCompared, initialStateOfMultipleGraphs);
 
-  const [currentTheme, themeDispatch]: [Theme, Dispatch<Action>] = useReducer(
-    theme,
-    initialStateTheme
-  );
+	const [currentTheme, themeDispatch]: [Theme, Dispatch<Action>] = useReducer(
+		theme,
+		initialStateTheme
+	);
 
-  const [selectedServer, selectedServerDispatch]: [
-    CurrentServer,
-    Dispatch<ActionCurrentServer>
-  ] = useReducer(currentServer, initialStateSelectedServer);
+	const [selectedServer, selectedServerDispatch]: [
+		CurrentServer,
+		Dispatch<ActionCurrentServer>
+	] = useReducer(currentServer, initialStateSelectedServer);
 
-  const [updateInterval, updateIntervalDispatch]: [
-    Interval,
-    Dispatch<ActionInterval>
-  ] = useReducer(interval, initialStateUpdateInterval);
+	const [updateInterval, updateIntervalDispatch]: [
+		Interval,
+		Dispatch<ActionInterval>
+	] = useReducer(interval, initialStateUpdateInterval);
 
-  const [metricHistoryState, metricHistoryDispatch]: [
-    MetricHistory,
-    Dispatch<ActionMetricHistory>
-  ] = useReducer(metricHistory, initialStateMetricHistory);
+	const [metricHistoryState, metricHistoryDispatch]: [
+		MetricHistory,
+		Dispatch<ActionMetricHistory>
+	] = useReducer(metricHistory, initialStateMetricHistory);
 
-  const [datesSelectedState,datesSelectedDispatch]: [
-    DatesSelected,
-    Dispatch<ActionSelectedDates>
-  ] = useReducer(datesBeingCompared, initialStateOfDatesForHistory);
+	const [datesSelectedState, datesSelectedDispatch]: [
+		DatesSelected,
+		Dispatch<ActionSelectedDates>
+	] = useReducer(datesBeingCompared, initialStateOfDatesForHistory);
 
-  const [customMetricState, customMetricDispatch]: [
-    Metrics,
-    Dispatch<ActionMetrics>
-  ] = useReducer(customMetrics, initialStateCustomMetrics);
-  return (
-    <GlobalContext.Provider
-      value={{
-        user: { userState, userDispatch },
-        metricsStore: { metricState, metricsDispatch },
-        servers: { serverList, serversDispatch },
-        currentServer: { selectedServer, selectedServerDispatch },
-        metricToGraph: { metricToGraph, selectedMetricDispatch },
-        multipleGraphSelections: { multipleGraphState, multipleGraphDispatch },
-        themeContext: { currentTheme, themeDispatch },
-        graphInterval: { updateInterval, updateIntervalDispatch },
-        metricHistory: { metricHistoryState, metricHistoryDispatch },
-        datesSelected: {datesSelectedState,datesSelectedDispatch },
-        customMetrics: { customMetricState, customMetricDispatch },
-      }}
-    >
-      {children}
-    </GlobalContext.Provider>
-  );
+	const [customMetricState, customMetricDispatch]: [
+		Metrics,
+		Dispatch<ActionMetrics>
+	] = useReducer(customMetrics, initialStateCustomMetrics);
+	return (
+		<GlobalContext.Provider
+			value={{
+				user: { userState, userDispatch },
+				metricsStore: { metricState, metricsDispatch },
+				servers: { serverList, serversDispatch },
+				currentServer: { selectedServer, selectedServerDispatch },
+				metricToGraph: { metricToGraph, selectedMetricDispatch },
+				multipleGraphSelections: { multipleGraphState, multipleGraphDispatch },
+				themeContext: { currentTheme, themeDispatch },
+				graphInterval: { updateInterval, updateIntervalDispatch },
+				metricHistory: { metricHistoryState, metricHistoryDispatch },
+				datesSelected: { datesSelectedState, datesSelectedDispatch },
+				customMetrics: { customMetricState, customMetricDispatch },
+			}}
+		>
+			{children}
+		</GlobalContext.Provider>
+	);
 };
 
 export const useStore = () => useContext(GlobalContext);

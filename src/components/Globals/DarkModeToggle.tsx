@@ -14,7 +14,6 @@ export default function DarkModeToggle() {
 				onClick={() => {
 					setTheme(theme === 'light' ? 'dark' : 'light');
 				}}
-				style={{ backgroundImage: `url${'./moon-solid.svg'}` }}
 			></input>
 			<span className={styles.slider}></span>
 		</label>

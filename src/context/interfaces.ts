@@ -1,4 +1,4 @@
-import { Dispatch } from 'react';
+import React, { Dispatch } from 'react';
 
 export interface User {
 	user_id?: number;
@@ -27,6 +27,14 @@ export interface CurrentServer {
 	sessionToken?: string;
 }
 
+export interface ServerComponentProps {
+	name: string;
+	endpoint: string;
+	port: string;
+	currentDivHover: HTMLDivElement;
+	changeDivHover: Dispatch<HTMLDivElement>;
+}
+
 export interface ServerInterface {
 	name?: string;
 	ip?: string;
@@ -35,6 +43,12 @@ export interface ServerInterface {
 	endpoint?: string;
 	password?: string;
 	currentServer?: CurrentServer;
+}
+
+export interface ServerListComponentProps {
+	serverList: ServerInterface[];
+	currentDivHover: HTMLDivElement;
+	changeDivHover: Dispatch<HTMLDivElement>;
 }
 
 export interface Action {
