@@ -23,7 +23,8 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(200).json({ success: true, cloud });
       } catch (err) {
         console.log(`FAILED QUERY ${SQLquery}`);
-        return res.status(400).json({ success: false, error: err });
+        console.log('Error in servers GET', err);
+        return res.status(400).json({ success: false });
       }
 
     case 'POST':
@@ -43,25 +44,29 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(200).json({ success: true });
       } catch (err) {
         console.log(`FAILED QUERY ${SQLquery}`);
-        return res.status(400).json({ success: false, error: err });
+        console.log('Error in servers POST', err);
+
+        return res.status(400).json({ success: false });
       }
 
     case 'DELETE':
       try {
         const parsedBody: ServerInterface = JSON.parse(req.body);
         const { name } = parsedBody;
-        SQLquery = `DELETE FROM "${process.env.PG_TABLE_CLOUD}" WHERE name = '${name}' AND user_id = ${userId}
-        RETURNING endpoint;`;
 
-        const endpointRows = await db.query(SQLquery);
-        const { endpoint } = endpointRows.rows[0];
+        SQLquery = `DELETE FROM "${process.env.PG_TABLE_REDIS}" WHERE endpoint = (SELECT endpoint FROM "${process.env.PG_TABLE_CLOUD}" WHERE name = '${name}' AND user_id = ${userId}); \n`;
 
-        SQLquery = `DELETE FROM "${process.env.PG_TABLE_REDIS}" WHERE endpoint = '${endpoint}' AND user_id = ${userId};`;
+        SQLquery += `DELETE FROM "${process.env.PG_TABLE_METRICS}" WHERE user_id = '${userId}' AND server_id = (SELECT id FROM "${process.env.PG_TABLE_CLOUD}" WHERE name = '${name}' AND user_id = ${userId}); \n`;
+
+        SQLquery += `DELETE FROM "${process.env.PG_TABLE_CLOUD}" WHERE name = '${name}' AND user_id = ${userId};`;
+
         await db.query(SQLquery);
         return res.status(200).json({ success: true });
       } catch (err) {
         console.log(`FAILED QUERY ${SQLquery}`);
-        return res.status(400).json({ success: false, error: err });
+        console.log('Error in servers DELETE', err);
+
+        return res.status(400).json({ success: false });
       }
     default:
       return res.status(400).json({ success: false, error: 'Invalid request' });

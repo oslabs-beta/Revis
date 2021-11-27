@@ -1,84 +1,118 @@
 @import './colorsAndFonts.scss';
 
 .leftSideWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: fit-content;
+	width: fit-content;
 
-  #backButton {
-    position: absolute;
-    left: 6.5%;
-    top: 2%;
-    background-color: transparent;
-    border-color: transparent;
-    text-decoration: underline;
-    font-size: 20px;
-    color: var(--grey);
-    font-family: $fontOfSummaryTitle;
-  }
-  #backButton:hover {
-    cursor: pointer;
-  }
-  .cubeAndShadowWrapper {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+	#backButton {
+		position: absolute;
+		left: 9%;
+		top: 1.5%;
+		background-color: transparent;
+		border-color: transparent;
+		text-decoration: underline;
+		font-size: 3vh;
+		color: var(--grey);
+		font-family: $fontOfSummaryTitle;
+		@media (max-width: 800px) {
+			left: 15%;
+			top: 3%;
+			font-size: 2vh;
+		}
+	}
+	#backButton:hover {
+		cursor: pointer;
+	}
+	.cubeAndShadowWrapper {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		height: fit-content;
+		width: fit-content;
 
+		#cubeBox {
+			background-color: transparent;
+			border: none;
+			width: fit-content;
+			height: fit-content;
 
-    #cube {
-      width: 16vh;
-      color: var(--logoColor);
-      height: 10vh;
-      animation: cubeAnimation 0.6s cubic-bezier(0.5, 0.05, 1, 0.5);
-      animation-direction: alternate;
-      animation-iteration-count: infinite;
-      @media screen and (max-device-width: 480px) and (orientation: portrait){
-        width: 0vh;
-        height: 0vh;
-       }
-    }
+			.cube {
+				width: 16vh;
+				color: var(--logoColor);
+				height: 10vh;
+				animation: cubeAnimation 0.6s cubic-bezier(0.5, 0.05, 1, 0.5);
+				animation-direction: alternate;
+				animation-iteration-count: infinite;
+				@media screen and (max-device-width: 800px) and (orientation: portrait) {
+					color: transparent;
+				}
+			}
 
-    #shadow {
-      background-image: radial-gradient(
-        rgb(80, 80, 80) 0%,
-        rgb(228, 227, 227),
-        rgba(150, 150, 150, 0.05)
-      );
-      width: 50%;
-      animation: shadowGrow 0.6s;
-      animation-direction: alternate;
-      animation-iteration-count: infinite;
-    }
+			.stop {
+				animation: none;
+				margin-bottom: 5vh;
+			}
+		}
+		#cubeBox:hover {
+			cursor: pointer;
+		}
 
-    @keyframes shadowGrow {
-      from {
-        transform: scale(0.2, 0.5);
-      }
+		.shadow {
+			background-image: radial-gradient(
+				rgb(80, 80, 80) 0%,
+				rgb(228, 227, 227),
+				rgba(150, 150, 150, 0.05)
+			);
+			width: 50%;
+			animation: shadowGrow 0.6s;
+			animation-direction: alternate;
+			animation-iteration-count: infinite;
+			@media screen and (max-device-width: 800px) and (orientation: portrait) {
+				width: 0%;
+				color: transparent;
+			}
+		}
+		.stop {
+			animation: none;
+			background-image: none;
+			color: transparent;
+			height: 0px;
+		}
 
-      to {
-        transform: scale(1, 0.1);
-      }
-    }
-    @keyframes cubeAnimation {
-      0% {
-        transform: translate3d(0, -100%, 0);
-        
-      }
+		@keyframes shadowGrow {
+			from {
+				transform: scale(0.2, 0.5);
+			}
 
-      100% {
-        transform: translate(0, 0, 0);
-      }
-    }
-  }
-  #logo {
-    font-family: $fontOfLogo;
-    font-size: 10vh;
-    color: var(--logoColor);
-    margin-top: 4vh;
-    @media screen and (max-device-width: 480px) and (orientation: portrait){
-      font-size: 0vh;
-      margin-top:0vh;
-      margin-top:10vh;
-     }
-  }
+			to {
+				transform: scale(1, 0.1);
+			}
+		}
+		@keyframes cubeAnimation {
+			0% {
+				transform: translate3d(0, -100%, 0);
+			}
+
+			100% {
+				transform: translate(0, 0, 0);
+			}
+		}
+	}
+	cubeAndShadowWrapper:hover {
+		cursor: pointer;
+	}
+	#logo {
+		font-family: $fontOfLogo;
+		font-size: 10vh;
+		color: var(--logoColor);
+		margin-top: 4vh;
+		@media screen and (max-device-width: 800px) and (orientation: portrait) {
+			font-size: 0vh;
+			margin-top: 0vh;
+			margin-top: 10vh;
+		}
+	}
 }

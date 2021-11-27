@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styles from '../../styles/Homepage.module.scss';
 import { useStore } from '../../context/Provider';
 import { User, HomePageProps } from '../../context/interfaces';
+import { UPDATE_USERNAME } from '../../context/constants/actionTypes';
 
 function UserLogin({ onForgotPassword, onSignUp }: HomePageProps) {
   const [userInfo, setUserInfo] = useState<User>({
@@ -25,7 +26,7 @@ function UserLogin({ onForgotPassword, onSignUp }: HomePageProps) {
     })
       .then((response: Response) => {
         if (response.status === 200) {
-          user.userDispatch({ type: 'updateUsername', message: username });
+          user.userDispatch({ type: UPDATE_USERNAME, message: username });
           router.replace('/dashboard');
         } else throw response.json();
       })
@@ -43,8 +44,8 @@ function UserLogin({ onForgotPassword, onSignUp }: HomePageProps) {
         <div>
           <input
             className={styles.userInput}
-            placeholder='username'
-            type='text'
+            placeholder="username"
+            type="text"
             onChange={(e) =>
               setUserInfo({ ...userInfo, username: e.target.value })
             }
@@ -55,8 +56,8 @@ function UserLogin({ onForgotPassword, onSignUp }: HomePageProps) {
         <div>
           <input
             className={styles.userInput}
-            placeholder='password'
-            type='password'
+            placeholder="password"
+            type="password"
             onChange={(e) =>
               setUserInfo({ ...userInfo, password: e.target.value })
             }
@@ -64,28 +65,28 @@ function UserLogin({ onForgotPassword, onSignUp }: HomePageProps) {
           ></input>
         </div>
         <div className={styles.logInButtonWrapper}>
-          <input id={styles.logInButton} type='submit' value='Login' />
+          <input id={styles.logInButton} type="submit" value="Login" />
         </div>
       </form>
-      <div id='errorDiv' name='Log-in Errors'></div>
+      <div id="errorDiv" name="Log-in Errors"></div>
       <div className={styles.logInButtonWrapper}>
         <button
           id={styles.forgotPasswordButton}
           onClick={onForgotPassword}
-          type='button'
+          type="button"
         >
           Forgot Password?
         </button>
       </div>
       <div className={styles.signUpWrapper}>
         <span>First time?</span>
-        <button id={styles.signUpButton} onClick={onSignUp} type='button'>
+        <button id={styles.signUpButton} onClick={onSignUp} type="button">
           Sign Up
         </button>
       </div>
     </div>
   );
-};
+}
 
 UserLogin.propTypes = {
   onForgotPassword: PropTypes.func.isRequired,

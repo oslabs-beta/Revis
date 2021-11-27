@@ -1,168 +1,191 @@
 @import './colorsAndFonts.scss';
 .LandingPageWrapper {
-  @media screen and (max-device-width: 480px) and (orientation: portrait) {
-    flex-direction: column;
-    margin-left: 50%;
-    margin-top: 0;
-  }
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin-left: 10%;
+	@media screen and (max-device-width: 800px) and (orientation: portrait) {
+		flex-direction: column;
+		margin-top: -12vh;
+		margin-left: 0;
+	}
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	margin-left: 10%;
 
-  .NavBar {
-    position: absolute;
-    left: 73%;
-    top: 4%;
-    display: flex;
-    gap: 5%;
+	.NavBar {
+		position: absolute;
+		right: 2vh;
+		top: 4%;
+		display: flex;
+		gap: 5%;
+		@media screen and (max-device-width: 800px) and (orientation: portrait) {
+			right: 15%;
+		}
 
-    button {
-      width: 7rem;
-      font-size: 1em;
-      background-color: transparent;
-      border-color: transparent;
-      border-bottom-color: var(--lightgrey);
-      font-family: $fontOfMetrics;
-      color: var(--grey);
-    }
-    button:hover {
-      cursor: pointer;
-    }
+		button {
+			width: 14vh;
+			font-size: 2vh;
+			background-color: transparent;
+			border-color: transparent;
+			border-bottom-color: var(--lightgrey);
+			font-family: $fontOfMetrics;
+			color: var(--grey);
 
-    #download {
-      background-color: var(--logoColor);
-      border-radius: 5px;
-      color: var(--background);
-      padding: 0.7vh;
-      border: none;
-    }
-    #download:hover {
-      cursor: pointer;
-    }
-  }
+			@media screen and (max-device-width: 800px) and (orientation: portrait) {
+				width: 10vh;
+				font-size: 1vh;
+			}
+		}
+		button:hover {
+			cursor: pointer;
+		}
 
-  .cubeAndShadow {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    #cubeSpan {
-      #cube {
-        width: 16vh;
-        color: var(--logoColor);
-        height: 10vh;
-        animation: cubeAnimation 0.6s cubic-bezier(0.5, 0.05, 1, 0.5);
-        animation-direction: alternate;
-        animation-iteration-count: infinite;
-        @media screen and (max-device-width: 480px) and (orientation: portrait) {
-          height: 5vh;
-          width: 7vh;
-        }
-      }
-    }
-    #shadow {
-      background-image: radial-gradient(
-        rgb(80, 80, 80) 0%,
-        rgb(228, 227, 227),
-        rgba(150, 150, 150, 0.05)
-      );
-      width: 40%;
-      color: transparent;
-      animation: shadowGrow 0.6s;
-      animation-direction: alternate;
-      animation-iteration-count: infinite;
-    }
+		#download {
+			background-color: var(--logoColor);
+			border-radius: 5px;
+			color: var(--background);
+			padding: 0.7vh;
+			border: none;
+		}
+		#download:hover {
+			cursor: pointer;
+		}
+	}
 
-    @keyframes shadowGrow {
-      from {
-        transform: scale(0.2, 0.5);
-      }
+	.cubeAndShadow {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		#cubeBox {
+			background-color: transparent;
+			border: none;
+			.cube {
+				width: 16vh;
+				color: var(--logoColor);
+				height: 10vh;
+				animation: cubeAnimation 0.6s cubic-bezier(0.5, 0.05, 1, 0.5);
+				animation-direction: alternate;
+				animation-iteration-count: infinite;
+				@media screen and (max-device-width: 800px) and (orientation: portrait) {
+					height: 5vh;
+					width: 7vh;
+				}
+			}
+			.stop {
+				animation: none;
+				margin-bottom: 5vh;
+			}
+		}
+		.shadow {
+			background-image: radial-gradient(
+				rgb(80, 80, 80) 0%,
+				rgb(228, 227, 227),
+				rgba(150, 150, 150, 0.05)
+			);
+			width: 40%;
+			color: transparent;
+			animation: shadowGrow 0.6s;
+			animation-direction: alternate;
+			animation-iteration-count: infinite;
+		}
+		.stop {
+			animation: none;
+			background-image: none;
+		}
 
-      to {
-        transform: scale(1, 0.1);
-      }
-    }
-  }
-  .leftLandingPageWrapper {
-    display: flex;
-    gap: 1vh;
-    align-items: center;
-    justify-content: center;
-    margin-top: 5%;
+		@keyframes shadowGrow {
+			from {
+				transform: scale(0.2, 0.5);
+			}
 
-    #logo {
-      margin-top: 0;
-      font-family: $fontOfLogo;
-      font-size: 12vh;
-      color: var(--logoColor);
-      @media screen and (max-device-width: 480px) and (orientation: portrait) {
-        font-size: 6vh;
-      }
-    }
+			to {
+				transform: scale(1, 0.1);
+			}
+		}
+		#cubeBox:hover {
+			cursor: pointer;
+		}
+	}
+	.leftLandingPageWrapper {
+		display: flex;
+		gap: 1vh;
+		align-items: center;
+		justify-content: center;
+		margin-top: 5%;
+		height: fit-content;
+		width: fit-content;
 
-    @keyframes cubeAnimation {
-      0% {
-        transform: translate3d(0, -100%, 0);
-      }
+		#logo {
+			margin-top: 0;
+			font-family: $fontOfLogo;
+			font-size: 12vh;
+			color: var(--logoColor);
+			@media screen and (max-device-width: 800px) and (orientation: portrait) {
+				font-size: 6vh;
+			}
+		}
 
-      100% {
-        transform: translate(0, 0, 0);
-      }
-    }
-  }
+		@keyframes cubeAnimation {
+			0% {
+				transform: translate3d(0, -100%, 0);
+			}
 
-  .rightLandingPageWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+			100% {
+				transform: translate(0, 0, 0);
+			}
+		}
+	}
 
-    h2 {
-      width: 50%;
-      text-align: center;
-      font-family: $fontOfMetrics;
-      font-size: 3vh;
-      @media screen and (max-device-width: 480px) and (orientation: portrait) {
-        width: 30vh;
-        margin-bottom: 5vh;
-      }
-    }
+	.rightLandingPageWrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 
-    .buttonDiv {
-      display: flex;
-      gap: 2vh;
+		h2 {
+			width: 50%;
+			text-align: center;
+			font-family: $fontOfMetrics;
+			font-size: 3vh;
+			@media screen and (max-device-width: 800px) and (orientation: portrait) {
+				width: 30vh;
+				margin-bottom: 5vh;
+			}
+		}
 
-      button {
-        animation: buttonAnimation 5s 1;
-        background-color: var(--green);
-        border-radius: 0.75rem;
-        color: var(--background);
-        border-color: transparent;
-        width: 12vh;
-        height: 5vh;
-        font-size: 2vh;
-        font-family: $fontOfButtons;
-        font-weight: bold;
-      }
-      button:hover {
-        cursor: pointer;
-      }
-    }
+		.buttonDiv {
+			display: flex;
+			gap: 2vh;
 
-    @keyframes buttonAnimation {
-      0% {
-        transform: scale(0);
-        color: transparent;
-      }
-      100% {
-        transform: scale(1);
-        color: var(--background);
-      }
-    }
-  }
+			button {
+				animation: buttonAnimation 5s 1;
+				background-color: var(--green);
+				border-radius: 0.75rem;
+				color: var(--background);
+				border-color: transparent;
+				width: 12vh;
+				height: 5vh;
+				font-size: 2vh;
+				font-family: $fontOfButtons;
+				font-weight: bold;
+			}
+			button:hover {
+				cursor: pointer;
+			}
+		}
+
+		@keyframes buttonAnimation {
+			0% {
+				transform: scale(0);
+				color: transparent;
+			}
+			100% {
+				transform: scale(1);
+				color: var(--background);
+			}
+		}
+	}
 }
 
 .invalidPage {
-  text-align: center;
+	text-align: center;
 }

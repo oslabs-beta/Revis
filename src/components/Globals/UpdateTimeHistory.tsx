@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useStore } from '../../context/Provider';
 import styles from '../../styles/UpdateInterval.module.scss';
 import { Context, Metrics } from '../../context/interfaces';
+import {
+  UPDATE_METRICS,
+  TOGGLE_INTERVAL,
+  UPDATE_INTERVAL,
+} from '../../context/constants/actionTypes';
 
 function UpdateTimeHistory() {
   const { metricsStore, graphInterval, currentServer }: Context = useStore();
@@ -25,7 +30,7 @@ function UpdateTimeHistory() {
       });
       const updatedMetrics: Metrics = await response.json();
       metricsDispatch({
-        type: 'updateMetrics',
+        type: UPDATE_METRICS,
         message: updatedMetrics,
       });
     }
@@ -41,7 +46,7 @@ function UpdateTimeHistory() {
 
   const change = () => {
     graphInterval.updateIntervalDispatch({
-      type: 'toggleInterval',
+      type: TOGGLE_INTERVAL,
       message: !graphInterval.updateInterval.update,
     });
     reRender(!render);
@@ -49,7 +54,7 @@ function UpdateTimeHistory() {
   const updateInterval = () => {
     const newInterval = document.getElementById('intervalInput');
     graphInterval.updateIntervalDispatch({
-      type: 'updateInterval',
+      type: UPDATE_INTERVAL,
       message: newInterval.value,
     });
     newInterval.value = '';
@@ -61,20 +66,19 @@ function UpdateTimeHistory() {
         <div className={styles.intervalInput}>
           Update interval in seconds:
           <input
-            id='intervalInput'
-            type='number'
+            id="intervalInput"
+            type="number"
             placeholder={placeholder}
           ></input>
-          <button type='button' onClick={updateInterval}>
+          <button type="button" onClick={updateInterval}>
             Update
           </button>
         </div>
         <p>Automatic Updates</p>
         <label className={styles.switch}>
-         
           <input
             checked={graphInterval.updateInterval.update}
-            type='checkbox'
+            type="checkbox"
             onChange={change}
           ></input>
 

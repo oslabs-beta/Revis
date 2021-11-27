@@ -1,69 +1,134 @@
 @import './colorsAndFonts.scss';
 
 .switch {
-  position: fixed;
-  display: inline-block;
-  cursor: pointer;
-  width: 4.5rem;
-  height: 2rem;
-  border-radius: 1rem;
-  left: 1rem;
-  right: auto;
-  top: 1rem;
-  text-align: center;
-  align-content: center;
-  justify-content: center;
-  z-index:1;
+	position: fixed;
+	display: inline-block;
+	cursor: pointer;
+	width: 7vw;
+	height: 5vh;
+	border-radius: 1vw;
+	left: 1vw;
+	right: auto;
+	top: 1vh;
+	text-align: center;
+	align-content: center;
+	justify-content: center;
+	z-index: 1;
 
-  input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
+	@media screen and (max-device-width: 1100px) {
+		width: 8vw;
+		height: 4vh;
+	}
 
-  $transitionTime: 0.72s;
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: white;
-    -webkit-transition: $transitionTime;
-    transition: $transitionTime;
-    border-radius: 1rem;
-    border: solid var(--logoColor) 0.2px;
-  }
+	@media screen and (max-device-width: 900px) {
+		width: 5vw;
+		height: 2.5vh;
+	}
+	@media screen and (max-device-width: 800px) {
+		width: 7vw;
+		height: 2.5vh;
+	}
+	@media screen and (max-device-width: 600px) {
+		width: 10vw;
+		height: 2.5vh;
+	}
 
-  .slider:before {
-    position: absolute;
-    content: '';
-    height: 1.5rem;
-    width: 1.5rem;
-    left: 0.5rem;
-    bottom: 0.25rem;
-    background-color: var(--background);
-    opacity: 100%;
-    -webkit-transition: $transitionTime;
-    transition: $transitionTime;
-    border-radius: 1rem;
-    background-image: url(./sun-solid.svg);
-  }
+	input {
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
 
-  input:checked + .slider {
-    background-color: rgb(51, 51, 51);
-  }
+	$transitionTime: 0.72s;
+	.slider {
+		position: absolute;
+		cursor: pointer;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: white;
+		-webkit-transition: $transitionTime;
+		transition: $transitionTime;
+		border-radius: 1vh;
+		border: solid var(--logoColor) 0.2px;
+	}
 
-  $distanceFromEdge: 2rem;
+	.slider:before {
+		position: absolute;
+		content: '';
+		height: 3vh;
+		width: 3vh;
+		left: 0.3vw;
+		bottom: 1vh;
+		background-color: var(--background);
+		opacity: 100%;
+		-webkit-transition: $transitionTime;
+		transition: $transitionTime;
+		border-radius: 5vh;
 
-  input:checked + .slider:before {
-    //
-    -ms-transform: translateX($distanceFromEdge) rotate(360deg);
+		background-color: var(--logoColor);
+		// background-image: url(./sun-solid.svg);
+		@media screen and (max-device-width: 1100px) {
+			width: 3vw;
+			height: 2vh;
+			bottom: 0.75vh;
+			left: 0.2vw;
+		}
 
-    transform: translateX($distanceFromEdge) rotate(360deg);
+		@media screen and (max-device-width: 900px) {
+			width: 2vw;
+			height: 2vh;
+			bottom: 0.2vh;
+			left: 0.2vw;
+		}
+		@media screen and (max-device-width: 800px) {
+			width: 2vw;
+			height: 2vh;
+			bottom: 0.2vh;
+			left: 1vw;
+		}
+		@media screen and (max-device-width: 600px) {
+			width: 2vw;
+			height: 2vh;
+			bottom: 0.2vh;
+			left: 2vw;
+		}
+	}
 
-    background-image: url(./moon-solid.svg);
-    background-color: var(--logoColor);
-  }
+	input:checked + .slider {
+		background-color: rgb(51, 51, 51);
+	}
+
+	input:checked + .slider:before {
+		// $translateDistance: 2.75vw;
+		$translateDistance: 3vw;
+
+		-ms-transform: translateX($translateDistance) rotate(360deg);
+		transform: translateX($translateDistance) rotate(360deg);
+
+		@media screen and (max-device-width: 2600px) {
+			-ms-transform: translateX(4vw) rotate(360deg);
+		}
+		@media screen and (max-device-width: 2600px) {
+			transform: translateX(4vw) rotate(360deg);
+		}
+
+		@media screen and (max-device-width: 1445px) {
+			-ms-transform: translateX(4vw) rotate(360deg);
+		}
+		@media screen and (max-device-width: 1445px) {
+			transform: translateX(4vw) rotate(360deg);
+		}
+
+		@media screen and (max-device-width: 850px) {
+			-ms-transform: translateX($translateDistance) rotate(360deg);
+		}
+		@media screen and (max-device-width: 850px) {
+			transform: translateX($translateDistance) rotate(360deg);
+		}
+
+		// background-image: url(./moon-solid.svg);
+		background-color: var(--logoColor);
+	}
 }

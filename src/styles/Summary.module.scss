@@ -28,6 +28,11 @@
       transform: rotate(360deg);
     }
   }
+  h1 {
+    text-align: center;
+    font-family: $fontOfMetrics;
+    color: var(--grey);
+  }
 
   .tableWrapper {
     border-radius: 20px;

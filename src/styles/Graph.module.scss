@@ -1,0 +1,16 @@
+@import './colorsAndFonts.scss';
+.CompleteGraphDiv {
+	h1 {
+		font-family: $fontOfMetrics;
+		color: var(--grey);
+		font-size: 3vh;
+	}
+
+	.Graph {
+		background-color: rgba(27, 27, 28, 0.914);
+		border-radius: 4px;
+		font-family: $fontOfSummaryTitle;
+		width: fit-content;
+		height: fit-content;
+	}
+}

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import { Context } from '../../../context/interfaces';
 import { useStore } from '../../../context/Provider';
-import styles from '../../../styles/HistoryGraphsContainer.module.scss';
+import styles from '../../../styles/GraphContainer.module.scss';
 import Dates from './Dates';
 
 function DatesMenu(props) {

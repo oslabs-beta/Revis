@@ -46,7 +46,7 @@ export default function Summary(props) {
     <div>
       <div className={styles.SummaryWrapper}>
         {serverList.length === 0 ? (
-          <h1>Add a server to view its metrics!</h1>
+          <h1 >Add a server to view its metrics!</h1>
         ) : (
           <SummaryTable metricsForTable={metricsForTable} />
         )}

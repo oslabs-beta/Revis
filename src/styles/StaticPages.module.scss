@@ -1,210 +1,225 @@
 @import './colorsAndFonts.scss';
 
 .aboutUsWrapper {
-  background-color: var(--background);
-  margin-top: 15vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: var(--grey);
+	background-color: var(--background);
+	margin-top: 15vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: var(--grey);
 
-  #backButton {
-    position: absolute;
-    left: 6.5%;
-    top: 2%;
-    background-color: transparent;
-    border-color: transparent;
-    text-decoration: underline;
-    font-size: 20px;
-    color: var(--grey);
-    font-family: $fontOfSummaryTitle;
-  }
-  #backButton:hover {
-    cursor: pointer;
-  }
+	#backButton {
+		position: absolute;
+		left: 10%;
+		top: 2%;
+		background-color: transparent;
+		border-color: transparent;
+		text-decoration: underline;
+		font-size: 20px;
+		color: var(--grey);
+		font-family: $fontOfSummaryTitle;
+	}
+	#backButton:hover {
+		cursor: pointer;
+	}
 
-  .title {
-    display: flex;
-    gap: 1vh;
-    align-items: center;
-    font-family: $fontOfMetrics;
-    display: inline;
-    font-size: 5vh;
-  }
+	.title {
+		display: flex;
+		gap: 1vh;
+		align-items: center;
+		font-family: $fontOfMetrics;
+		font-size: 5vh;
+		text-align: center;
+		margin: auto;
+	}
 
-  #highlight {
-    background-color: var(--logoColor);
-    border-radius: 4px;
-    padding-left: 0.5vh;
-    padding-right: 0.5vh;
-  }
-  h2 {
-    font-family: $fontOfMetrics;
-  }
-  p {
-    font-family: $fontOfButtons;
-    width: 40vh;
-    text-align: center;
-  }
-  #meetTheTeam {
-    background-color: var(--green);
-    font-family: $fontOfButtons;
-    color: var(--background);
-    border-radius: 4px;
-    border: none;
-    padding: 2vh;
-    font-size: 2vh;
-    margin-top: 5vh;
-    cursor: pointer;
+	#highlight {
+		background-color: var(--logoColor);
+		border-radius: 4px;
+		padding-left: 0.5vh;
+		padding-right: 0.5vh;
+	}
+	h2 {
+		font-family: $fontOfMetrics;
+	}
+	p {
+		font-family: $fontOfButtons;
+		width: 70%;
+		text-align: center;
+	}
+	#meetTheTeam {
+		background-color: var(--green);
+		font-family: $fontOfButtons;
+		color: var(--background);
+		border-radius: 4px;
+		border: none;
+		padding: 2vh;
+		font-size: 2vh;
+		margin-top: 5vh;
+		cursor: pointer;
+	}
+	#theTeam {
+		margin-top: 10vh;
+		font-family: $fontOfMetrics;
+		font-size: 4vh;
+	}
+	.team {
+		height: 10vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		top: 80vh;
+		justify-content: space-evenly;
 
-    
-  }
-  #theTeam {
-    margin-top: 50vh;
-    font-family: $fontOfMetrics;
-    font-size:4vh;
-  }
-  .team {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position:absolute;
-    top:80vh;
+		.imageDiv {
+			margin-top: 1vh;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 20vw;
 
-  .imageDiv{
-  
+			$pictureWidth: 25vw;
+			$pictureHeight: 25vh;
+			$backgroundSize: 25vw;
 
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    width: 20vh;
+			@media screen and (max-device-width: 2600px) {
+				$pictureWidth: 25vh;
+				$pictureHeight: 25vh;
+				$backgroundSize: 25vh;
+			}
 
-    #chao{
-      background-image: url('../components/StaticPages/IMG_0978\ \(1\).PNG');
-      background-size: 16vh;
-      height: 15vh;
-      width: 15vh;
-      border-radius: 50%;
-      background-repeat: no-repeat;
-    }
+			@media screen and (max-device-width: 1200px) {
+				$pictureWidth: 10vh;
+				$pictureHeight: 10vh;
+				$backgroundSize: 12vh;
+			}
 
-    #jason{
-      background-image: url(../components/StaticPages/image0.png);
-      background-size: 16vh;
-      height: 15vh;
-      width: 15vh;
-      border-radius: 50%;
-      background-repeat: no-repeat;
-    }
+			#chao {
+				background-image: url('../components/StaticPages/IMG_0978\ \(1\).PNG');
+				background-size: $backgroundSize;
+				height: $pictureHeight;
+				width: $pictureWidth;
+				border-radius: 50%;
+				background-repeat: no-repeat;
+			}
 
-    #liam{
-      background-image: url(../components/StaticPages/Fontes_Photo.jpeg);
-      background-size: 16vh;
-      height: 15vh;
-      width: 15vh;
-      border-radius: 50%;
-      background-repeat: no-repeat;
-    }
+			#jason {
+				background-image: url(../components/StaticPages/image0.png);
+				background-size: $backgroundSize;
+				height: $pictureHeight;
+				width: $pictureWidth;
+				border-radius: 50%;
+				background-repeat: no-repeat;
+			}
 
-    #mercedes{
-      background-image: url(../components/StaticPages/Mercedes.png);
-      background-size: 16vh;
-      height: 15vh;
-      width: 15vh;
-      border-radius: 50%;
-      background-repeat: no-repeat;
-   
-  
-}
-  }
-  .contactIcons{
-    display: flex;
-    gap:1vh;
-    #linkedin{
-      background-image: url(../components/StaticPages/61109.png);
-      background-size: 3vh;
-      width: 3vh;
-      height: 3vh;
-      border:none;
-      background-color:transparent;
-    }
-    #github{
-      background-image: url(../components/StaticPages/25231.png);
-      background-size: 3vh;
-      width: 3vh;
-      height: 3vh;
-      border:none;
-      background-color:transparent;
-    }
-  }
-  }
+			#liam {
+				background-image: url(../components/StaticPages/IMG_1914.jpg);
+				background-size: $backgroundSize;
+				height: $pictureHeight;
+				width: $pictureWidth;
+				border-radius: 50%;
+				background-repeat: no-repeat;
+			}
 
-
+			#mercedes {
+				background-image: url(../components/StaticPages/Mercedes.png);
+				background-size: $backgroundSize;
+				height: $pictureHeight;
+				width: $pictureWidth;
+				border-radius: 50%;
+				background-repeat: no-repeat;
+			}
+		}
+		.contactIcons {
+			display: flex;
+			gap: 1vh;
+			#linkedin {
+				background-image: url(../components/StaticPages/61109.png);
+				background-size: 3vh;
+				width: 3vh;
+				height: 3vh;
+				border: none;
+				background-color: transparent;
+				cursor: pointer;
+			}
+			#github {
+				background-image: url(../components/StaticPages/25231.png);
+				background-size: 3vh;
+				width: 3vh;
+				height: 3vh;
+				border: none;
+				background-color: transparent;
+				cursor: pointer;
+			}
+		}
+	}
 }
 
 .downloadWrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  #backButton {
-    position: absolute;
-    left: 6.5%;
-    top: 2%;
-    background-color: transparent;
-    border-color: transparent;
-    text-decoration: underline;
-    font-size: 20px;
-    color: var(--grey);
-    font-family: $fontOfSummaryTitle;
-  }
-  #backButton:hover {
-    cursor: pointer;
-  }
-  #highlight {
-    background-color: var(--logoColor);
-    border-radius: 4px;
-    padding-left: 0.5vh;
-    padding-right: 0.5vh;
-    margin-top: 10vh;
-    display: flex;
-    gap: 1vh;
-    align-items: center;
-    font-family: $fontOfMetrics;
-    display: inline;
-    font-size: 5vh;
-  }
-  h2 {
-    font-family: $fontOfMetrics;
-    font-size: 2vh;
-    margin-top: 5vh;
-  }
-  .icons {
-    display: flex;
-    gap: 10vh;
-    margin-top: 15vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	#backButton {
+		position: absolute;
+		left: 9.5%;
+		top: 2%;
+		background-color: transparent;
+		border-color: transparent;
+		text-decoration: underline;
+		font-size: 20px;
+		color: var(--grey);
+		font-family: $fontOfSummaryTitle;
+	}
+	#backButton:hover {
+		cursor: pointer;
+	}
+	#highlight {
+		background-color: var(--logoColor);
+		border-radius: 4px;
+		padding-left: 0.5vh;
+		padding-right: 0.5vh;
+		margin-top: 10vh;
+		display: flex;
+		gap: 1vh;
+		align-items: center;
+		font-family: $fontOfMetrics;
+		display: inline;
+		font-size: 5vh;
+	}
+	h2 {
+		font-family: $fontOfMetrics;
+		font-size: 2vh;
+		margin-top: 5vh;
+		width: 40vw;
+		text-align: center;
+	}
+	.icons {
+		display: flex;
+		gap: 10vh;
+		margin-top: 15vh;
 
-    #iconSpan {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 20vh;
-      p {
-        text-align: center;
-      }
-      button {
-        background-color: var(--green);
-        font-family: $fontOfButtons;
-        color: var(--background);
-        border-radius: 4px;
-        border: none;
-        padding: 2vh;
-        font-size: 2vh;
-        margin-top: 2vh;
-        cursor: pointer;
-      }
-    }
-  }
+		#iconSpan {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 20vh;
+			p {
+				text-align: center;
+			}
+			button {
+				background-color: var(--green);
+				font-family: $fontOfButtons;
+				color: var(--background);
+				border-radius: 4px;
+				border: none;
+				padding: 2vh;
+				font-size: 2vh;
+				margin-top: 2vh;
+				cursor: pointer;
+			}
+		}
+	}
 }

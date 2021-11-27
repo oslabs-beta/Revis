@@ -13,17 +13,21 @@
     var(--logoColor) 50%
   );
   height: 110vh;
- 
+  @media screen and (max-device-width: 800px) and (orientation: portrait) {
+    margin-top: -1vh;
+    width: 120%;
+    margin-left: -3vh;
+  }
   #UserLogin {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     width: 20vh;
-   
 
     h1 {
       color: var(--background);
       font-family: $fontOfHomePage;
+      margin-left: 3.7vh;
     }
 
     .userInput {
@@ -175,6 +179,45 @@
     color: var(--background);
     gap: 2vh;
 
+    .disclaimer {
+      font-family: $fontOfButtons;
+      background-color: var(--background);
+      width: 50vh;
+      height: 40vh;
+      color: var(--grey);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 3vh;
+      padding: 5vh;
+      text-align: center;
+
+      .disclaimerBtns {
+        margin-top: 4vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap:2vh;
+        color: var(--grey);
+       
+
+        #disclaimerBtnNo {
+          background-color: transparent;
+          text-decoration: underline;
+          border:none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        #disclaimerBtnYes {
+          background-color: var(--green);
+         padding: 1vh;
+          border:none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+      }
+    }
     form {
       width: 100%;
       font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
@@ -184,7 +227,7 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        margin-bottom: 2vh;
+        margin-bottom: 1vh;
 
         .labels {
           display: flex;
@@ -209,27 +252,28 @@
     .buttonWrapper {
       display: flex;
       flex-direction: row;
+      gap: 2vh;
       width: 100%;
       justify-content: space-evenly;
-      margin-top: 7vh;
+      margin-top: 4vh;
 
       button {
         font-family: $fontOfButtons;
         font-size: 2vh;
         background-color: var(--green);
-        border-radius: 0.75rem;
+        border-radius: 1vh;
         border-color: transparent;
         color: var(--background);
         width: 15vh;
-        height: 2rem;
-        padding: 0.5rem;
+        height: 4vh;
+        padding: 1vh;
         cursor: pointer;
       }
     }
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 800px) {
   .homePageWrapper {
     display: flex;
     flex-wrap: wrap;
