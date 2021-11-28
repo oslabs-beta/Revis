@@ -54,7 +54,7 @@ export default function Dashboard() {
 		}
 	};
 
-	const parseJwt = (token) => {
+	const parseJwt = (token: string) => {
 		const base64Payload = token.split('.')[1];
 		const payload = Buffer.from(base64Payload, 'base64');
 		return JSON.parse(payload.toString());
@@ -70,7 +70,7 @@ export default function Dashboard() {
 	}, [metricState]);
 
 	useEffect(() => {
-		if (window.innerWidth < 800) return <h1>Not Compatible</h1>;
+		// if (window.innerWidth < 800) return <h1>Not Compatible</h1>;
 
 		fetch('/api/validateUser')
 			.then((response: Response) => response.json())

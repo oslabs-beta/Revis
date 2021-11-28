@@ -1,36 +1,37 @@
 @import './colorsAndFonts.scss';
 
 html[data-theme='light'] {
-  --logoColor: #e38d41e9; //logoRed
-  --background: rgb(255, 255, 255);
-  --green: rgb(164, 186, 143);
-  --grey: rgba(0, 0, 0, 0.701);
-  --lightgrey: rgba(243, 245, 247, 0.893);
-  --red: rgb(216, 183, 183);
+	--logoColor: #e38d41e9; //logoRed
+	--background: rgb(255, 255, 255);
+	--green: rgb(164, 186, 143);
+	--grey: rgba(0, 0, 0, 0.701);
+	--lightgrey: rgba(243, 245, 247, 0.893);
+	--red: rgb(216, 183, 183);
 }
 html[data-theme='dark'] {
-  --logoColor: #e38d41e9;
-  --background: rgb(51, 51, 51);
-  --green: rgb(161, 184, 161);
-  --grey: rgba(247, 244, 244, 0.989);
-  --lightgrey: rgba(255, 255, 255, 0.845);
+	--logoColor: #e38d41e9;
+	--background: rgb(51, 51, 51);
+	--green: rgb(161, 184, 161);
+	--grey: rgba(247, 244, 244, 0.989);
+	--lightgrey: rgba(255, 255, 255, 0.845);
 }
 body {
-  background-color: var(--background);
-  width: 100%;
-  @media screen and (max-device-width: 800px) and (orientation: portrait) {
-    width: 90%;
-  }
+	background-color: var(--background);
+	width: 100vw;
+	@media screen and (max-device-width: 800px) and (orientation: portrait) {
+		width: 90%;
+	}
 
-  .general {
-    width: 100%;
-    margin-top: -1%;
-    .dashboardWrapper {
-      display: grid;
-      grid-template-columns: 0.5fr 2fr;
-    }
-  }
+	.general {
+		width: 100vw;
+		margin-top: -1%;
+		height: 100vh;
+		.dashboardWrapper {
+			display: grid;
+			grid-template-columns: 0.5fr 2fr;
+		}
+	}
 }
 body::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
