@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from '../../styles/Tooltip.module.scss';
 import descriptions from './metricDescriptions';
-import { createNoSubstitutionTemplateLiteral } from 'typescript';
 
 interface TooltipProps {
   metric: string;

@@ -32,9 +32,9 @@ function AboutUs() {
         developers using Redis to be able to maximize its potential and to make
         more efficient and strategic decisions.
       </p>
-      <button id={styles.meetTheTeam} type="button" onClick={onButtonClick}>
+      {/* <button id={styles.meetTheTeam} type="button" onClick={onButtonClick}>
         Meet our team
-      </button>
+      </button> */}
       <h1 id={styles.theTeam}>Team of contributors</h1>
       <div className={styles.team}>
         <div className={styles.imageDiv}>

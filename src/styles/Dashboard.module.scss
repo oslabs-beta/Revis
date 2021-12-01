@@ -33,19 +33,18 @@
       #cubeBox {
         background-color: transparent;
         border: none;
-      .cube {
-        width: 2vh;
-        color: var(--logoColor);
-        height: 2vh;
-        animation: cubeAnimation 0.6s cubic-bezier(0.5, 0.05, 1, 0.5);
-        animation-direction: alternate;
-        animation-iteration-count: infinite;
+        .cube {
+          width: 2vh;
+          color: var(--logoColor);
+          height: 2vh;
+          animation: cubeAnimation 0.6s cubic-bezier(0.5, 0.05, 1, 0.5);
+          animation-direction: alternate;
+          animation-iteration-count: infinite;
+        }
+        .stop {
+          animation: none;
+        }
       }
-      .stop {
-        animation: none;
-        margin-bottom: 5vh;
-      }
-    }
       .shadow {
         background-image: radial-gradient(
           rgb(80, 80, 80) 0%,
@@ -60,7 +59,7 @@
       .stop {
         animation: none;
         background-image: none;
-        color:transparent;
+        color: transparent;
       }
 
       @keyframes shadowGrow {
@@ -112,4 +111,3 @@
     display: flex;
   }
 }
-

@@ -2,16 +2,9 @@ import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import styles from '../../styles/Summary.module.scss';
-import { useStore } from '../../context/Provider';
 
 export default function SummaryTable(props) {
   const { metricsForTable } = props;
-  // const { metricsStore }: Context = useStore();
-  // const { metricState } = metricsStore;
-
-  // useEffect(() => {
-  //   console.log(metricsForTable, metricState);
-  // }, [metricState]);
 
   return (
     <div className={styles.SummaryWrapper}>

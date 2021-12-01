@@ -60,12 +60,12 @@
     cursor: pointer;
   }
   #theTeam {
-    margin-top: 10vh;
+    margin-top: 15vh;
     font-family: $fontOfMetrics;
     font-size: 4vh;
   }
   .team {
-    height: 10vh;
+    height: 15vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -97,7 +97,7 @@
       }
 
       #chao {
-        background-image: url('../components/StaticPages/IMG_0978\ \(1\).PNG');
+        background-image: url('../components/StaticPages/ImagesAndPhotos/IMG_0978\ \(1\).PNG');
         background-size: $backgroundSize;
         height: $pictureHeight;
         width: $pictureWidth;
@@ -106,7 +106,7 @@
       }
 
       #jason {
-        background-image: url(../components/StaticPages/image0.png);
+        background-image: url(../components/StaticPages/ImagesAndPhotos/image0.png);
         background-size: $backgroundSize;
         height: $pictureHeight;
         width: $pictureWidth;
@@ -115,7 +115,7 @@
       }
 
       #liam {
-        background-image: url(../components/StaticPages/IMG_1914.jpg);
+        background-image: url(../components/StaticPages/ImagesAndPhotos/IMG_1914.jpg);
         background-size: $backgroundSize;
         height: $pictureHeight;
         width: $pictureWidth;
@@ -124,7 +124,7 @@
       }
 
       #mercedes {
-        background-image: url(../components/StaticPages/Mercedes.png);
+        background-image: url(../components/StaticPages/ImagesAndPhotos/Mercedes.png);
         background-size: $backgroundSize;
         height: $pictureHeight;
         width: $pictureWidth;
@@ -136,7 +136,7 @@
       display: flex;
       gap: 1vh;
       #linkedin {
-        background-image: url(../components/StaticPages/61109.png);
+        background-image: url(../components/StaticPages/ImagesAndPhotos/61109.png);
         background-size: 3vh;
         width: 3vh;
         height: 3vh;
@@ -145,7 +145,7 @@
         cursor: pointer;
       }
       #github {
-        background-image: url(../components/StaticPages/25231.png);
+        background-image: url(../components/StaticPages/ImagesAndPhotos/25231.png);
         background-size: 3vh;
         width: 3vh;
         height: 3vh;
