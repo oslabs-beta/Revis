@@ -1,14 +1,18 @@
-import { Action } from "../Types";
+import { Action } from '../Types';
+import {
+  NEW_METRIC_SELECTED,
+  METRIC_UNSELECTED,
+} from '../constants/actionTypes';
 
 const metricsBeingCompared = (state: {}, action: Action) => {
   const newMetricsSelected: string = action.message;
   const metricsSelectedObject: {} = { ...state };
   switch (action.type) {
-    case "newMetricSelected": {
+    case NEW_METRIC_SELECTED: {
       metricsSelectedObject[newMetricsSelected] = true;
       return metricsSelectedObject;
     }
-    case "metricUnselected": {
+    case METRIC_UNSELECTED: {
       delete metricsSelectedObject[newMetricsSelected];
       return metricsSelectedObject;
     }

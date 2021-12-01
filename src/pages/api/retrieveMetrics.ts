@@ -4,127 +4,95 @@ import db from '../../models/Revis';
 
 const Redis = require('ioredis');
 
-const monthToNum = {
-  Jan: '1',
-  Feb: '2',
-  Mar: '3',
-  Apr: '4',
-  May: '5',
-  Jun: '6',
-  Jul: '7',
-  Aug: '8',
-  Sep: '9',
-  Oct: '10',
-  Nov: '11',
-  Dec: '12',
-};
-
 const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { method } = req;
-  const cookies: Cookies = new Cookies(req, res);
-  const userID = Number(cookies.get('ssid'));
-  // const today = new Date();
-  // const day: string = String(today.getDate());
-  // const month: string = String(today.getMonth() + 1);
-  // const year: string = String(today.getFullYear());
+	const { method } = req;
+	const cookies: Cookies = new Cookies(req, res);
+	const userID = Number(cookies.get('ssid'));
 
-  switch (method) {
-    case 'GET': {
-      try {
-        const serverID = Number(cookies.get('serverID'));
-        // const lastCalled: string = cookies.get('lastCalled');
-        // const previouslyCalled: boolean =
-        //   cookies.get('previouslyCalled') === 'true';
-        // const [monthCookie, dayCookie, yearCookie] = lastCalled
-        //   .split(' ')
-        //   .slice(1, 4);
-        // const dateCheck: boolean =
-        //   day === dayCookie &&
-        //   month === monthToNum[monthCookie] &&
-        //   year === yearCookie;
-        const metricsUpdated = [];
+	switch (method) {
+		case 'GET': {
+			try {
+				const serverID = Number(cookies.get('serverID'));
+				const metricsUpdated = [];
 
-        const SQLQuery = `SELECT name,value FROM "${process.env.PG_TABLE_METRICS}" WHERE
+				const SQLQuery = `SELECT name,value FROM "${process.env.PG_TABLE_METRICS}" WHERE
         user_id = ${userID} AND server_id = ${serverID} AND date = CURRENT_DATE;`;
-        const { rows } = await db.query(SQLQuery);
+				const { rows } = await db.query(SQLQuery);
 
-        if (rows.length === 0) {
-          console.log(
-            'Error in retrieveMetrics GET. Nothing returned from SQL'
-          );
-          return res.status(200).json({ success: false });
-        }
-        const numOfValues = rows[0].value.length;
+				if (rows.length === 0) {
+					console.log(
+						'Error in retrieveMetrics GET. Nothing returned from SQL'
+					);
+					return res.status(417).json({ success: false });
+				}
+				const numOfValues = rows[0].value.length;
 
-        for (let i = 0; i < numOfValues; i++) {
-          const currentObj = {};
-          rows.forEach((metric) => {
-            if (metric.value[i] === undefined) metric.value[i] = '';
-            currentObj[metric.name] = metric.value[i];
-          });
-          metricsUpdated.push(currentObj);
-        }
+				for (let i = 0; i < numOfValues; i += 1) {
+					const currentObj = {};
+					rows.forEach((metric) => {
+						if (metric.value[i] === undefined) metric.value[i] = '';
+						currentObj[metric.name] = metric.value[i];
+					});
+					metricsUpdated.push(currentObj);
+				}
 
-        return res.status(200).json({ success: true, metricsUpdated });
-      } catch (err) {
-        console.log('Error in retrieveMetrics GET ', err);
-        return res.status(200).json({ success: false });
-      }
-    }
-    case 'POST': {
-      try {
-        const parsedBody: { endpoint: string; date: string; metric: string } =
-          JSON.parse(req.body);
-        const { endpoint, date, metric } = parsedBody;
+				return res.status(200).json({ success: true, metricsUpdated });
+			} catch (err) {
+				console.log('Error in retrieveMetrics GET ', err);
+				return res.status(400).json({ success: false });
+			}
+		}
+		case 'POST': {
+			try {
+				const parsedBody: { endpoint: string; date: string; metric: string } =
+					JSON.parse(req.body);
+				const { endpoint, date, metric } = parsedBody;
 
-        const reformattedMetricName = metric
-          .trim()
-          .replace(/[' ']/g, '_')
-          .toLowerCase();
-        const redisStorageKey = `${endpoint}|${date}|${userID}|${reformattedMetricName}`;
-        const redisStorageKeyTime = `${endpoint}|${date}|${userID}|time`;
+				const reformattedMetricName = metric
+					.trim()
+					.replace(/[' ']/g, '_')
+					.toLowerCase();
+				const redisStorageKey = `${endpoint}|${date}|${userID}|${reformattedMetricName}`;
+				const redisStorageKeyTime = `${endpoint}|${date}|${userID}|time`;
 
-        const redis = new Redis({
-          host: process.env.REDIS_URL,
-          port: process.env.REDIS_PORT,
-          password: process.env.REDIS_PASSWORD,
-          connectTimeout: 10000,
-          reconnectOnError: false,
-        });
+				const redis = new Redis({
+					host: process.env.REDIS_URL,
+					port: process.env.REDIS_PORT,
+					password: process.env.REDIS_PASSWORD,
+					connectTimeout: 10000,
+					reconnectOnError: false,
+				});
 
-        const cachedMetrics = await redis.lrange(redisStorageKey, 0, -1);
-        const cachedMetricsTime = await redis.lrange(
-          redisStorageKeyTime,
-          0,
-          -1
-        );
-        console.log(
-          'retrieveMetricsEmpty',
-          await redis.lrange(redisStorageKeyTime, 0, -1)
-        );
-        redis.quit();
+				const cachedMetrics = await redis.lrange(redisStorageKey, 0, -1);
+				const cachedMetricsTime = await redis.lrange(
+					redisStorageKeyTime,
+					0,
+					-1
+				);
 
-        // Format data for front-end
-        // iterate through the metric data and construct object
-        // required for graphing must be in the shape of
-        // [{metricName: value, time: value}]
+				redis.quit();
 
-        const arrayOfMetricObjects = [];
-        for (let i = 0; i < cachedMetrics.length; i++) {
-          const currentObj = {};
-          currentObj.time = cachedMetricsTime[i];
-          currentObj[reformattedMetricName] = cachedMetrics[i];
-          arrayOfMetricObjects.push(currentObj);
-        }
-        return res.status(200).json({ arrayOfMetricObjects });
-      } catch (err) {
-        console.log('Error in retrieveMetrics POST ', err);
-        return res.status(400).json({ success: false });
-      }
-    }
+				// Format data for front-end
+				// iterate through the metric data and construct object
+				// required for graphing must be in the shape of
+				// [{metricName: value, time: value}]
 
-    default:
-      return res.status(400).json({ error: 'Error within retrieveMetrics' });
-  }
+				const arrayOfMetricObjects = [];
+				for (let i = 0; i < cachedMetrics.length; i += 1) {
+					const currentObj = {};
+					currentObj.time = cachedMetricsTime[i];
+					currentObj[reformattedMetricName] = cachedMetrics[i];
+					arrayOfMetricObjects.push(currentObj);
+				}
+				return res.status(200).json({ arrayOfMetricObjects });
+			} catch (err) {
+				console.log('Error in retrieveMetrics POST ', err);
+				return res.status(400).json({ success: false });
+			}
+		}
+
+		default:
+			return res.status(400).json({ error: 'Error within retrieveMetrics' });
+	}
 };
 export default storeMetrics;

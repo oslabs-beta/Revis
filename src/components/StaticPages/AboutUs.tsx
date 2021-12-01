@@ -3,9 +3,9 @@ import router from 'next/router';
 import styles from '../../styles/StaticPages.module.scss';
 
 function AboutUs() {
-  function onButtonClick() {
-    document.querySelector(`#${styles.theTeam}`).scrollIntoView();
-  }
+	function onButtonClick() {
+		document.querySelector(`#${styles.theTeam}`).scrollIntoView();
+	}
 
   return (
     <div className={styles.aboutUsWrapper}>
@@ -86,54 +86,54 @@ function AboutUs() {
         <div className={styles.imageDiv}>
           <span id={styles.liam}></span>
 
-          <p>Karl Fontes</p>
-          <div className={styles.contactIcons}>
-            <button
-              type="button"
-              onClick={() => {
-                window.open('linkedin.com/in/liam-fontes');
-              }}
-              id={styles.linkedin}
-            >
-              {' '}
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                window.open('https://github.com/LiamFontes');
-              }}
-              id={styles.github}
-            >
-              {' '}
-            </button>
-          </div>
-        </div>
-        <div className={styles.imageDiv}>
-          <span id={styles.mercedes}></span>
-          <p>Mercedes Kalaizic</p>
-          <div className={styles.contactIcons}>
-            <button
-              type="button"
-              onClick={() => {
-                window.open('https://https://www.linkedin.com/in/mkalaizic/');
-              }}
-              id={styles.linkedin}
-            >
-              {' '}
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                window.open('https://github.com/mkalaizic');
-              }}
-              id={styles.github}
-            >
-              {' '}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+					<p>Liam Fontes</p>
+					<div className={styles.contactIcons}>
+						<button
+							type="button"
+							onClick={() => {
+								window.open('https://linkedin.com/in/liam-fontes');
+							}}
+							id={styles.linkedin}
+						>
+							{' '}
+						</button>
+						<button
+							type="button"
+							onClick={() => {
+								window.open('https://github.com/LiamFontes');
+							}}
+							id={styles.github}
+						>
+							{' '}
+						</button>
+					</div>
+				</div>
+				<div className={styles.imageDiv}>
+					<span id={styles.mercedes}></span>
+					<p>Mercedes Kalaizic</p>
+					<div className={styles.contactIcons}>
+						<button
+							type="button"
+							onClick={() => {
+								window.open('https://www.linkedin.com/in/mkalaizic/');
+							}}
+							id={styles.linkedin}
+						>
+							{' '}
+						</button>
+						<button
+							type="button"
+							onClick={() => {
+								window.open('https://github.com/mkalaizic');
+							}}
+							id={styles.github}
+						>
+							{' '}
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }
 export default AboutUs;
