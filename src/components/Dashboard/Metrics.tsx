@@ -1,26 +1,17 @@
 import React, { ReactElement, useState } from 'react';
 import propTypes from 'prop-types';
-import router from 'next/router';
 import { useStore } from '../../context/Provider';
 import styles from '../../styles/Summary.module.scss';
 import { Context, MetricsProps } from '../../context/interfaces';
 import Tooltip from './Tooltip';
 import CustomMetricDropdown from './CustomMetricDropdown';
+import { cleanNames } from '../../functions/globalFunctions';
 import { UPDATE_SELECTED_METRIC } from '../../context/constants/actionTypes';
 
 export default function Metrics(props: MetricsProps): ReactElement {
   const { metricName, metricValue, changeCurrentRender }: MetricsProps = props;
   const { metricToGraph }: Context = useStore();
   const [dropdownState, setDropdownState] = useState(false);
-
-  const cleanNames = (string: string): string[] => {
-    const splitNames: string[] = string.split('_');
-    const capitilizeFirstLetter: string[] = splitNames.map((str) => {
-      const firstLetter: string = str[0].toUpperCase();
-      return `${firstLetter + str.slice(1)} `;
-    });
-    return capitilizeFirstLetter;
-  };
 
   return (
     <div className={styles.metrics}>

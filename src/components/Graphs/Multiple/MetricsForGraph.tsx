@@ -9,17 +9,11 @@ import {
   METRIC_UNSELECTED,
   NEW_METRIC_SELECTED,
 } from '../../../context/constants/actionTypes';
+import { cleanNames } from '../../../functions/globalFunctions';
 
 function MetricsForGraph({ metricName }: { metricName: string }) {
   const { multipleGraphSelections }: Context = useStore();
-  const cleanNames = (string: string): string[] => {
-    const splitNames: string[] = string.split('_');
-    const capitilizeFirstLetter: string[] = splitNames.map((str) => {
-      const firstLetter: string = str[0].toUpperCase();
-      return `${firstLetter + str.slice(1)} `;
-    });
-    return capitilizeFirstLetter;
-  };
+
   const changeMetric = () => {
     if (multipleGraphSelections.multipleGraphState[metricName]) {
       multipleGraphSelections.multipleGraphDispatch({
