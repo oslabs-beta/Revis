@@ -2,9 +2,5 @@ import React from 'react';
 import LandingPage from '../components/StaticPages/LandingPageContainer';
 
 export default function landingPage() {
-  return (
-    <div>
-      <LandingPage />
-    </div>
-  );
+	return <LandingPage />;
 }
