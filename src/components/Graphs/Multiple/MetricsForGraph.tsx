@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckSquare, faSquare } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import styles from '../../../styles/GraphContainer.module.scss';
-import { useStore } from '../../../context/Provider';
+import useStore from '../../../context/hooks/useStore';
 import { Context } from '../../../context/interfaces';
 import {
   METRIC_UNSELECTED,

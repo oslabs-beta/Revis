@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import propTypes from 'prop-types';
-import { useStore } from '../../context/Provider';
+import useStore from '../../context/hooks/useStore';
 import styles from '../../styles/Summary.module.scss';
 import { Context, MetricsProps } from '../../context/interfaces';
 import Tooltip from './Tooltip';

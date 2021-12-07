@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import Cookies from 'cookies';
 import db from '../../models/Revis';
 import { Metrics, metricsSQLtoRedis } from '../../context/interfaces';
+import { getDate } from '../../functions/globalFunctions';
 
 const Redis = require('ioredis');
 
@@ -10,26 +11,9 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
   const cookies: Cookies = new Cookies(req, res);
   const userID = Number(cookies.get('ssid'));
   const serverID = Number(cookies.get('serverID'));
-  const numToMonth = {
-    1: 'Jan',
-    2: 'Feb',
-    3: 'Mar',
-    4: 'Apr',
-    5: 'May',
-    6: 'Jun',
-    7: 'Jul',
-    8: 'Aug',
-    9: 'Sep',
-    10: 'Oct',
-    11: 'Nov',
-    12: 'Dec',
-  };
 
-  const today = new Date();
-  const day: string = String(today.getDate());
-  const month: string = String(today.getMonth() + 1);
-  const year: string = String(today.getFullYear());
-  const dateKey: string = `${month}-${day}-${year}`;
+  const today: Date = new Date();
+  const dateKey: string = getDate(today);
 
   switch (method) {
     case 'GET': {
@@ -52,10 +36,7 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
         rows.forEach(async (server: metricsSQLtoRedis) => {
           // Organize data to send to front end
           const { endpoint, date, name, value } = server;
-          const currentDay: string = `${date.getDate()}`;
-          const currentMonth: string = numToMonth[`${date.getMonth() + 1}`];
-          const currentYear: string = `${today.getFullYear()}`;
-          const fullDate: string = `${currentMonth}-${currentDay}-${currentYear}`;
+          const metricDate: string = getDate(date);
 
           if (!(endpoint in serversAndDates)) {
             serversAndDates[endpoint] = [];
@@ -63,16 +44,15 @@ const storeMetrics = async (req: NextApiRequest, res: NextApiResponse) => {
           }
           const currentArr = serversAndDates[endpoint];
           const currentIndex = indexTracker[endpoint];
-          if (currentArr[currentIndex - 1] !== fullDate) {
-            serversAndDates[endpoint].push(fullDate);
+          if (currentArr[currentIndex - 1] !== metricDate) {
+            serversAndDates[endpoint].push(metricDate);
             indexTracker[endpoint] += 1;
           }
 
           // Store in Redis
-          const redisStorageKey = `${endpoint}|${fullDate}|${userID}|${name}`;
+          const redisStorageKey = `${endpoint}|${metricDate}|${userID}|${name}`;
           const existInRedis = await redis.lrange(redisStorageKey, 0, -1);
           if (existInRedis.length === 0) {
-            await redis.rpush(redisStorageKey, value);
             // Tell keys to expire after five days
             await redis.expire(redisStorageKey, 60 * 60 * 24 * 5);
           }

@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import router from 'next/router';
-import { useStore } from '../../context/Provider';
+import useStore from '../../context/hooks/useStore';
 import Sidebar from './Sidebar';
 import Summary from './Summary';
 import styles from '../../styles/Dashboard.module.scss';

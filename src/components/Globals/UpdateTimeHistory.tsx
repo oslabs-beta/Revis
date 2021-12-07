@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useStore } from '../../context/Provider';
+import useStore from '../../context/hooks/useStore';
 import styles from '../../styles/UpdateInterval.module.scss';
 import { Context, Metrics } from '../../context/interfaces';
 import {

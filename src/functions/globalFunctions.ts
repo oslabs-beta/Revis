@@ -8,7 +8,7 @@ export const cleanNames = (string: string): string[] => {
   const splitNames: string[] = string.split('_');
   const capitilizeFirstLetter: string[] = splitNames.map((str) => {
     const firstLetter: string = str[0].toUpperCase();
-    return `${firstLetter + str.slice(1)} `;
+    return `${firstLetter + str.slice(1)}`;
   });
   return capitilizeFirstLetter;
 };
@@ -81,4 +81,25 @@ export const onLoadFetch = (
           });
       }
     });
+};
+
+export const getDate = (date: Date) => {
+  const numToMonth = {
+    1: 'Jan',
+    2: 'Feb',
+    3: 'Mar',
+    4: 'Apr',
+    5: 'May',
+    6: 'Jun',
+    7: 'Jul',
+    8: 'Aug',
+    9: 'Sep',
+    10: 'Oct',
+    11: 'Nov',
+    12: 'Dec',
+  };
+  const currentDay: string = `${date.getDate()}`;
+  const currentMonth: string = numToMonth[`${date.getMonth() + 1}`];
+  const currentYear: string = `${date.getFullYear()}`;
+  return `${currentMonth}-${currentDay}-${currentYear}`;
 };

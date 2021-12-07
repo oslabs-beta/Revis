@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
 import PropTypes from 'prop-types';
 import styles from '../../styles/Graph.module.scss';

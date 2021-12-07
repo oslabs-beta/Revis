@@ -4,6 +4,7 @@ import db from '../../models/Revis';
 import { ParsedBodyServer, ServerInterface } from '../../context/interfaces';
 
 const bcrypt = require('bcryptjs');
+const CryptoJS = require('crypto-js');
 
 const servers = async (req: NextApiRequest, res: NextApiResponse) => {
   let hashedPassword: string;
@@ -29,15 +30,26 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'POST':
       try {
-        const parsedBody: ParsedBodyServer = JSON.parse(req.body);
-        const { name, endpoint, password, port } = parsedBody;
+        const { name, endpoint, password, port }: ServerInterface = req.body;
+        const encryptedPassword = CryptoJS.AES.encrypt(
+          password,
+          process.env.SECRET_PHRASE
+        ).toString();
+
+        const decrypt = CryptoJS.AES.decrypt(
+          encryptedPassword,
+          process.env.SECRET_PHRASE
+        );
+
+        const decryptedPW = decrypt.toString(CryptoJS.enc.Utf8);
+        console.log({ encryptedPassword, decrypt, decryptedPW });
 
         hashedPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
         SQLquery += `INSERT INTO "${process.env.PG_TABLE_CLOUD}" (name,endpoint,port,password,user_id)
           VALUES ('${name}','${endpoint}',${port},'${hashedPassword}',${userId}); \n`;
 
         SQLquery += `INSERT INTO "${process.env.PG_TABLE_REDIS}" (user_id,endpoint,password)
-          VALUES (${userId},'${endpoint}','${password}');`;
+          VALUES (${userId},'${endpoint}','${encryptedPassword}');`;
 
         await db.query(SQLquery);
 
@@ -51,8 +63,7 @@ const servers = async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'DELETE':
       try {
-        const parsedBody: ServerInterface = JSON.parse(req.body);
-        const { name } = parsedBody;
+        const { name } = req.body;
 
         SQLquery = `DELETE FROM "${process.env.PG_TABLE_REDIS}" WHERE endpoint = (SELECT endpoint FROM "${process.env.PG_TABLE_CLOUD}" WHERE name = '${name}' AND user_id = ${userId}); \n`;
 

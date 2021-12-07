@@ -1,13 +1,12 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCube, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import ServerAdd from './Servers/ServerAdd';
 import ServerList from './Servers/ServerList';
-import { useStore } from '../../context/Provider';
+import useStore from '../../context/hooks/useStore';
 import styles from '../../styles/Sidebar.module.scss';
 import { Context } from '../../context/interfaces';
 import dashStyle from '../../styles/Dashboard.module.scss';
-import graphStyle from '../../styles/GraphContainer.module.scss';
 import intervalStyle from '../../styles/UpdateInterval.module.scss';
 import { POPULATE_LIST, ADD_SERVER } from '../../context/constants/actionTypes';
 
@@ -196,9 +195,9 @@ function Sidebar() {
   };
 
   return (
-    <div className={styles.sideBarWrapper} id='sideBar'>
+    <div className={styles.sideBarWrapper} id="sideBar">
       <ServerAdd addServer={addServer} />
-      <div className={styles.guestMessage} id='guestMessage'></div>
+      <div className={styles.guestMessage} id="guestMessage"></div>
       <ServerList
         serverList={serverList}
         currentDivHover={currentDivHover}
@@ -210,7 +209,7 @@ function Sidebar() {
           id={styles.cube}
           icon={faCube}
           onClick={changeSidebarVisual}
-          values='close'
+          values="close"
         />
       </span>
       <span className={styles.closeSpan}>
@@ -218,7 +217,7 @@ function Sidebar() {
           id={styles.close}
           icon={faWindowClose}
           onClick={changeSidebarVisual}
-          values='close'
+          values="close"
         />
       </span>
     </div>

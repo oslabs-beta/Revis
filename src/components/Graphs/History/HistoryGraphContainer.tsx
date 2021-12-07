@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from 'react';
-import { useStore } from '../../../context/Provider';
+import useStore from '../../../context/hooks/useStore';
 import GraphWithHistory from '../Graph';
 import DatesMenu from './DatesMenu';
 import styles from '../../../styles/GraphContainer.module.scss';

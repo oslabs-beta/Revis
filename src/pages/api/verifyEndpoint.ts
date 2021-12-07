@@ -9,19 +9,23 @@ const verifyEndpoint = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'POST':
       try {
-        const parsedBody: ParsedBodyRedis = JSON.parse(req.body);
-        const { endpoint, password, port } = parsedBody;
+        const { endpoint, password, port } = req.body;
         if (!(endpoint && password && port))
           throw Error('Endpoint, password, and port required.');
-        redis = await new Redis({
-          host: endpoint,
-          port,
-          password,
-          maxRetriesPerRequest: 0,
-          lazyConnect: true,
-          connectTimeOut: 1,
-          disconnectTimeOut: 1,
-        });
+        redis = await new Redis(
+          {
+            host: endpoint,
+            port,
+            password,
+            maxRetriesPerRequest: 0,
+            lazyConnect: true,
+            connectTimeOut: 1,
+            disconnectTimeOut: 1,
+          },
+          (err) => {
+            console.log('Error in verifyEndpoint POST ioRedis connect: ', err);
+          }
+        );
 
         await redis.ping();
         await redis.disconnect();
@@ -29,7 +33,7 @@ const verifyEndpoint = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(200).json({ success: true });
       } catch (err) {
         await redis.disconnect();
-        console.log('Error in validateEndpoint POST ', err);
+        console.log('Error in verifyEndpoint POST ', err);
         return res.status(400).json({ success: false });
       }
     default:

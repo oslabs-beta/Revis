@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
-import { useStore } from '../../../context/Provider';
+import useStore from '../../../context/hooks/useStore';
 import styles from '../../../styles/Server.module.scss';
 import { Context, ServerComponentProps } from '../../../context/interfaces';
 import { onLoadFetch } from '../../../functions/globalFunctions';

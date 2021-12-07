@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import { Context } from '../../../context/interfaces';
-import { useStore } from '../../../context/Provider';
+import { useStore } from '../../../context/hooks/useStore';
 import styles from '../../../styles/GraphContainer.module.scss';
 import Dates from './Dates';
 

@@ -6,9 +6,8 @@ import React, {
   useState,
 } from 'react';
 import styles from '../../styles/Summary.module.scss';
-import { useStore } from '../../context/Provider';
+import useStore from '../../context/hooks/useStore';
 import Metrics from './Metrics';
-
 import SummaryTable from './SummaryTable';
 import { Context } from '../../context/interfaces';
 
@@ -46,7 +45,7 @@ export default function Summary(props) {
     <div>
       <div className={styles.SummaryWrapper}>
         {serverList.length === 0 ? (
-          <h1 >Add a server to view its metrics!</h1>
+          <h1>Add a server to view its metrics!</h1>
         ) : (
           <SummaryTable metricsForTable={metricsForTable} />
         )}

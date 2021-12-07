@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import router from 'next/router';
 import PropTypes from 'prop-types';
 import styles from '../../styles/Homepage.module.scss';
-import { useStore } from '../../context/Provider';
+import useStore from '../../context/hooks/useStore';
 import { User, HomePageProps } from '../../context/interfaces';
 import { UPDATE_USERNAME } from '../../context/constants/actionTypes';
 

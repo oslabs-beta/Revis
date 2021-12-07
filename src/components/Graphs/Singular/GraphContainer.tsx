@@ -2,8 +2,7 @@ import React from 'react';
 import GraphWithHistory from '../Graph';
 import styles from '../../../styles/GraphContainer.module.scss';
 import { Context } from '../../../context/interfaces';
-import { useStore } from '../../../context/Provider';
-import { cleanNames } from '../../../functions/globalFunctions';
+import useStore from '../../../context/hooks/useStore';
 
 function GraphContainer() {
   const { metricsStore, metricToGraph }: Context = useStore();
